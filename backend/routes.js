@@ -7,6 +7,9 @@ router.get('/', isLoggedIn, (req, res) => {
 	res.json({success: true, message: 'Welcome to API page!'});
 });
 
+router.get('/users/:user_id', isLoggedIn, getUserDetails);
+router.put('/users/profile', isLoggedIn, updateUserDetails);
+
 router.get('/session', isLoggedIn, async (req, res, next) => {
   if (req.user) {
     const {user} = req;

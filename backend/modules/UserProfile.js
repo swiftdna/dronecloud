@@ -1,67 +1,74 @@
-const {ObjectId} = require('mongodb');
-
 const getUserDetails = async (req, res, next) => {
 	const { user_id } = req.params;
-	const { db } = COREAPP;
-	const users = db.collection('users');
+	const {models: {user_profile: UserProfile}} = COREAPP;
 	console.log('getUserDetails -> user_id - ', user_id);
 	try {
-		const user = await users.findOne({
-	    	_id: ObjectId(user_id)
+		const user = await UserProfile.findOne({
+	        where: {
+	            user_id: user_id
+	        }
 	    });
     	// console.log('user -> ', user);
-    	if (user && user._id) {
+    	if (user) {
     		res.json({
     			success: true,
     			data: user
     		});
-			return;
+    	} else {
+    		res.json({
+    			success: true,
+    			data: {},
+    			message: 'User not found!'
+    		});
     	}
-		res.json({
-			success: true,
-			data: {},
-			message: 'User not found!'
-		});
+    	return next();
     } catch (err) {
     	console.log('getUserDetails ERR!! -> ', err);
     	res.json({
 	    	success: false,
 	    	message: err.message
 	    });
+		return next();
 	}
 };
 
 const updateUserDetails = async (req, res, next) => {
 	// const { user_id } = req.params;
-	const { user: {_id: user_id}} = req;
+	const { passport: {user: {id: user_id}} } = req.session;
 	const { body } = req;
-	const { db } = COREAPP;
-	const users = db.collection('users');
+	const {models: {user_profile: UserProfile, user: User}} = COREAPP;
 	// Image upload to be handled
 	// console.log('updateUserDetails -> user_id - ', user_id);
 	try {
-		const userData = await users.findOne({
-			_id: ObjectId(user_id)
+		const userData = await User.findOne({
+			where: {
+				id: user_id
+			}
 		});
-		if (userData && userData._id) {
-			const userProfileData = await users.findOne({
-		        _id: ObjectId(user_id)
+		if (userData && userData.id) {
+			const userProfileData = await UserProfile.findOne({
+		        where: {
+		            user_id: user_id
+		        }
 		    });
 		    if (userProfileData) {
-	    		await users.updateOne({
-					_id: ObjectId(user_id)
-				}, {
-					$set: body
-				});
+	    		userProfileData.update(body);
 	    		res.json({
                 	success: true,
                 	message: 'Update successful!'
                 });
+	    		return next();
 	    	} else {
+	    		const newUserProfile = await UserProfile.create({...body, user_id});
+                if (!newUserProfile) {
+                    return res.json({success: false, message: 'error during update'});
+                }
                 res.json({
                 	success: true,
-                	message: 'Update failed. User doesnt exist!'
+                	message: 'Update successful!',
+                	data: newUserProfile
                 });
+                return next();
 	    	}
 		} else {
 			throw new Error('User not found in the database');
@@ -72,6 +79,7 @@ const updateUserDetails = async (req, res, next) => {
 	    	success: false,
 	    	message: err.message
 	    });
+		return next();
     }
 };
 
