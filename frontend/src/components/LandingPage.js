@@ -36,7 +36,7 @@ function LandingPage() {
         <div className="container main-frame fill-page">
             {isLoggedIn ? 
                 <Row className="fill-page" style={{width: '100%'}}>
-                    <Col xs={3} className="text-center py-3">
+                    <Col xs={3} className="text-center py-3 dc-default dc-leftpane">
                         <ul className="nav flex-column dc-default dc-admin-nav">
                           <li className="nav-item">
                             <NavLink className="nav-link" activeClassName="active" to="/">My Bookings</NavLink>

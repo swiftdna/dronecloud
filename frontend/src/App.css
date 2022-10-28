@@ -275,6 +275,16 @@
   justify-content: end;
 }
 
+.dc-default.dc-leftpane, .dc-default.dc-admin-leftpane {
+  margin-top: -13px;
+  padding-right: 25px;
+  border-right: 1px solid transparent;
+  box-shadow: 4px 6px 6px 0px rgb(64 60 67 / 5%);
+}
+
+.dc-default.dc-admin-leftpane {
+  margin-top: -5px;
+}
 /*.dc-default.content_panel {
   background-color: #fbfdfe;
 }*/

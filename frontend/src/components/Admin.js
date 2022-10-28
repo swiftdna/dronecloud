@@ -29,19 +29,14 @@ function Admin() {
             dispatch(setRedirectionPath(currentPage.pathname));
         }
     }, [isLoggedIn]);
-
-    const isActive = {
-        fontWeight: "bold",
-        backgroundColor: "rgba(255, 255, 255, 0.1)",
-      };
     
     return(
         <div className="container fill-page">
             <Row className="fill-page">
-                <Col xs={3} className="text-center py-3">
+                <Col xs={3} className="text-center py-3 dc-default dc-admin-leftpane">
                     <ul className="nav flex-column dc-default dc-admin-nav">
                       <li className="nav-item">
-                        <NavLink className="nav-link" activeClassName="active" to="/admin/drone-catalog" activeStyle={isActive}>Drone Catalog</NavLink>
+                        <NavLink className="nav-link" activeClassName="active" to="/admin" end>Drone Catalog</NavLink>
                       </li>
                       <li className="nav-item">
                         <NavLink className="nav-link" activeClassName="active" to="/admin/drone-management">Drone Management</NavLink>
@@ -56,7 +51,6 @@ function Admin() {
                 </Col>
                 <Col xs={9} className="text-center py-3 dc-default content_panel">
                     <Routes>
-                        <Route path="/drone-catalog" element={<DroneCatalog />} />
                         <Route path="/drone-management" element={<DroneManagement />} />
                         <Route path="/drone-booking" element={<DroneBooking />} />
                         <Route path="/drone-fleet-tracking" element={<DroneFleetTracking />} />
