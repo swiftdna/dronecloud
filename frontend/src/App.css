@@ -285,6 +285,12 @@
 .dc-default.dc-admin-leftpane {
   margin-top: -5px;
 }
+
+.dc-default.dc-leftpane > .title {
+  text-align: left;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
 /*.dc-default.content_panel {
   background-color: #fbfdfe;
 }*/

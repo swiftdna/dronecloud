@@ -6,6 +6,10 @@ import { selectIsLoggedIn, selectUser, selectCurrency, selectRedirectionPath } f
 import {   Routes, Route, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearRedirectionPath } from '../actions/app-actions'
+import { RiSettingsLine, RiListUnordered } from 'react-icons/ri';
+import { TbReportAnalytics } from 'react-icons/tb';
+import { FaUser } from 'react-icons/fa';
+import { GiDeliveryDrone } from 'react-icons/gi';
 import MyBookings from './MyBookings';
 import BookDrone from './BookDrone';
 import Profile from './Profile';
@@ -37,18 +41,19 @@ function LandingPage() {
             {isLoggedIn ? 
                 <Row className="fill-page" style={{width: '100%'}}>
                     <Col xs={3} className="text-center py-3 dc-default dc-leftpane">
+                        <h3 className="title"><RiSettingsLine size={40} style={{marginTop: '-5px'}} /> Dashboard</h3>
                         <ul className="nav flex-column dc-default dc-admin-nav">
                           <li className="nav-item">
-                            <NavLink className="nav-link" activeClassName="active" to="/">My Bookings</NavLink>
+                            <NavLink className="nav-link" activeClassName="active" to="/"><RiListUnordered style={{marginTop: '-2px'}} /> My Bookings</NavLink>
                           </li>
                           <li className="nav-item">
-                            <NavLink className="nav-link" activeClassName="active" to="/book-drone">Book Drone</NavLink>
+                            <NavLink className="nav-link" activeClassName="active" to="/book-drone"><GiDeliveryDrone size={20} style={{marginTop: '-2px'}} /> Book Drone</NavLink>
                           </li>
                           <li className="nav-item">
-                            <NavLink className="nav-link" activeClassName="active" to="/service-reports">Service Reports</NavLink>
+                            <NavLink className="nav-link" activeClassName="active" to="/service-reports"><TbReportAnalytics size={20} style={{marginTop: '-5px'}} /> Service Reports</NavLink>
                           </li>
                           <li className="nav-item">
-                            <NavLink className="nav-link" activeClassName="active" to="/profile">Profile</NavLink>
+                            <NavLink className="nav-link" activeClassName="active" to="/profile"><FaUser style={{marginTop: '-3px'}}  /> Profile</NavLink>
                           </li>
                         </ul>
                     </Col>
