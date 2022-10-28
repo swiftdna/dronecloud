@@ -65,8 +65,8 @@ function Navbar() {
                     {
                         isAuthenticated && (
                             <>
-                                {/* <FaList className="nav-buttons" title="Purchases" size="3em" onClick={() => purchases()}/> */}
-                                <FaUserAlt className="nav-buttons" title="Profile" size="3em" onClick={() => profile()}/>
+                                {/* <FaList className="nav-buttons" title="Purchases" size="3em" onClick={() => purchases()}/> 
+                                <FaUserAlt className="nav-buttons" title="Profile" size="3em" onClick={() => profile()}/> */}
                             </>)
                     }
                 </div>

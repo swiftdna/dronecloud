@@ -61,10 +61,10 @@ export function Main() {
             <Routes>
               <Route path="/login" element={<Login />} />
               {/* <Route path="/home" element={isAuthenticated ? <Home /> : <Login />} /> */}
-              <Route path="/profile" element={isAuthenticated ? <Profile /> : <Login />} />
+              {/* <Route path="/profile" element={isAuthenticated ? <Profile /> : <Login />} /> */}
               <Route path="/register" element={<Register />} />
               <Route path="/admin/*" element={<Admin />} />
-              <Route path="/" element={<LandingPage />} />
+              <Route path="/*" element={<LandingPage />} />
             </Routes>
             {location.pathname !== '/login' && <Footer />}
         </>
