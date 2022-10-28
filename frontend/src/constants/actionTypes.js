@@ -4,6 +4,9 @@ export const CLEAR_ALERT = 'CLEAR_ALERT';
 export const SET_TOAST = 'SET_TOAST';
 export const CLEAR_TOAST = 'CLEAR_TOAST';
 
+export const SET_REDIRECTION = 'SET_REDIRECTION';
+export const CLEAR_REDIRECTION = 'CLEAR_REDIRECTION';
+
 export const SET_CURRENCY = 'SET_CURRENCY';
 export const ADD_COUNTRIES = 'ADD_COUNTRIES';
 

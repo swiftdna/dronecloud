@@ -11,6 +11,7 @@ import Footer from './Footer';
 import LandingPage from './LandingPage';
 import Profile from './Profile';
 import Register from './Register';
+import Admin from './Admin';
 import { useLocation } from 'react-router-dom';
 import { checkSession } from '../utils';
 import ProtectedRoute from './ProtectedRoute';
@@ -62,6 +63,7 @@ export function Main() {
               {/* <Route path="/home" element={isAuthenticated ? <Home /> : <Login />} /> */}
               <Route path="/profile" element={isAuthenticated ? <Profile /> : <Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/admin/*" element={<Admin />} />
               <Route path="/" element={<LandingPage />} />
             </Routes>
             {location.pathname !== '/login' && <Footer />}

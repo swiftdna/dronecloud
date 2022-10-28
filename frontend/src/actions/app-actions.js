@@ -8,7 +8,9 @@ import {
   SET_TOAST,
   CLEAR_TOAST,
   SET_CURRENCY,
-  ADD_COUNTRIES
+  ADD_COUNTRIES,
+  SET_REDIRECTION,
+  CLEAR_REDIRECTION
 } from '../constants/actionTypes';
 
 function loginSuccess(data) {
@@ -35,6 +37,19 @@ function logoutFailure(data) {
    return {
       type: LOGOUT_FAILURE,
       payload: data
+   }
+}
+
+export function setRedirectionPath(data) {
+   return {
+      type: SET_REDIRECTION,
+      payload: data
+   }
+}
+
+export function clearRedirectionPath() {
+   return {
+      type: CLEAR_REDIRECTION
    }
 }
 

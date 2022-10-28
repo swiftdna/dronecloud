@@ -20,6 +20,7 @@ export default function Profile() {
 
 	useEffect(() => {
 		if (isLoggedIn) {
+			console.log('profile - ', userObj);
         	fetchProfile(dispatch, userObj);
 		}
     }, [isLoggedIn]);

@@ -34,7 +34,7 @@ const getUserDetails = async (req, res, next) => {
 
 const updateUserDetails = async (req, res, next) => {
 	// const { user_id } = req.params;
-	const { passport: {user: {id: user_id}} } = req.session;
+	const {id: user_id} = req.user;
 	const { body } = req;
 	const {models: {user_profile: UserProfile, user: User}} = COREAPP;
 	// Image upload to be handled

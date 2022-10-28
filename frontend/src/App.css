@@ -238,3 +238,43 @@
 .dc-login .form-group {
   margin-top: 10px;
 }
+
+.dc-default.dc-admin-nav {
+  width: 100%;
+}
+
+.dc-default > .nav-item {
+  text-align: center;
+}
+
+.dc-default > .nav-item > a {
+  color: #1a3447;
+  text-align: left;
+  height: 50px;
+  padding: 12px 16px;
+}
+
+.dc-default > .nav-item:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.dc-default > .nav-item > a:hover {
+  border-radius: 8px;
+  background-color: #DEDEDE;
+}
+
+.dc-default > .nav-item > a.active {
+  background-color: #1a3447;
+  color:  #ffffff;
+  border-radius: 8px;
+}
+
+.dc-default .right-contents {
+  display: flex;
+  justify-content: end;
+}
+
+/*.dc-default.content_panel {
+  background-color: #fbfdfe;
+}*/
+

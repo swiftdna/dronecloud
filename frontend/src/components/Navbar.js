@@ -53,7 +53,7 @@ function Navbar() {
                 </div>
                 <div className="col-8">
                 </div>
-                <div className="col-3 center-contents">
+                <div className="col-3 right-contents">
                     {
                         isAuthenticated ? 
                         <button type="button" className="btn btn-light nav-buttons" title="Log out" onClick={() => logout()}>Logout</button> : 

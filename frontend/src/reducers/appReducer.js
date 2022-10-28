@@ -8,7 +8,9 @@ import {
   SET_TOAST,
   CLEAR_TOAST,
   SET_CURRENCY,
-  ADD_COUNTRIES
+  ADD_COUNTRIES,
+  SET_REDIRECTION,
+  CLEAR_REDIRECTION,
 } from '../constants/actionTypes';
 
 const initialState = {
@@ -19,7 +21,8 @@ const initialState = {
   isLoggedIn: false,
   user: {},
   currency: 'USD',
-  countries: []
+  countries: [],
+  redirectionPath: ''
 };
 
 const resetAlert = {
@@ -84,6 +87,18 @@ export default function appReducer(state = initialState, action) {
         ...state,
         ...resetAlert
       };
+    }
+    case SET_REDIRECTION: {
+      return {
+        ...state,
+        redirectionPath: action.payload
+      }
+    }
+    case CLEAR_REDIRECTION: {
+      return {
+        ...state,
+        redirectionPath: ''
+      }
     }
     case SET_TOAST: {
       const { type, message } = action.payload;

@@ -13,3 +13,4 @@ export const selectIsLoggedIn = (state) => state.app.isLoggedIn;
 export const selectUser = (state) => state.app.user;
 export const selectCountries = (state) => state.app.countries;
 export const selectCurrency = (state) => state.app.currency && currencyMapping[state.app.currency] ? currencyMapping[state.app.currency] : state.app.currency;
+export const selectRedirectionPath = (state) => state.app.redirectionPath;
