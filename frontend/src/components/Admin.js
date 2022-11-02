@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { selectIsLoggedIn, selectUser } from '../selectors/appSelector';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { setRedirectionPath } from '../actions/app-actions'
+import { setRedirectionPath } from '../actions/app-actions';
+import { RiSettingsLine, RiListUnordered } from 'react-icons/ri';
 import { Row, Col } from 'react-bootstrap';
 import {
   Routes,
@@ -33,7 +34,8 @@ function Admin() {
     return(
         <div className="container fill-page">
             <Row className="fill-page">
-                <Col xs={3} className="text-center py-3 dc-default dc-admin-leftpane">
+                <Col xs={3} className="py-3 dc-default dc-leftpane dc-admin-leftpane">
+                    <h3 className="title"><RiSettingsLine size={40} style={{marginTop: '-5px'}} /> Dashboard</h3>
                     <ul className="nav flex-column dc-default dc-admin-nav">
                       <li className="nav-item">
                         <NavLink className="nav-link" activeClassName="active" to="/admin" end>Drone Catalog</NavLink>
@@ -49,7 +51,7 @@ function Admin() {
                       </li>
                     </ul>
                 </Col>
-                <Col xs={9} className="text-center py-3 dc-default content_panel">
+                <Col xs={9} className="py-3 dc-default content_panel">
                     <Routes>
                         <Route path="/drone-management" element={<DroneManagement />} />
                         <Route path="/drone-booking" element={<DroneBooking />} />

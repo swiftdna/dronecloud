@@ -229,7 +229,17 @@
 
 .dc-default .btn.btn-primary {
   background-color: #1a3447;
-  padding: 8px 12px;
+  border-color: #1a3447;
+}
+
+.dc-default .btn.btn-secondary {
+  background-color: #b9b9c3;
+  border-color: #b9b9c3;
+}
+
+
+.dc-default .btn {
+  padding: 12px 24px;
 }
 
 .dc-login .btn {
