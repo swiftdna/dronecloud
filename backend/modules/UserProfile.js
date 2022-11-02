@@ -1,11 +1,11 @@
 const getUserDetails = async (req, res, next) => {
 	const { user_id } = req.params;
-	const {models: {user_profile: UserProfile}} = COREAPP;
+	const { models: {user: User} } = COREAPP;
 	console.log('getUserDetails -> user_id - ', user_id);
 	try {
-		const user = await UserProfile.findOne({
+		const user = await User.findOne({
 	        where: {
-	            user_id: user_id
+	            id: user_id
 	        }
 	    });
     	// console.log('user -> ', user);
@@ -34,9 +34,9 @@ const getUserDetails = async (req, res, next) => {
 
 const updateUserDetails = async (req, res, next) => {
 	// const { user_id } = req.params;
-	const {id: user_id} = req.user;
+	const { id: user_id } = req.user;
 	const { body } = req;
-	const {models: {user_profile: UserProfile, user: User}} = COREAPP;
+	const { models: { user: User } } = COREAPP;
 	// Image upload to be handled
 	// console.log('updateUserDetails -> user_id - ', user_id);
 	try {
@@ -46,9 +46,9 @@ const updateUserDetails = async (req, res, next) => {
 			}
 		});
 		if (userData && userData.id) {
-			const userProfileData = await UserProfile.findOne({
+			const userProfileData = await User.findOne({
 		        where: {
-		            user_id: user_id
+		            id: user_id
 		        }
 		    });
 		    if (userProfileData) {
@@ -59,16 +59,7 @@ const updateUserDetails = async (req, res, next) => {
                 });
 	    		return next();
 	    	} else {
-	    		const newUserProfile = await UserProfile.create({...body, user_id});
-                if (!newUserProfile) {
-                    return res.json({success: false, message: 'error during update'});
-                }
-                res.json({
-                	success: true,
-                	message: 'Update successful!',
-                	data: newUserProfile
-                });
-                return next();
+	    		throw new Error('User not found in the database');
 	    	}
 		} else {
 			throw new Error('User not found in the database');

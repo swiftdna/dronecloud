@@ -1,5 +1,5 @@
 module.exports = function(sequelize, Sequelize) {
-    const UserProfile = sequelize.define('user_profile', {
+    const CardDetail = sequelize.define('card_detail', {
         id: {
             autoIncrement: true,
             primaryKey: true,
@@ -12,33 +12,27 @@ module.exports = function(sequelize, Sequelize) {
                 key: 'id'
             }
         },
-        name: {
+        type: {
             type: Sequelize.TEXT
         },
-        dob: {
-            type: Sequelize.DATEONLY
+        vendor: {
+            type: Sequelize.TEXT
         },
-        address1: {
+        value: {
+            type: Sequelize.TEXT
+        },
+        expiry_month: {
             type: Sequelize.STRING
         },
-        address2: {
+        expiry_year: {
             type: Sequelize.STRING
         },
-        city: {
-            type: Sequelize.TEXT
+        created: {
+            type: Sequelize.DATE
         },
-        state: {
-            type: Sequelize.TEXT
-        },
-        country: {
-            type: Sequelize.TEXT
-        },
-        zipcode: {
-            type: Sequelize.TEXT
-        },
-        dp_url: {
-            type: Sequelize.STRING
+        updated: {
+            type: Sequelize.DATE
         }
     });
-    return UserProfile;
+    return CardDetail;
 }

@@ -8,15 +8,49 @@ module.exports = function(sequelize, Sequelize) {
         username: {
             type: Sequelize.TEXT
         },
+        password: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
         email: {
             type: Sequelize.STRING,
             validate: {
                 isEmail: true
             }
         },
-        password: {
+        role: {
             type: Sequelize.STRING,
-            allowNull: false
+            // allowNull: false
+        },
+        name: {
+            type: Sequelize.TEXT
+        },
+        dob: {
+            type: Sequelize.DATEONLY
+        },
+        phone: {
+            type: Sequelize.TEXT
+        },
+        address: {
+            type: Sequelize.TEXT
+        },
+        city: {
+            type: Sequelize.TEXT
+        },
+        state: {
+            type: Sequelize.TEXT
+        },
+        country: {
+            type: Sequelize.INTEGER
+        },
+        zipcode: {
+            type: Sequelize.INTEGER
+        },
+        created: {
+            type: Sequelize.DATE
+        },
+        updated: {
+            type: Sequelize.DATE
         }
     });
     return User;
