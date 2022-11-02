@@ -3,7 +3,7 @@ import { selectIsLoggedIn, selectUser } from '../selectors/appSelector';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { Row, Col, Form } from 'react-bootstrap';
+import { Row, Col, Form, Button } from 'react-bootstrap';
 
 function DroneCatalog() {
     const dispatch = useDispatch();
@@ -19,7 +19,7 @@ function DroneCatalog() {
     }, [isLoggedIn]);
     
     return(
-        <div className="container main-frame fill-page">
+        <div className="container">
             <h4>Drone Catalog page</h4>
         </div>
     )
