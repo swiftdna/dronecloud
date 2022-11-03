@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { selectIsLoggedIn, selectUser } from '../selectors/appSelector';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -6,11 +6,6 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import "../CSS/dronecatalog.css";
 import {Link} from "react-router-dom";
-import { Col, Card, Row } from "antd";
-
-
-
-import { Row, Col, Form, Button } from 'react-bootstrap';
  
 
 function DroneCatalog() {
@@ -26,9 +21,10 @@ function DroneCatalog() {
             console.log('DroneCatalog === user logged in!');
         }
     }, [isLoggedIn]);
-const navigateAdd=()=>{
-    navigate("/admin/addDrone")
-}
+    
+    const navigateAdd = () => {
+        navigate("/admin/addDrone");
+    };
 
     
     return(

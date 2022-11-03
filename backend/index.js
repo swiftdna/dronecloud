@@ -9,7 +9,7 @@ const routes = require('./routes');
 const {injectModel} = require('./modules/utils');
 require('dotenv').config();
 const port = process.env.NODE_LOCAL_PORT || 4000;
-//const connect = require('./config/connect');
+const connect = require('./config/connect');
 const mysqlConnect = require('./config/mysql_connect');
 const jwtSecret = require('./config/jwtConfig');
 const jwt = require('jsonwebtoken');
