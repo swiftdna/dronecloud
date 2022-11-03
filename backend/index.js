@@ -7,7 +7,7 @@ const app = express();
 const routes = require('./routes');
 require('dotenv').config();
 const port = process.env.NODE_LOCAL_PORT || 4000;
-const connect = require('./config/connect');
+//const connect = require('./config/connect');
 const mysqlConnect = require('./config/mysql_connect');
 const jwtSecret = require('./config/jwtConfig');
 const jwt = require('jsonwebtoken');
@@ -34,9 +34,9 @@ app.use(passport.session()); // persistent login sessions
 app.use('/api', routes);
 COREAPP = {};
 //Sync Database
-connect().then(() => {
-  console.log('passport bootstrap!');
-});
+// connect().then(() => {
+//   console.log('passport bootstrap!');
+// });
 // mysqlConnect().then(() => {
   const models = require("./models");
   COREAPP.models = models;

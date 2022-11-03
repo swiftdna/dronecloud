@@ -1,22 +1,22 @@
 .center-contents {
-  width: 50%;
-  padding: 0px 20px;
+	width: 50%;
+	padding: 0px 20px;
 }
 
 .nav-buttons {
-  font-size: 13px;
-  line-height: 1.4;
-  min-height: 36px;
-  min-width: 36px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
+	font-size: 13px;
+	line-height: 1.4;
+	min-height: 36px;
+	min-width: 36px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 .nav-buttons:hover {
-  background-color: #DEDEDE;
-  cursor: pointer;
+	background-color: #dedede;
+	cursor: pointer;
 }
 
 /*.nav-buttons:not(:first-child) {
@@ -24,192 +24,193 @@
 }*/
 
 .main-frame {
-  margin: 10px 0px;
-  display: flex;
-  flex-wrap: wrap;
+	margin: 10px 0px;
+	display: flex;
+	flex-wrap: wrap;
 }
 
 .pull-down {
-  margin-top: 10px;
+	margin-top: 10px;
 }
 
 .button_panel {
-  float: right;
+	float: right;
 }
 
 .card-btn {
-  transition: all 0.3s ease 0s;
+	transition: all 0.3s ease 0s;
 }
 
 .card-title {
-  max-width: 80%;
+	max-width: 80%;
 }
 
 .card-btn:hover {
-  color: #fff;
-  cursor: pointer;
-  transform: translateY(-2px);
+	color: #fff;
+	cursor: pointer;
+	transform: translateY(-2px);
 }
 
 .card-btn:not(:first-child) {
-  margin-left: 10px;
+	margin-left: 10px;
 }
 
 .login-form {
-  left: 65%;
-  top: 35%;
-  margin-left: -25%;
-  position: absolute;
-  /*margin-top: 25%;*/
+	left: 65%;
+	top: 35%;
+	margin-left: -25%;
+	position: absolute;
+	/*margin-top: 25%;*/
 }
 
 .login-panel > .btn {
-  float: right;
-  position: absolute;
-  left: 40%;
-  margin-top: 10px;
+	float: right;
+	position: absolute;
+	left: 40%;
+	margin-top: 10px;
 }
 
 .product-card {
-  border:  none !important;
+	border: none !important;
 }
 
 .product-card:hover {
-  /*box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);*/
-  box-shadow: 0 2px 18px rgb(34 34 34 / 20%);
-  background: #FFFFFF;
-  border: 1px dotted transparent;
-  transform: scale(0.96);
-  transition: transform 200ms cubic-bezier(0.345, 0.115, 0.135, 1.42),opacity 150ms ease-out,border-color 200ms ease-out;
+	/*box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);*/
+	box-shadow: 0 2px 18px rgb(34 34 34 / 20%);
+	background: #ffffff;
+	border: 1px dotted transparent;
+	transform: scale(0.96);
+	transition: transform 200ms cubic-bezier(0.345, 0.115, 0.135, 1.42),
+		opacity 150ms ease-out, border-color 200ms ease-out;
 }
 
 .edit_icon {
-  margin-left: 5px;
-  color:  #0070BA;
-  cursor: pointer;
+	margin-left: 5px;
+	color: #0070ba;
+	cursor: pointer;
 }
 
 .btn_panel {
-  margin-top: 10px;
-  float: right;
+	margin-top: 10px;
+	float: right;
 }
 
 .btn_panel > .btn:not(:first-child) {
-  margin-left: 10px;
+	margin-left: 10px;
 }
 
 .page-footer {
-  background-color: #F1F1F1;
-  /*position: fixed;*/
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 70px;
-  line-height: 37px; /* Vertically center the text there */
-  background-color: #f5f5f5;
+	background-color: #f1f1f1;
+	/*position: fixed;*/
+	bottom: 0;
+	width: 100%;
+	/* Set the fixed height of the footer here */
+	height: 70px;
+	line-height: 37px; /* Vertically center the text there */
+	background-color: #f5f5f5;
 }
 
 .custom_toast {
-  position: absolute;
-  right: 5px;
-  z-index: 10;
-  bottom: 10px;
+	position: absolute;
+	right: 5px;
+	z-index: 10;
+	bottom: 10px;
 }
 
 .pull-right {
-  float: right;
+	float: right;
 }
 
 .form_label {
-  font-weight: bold;
+	font-weight: bold;
 }
 
 .user_details {
-  margin-top: 30px;
-  text-align: left;
+	margin-top: 30px;
+	text-align: left;
 }
 
 .fill-page {
-  min-height: 50vw;
-  margin-bottom: -50px;
-  margin-bottom: 70px;
+	min-height: 50vw;
+	margin-bottom: -50px;
+	margin-bottom: 70px;
 }
 
 .currency_btn {
-  color:  #0070BA;
-  cursor: pointer;
+	color: #0070ba;
+	cursor: pointer;
 }
 
 .link_item {
-  cursor: pointer;
-  text-decoration: underline;
-  color: #0070BA;
+	cursor: pointer;
+	text-decoration: underline;
+	color: #0070ba;
 }
 
 .gift_item {
-  color: #0070BA;
-  font-size: 12px;
-  cursor: pointer;
-  display: inline;
+	color: #0070ba;
+	font-size: 12px;
+	cursor: pointer;
+	display: inline;
 }
 
-.gift_item > .icon{
-  margin-top: -10px;
-  font-size: 20px;
-  margin-left: 5px;
+.gift_item > .icon {
+	margin-top: -10px;
+	font-size: 20px;
+	margin-left: 5px;
 }
 
 .gift_item > .ic_buttons {
-  font-size: 25px;
-  color:  #80b34b;
+	font-size: 25px;
+	color: #80b34b;
 }
 
 .gift_item > .ic_buttons:not(:last-child) {
-  margin-right: 10px;
+	margin-right: 10px;
 }
 
 .gift_item > .ic_buttons:hover {
-  color: #6fac30;
+	color: #6fac30;
 }
 
 .purchases.gift_item {
-  display: block;
-  margin-top: 5px;
+	display: block;
+	margin-top: 5px;
 }
 
 .delete_item {
-  cursor: pointer;
-  color: #D00000;
-  font-size: 12px;
+	cursor: pointer;
+	color: #d00000;
+	font-size: 12px;
 }
 
 .delete_item:hover {
-  text-decoration: underline;
+	text-decoration: underline;
 }
 
 .pagination {
-  margin-top: 10px;
-  left: 43%;
-  position: absolute;
+	margin-top: 10px;
+	left: 43%;
+	position: absolute;
 }
 
 .pagn_limit {
-  margin:  0;
+	margin: 0;
 }
 
 /* DC Styles */
 .dc-default.navbar {
-  background-color: #1a3447;
-  color: #ffffff;
-  height: 80px;
+	background-color: #1a3447;
+	color: #ffffff;
+	height: 80px;
 }
 
 .dc-default a {
-  color: #ffffff;
+	color: #ffffff;
 }
 
 .dc-default a:hover {
-  color: #DEDEDE;
+	color: #dedede;
 }
 /*
 .dc-default.navbar > .container {
@@ -217,81 +218,117 @@
 }*/
 
 .dc-default .btn.btn-light {
-  background-color: transparent;
-  border: none;
-  color: #ffffff;
-  font-size: 18px;
+	background-color: transparent;
+	border: none;
+	color: #ffffff;
+	font-size: 18px;
 }
 
 .dc-default .btn.btn-light:hover {
-  color: #DEDEDE;
+	color: #dedede;
 }
 
 .dc-default .btn.btn-primary {
-  background-color: #1a3447;
-  padding: 8px 12px;
+	background-color: #1a3447;
+	padding: 8px 12px;
 }
 
 .dc-login .btn {
-  width: 100%;
+	width: 100%;
 }
 
 .dc-login .form-group {
-  margin-top: 10px;
+	margin-top: 10px;
 }
 
 .dc-default.dc-admin-nav {
-  width: 100%;
+	width: 100%;
 }
 
 .dc-default > .nav-item {
-  text-align: center;
+	text-align: center;
 }
 
 .dc-default > .nav-item > a {
-  color: #1a3447;
-  text-align: left;
-  height: 50px;
-  padding: 12px 16px;
+	color: #1a3447;
+	text-align: left;
+	height: 50px;
+	padding: 12px 16px;
 }
 
 .dc-default > .nav-item:not(:last-child) {
-  margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 
 .dc-default > .nav-item > a:hover {
-  border-radius: 8px;
-  background-color: #DEDEDE;
+	border-radius: 8px;
+	background-color: #dedede;
 }
 
 .dc-default > .nav-item > a.active {
-  background-color: #1a3447;
-  color:  #ffffff;
-  border-radius: 8px;
+	background-color: #1a3447;
+	color: #ffffff;
+	border-radius: 8px;
 }
 
 .dc-default .right-contents {
-  display: flex;
-  justify-content: end;
+	display: flex;
+	justify-content: end;
 }
 
-.dc-default.dc-leftpane, .dc-default.dc-admin-leftpane {
-  margin-top: -13px;
-  padding-right: 25px;
-  border-right: 1px solid transparent;
-  box-shadow: 4px 6px 6px 0px rgb(64 60 67 / 5%);
+.dc-default.dc-leftpane,
+.dc-default.dc-admin-leftpane {
+	margin-top: -13px;
+	padding-right: 25px;
+	border-right: 1px solid transparent;
+	box-shadow: 4px 6px 6px 0px rgb(64 60 67 / 5%);
 }
 
 .dc-default.dc-admin-leftpane {
-  margin-top: -5px;
+	margin-top: -5px;
 }
 
 .dc-default.dc-leftpane > .title {
-  text-align: left;
-  margin-top: 20px;
-  margin-bottom: 30px;
+	text-align: left;
+	margin-top: 20px;
+	margin-bottom: 30px;
 }
 /*.dc-default.content_panel {
   background-color: #fbfdfe;
 }*/
+.header-dronecatalog {
+	color: #1a3447;
 
+	font-size: 36px;
+	font-weight: 600;
+	line-height: 44px;
+	letter-spacing: 0em;
+	text-align: left;
+	height: 41px;
+	width: 1007px;
+	left: 358px;
+	top: 282px;
+	border-radius: nullpx;
+}
+.heading-dronecatalog {
+	text-align: left;
+	font-size: 16px;
+	color: #4a5e6d;
+	font-family: Inter;
+
+	font-weight: 300;
+	line-height: 6px;
+	letter-spacing: 0em;
+	text-align: left;
+}
+.rectangle {
+	height: 71px;
+	width: 500px;
+
+	border-radius: 10px;
+	background-color: #2c556d;
+}
+.div1-drone-catalog {
+	height: fit-content;
+	width: fit-content;
+}
