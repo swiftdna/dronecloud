@@ -48,9 +48,22 @@ const getDronePaths = async (req, res, next) => {
     return next();
 };
 
+const getDrones = async (req, res, next) => {
+    const path = `/flight_data_collect/get-drones/`;
+    const params = {
+        host,
+        path,
+        method: 'GET'
+    };
+    const result = await makeHTTPRequest(params);
+    req.model.data = {success: true, data: result};
+    return next();
+};
+
 module.exports = {
 	registerDrone,
     updateDrone,
     deleteDrone,
-    getDronePaths
+    getDronePaths,
+    getDrones
 };
