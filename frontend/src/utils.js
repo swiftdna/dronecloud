@@ -1,6 +1,6 @@
 import { profileLoading, handleProfilesResponse } from './actions/app-profile';
 import { handleLoginResponse, setToast, handleCountriesResponse } from './actions/app-actions';
-
+import { adminDroneTrackingLoading, handleAdminDroneTrackingResponse } from './actions/app-admin-drone-tracking';
 // import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
@@ -27,6 +27,18 @@ export function fetchProfile(dispatch, userObj) {
         .then(response => {
             dispatch(handleProfilesResponse(response));
         });
+}
+
+export function getAdminDroneList(dispatch) {
+    dispatch(adminDroneTrackingLoading());
+    axios.get(`/api/ext/drones`)
+        .then(response => {
+            dispatch(handleAdminDroneTrackingResponse(response));
+        });
+}
+
+export function capitalizeFirst(str){
+    return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 export function updateProfile(dispatch, params, callback) {

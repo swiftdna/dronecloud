@@ -7,12 +7,12 @@ const makeHTTPRequest = async (params) => {
     let {body} = params;
     const formData = new FormData();
 
-    if (form && Object.keys(form).length) {
+    if (form && !_.isEmpty(form)) {
         for (let key in form) {
             formData.append(key, form[key]);
         }
     }
-    if (_.isEmpty(body)) {
+    if (_.isEmpty(body) && !_.isEmpty(form)) {
         body = formData;
     }
     const response = await fetch(`${host}${path}`, {method, body});
