@@ -1,0 +1,22 @@
+.dropdown {
+	float: left;
+	display: inline;
+	margin-top: 5px;
+	margin-left: 5px;
+}
+.dropdown-item-button {
+	width: 100px;
+}
+.card-title {
+	text-align: left;
+}
+.card-header {
+	display: inline-flex;
+}
+.cards {
+	display: flex;
+}
+.bi {
+	margin-top: 50px;
+	align-self: center;
+}
