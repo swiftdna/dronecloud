@@ -9,6 +9,10 @@ import {Link} from "react-router-dom";
 import { Col, Card, Row } from "antd";
 
 
+
+import { Row, Col, Form, Button } from 'react-bootstrap';
+ 
+
 function DroneCatalog() {
     const dispatch = useDispatch();
     const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -28,6 +32,7 @@ const navigateAdd=()=>{
 
     
     return(
+
         <div className="container main-frame">
             <div className="div1-drone-catalog">
             <h1 className='header-dronecatalog'> Drone Catalog</h1>
@@ -119,6 +124,9 @@ const navigateAdd=()=>{
             {/* <Link to={`/`} className="btn btn-success btn-sm" style={{borderRadius:"10px" , float:"right"}}>edit</Link> */}
             </div>
       </div>
+        <div className="container">
+            <h4>Drone Catalog page</h4>
+
         </div>
             </div>
                  // </div>
