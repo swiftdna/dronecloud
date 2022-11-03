@@ -3,7 +3,7 @@
     float: left;
     display:inline;
     padding-left: 8px;
-    width:151px;
+    width:130px;
   }
   .downarrow {
     transform: rotate(45deg);
@@ -71,5 +71,5 @@ select::-ms-expand {
     float: left;
     display:inline;
     margin-top: 390px;
-    margin-left: 130px;
+    margin-left: 79px;
 }
