@@ -70,12 +70,12 @@ function DroneFleetTracking() {
                   >
                   <Marker
                       lat={14.955413}
-                      lng={80.337844}
+                      lng={79.337844}
                       type={'registered'}
                     />
                     <Marker
                       lat={14.965413}
-                      lng={80.547844}
+                      lng={79.547844}
                       type={'active'}
                     />
                 </GoogleMapReact>
