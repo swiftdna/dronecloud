@@ -1,10 +1,12 @@
 const express = require('express');
 const cors = require('cors');
 const passport = require('passport');
+const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const app = express();
 const routes = require('./routes');
+const {injectModel} = require('./modules/utils');
 require('dotenv').config();
 const port = process.env.NODE_LOCAL_PORT || 4000;
 const connect = require('./config/connect');
@@ -20,8 +22,9 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
+app.use(morgan('combined'));
+app.use(injectModel);
 app.use(cors());
-
 // For Passport
 app.use(session({
     secret: 'keyboard cat',
@@ -34,19 +37,25 @@ app.use(passport.session()); // persistent login sessions
 app.use('/api', routes);
 COREAPP = {};
 //Sync Database
+
+ connect().then(() => {
+   console.log('passport bootstrap!');
+ });
+
 connect().then(() => {
-  console.log('passport bootstrap!');
+  console.log('MongoDB setup complete!');
 });
+
 // mysqlConnect().then(() => {
-  const models = require("./models");
-  COREAPP.models = models;
-  //load passport strategies
-  require('./config/passport.js')(passport, models.user);
-  models.sequelize.sync().then(function() {
-    console.log('Nice! Database looks fine')
-  }).catch(function(err) {
-    console.log(err, "Something went wrong with the Database Update!")
-  });
+const models = require("./models");
+COREAPP.models = models;
+//load passport strategies
+require('./config/passport.js')(passport, models.user);
+models.sequelize.sync().then(function() {
+  console.log('MySQL setup complete!')
+}).catch(function(err) {
+  console.log(err, "Something went wrong with the MySQL Database Update!")
+});
 // });
 
 app.post('/signin', (req, res, next) => {
