@@ -390,3 +390,28 @@
   height: 450px;
 }
 
+.dc-default .marker {
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+}
+
+.dc-default .marker.registered {
+  background: #917ff4;
+  border: 1px solid #5932ea;
+}
+
+.dc-default .marker.active {
+  background: #4bc475;
+  border: 1px solid #269e00;
+}
+
+.dc-default .marker.stopped {
+  background: rgb(220, 53, 69);
+  border: 1px solid rgb(220, 53, 69);
+}
+
+.dc-default .marker.connected {
+  background: rgb(255, 193, 7);
+  border: 1px solid rgb(255, 193, 7);
+}
