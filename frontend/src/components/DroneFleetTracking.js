@@ -88,13 +88,43 @@ function DroneFleetTracking() {
                     defaultZoom={defaultProps.zoom}
                   >
                   <Marker
-                      lat={14.955413}
-                      lng={79.337844}
+                      lat={13.075413}
+                      lng={79.837844}
                       type={'registered'}
                     />
                     <Marker
-                      lat={14.965413}
-                      lng={79.547844}
+                      lat={13.085413}
+                      lng={79.887844}
+                      type={'registered'}
+                    />
+                    <Marker
+                      lat={13.165413}
+                      lng={79.899844}
+                      type={'registered'}
+                    />
+                    <Marker
+                      lat={13.075413}
+                      lng={79.837844}
+                      type={'registered'}
+                    />
+                    <Marker
+                      lat={13.085413}
+                      lng={80.197844}
+                      type={'active'}
+                    />
+                    <Marker
+                      lat={13.375413}
+                      lng={79.927844}
+                      type={'active'}
+                    />
+                    <Marker
+                      lat={13.385413}
+                      lng={79.937844}
+                      type={'active'}
+                    />
+                    <Marker
+                      lat={13.365413}
+                      lng={79.947844}
                       type={'active'}
                     />
                 </GoogleMapReact>
