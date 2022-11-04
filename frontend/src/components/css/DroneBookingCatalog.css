@@ -16,9 +16,11 @@ select {
     -ms-appearance: none;
     appearance: none;
     outline: 0;
-    background: #1E90FF;
+    background: #0a73ca;
     background-image: none;
     border: 1px solid  #1E90FF;
+    border-radius: 8px;
+    
 }
  
 .select {
@@ -30,6 +32,8 @@ select {
     background:#1E90FF;
     overflow: hidden;
     border-radius: .25em;
+    height: 24px;
+    padding:10px
 }
  
 select {

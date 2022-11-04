@@ -27,7 +27,7 @@ export default function DroneBookingCatalog() {
                  <li class="dronebookdropdown" >
                     
                         <select name="slct" id="slct">
-                            <option>Status</option>
+                            <option>Service</option>
                             <option value="1">Operating System</option>
                             <option value="2">Computer Networks</option>
                             <option value="3">Data Structure</option>
@@ -49,7 +49,8 @@ export default function DroneBookingCatalog() {
                 </li>
                 <li class="dronebookdropdown">
                         <select name="slct" id="slct">
-                            <option>Status</option>
+                            <option>Price
+                            </option>
                             <option value="1">Operating System</option>
                             <option value="2">Computer Networks</option>
                             <option value="3">Data Structure</option>
@@ -60,7 +61,7 @@ export default function DroneBookingCatalog() {
                 </li>
                 <li class="dronebookdropdown">
                         <select name="slct" id="slct">
-                            <option>Status</option>
+                            <option>Brand</option>
                             <option value="1">Operating System</option>
                             <option value="2">Computer Networks</option>
                             <option value="3">Data Structure</option>
@@ -71,7 +72,7 @@ export default function DroneBookingCatalog() {
                 </li>
                 <li class="dronebookdropdown">
                         <select name="slct" id="slct">
-                            <option>Status</option>
+                            <option>Equipment</option>
                             <option value="1">Operating System</option>
                             <option value="2">Computer Networks</option>
                             <option value="3">Data Structure</option>
