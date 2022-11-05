@@ -15,6 +15,7 @@ import DroneManagement from './DroneManagement';
 import DroneBooking from './DroneBooking';
 import DroneFleetTracking from './DroneFleetTracking';
 import AddDrone from './AddDrone';
+import AddDrone2 from './AddDrone2';
 
 function Admin() {
     const dispatch = useDispatch();
@@ -59,6 +60,7 @@ function Admin() {
                         <Route path="/drone-fleet-tracking" element={<DroneFleetTracking />} />
                         <Route path="/" element={<DroneCatalog />} />
                         <Route path="/addDrone" element={<AddDrone/>}/>
+                        <Route path="/addDrone2" element={<AddDrone2/>}/>
                     </Routes>
                 </Col>
             </Row>

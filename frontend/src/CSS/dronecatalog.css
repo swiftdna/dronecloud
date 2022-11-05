@@ -9,6 +9,8 @@
 }
 .card-title {
 	text-align: left;
+	font-size: large;
+	font-weight: 800px;
 }
 .card-header {
 	display: inline-flex;
@@ -19,4 +21,12 @@
 .bi {
 	margin-top: 50px;
 	align-self: center;
+}
+.content-dronecatalog {
+	color: #1a3447;
+	text-align: left;
+	font-size: 12px;
+	line-height: 6px;
+	letter-spacing: 0em;
+	text-align: left;
 }
