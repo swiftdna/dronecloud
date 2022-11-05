@@ -1,5 +1,6 @@
 const host = 'http://ec2-52-203-10-77.compute-1.amazonaws.com';
 const { makeHTTPRequest } = require('./ExtCall');
+const _ = require('underscore');
 
 const registerDrone = async (req, res, next) => {
     const { body } = req;
@@ -60,10 +61,45 @@ const getDrones = async (req, res, next) => {
     return next();
 };
 
+const getDroneLastSeenLocations = async (req, res, next) => {
+    const {data} = req.model.data;
+    const dataCleansed = JSON.parse(data);
+    const ids = _.pluck(dataCleansed, 'drone_id');
+    const path = `/flight_data_collect/get-recent-tracking/${ids.join(',')}`;
+    const params = {
+        host,
+        path,
+        method: 'GET'
+    };
+    const result = await makeHTTPRequest(params);
+    const formattedData = result && typeof result === 'string' ? JSON.parse(result) : {};
+    const lastSeenLocationData = formattedData && formattedData.tracking_data ? formattedData.tracking_data : [];
+    const lastSeenLocationDataMap = {};
+    for (let i = 0; i < lastSeenLocationData.length; i++) {
+        lastSeenLocationDataMap[lastSeenLocationData[i].drone_id] = lastSeenLocationData[i];
+    }
+    for (let i = 0; i < dataCleansed.length; i++) {
+        if (dataCleansed[i].drone_id && lastSeenLocationDataMap[dataCleansed[i].drone_id]) {
+            dataCleansed[i].last_seen = {
+                lat: lastSeenLocationDataMap[dataCleansed[i].drone_id].latitude,
+                lng: lastSeenLocationDataMap[dataCleansed[i].drone_id].longitude,
+                alt: lastSeenLocationDataMap[dataCleansed[i].drone_id].altitude,
+            }
+        }
+    }
+    req.model.data = {
+        ...req.model.data,
+        data: dataCleansed
+    };
+    // req.model.data = {success: true, data: result};
+    return next();
+};
+
 module.exports = {
 	registerDrone,
     updateDrone,
     deleteDrone,
     getDronePaths,
-    getDrones
+    getDrones,
+    getDroneLastSeenLocations
 };
