@@ -38,10 +38,6 @@ app.use('/api', routes);
 COREAPP = {};
 //Sync Database
 
- connect().then(() => {
-   console.log('passport bootstrap!');
- });
-
 connect().then(() => {
   console.log('MongoDB setup complete!');
 });

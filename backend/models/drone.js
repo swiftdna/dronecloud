@@ -15,13 +15,13 @@ module.exports = function(sequelize, Sequelize) {
             type: Sequelize.TEXT
         },
         last_seen_lat: {
-            type: Sequelize.TEXT
+            type: Sequelize.FLOAT
         },
         last_seen_lng: {
-            type: Sequelize.TEXT
+            type: Sequelize.FLOAT
         },
-        distance_flown: {
-            type: Sequelize.TEXT
+        last_seen_alt: {
+            type: Sequelize.INTEGER
         },
         distance_flown: {
             type: Sequelize.FLOAT
