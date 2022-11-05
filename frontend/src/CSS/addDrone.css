@@ -2,7 +2,7 @@
 	border-style: solid;
 	border-color: rgb(182, 176, 176);
 	border-radius: 10px;
-	height: 600px;
+	height: fit-content;
 	width: 600px;
 
 	margin: 100px;
