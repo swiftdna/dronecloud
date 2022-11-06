@@ -16,10 +16,12 @@ import DroneBooking from './DroneBooking';
 import DroneFleetTracking from './DroneFleetTracking';
 import AddDrone from './AddDrone';
 import AddDrone2 from './AddDrone2';
+
 import EditDrone from './EditDrone';
 import EditDrone2 from './EditDrone2';
 import EditDrone3 from './EditDrone3';
 import EditDrone4 from './EditDrone4';
+
 
 function Admin() {
     const dispatch = useDispatch();
@@ -65,10 +67,12 @@ function Admin() {
                         <Route path="/" element={<DroneCatalog />} />
                         <Route path="/addDrone" element={<AddDrone/>}/>
                         <Route path="/addDrone2" element={<AddDrone2/>}/>
+
                         <Route path="/editDrone" element={<EditDrone/>}/>
                         <Route path="/editDrone2" element={<EditDrone2/>}/>
                         <Route path="/editDrone3" element={<EditDrone3/>}/>
                         <Route path="/editDrone4" element={<EditDrone4/>}/>
+
 
                     </Routes>
                 </Col>

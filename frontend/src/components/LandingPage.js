@@ -15,6 +15,11 @@ import BookDrone from './BookDrone';
 import Profile from './Profile';
 import ServiceReports from './ServiceReports';
 import { Row, Col, Form } from 'react-bootstrap';
+import DroneBookingCatalog from './DroneBookingCatalog';
+import DroneBookingSelected from './DroneBookingSelected';
+import DroneBookingReview from './DroneBookingReview';
+import DroneBooking from './DroneBooking';
+import DroneBookingConfirmation from './DroneBookingConfirmation';
 //create the Navbar Component
 function LandingPage() {
     const dispatch = useDispatch();
@@ -55,6 +60,7 @@ function LandingPage() {
                           <li className="nav-item">
                             <NavLink className="nav-link" activeClassName="active" to="/profile"><FaUser style={{marginTop: '-3px'}}  /> Profile</NavLink>
                           </li>
+                      
                         </ul>
                     </Col>
                     <Col xs={9} className="text-center py-3 dc-default content_panel">
@@ -62,6 +68,10 @@ function LandingPage() {
                             <Route path="/book-drone" element={<BookDrone />} />
                             <Route path="/service-reports" element={<ServiceReports />} />
                             <Route path="/profile" element={<Profile />} />
+                            <Route path="/drone-booking-catalog" element={<DroneBookingCatalog />} />
+                            <Route path="/drone-booking-selected" element={<DroneBookingSelected />} />
+                            <Route path="/drone-booking-review" element={<DroneBookingReview />} />
+                            <Route path="/drone-booking-confirmation" element={<DroneBookingConfirmation />} />
                             <Route path="/" element={<MyBookings />} />
                         </Routes>
                     </Col>

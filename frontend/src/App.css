@@ -229,18 +229,22 @@
 }
 
 .dc-default .btn.btn-primary {
+
 	/* background-color: #1a3447;
 	padding: 8px 12px; */
 
 	background-color: #1a3447;
 	border-color: #1a3447;
 	margin: 20px;
+
 }
 
 .dc-default .btn.btn-secondary {
 	background-color: #b9b9c3;
 	border-color: #b9b9c3;
+
 	margin: 20px;
+
 }
 
 .dc-default .btn {
@@ -268,6 +272,7 @@
 	text-align: left;
 	height: 50px;
 	padding: 12px 16px;
+	border-radius: 8px;
 }
 
 .dc-default > .nav-item:not(:last-child) {
@@ -275,14 +280,12 @@
 }
 
 .dc-default > .nav-item > a:hover {
-	border-radius: 8px;
 	background-color: #dedede;
 }
 
 .dc-default > .nav-item > a.active {
 	background-color: #1a3447;
 	color: #ffffff;
-	border-radius: 8px;
 }
 
 .dc-default .right-contents {
@@ -454,4 +457,3 @@
 .dc-default .drone_details .drone_chars {
 	margin-bottom: 10px;
 }
-

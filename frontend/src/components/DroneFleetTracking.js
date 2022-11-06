@@ -114,7 +114,7 @@ function DroneFleetTracking() {
                             <p className="title">Tracking details</p>
                             <p>Status: {indDrone.status}</p>
                             <p>Location (lat, lng, alt):  {indDrone.last_seen ? `${indDrone.last_seen.lat},${indDrone.last_seen.lng},${indDrone.last_seen.alt}` : 'Not available'}</p>
-                            {tloading ? <p>Loading paths..</p> : <p>{indDronePaths.length} paths found</p>}
+                            {tloading ? <p>Loading paths..</p> : <p>{indDronePaths && indDronePaths.length ? `${indDronePaths.length} paths found` : 'No paths found'} </p>}
                         </Col>
                         <Col className="drone_chars">
                             <p className="title">Drone details</p>
@@ -122,9 +122,9 @@ function DroneFleetTracking() {
                             <p>Model: {indDrone.drone_maker} {indDrone.drone_model}</p>
                             <p>Service Type: {indDrone.service_type}</p>
                         </Col>
-                        {!tloading ? <LiveTracking 
+                        {!tloading && indDronePaths && indDronePaths.length  ? <LiveTracking 
                             paths={indDronePaths}
-                        /> : ''}
+                        /> : <p>No drone paths to display in the map</p>}
                     </Row>
                 </div> : <div style={{ height: '670px', width: '100%', marginTop: '10px' }}>
                 {isLoaded ? <GoogleMap
