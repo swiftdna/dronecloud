@@ -9,9 +9,10 @@ function Contact() {
     const userObj = useSelector(selectUser);
 
     return(
-        <div className="container pull-down">
+        div className="container pull-down fill-page dc-default">
+            <h3>Hi, Thanks for registering to drone cloud. We value our customers.</h3><br/>
             {isLoggedIn ?
-                <h2>Please email to dronecloud@gmail.com for any drone related queries!!</h2>:
+                <h5>Please send an email to dronecloud@gmail.com for any drone related queries!!</h5>:
                 <h5>Hello, login or register to access the page!</h5>}
         </div>
     )
