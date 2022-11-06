@@ -8,6 +8,7 @@ import "../components/css/BookDrone.css";
 import DroneBookingCatalog from "./DroneBookingCatalog";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 import {bookdrone, booking} from "../reducers/bookSlice";
 
 const useStyles = makeStyles((theme) => ({
@@ -18,24 +19,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 var farmtype = "";
+
 const setGrid = (grid) => {
     console.log(grid)
-    if(grid === "West Plot A Crop"){
-        console.log("1");
-        farmtype = "Crop";
-    }
-    if(grid === "North Plot B Fruit"){
-        console.log("2");
-        farmtype = "Fruit";
-    }
-    if(grid === "South Plot C Live Stock"){
-        console.log("3");
-        farmtype = "Stock";
-    }
-    if(grid === "East Plot D Nursery"){
-        console.log("4");
-        farmtype = "Nursery";
-    }
+    farmtype = grid
+   
 
 }
 
@@ -99,12 +87,21 @@ function GridItem2({ classes }) {
   
 export default function BookDrone() {
     const dispatch = useDispatch();
+    const [droneid, setDroneid] = useState('');
+    const [dronename, setDronename] = useState('');
+    axios.get('/api/drone')
+        .then(response => {
+           console.log("sdadadsad",response)
+           setDronename(response.data.name)
+           setDroneid(response.data.id)
+        })
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("aab",farmtype)
+        console.log("aab",farmtype,droneid,dronename)
         dispatch(
           bookdrone({
             farmtype:farmtype,
+           
           })
         );
       };

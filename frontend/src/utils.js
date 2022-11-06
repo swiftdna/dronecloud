@@ -1,6 +1,6 @@
 import { profileLoading, handleProfilesResponse } from './actions/app-profile';
-import { handleLoginResponse, setToast, handleCountriesResponse } from './actions/app-actions';
-import { adminDroneTrackingLoading, handleAdminDroneTrackingResponse, adminDroneIDTrackingLoading, handleAdminDroneIDTrackingResponse } from './actions/app-admin-drone-tracking';
+import { handleLoginResponse, setToast, handleCountriesResponse,handleDisplayDroneResponse } from './actions/app-actions';
+import { adminDroneTrackingLoading, handleAdminDroneTrackingResponse } from './actions/app-admin-drone-tracking';
 // import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
@@ -48,6 +48,7 @@ export function getAdminDroneDetails(dispatch, drone_id) {
 export function capitalizeFirst(str){
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
 
 export function updateProfile(dispatch, params, callback) {
     if (params.id)
