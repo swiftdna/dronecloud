@@ -35,8 +35,8 @@ function EditDrone3() {
                    
                     <br>
                     </br>
-                    <button variant="secondary" className='dc-default btn btn-secondary'>Back</button>
-                    <button variant="primary" className='dc-default btn btn-primary' 
+                    <button variant="secondary" className='dc-default btn btn-secondary m20'>Back</button>
+                    <button variant="primary" className='dc-default btn btn-primary m20' 
                     style={{float:"right",margin:"20px",}}
                     onClick={editDrone2}>Next</button>
                     
