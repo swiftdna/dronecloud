@@ -1,7 +1,8 @@
 .dropdown {
 	float: left;
 	display: inline;
-	margin-top: 5px;
+}
+.dropdown:not(:first-child) {
 	margin-left: 5px;
 }
 .dropdown-item-button {
@@ -22,6 +23,7 @@
 	margin-top: 50px;
 	align-self: center;
 }
+
 .content-dronecatalog {
 	color: #1a3447;
 	text-align: left;
@@ -30,3 +32,27 @@
 	letter-spacing: 0em;
 	text-align: left;
 }
+
+.dropdown .btn {
+	font-size: 15px;
+	min-width: 120px;
+	padding: 8px 18px !important;
+}
+.heading-dronecatalog {
+	margin-top: 20px;
+}
+.drone-catalog .card-header {
+	background: none;
+    border: none;
+}
+.drone-catalog .card.add-new {
+	padding: 10px;
+}
+.drone-catalog .btn.btn-edit {
+	padding: 4px 12px;
+	background-color: #0070BA;
+	font-size: 13px;
+	float: right;
+	border-radius: 10px;
+}
+
