@@ -11,6 +11,15 @@ module.exports = function(sequelize, Sequelize) {
         manufacturer: {
             type: Sequelize.TEXT
         },
+        price: {
+            type: Sequelize.INTEGER
+        },
+        equipment: {
+            type: Sequelize.TEXT
+        },
+        service: {
+            type: Sequelize.TEXT
+        },
         model: {
             type: Sequelize.TEXT
         },

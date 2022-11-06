@@ -20,6 +20,7 @@
     "react": "^17.0.2",
     "react-bootstrap": "^2.2.3",
     "react-compound-slider": "^3.3.1",
+    "react-datetime-picker": "^4.0.1",
     "react-dom": "^17.0.2",
     "react-icons": "^4.6.0",
     "react-paginate": "^8.1.3",
