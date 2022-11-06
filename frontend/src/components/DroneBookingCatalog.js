@@ -32,22 +32,27 @@ export default function DroneBookingCatalog() {
   const [dronestatus, setStatus] = useState("");
   const [allitemslist,setAllItemsList] = useState([])
   const [searchitemslist,setSearchItemsList] = useState([])
+  const [fromdate,setfromDate] = useState("");
+  const [todate,settoDate] = useState("");
+
 
   const filterSubmit = (e) => {
     e.preventDefault();
-    console.log("*********************************",droneservice,dronedatetime,droneprice,dronebrand,droneequipment,dronestatus);
-    allitemslist.filter((val)=> {
-      
-      if(val.service.toLowerCase().includes(droneservice.toLowerCase()))
-      {
-        console.log("Vaaalue---",val)
-        setSearchItemsList(searchitemslist=> [...searchitemslist, val]);
+  //   console.log("1*********************************",droneservice,dronedatetime,typeof(droneprice),dronebrand,droneequipment,dronestatus);
+  //   allitemslist.filter((val)=> {
+  //     console.log("1*********************************",val.availablefrom)
+  //     setSearchItemsList(searchitemslist=> [...searchitemslist, val]);
 
       
-      }
     
-    })
-  console.log("***4444444444",searchitemslist)
+  //   })
+  // console.log("***4444444444",searchitemslist)
+    axios.post(`/api/drone/filter`,{service:droneservice.toLowerCase(),brand:dronebrand.toLowerCase(),price:droneprice,equipment:droneequipment.toLowerCase(),status:dronestatus.toLowerCase()})
+    .then(response => {
+      console.log("go",response)
+      setAllItemsList(response.data)
+    });
+
     };
   useEffect( () => {
     
@@ -85,9 +90,7 @@ export default function DroneBookingCatalog() {
          <DateTimePicker onChange={(event) => {
             setPrice(event.target.value);
           }} /></div> */}
-  <div className="dateinput">
-  <input type="date" />
-  </div>
+
 
 
                 </li>
@@ -138,8 +141,25 @@ export default function DroneBookingCatalog() {
                          
                         </select>
                 </li>
+                <br></br><br></br>
+                
+                  <div className="dateinput">
+                  <li class="dronebookdropdown">
+                      <input className="form-date"  type="date"  onChange={(event) => {
+            setfromDate(event.target.value);
+          }}/>
+                      </li>
+                  </div>
+                  <div className="dateinput"> 
+                <input  className="form-date"  type="date"  onChange={(event) => {
+            settoDate(event.target.value);
+          }}/>
+                
+                  </div>
+               
+              <div className="gobutton">
                 <button class="button button2" onClick={filterSubmit} style = {{padding: "10px"}}> Go</button>
-
+                </div>
                 <br></br>
             </ul>
             <div className="dronedisplay">
@@ -158,7 +178,7 @@ export default function DroneBookingCatalog() {
                 ))} </div> 
              } 
                 </div> } */}
-   {
+   {/* {
             <div className="row">
                  
                  {searchitemslist.length>0 ?   <div className="row">
@@ -172,8 +192,14 @@ export default function DroneBookingCatalog() {
                 //  console.log("asdasd",drone)
                 ))} </div> 
              } 
-                </div> }
+                </div> } */}
+                {allitemslist&&    <div className="row">
+         {allitemslist.map((drone) => (
+                  <AllDrone key={drone.name} dronedetails={drone}></AllDrone>
+                //  console.log("asdasd",drone)
+                ))} </div> }
             </ul>
+
             </div>
 
            <div className="navigation">

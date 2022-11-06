@@ -38,10 +38,10 @@ export function getAdminDroneList(dispatch) {
 }
 
 export function getAdminDroneDetails(dispatch, drone_id) {
-    dispatch(adminDroneIDTrackingLoading());
+    dispatch(adminDroneTrackingLoading());
     axios.get(`/api/tracking/drones/${drone_id}`)
         .then(response => {
-            dispatch(handleAdminDroneIDTrackingResponse(drone_id, response));
+            dispatch(handleAdminDroneTrackingResponse(drone_id, response));
         });
 }
 
