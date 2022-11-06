@@ -1,23 +1,26 @@
 import React, { useEffect, useState, useRef } from 'react';
-import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import { selectIsLoggedIn, selectUser } from '../selectors/appSelector';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAdminDroneList, capitalizeFirst } from '../utils';
-import { Row, Col, Form, Card, Badge } from 'react-bootstrap';
+import { getAdminDroneList, capitalizeFirst, getAdminDroneDetails } from '../utils';
+import { Row, Col, Form, Card, Badge, Spinner } from 'react-bootstrap';
+import { MdOutlineClose } from 'react-icons/md';
+import { GoogleMap, useJsApiLoader, Polyline } from '@react-google-maps/api';
+import Marker from './Marker';
+import LiveTracking from './LiveTracking';
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiY21wZTI4MS11YXYiLCJhIjoiY2w4Z2k0bmQ4MDBtcTQwbWtyc2o2MmEzNCJ9._iLFdHOPj9f8k5lekXN2HA';
+const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 function DroneFleetTracking() {
     const dispatch = useDispatch();
-    const mapContainer = useRef(null);
-    const map = useRef(null);
-    const [lng, setLng] = useState(-87.49);
-    const [lat, setLat] = useState(41.89);
-    const [zoom, setZoom] = useState(3);
+    const [indDrone, setIndDrone] = useState(null);
+    const [indDronePaths, setIndDronePaths] = useState([]);
     const isLoggedIn = useSelector(selectIsLoggedIn);
+    const [map, setMap] = React.useState(null);
     const loading = useSelector((state) => state.admindronetracking.loading);
+    const tloading = useSelector((state) => state.admindronetracking.trackingLoading);
     const drones = useSelector((state) => state.admindronetracking.data);
+    const trackingMap = useSelector((state) => state.admindronetracking.tracking);
     const userObj = useSelector(selectUser);
     const navigate = useNavigate();
     const userLandedPage = useLocation();
@@ -36,25 +39,63 @@ function DroneFleetTracking() {
     }, [isLoggedIn]);
 
     useEffect(() => {
-        if (map.current) return; // initialize map only once
-            map.current = new mapboxgl.Map({
-                container: mapContainer.current,
-                style: 'mapbox://styles/mapbox/streets-v11',
-                center: [lng, lat],
-                zoom: zoom
-            });
-            // const marker = new mapboxgl.Marker()
-            //  .setLngLat([-70.9, 42.35])
-            //  .addTo(map.current);
-      });
-    
+        if (indDrone && indDrone.drone_id) {
+            if (trackingMap[indDrone.drone_id] && trackingMap[indDrone.drone_id].length) {
+                setIndDronePaths(trackingMap[indDrone.drone_id]);
+            } else {
+                setIndDronePaths([]);
+            }
+        }
+    }, [indDrone, tloading]);
+
+    const containerStyle = {
+      width: '100%',
+      height: '690px'
+    };
+
+    const center = {
+      lat: 37,
+      lng: -122,
+      zoom: 10
+    };
+
+    const { isLoaded } = useJsApiLoader({
+        id: 'google-map-script',
+        googleMapsApiKey: "AIzaSyDAY3yhqc24s5SpDcxRXTnObJXbQTBwtV4"
+    });
+
+    const onLoad = React.useCallback(function callback(map) {
+        const bounds = new window.google.maps.LatLngBounds();
+        for (let i = 0; i < drones.length; i++) {
+            const path = {
+                lat: drones[i].last_seen.lat,
+                lng: drones[i].last_seen.lng
+            };
+            bounds.extend(path);
+        }
+        map.fitBounds(bounds);
+        setMap(map)
+    }, [])
+
+    const onUnmount = React.useCallback(function callback(map) {
+        setMap(null)
+    }, [])
+
+    const selectDrone = (drone) => {
+        setIndDrone(drone);
+        getAdminDroneDetails(dispatch, drone.drone_id);
+    }
+
     return(
         <div className="container">
             <h4>Service cloud Dashboard</h4>
             <p>{drones.length} drones found</p>
             <div className="drones_list">
+                {loading ? <Spinner animation="border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner> : ''}
                 {!loading && drones && drones.length && drones.map(drone => 
-                    <Card style={{ width: '18rem' }}>
+                    <Card style={{ width: '13rem' }} className={indDrone && (drone.drone_id === indDrone.drone_id) ? 'selected' : ''} onClick={() => selectDrone(drone)}>
                       <Card.Body>
                         <Card.Title>{drone.drone_maker} {drone.drone_model}</Card.Title>
                         <Card.Subtitle className="mb-2 text-muted">Drone #{drone.drone_id}</Card.Subtitle>
@@ -65,7 +106,43 @@ function DroneFleetTracking() {
                 </Card>
                 )}
             </div>
-            <div ref={mapContainer} className="map-container" />
+            {indDrone && indDrone.drone_id ? <div className="drone_details">
+                    <div style={{float: 'right'}}><MdOutlineClose size={40} style={{cursor: 'pointer'}} onClick={() => setIndDrone()} /></div>
+                    <h4>Drone ID #{indDrone.drone_id}</h4>
+                    <Row>
+                        <Col className="drone_chars">
+                            <p className="title">Tracking details</p>
+                            <p>Status: {indDrone.status}</p>
+                            <p>Location (lat, lng, alt):  {indDrone.last_seen ? `${indDrone.last_seen.lat},${indDrone.last_seen.lng},${indDrone.last_seen.alt}` : 'Not available'}</p>
+                            {tloading ? <p>Loading paths..</p> : <p>{indDronePaths.length} paths found</p>}
+                        </Col>
+                        <Col className="drone_chars">
+                            <p className="title">Drone details</p>
+                            <p>ID: {indDrone.drone_id}</p>
+                            <p>Model: {indDrone.drone_maker} {indDrone.drone_model}</p>
+                            <p>Service Type: {indDrone.service_type}</p>
+                        </Col>
+                        {!tloading ? <LiveTracking 
+                            paths={indDronePaths}
+                        /> : ''}
+                    </Row>
+                </div> : <div style={{ height: '670px', width: '100%', marginTop: '10px' }}>
+                {isLoaded ? <GoogleMap
+                    mapContainerStyle={containerStyle}
+                    center={center}
+                    onLoad={onLoad}
+                    onUnmount={onUnmount}
+                  >
+                  {!loading && drones && drones.length && drones.map(drone => 
+                    drone.last_seen ? <Marker
+                      lat={drone.last_seen.lat}
+                      lng={drone.last_seen.lng}
+                      type={drone.status}
+                    /> : ''
+                    )
+                  }
+                </GoogleMap> : ''}
+            </div>}
         </div>
     )
 }

@@ -369,6 +369,28 @@
   display: inline-block;
   border-color: #6848eb;
   border-width: 1.5px;
+  font-size: 12px;
+}
+
+.dc-default .drones_list > .card .card-title {
+	font-size: 15px;
+}
+
+.dc-default .drones_list > .card .card-subtitle {
+	font-size: 13px;
+}
+
+.dc-default .drones_list > .card.selected {
+  background-color: #f4f2fd;
+}
+
+.dc-default .drones_list > .card.selected:hover {
+	cursor: default;
+}
+
+.dc-default .drones_list > .card:not(.selected):hover {
+  cursor: pointer;
+  background-color: #F1F1F1;
 }
 
 .dc-default .drones_list > .card:not(:first-child) {
@@ -390,3 +412,45 @@
   height: 450px;
 }
 
+.dc-default .marker {
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+}
+
+.dc-default .marker.registered {
+  background: #917ff4;
+  border: 1px solid #5932ea;
+}
+
+.dc-default .marker.active {
+  background: #4bc475;
+  border: 1px solid #269e00;
+}
+
+.dc-default .marker.stopped {
+  background: rgb(220, 53, 69);
+  border: 1px solid rgb(220, 53, 69);
+}
+
+.dc-default .marker.connected {
+  background: rgb(255, 193, 7);
+  border: 1px solid rgb(255, 193, 7);
+}
+
+.dc-default .drone_details {
+	margin-top: 20px;
+}
+
+.dc-default .drone_details .drone_chars > p.title {
+	margin-bottom: 5px;
+	font-weight: bold;
+}
+
+.dc-default .drone_details .drone_chars > p {
+	margin: 0;
+}
+
+.dc-default .drone_details .drone_chars {
+	margin-bottom: 10px;
+}

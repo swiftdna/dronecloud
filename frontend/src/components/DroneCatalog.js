@@ -115,12 +115,9 @@ function DroneCatalog() {
             {/* <Link to={`/`} className="btn btn-success btn-sm" style={{borderRadius:"10px" , float:"right"}}>edit</Link> */}
             </div>
       </div>
-        <div className="container">
-            <h4>Drone Catalog page</h4>
-
-        </div>
+        
             </div>
-                 // </div>
+                  </div>
           
           
             
