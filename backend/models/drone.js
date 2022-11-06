@@ -11,6 +11,18 @@ module.exports = function(sequelize, Sequelize) {
         manufacturer: {
             type: Sequelize.TEXT
         },
+        price: {
+            type: Sequelize.INTEGER
+        },
+        equipment: {
+            type: Sequelize.TEXT
+        },
+        service: {
+            type: Sequelize.TEXT
+        },
+        brand: {
+            type: Sequelize.TEXT
+        },
         model: {
             type: Sequelize.TEXT
         },
@@ -31,6 +43,12 @@ module.exports = function(sequelize, Sequelize) {
         },
         status: {
             type: Sequelize.TEXT
+        },
+        availablefrom: {
+            type: Sequelize.DATE
+        },
+        availabletill: {
+            type: Sequelize.DATE
         },
         created: {
             type: Sequelize.DATE
