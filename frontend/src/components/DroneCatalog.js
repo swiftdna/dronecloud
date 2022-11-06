@@ -29,15 +29,19 @@ function DroneCatalog() {
     
     return(
 
-        <div className="container main-frame">
+        <div className="container main-frame drone-catalog">
             <div className="div1-drone-catalog">
             <h1 className='header-dronecatalog'> Drone Catalog</h1>
            
             <p className='heading-dronecatalog' style={{marginTop:"5px"}}>Add,update or edit drones to the catalog</p>
             <br>
             </br>
+
            
             <div className='dropdown'>
+
+            <div className='dropdown-container'>
+
             <DropdownButton id="dropdown-item-button" title="Price" size="lg" >
             <Dropdown.Item href="#/action-1">below 200</Dropdown.Item>
              <Dropdown.Item href="#/action-2">below 400</Dropdown.Item>
@@ -56,6 +60,7 @@ function DroneCatalog() {
              </div>
             </div>
 
+
             <br>
             </br>
          
@@ -64,6 +69,10 @@ function DroneCatalog() {
             </br>
             <br></br>
            
+
+            <br />
+            <p className='heading-dronecatalog'>3 drones found</p>
+
             <div className="cards">
             {/* <div className="col-md-4 mb-4"> */}
             <div className="card" style={{height:"fit-content",width:"350px"}}>
@@ -80,7 +89,7 @@ function DroneCatalog() {
                 <p className='heading-dronecatalog'>249 grams</p>
                 <div style={{display:"inline"}}>
                 <h4 style={{float:"left"}}>$180 / hour</h4>
-                <Link to={`/`} className="btn btn-success btn-sm" style={{borderRadius:"10px" , float:"right"}}>edit</Link>
+                <Link to={`/`} className="btn btn-edit">edit</Link>
                 </div>
           </div>
             </div>
@@ -103,11 +112,11 @@ function DroneCatalog() {
                 <p className='heading-dronecatalog'>249 grams</p>
                 <div style={{display:"inline"}}>
                 <h4 style={{float:"left"}}>$180 / hour</h4>
-                <Link to={`/`} className="btn btn-success btn-sm" style={{borderRadius:"10px" , float:"right"}}>edit</Link>
+                <Link to={`/`} className="btn btn-edit">edit</Link>
                 </div>
           </div>
             </div>
-            <div className="card" style={{height:"305px",width:"200px",marginLeft:"20px"}} onClick={navigateAdd}>
+            <div className="card add-new" style={{height:"305px",width:"200px",marginLeft:"20px"}} onClick={navigateAdd}>
                 <h4>Add a new drone</h4>
                 <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
   <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>

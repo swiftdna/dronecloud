@@ -440,3 +440,18 @@
 .dc-default .drone_details {
 	margin-top: 20px;
 }
+
+
+.dc-default .drone_details .drone_chars > p.title {
+	margin-bottom: 5px;
+	font-weight: bold;
+}
+
+.dc-default .drone_details .drone_chars > p {
+	margin: 0;
+}
+
+.dc-default .drone_details .drone_chars {
+	margin-bottom: 10px;
+}
+
