@@ -64,7 +64,14 @@ export function Main() {
               {/* <Route path="/home" element={isAuthenticated ? <Home /> : <Login />} /> */}
               {/* <Route path="/profile" element={isAuthenticated ? <Profile /> : <Login />} /> */}
               <Route path="/register" element={<Register />} />
+                <Route path="/FarmerInfo1" element={<FarmerInfo1 />} />
+                <Route path="/FarmInfo1" element={<FarmInfo1 />} />
+                <Route path="/LandOwner" element={<LandOwner />} />
+                <Route path="/IDInfo" element={<IDInfo />} />
+                <Route path="/UtilityBill" element={<UtilityBill />} />
+                <Route path="/BillingInfo" element={<BillingInfo />} />
               <Route path="admin/*" element={<Admin />} />
+          
               
               <Route path="/*" element={<LandingPage />} />
             </Routes>
