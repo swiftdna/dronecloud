@@ -37,11 +37,7 @@ function DroneCatalog() {
             <br>
             </br>
 
-           
-            <div className='dropdown'>
-
-            <div className='dropdown-container'>
-
+             <div className='dropdown-container'>
             <DropdownButton id="dropdown-item-button" title="Price" size="lg" >
             <Dropdown.Item href="#/action-1">below 200</Dropdown.Item>
              <Dropdown.Item href="#/action-2">below 400</Dropdown.Item>
@@ -63,14 +59,6 @@ function DroneCatalog() {
 
             <br>
             </br>
-         
-            <p className='heading-dronecatalog' style={{margin:"10px"}}>3 drones found</p>
-            <br>
-            </br>
-            <br></br>
-           
-
-            <br />
             <p className='heading-dronecatalog'>3 drones found</p>
 
             <div className="cards">

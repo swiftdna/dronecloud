@@ -1,7 +1,8 @@
 import React from 'react'
 import { Navigate } from 'react-router'
 import "../CSS/addDrone.css"
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 function AddDrone() {
     const navigate=useNavigate
 const addDrone2=()=>{
@@ -16,7 +17,7 @@ const addDrone2=()=>{
             <p className='heading-dronecatalog' style={{marginTop:"10px",marginLeft:"100px"}}>Enter the details of the drone</p>
          </div>
          <div>
-             <div className=' droneDetails'>
+             <div className='droneDetails'>
                  <p className="DroneInfo">Drone information</p>
                  <p className='DroneDetails'>Name</p>
                 <input type="text" className='input_text'></input>
@@ -26,16 +27,12 @@ const addDrone2=()=>{
                 <input type="text" className='input_text'></input>
                 <p className='DroneDetails'>Price of service</p>
                 <input type="text" className='input_text'></input>
-                <br>
-                </br>
-                <button variant="secondary" className='dc-default btn btn-secondary'>Back</button>
-                <button variant="primary" className='dc-default btn btn-primary' 
-                style={{float:"right",margin:"20px",}}
-                onClick={addDrone2}>Next</button>
-                
-
-                 
-
+                <br />
+                <br />
+                <br />
+                <Button variant="secondary">Back</Button>
+                <Button variant="primary" style={{float:"right"}}
+                onClick={addDrone2}>Next</Button>
              </div>
          </div>
     </div>

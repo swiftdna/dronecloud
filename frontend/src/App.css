@@ -229,18 +229,13 @@
 }
 
 .dc-default .btn.btn-primary {
-	/* background-color: #1a3447;
-	padding: 8px 12px; */
-
 	background-color: #1a3447;
 	border-color: #1a3447;
-	margin: 20px;
 }
 
 .dc-default .btn.btn-secondary {
 	background-color: #b9b9c3;
 	border-color: #b9b9c3;
-	margin: 20px;
 }
 
 .dc-default .btn {
