@@ -36,7 +36,8 @@ function DroneCatalog() {
             <p className='heading-dronecatalog' style={{marginTop:"5px"}}>Add,update or edit drones to the catalog</p>
             <br>
             </br>
-            <div className='dropdown-container'>
+
+             <div className='dropdown-container'>
             <DropdownButton id="dropdown-item-button" title="Price" size="lg" >
             <Dropdown.Item href="#/action-1">below 200</Dropdown.Item>
              <Dropdown.Item href="#/action-2">below 400</Dropdown.Item>
@@ -54,14 +55,16 @@ function DroneCatalog() {
              </DropdownButton>
              </div>
             </div>
-            <br />
+
+
+            <br>
+            </br>
             <p className='heading-dronecatalog'>3 drones found</p>
+
             <div className="cards">
             {/* <div className="col-md-4 mb-4"> */}
             <div className="card" style={{height:"fit-content",width:"350px"}}>
           
-             
-              
               <div className="card-body">
                   <div className="card-header" >
                 <h5 className="card-title">DJI mini SE Data collection</h5>
