@@ -263,6 +263,7 @@
 	text-align: left;
 	height: 50px;
 	padding: 12px 16px;
+	border-radius: 8px;
 }
 
 .dc-default > .nav-item:not(:last-child) {
@@ -270,14 +271,12 @@
 }
 
 .dc-default > .nav-item > a:hover {
-	border-radius: 8px;
 	background-color: #dedede;
 }
 
 .dc-default > .nav-item > a.active {
 	background-color: #1a3447;
 	color: #ffffff;
-	border-radius: 8px;
 }
 
 .dc-default .right-contents {
