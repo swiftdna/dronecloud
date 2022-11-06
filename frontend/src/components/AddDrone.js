@@ -34,22 +34,10 @@ const addDrone2=()=>{
 
                 <br>
                 </br>
-                <button variant="secondary" className='dc-default btn btn-secondary'>Back</button>
-                <button variant="primary" className='dc-default btn btn-primary' 
+                <button variant="secondary" className='dc-default btn btn-secondary m20'>Back</button>
+                <button variant="primary" className='dc-default btn btn-primary m20' 
                 style={{float:"right",margin:"20px",}}
                 onClick={addDrone2}>Next</button>
-                
-
-                 
-
-
-                <br />
-                <br />
-                <br />
-                <Button variant="secondary">Back</Button>
-                <Button variant="primary" style={{float:"right"}}
-                onClick={addDrone2}>Next</Button>
-
              </div>
          </div>
     </div>
