@@ -105,8 +105,8 @@ function EditDrone4() {
                 <div style={{width:"820px"}}>
                 <br>
                   </br>
-                    <button variant="secondary" className='dc-default btn btn-secondary' style={{marginLeft:"100px",}}>Back</button>
-                    <button variant="primary" className='dc-default btn btn-primary' style={{float:"right",margin:"20px"}}>Confirm</button>
+                    <button variant="secondary" className='dc-default btn btn-secondary m20' style={{marginLeft:"100px",}}>Back</button>
+                    <button variant="primary" className='dc-default btn btn-primary m20' style={{float:"right",margin:"20px"}}>Confirm</button>
                   </div>
         </div>
       )
