@@ -235,7 +235,7 @@
 
 	background-color: #1a3447;
 	border-color: #1a3447;
-	margin: 20px;
+	
 
 }
 
@@ -243,7 +243,7 @@
 	background-color: #b9b9c3;
 	border-color: #b9b9c3;
 
-	margin: 20px;
+
 
 }
 
@@ -456,4 +456,7 @@
 
 .dc-default .drone_details .drone_chars {
 	margin-bottom: 10px;
+}
+.m20{
+	margin: 20px;
 }
