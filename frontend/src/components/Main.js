@@ -18,6 +18,7 @@ import ProtectedRoute from './ProtectedRoute';
 import {Toast, ToastContainer} from 'react-bootstrap';
 import { selectAlertFlag, selectToastFlag, selectAlertMessage, selectAlertType, selectIsLoggedIn } from '../selectors/appSelector';
 import { clearToast } from '../actions/app-actions';
+import DroneCatalog from './DroneCatalog';
 
 //Create a Main Component
 export function Main() {
@@ -64,6 +65,7 @@ export function Main() {
               {/* <Route path="/profile" element={isAuthenticated ? <Profile /> : <Login />} /> */}
               <Route path="/register" element={<Register />} />
               <Route path="admin/*" element={<Admin />} />
+              
               <Route path="/*" element={<LandingPage />} />
             </Routes>
             {location.pathname !== '/login' && <Footer />}

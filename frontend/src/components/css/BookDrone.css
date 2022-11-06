@@ -1,0 +1,32 @@
+.item {
+    
+    width: 300px;
+    height: 250px;
+    align:"center"
+  }
+  
+  .container-farm {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .container-farm > div {
+    flex: 50%; /* or - flex: 0 50% - or - flex-basis: 50% - */
+    /*demo*/
+    box-shadow: 0 0 0 0.5px black;
+    margin-bottom: 2px;
+  }
+  .button {
+    background-color: #1a3447; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 2px 2px;
+    cursor: pointer;
+    border-radius: 10px;
+  }
+  .button1 {width: 250px;}
