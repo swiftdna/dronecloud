@@ -70,6 +70,7 @@ export function Main() {
                 <Route path="/IDInfo" element={<IDInfo />} />
                 <Route path="/UtilityBill" element={<UtilityBill />} />
                 <Route path="/BillingInfo" element={<BillingInfo />} />
+                <Route path="/Contact" element={<Contact />} />
               <Route path="admin/*" element={<Admin />} />
           
               
