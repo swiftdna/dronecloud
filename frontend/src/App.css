@@ -229,23 +229,17 @@
 }
 
 .dc-default .btn.btn-primary {
- 
 	background-color: #1a3447;
-	padding: 8px 12px;
-
-  background-color: #1a3447;
-  border-color: #1a3447;
+	border-color: #1a3447;
 }
 
 .dc-default .btn.btn-secondary {
-  background-color: #b9b9c3;
-  border-color: #b9b9c3;
+	background-color: #b9b9c3;
+	border-color: #b9b9c3;
 }
 
-
 .dc-default .btn {
-  padding: 12px 24px;
-
+	padding: 12px 24px;
 }
 
 .dc-login .btn {
@@ -333,9 +327,9 @@
 	font-family: Inter;
 
 	font-weight: 300;
-	line-height: 6px;
-	letter-spacing: 0em;
-	text-align: left;
+		line-height: 6px;
+		letter-spacing: 0em;
+		text-align: left;
 }
 .rectangle {
 	height: 71px;
@@ -350,68 +344,108 @@
 }
 
 .dc-default .drones_list {
-  width: inherit;
-  display: inline-block;
-  height: 120px;
-  white-space: nowrap;
-  position: relative;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+	width: inherit;
+	display: inline-block;
+	height: 120px;
+	white-space: nowrap;
+	position: relative;
+	overflow-x: scroll;
+	overflow-y: hidden;
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
 }
 
 .dc-default .drones_list::-webkit-scrollbar {
-  display: none;
+	display: none;
 }
 
 .dc-default .drones_list > .card {
-  display: inline-block;
-  border-color: #6848eb;
-  border-width: 1.5px;
+	display: inline-block;
+	border-color: #6848eb;
+	border-width: 1.5px;
+	font-size: 12px;
+}
+
+.dc-default .drones_list > .card .card-title {
+	font-size: 15px;
+}
+
+.dc-default .drones_list > .card .card-subtitle {
+	font-size: 13px;
+}
+
+.dc-default .drones_list > .card.selected {
+	background-color: #f4f2fd;
+}
+
+.dc-default .drones_list > .card.selected:hover {
+	cursor: default;
+}
+
+.dc-default .drones_list > .card:not(.selected):hover {
+	cursor: pointer;
+	background-color: #f1f1f1;
 }
 
 .dc-default .drones_list > .card:not(:first-child) {
-  margin-left: 10px;
+	margin-left: 10px;
 }
 
 .dc-default .drones_list > .card .badge {
-  padding: 0.55em 0.55em;
+	padding: 0.55em 0.55em;
 }
 
 .dc-default .drones_list > .card .badge.bg-primary {
-  background-color: #cbc4f0 !important;
-  color: #5932ea;
-  border: 1px solid #5932ea;
+	background-color: #cbc4f0 !important;
+	color: #5932ea;
+	border: 1px solid #5932ea;
 }
 
 .dc-default .map-container {
-  margin-top: 10px;
-  height: 450px;
+	margin-top: 10px;
+	height: 450px;
 }
 
 .dc-default .marker {
-  border-radius: 50%;
-  width: 10px;
-  height: 10px;
+	border-radius: 50%;
+	width: 10px;
+	height: 10px;
 }
 
 .dc-default .marker.registered {
-  background: #917ff4;
-  border: 1px solid #5932ea;
+	background: #917ff4;
+	border: 1px solid #5932ea;
 }
 
 .dc-default .marker.active {
-  background: #4bc475;
-  border: 1px solid #269e00;
+	background: #4bc475;
+	border: 1px solid #269e00;
 }
 
 .dc-default .marker.stopped {
-  background: rgb(220, 53, 69);
-  border: 1px solid rgb(220, 53, 69);
+	background: rgb(220, 53, 69);
+	border: 1px solid rgb(220, 53, 69);
 }
 
 .dc-default .marker.connected {
-  background: rgb(255, 193, 7);
-  border: 1px solid rgb(255, 193, 7);
+	background: rgb(255, 193, 7);
+	border: 1px solid rgb(255, 193, 7);
+}
+
+.dc-default .drone_details {
+	margin-top: 20px;
+}
+
+
+.dc-default .drone_details .drone_chars > p.title {
+	margin-bottom: 5px;
+	font-weight: bold;
+}
+
+.dc-default .drone_details .drone_chars > p {
+	margin: 0;
+}
+
+.dc-default .drone_details .drone_chars {
+	margin-bottom: 10px;
 }
