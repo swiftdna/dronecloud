@@ -20,9 +20,6 @@ module.exports = function(sequelize, Sequelize) {
         service: {
             type: Sequelize.TEXT
         },
-        brand: {
-            type: Sequelize.TEXT
-        },
         model: {
             type: Sequelize.TEXT
         },
@@ -43,12 +40,6 @@ module.exports = function(sequelize, Sequelize) {
         },
         status: {
             type: Sequelize.TEXT
-        },
-        availablefrom: {
-            type: Sequelize.DATE
-        },
-        availabletill: {
-            type: Sequelize.DATE
         },
         created: {
             type: Sequelize.DATE
