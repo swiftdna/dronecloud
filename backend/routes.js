@@ -2,8 +2,8 @@ const express = require('express');
 const passport = require('passport');
 const router = express.Router();
 const { getUserDetails, updateUserDetails} = require('./modules/UserProfile');
-const { getDronePaths, registerDrone, deleteDrone, getDrones,getDroneLastSeenLocations } = require('./modules/SimulatorInteraction');
-const { getDroneDetails,filterDroneDetails } = require('./modules/Drones');
+const { getDronePaths, registerDrone, deleteDrone, getAllDrones, getDroneLastSeenLocations, getDroneLastSeenLocationsOld } = require('./modules/SimulatorInteraction');
+const { getDrones,filterDroneDetails } = require('./modules/Drones');
 const pusher = (req, res, next) => {
   let {model, model: {data: response}} = req;
   if (model && response) {
@@ -21,14 +21,15 @@ router.get('/', isLoggedIn, (req, res) => {
 	res.json({success: true, message: 'Welcome to API page!'});
 });
 
-router.get('/drone', isLoggedIn, getDroneDetails, pusher);
+router.get('/drones', isLoggedIn, getDrones, pusher);
 router.post('/drone/filter', isLoggedIn, filterDroneDetails, pusher);
 router.get('/users/:user_id', isLoggedIn, getUserDetails);
 router.put('/users/profile', isLoggedIn, updateUserDetails);
 
 router.get('/tracking/drones/:id', isLoggedIn, getDronePaths, pusher);
+router.get('/tracking/drones', isLoggedIn, getDrones, getDroneLastSeenLocations, pusher);
 
-router.get('/ext/drones', isLoggedIn, getDrones, getDroneLastSeenLocations, pusher);
+router.get('/ext/drones', isLoggedIn, getAllDrones, getDroneLastSeenLocationsOld, pusher);
 router.post('/ext/drone', isLoggedIn, registerDrone, pusher);
 router.delete('/ext/drone/:id', isLoggedIn, deleteDrone, pusher);
 

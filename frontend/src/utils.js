@@ -31,7 +31,7 @@ export function fetchProfile(dispatch, userObj) {
 
 export function getAdminDroneList(dispatch) {
     dispatch(adminDroneTrackingLoading());
-    axios.get(`/api/ext/drones`)
+    axios.get(`/api/tracking/drones`)
         .then(response => {
             dispatch(handleAdminDroneTrackingResponse(response));
         });
