@@ -80,8 +80,10 @@ export default function DroneBookingCatalog() {
             service:drone.service,
             equipment:drone.equipment,
             price:drone.price,
-            dronedatetime:dronedatetime
-  
+            dronedatetime:dronedatetime,
+            fromdate:fromdate,
+            todate:todate,
+
           })
         );
     }

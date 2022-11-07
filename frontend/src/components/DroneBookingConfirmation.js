@@ -33,7 +33,15 @@ export default function DroneBookingConfirmation() {
   console.log(total,bookingid)
   useEffect( () => {
     
-    axios.get(`/api/dronebooking`)
+    axios.post(`/api/drone/booking`,{
+      user_id:1,
+      drone_id:14551,
+      land_id:1,
+      farm_id:1,
+      pilot_id:1,
+      start_date:1,
+      end_date:1,
+    })
       .then(response => {
         
       });
