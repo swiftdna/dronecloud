@@ -20,12 +20,6 @@ module.exports = function(sequelize, Sequelize) {
         },
         license_number: {
             type: Sequelize.TEXT
-        },
-        created: {
-            type: Sequelize.DATE
-        },
-        updated: {
-            type: Sequelize.DATE
         }
     });
     return PilotInfo;

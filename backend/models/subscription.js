@@ -21,12 +21,6 @@ module.exports = function(sequelize, Sequelize) {
         },
         next_sub_date: {
             type: Sequelize.DATE
-        },
-        created: {
-            type: Sequelize.DATE
-        },
-        updated: {
-            type: Sequelize.DATE
         }
     });
     return Subscription;
