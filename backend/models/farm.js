@@ -17,12 +17,6 @@ module.exports = function(sequelize, Sequelize) {
         },
         address: {
             type: Sequelize.TEXT
-        },
-        created: {
-            type: Sequelize.DATE
-        },
-        updated: {
-            type: Sequelize.DATE
         }
     });
     return Farm;
