@@ -1,4 +1,5 @@
-import React from "react";
+import {React,useEffect} from "react";
+import { v1 as uuidv1 } from 'uuid';
 import { makeStyles } from "@material-ui/core/styles";
 import {   Routes, Route, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { Row, Col, Form, Card, Badge, Spinner } from 'react-bootstrap';
@@ -7,6 +8,7 @@ import {  Button } from 'react-bootstrap';
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(1),
@@ -17,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function DroneBookingConfirmation() {
   const classes = useStyles();
+  const bookingid = uuidv1();
   const name = useSelector((store) =>store.bookdrone.name);
   const farmtype = useSelector((store) =>store.bookdrone.farmtype);
   const equipment = useSelector((store) =>store.bookdrone.equipment);
@@ -25,14 +28,25 @@ export default function DroneBookingConfirmation() {
   const service = useSelector((store) =>store.bookdrone.service);
   const manufacturer = useSelector((store) =>store.bookdrone.manufacturer);
   const dronedatetime = useSelector((store) =>store.bookdrone.dronedatetime);
+  const total = 55+price
 
+  console.log(total,bookingid)
+  useEffect( () => {
+    
+    axios.get(`/api/dronebooking`)
+      .then(response => {
+        
+      });
+  } , []);
   return (
+    
     <div>
            <img src="Step5.png"width="300" height="50" />
            <h3>Step 5: Booking Confirmation
            </h3>
-           <h4>Bookind ID:</h4>
-      Your Booking is Confirmed, please review the booking details<br></br><br></br>
+      Your Booking is Confirmed, please review the booking details<br></br>
+
+      <span style={{fontSize:"20px"}}>Booking ID</span><br></br> <span style={{fontSize:"15px"}}>  <b>{bookingid}</b></span>
       <Card style={{ width:'13rem',height:'85px',marginLeft:'13px' }}  >
       
 
@@ -72,42 +86,42 @@ export default function DroneBookingConfirmation() {
                       
                             <tr>
                               <td>Drone Cost </td>
-                              <td>$80</td>
+                              <td>${price}</td>
 
                             </tr>
                             <tr>
                               <td>Hours Flights per day</td>
-                              <td>$80</td>
+                              <td>$10</td>
                               
                             </tr>
                             <tr>
                               <td>Hours Service Operations per day</td>
-                              <td>$80</td>
+                              <td>$5</td>
                               
                             </tr>
                             <tr>
                               <td>Service</td>
-                              <td>$80</td>
+                              <td>$10</td>
                               
                             </tr>
                             <tr>
                               <td>Equipment</td>
-                              <td>$80</td>
+                              <td>$0</td>
                               
                             </tr>
                             <tr>
                               <td>Shipping</td>
-                              <td>$80</td>
+                              <td>$10</td>
                               
                             </tr>
                             <tr>
                               <td>Materials</td>
-                              <td>$80</td>
+                              <td>$10</td>
                               
                             </tr>
                             <tr>
                               <td><b>Total Price</b></td>
-                              <td>$80</td>
+                              <td>${total}</td>
                               
                             </tr>
                         </table>
