@@ -23,12 +23,6 @@ module.exports = function(sequelize, Sequelize) {
         },
         location_lng: {
             type: Sequelize.FLOAT
-        },
-        created: {
-            type: Sequelize.DATE
-        },
-        updated: {
-            type: Sequelize.DATE
         }
     });
     return Farm;

@@ -18,11 +18,11 @@ import { clearToast } from '../actions/app-actions';
 import DroneCatalog from './DroneCatalog';
 import FarmerInfo1 from "./FarmerInfo1";
 import FarmInfo1 from "./FarmInfo1";
+import Contact from './Contact';
 import {LandOwner} from "./LandOwner";
 import {IDInfo} from "./IDInfo";
 import {UtilityBill} from "./UtilityBill";
 import {BillingInfo} from "./BillingInfo";
-import Contact from "./Contact";
 
 //Create a Main Component
 export function Main() {
@@ -74,10 +74,8 @@ export function Main() {
                 <Route path="/IDInfo" element={<IDInfo />} />
                 <Route path="/UtilityBill" element={<UtilityBill />} />
                 <Route path="/BillingInfo" element={<BillingInfo />} />
-                <Route path="/Contact" element={<Contact />} />
               <Route path="admin/*" element={<Admin />} />
-          
-              
+              <Route path="/contact" element={<Contact />} />
               <Route path="/*" element={<LandingPage />} />
             </Routes>
             {location.pathname !== '/login' && <Footer />}

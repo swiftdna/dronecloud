@@ -5,9 +5,6 @@ module.exports = function(sequelize, Sequelize) {
             primaryKey: true,
             type: Sequelize.INTEGER
         },
-        name: {
-            type: Sequelize.TEXT
-        },
         manufacturer: {
             type: Sequelize.TEXT
         },
@@ -40,12 +37,6 @@ module.exports = function(sequelize, Sequelize) {
         },
         status: {
             type: Sequelize.TEXT
-        },
-        created: {
-            type: Sequelize.DATE
-        },
-        updated: {
-            type: Sequelize.DATE
         }
     });
     return Drone;

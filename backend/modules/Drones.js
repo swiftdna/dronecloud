@@ -1,21 +1,28 @@
 const sequelize = require('sequelize')
 const Op = sequelize.Op
 
-const getDroneDetails = async (req, res, next) => {
+const getDrones = async (req, res, next) => {
     const { models: { drone: Drone } } = COREAPP;
     try {
-		const droneData = await Drone.findAll({
-		});
+		const droneData = await Drone.findAll({raw: true});
         req.model = {};
-        req.model.data = droneData;
-        //console.log(req.model.data)
+        req.model.data = {
+            success: true,
+            data: droneData
+        };
         return next();
-    }
-    catch {
-        console.log('error for drones data');
+    } catch(e) {
+        req.model.data = {
+            success: false,
+            data: {
+                message: "Unable to fetch all drones data",
+                err: e.message
+            }
+        };
         return next();
     }
 };
+
 const filterDroneDetails = async (req, res, next) => {
     const { models: { drone: Drone } } = COREAPP;
     try {
@@ -46,6 +53,6 @@ const filterDroneDetails = async (req, res, next) => {
     }
 };
 module.exports = {
-    getDroneDetails,
+    getDrones,
     filterDroneDetails
 };

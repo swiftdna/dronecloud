@@ -45,12 +45,6 @@ module.exports = function(sequelize, Sequelize) {
         },
         end_date: {
             type: Sequelize.DATE
-        },
-        created: {
-            type: Sequelize.DATE
-        },
-        updated: {
-            type: Sequelize.DATE
         }
     });
     return Booking;

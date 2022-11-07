@@ -45,12 +45,6 @@ module.exports = function(sequelize, Sequelize) {
         },
         zipcode: {
             type: Sequelize.INTEGER
-        },
-        created: {
-            type: Sequelize.DATE
-        },
-        updated: {
-            type: Sequelize.DATE
         }
     });
     return User;
