@@ -212,6 +212,10 @@
 .dc-default a:hover {
 	color: #dedede;
 }
+
+.dc-default.navbar .nav-buttons.active {
+	background-color: rgba(255, 255, 255, .2);
+}
 /*
 .dc-default.navbar > .container {
   margin-top: 10px;
@@ -222,29 +226,25 @@
 	border: none;
 	color: #ffffff;
 	font-size: 18px;
+	outline: none;
 }
 
-.dc-default .btn.btn-light:hover {
+.dc-default .btn.btn-light.active {
+	box-shadow: none;
+}
+
+.dc-default .btn.btn-light:not(.active):hover {
 	color: #dedede;
 }
 
 .dc-default .btn.btn-primary {
-
-	/* background-color: #1a3447;
-	padding: 8px 12px; */
-
 	background-color: #1a3447;
 	border-color: #1a3447;
-	
-
 }
 
 .dc-default .btn.btn-secondary {
 	background-color: #b9b9c3;
 	border-color: #b9b9c3;
-
-
-
 }
 
 .dc-default .btn {
