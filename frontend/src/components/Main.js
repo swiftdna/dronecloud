@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  Routes,
-  Route
-} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Login from './Login';
 import Navbar from './Navbar';
 import Footer from './Footer';
@@ -19,6 +16,13 @@ import {Toast, ToastContainer} from 'react-bootstrap';
 import { selectAlertFlag, selectToastFlag, selectAlertMessage, selectAlertType, selectIsLoggedIn } from '../selectors/appSelector';
 import { clearToast } from '../actions/app-actions';
 import DroneCatalog from './DroneCatalog';
+import FarmerInfo1 from "./FarmerInfo1";
+import FarmInfo1 from "./FarmInfo1";
+import {LandOwner} from "./LandOwner";
+import {IDInfo} from "./IDInfo";
+import {UtilityBill} from "./UtilityBill";
+import {BillingInfo} from "./BillingInfo";
+import Contact from "./Contact";
 
 //Create a Main Component
 export function Main() {
