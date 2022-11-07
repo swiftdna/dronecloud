@@ -131,6 +131,8 @@ function DroneCatalog() {
         
             </div>
                   </div>
+      </div>
+      </div>
           
           
             
