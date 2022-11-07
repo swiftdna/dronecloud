@@ -5,13 +5,23 @@ export const bookSlice = createSlice({
   initialState: {
     farmtype: null,
     id:null,
-    name:null
+    name:null,
+    manufacturer:null,
+    service:null,
+    equipment:null,
+    price:null,
+    dronedatetime:null
   },
   reducers: {
     bookdrone: (state, action) => {
       state.farmtype = action.payload.farmtype
       state.id = action.payload.id
       state.name = action.payload.name
+      state.price = action.payload.price
+      state.manufacturer = action.payload.manufacturer
+      state.service = action.payload.service
+      state.equipment = action.payload.equipment
+      state.dronedatetime = action.payload.dronedatetime
     },
    
     

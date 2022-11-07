@@ -1,12 +1,15 @@
 import {React, useState,useEffect} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {   Routes, Route, NavLink, useNavigate, useLocation } from 'react-router-dom';
+import { Row, Col, Form, Card, Badge, Spinner } from 'react-bootstrap';
 import {  Button } from 'react-bootstrap';
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import "../components/css/DroneBookingCatalog.css"
 import { Link } from "react-router-dom";
 import DateTimePicker from 'react-datetime-picker';
+import { useDispatch,useSelector } from "react-redux";
+import {bookdrone, booking} from "../reducers/bookSlice";
 import AllDrone from "./AllDrone";
 import axios from 'axios';
 
@@ -34,7 +37,8 @@ export default function DroneBookingCatalog() {
   const [searchitemslist,setSearchItemsList] = useState([])
   const [fromdate,setfromDate] = useState("");
   const [todate,settoDate] = useState("");
-
+  const [selectedDrone, setSelectedDrone] = useState("");
+  const farmtype = useSelector((store) =>store.bookdrone.farmtype);
 
   const filterSubmit = (e) => {
     e.preventDefault();
@@ -63,6 +67,24 @@ export default function DroneBookingCatalog() {
 
       });
   } , []);
+  const dispatch = useDispatch();
+     const selectDrone = (drone) => {
+      setSelectedDrone(drone.id);
+        console.log("clicked",drone);
+        dispatch(
+          bookdrone({
+            id:drone.id,
+            name:drone.name,
+            farmtype:farmtype,
+            manufacturer:drone.manufacturer,
+            service:drone.service,
+            equipment:drone.equipment,
+            price:drone.price,
+            dronedatetime:dronedatetime
+  
+          })
+        );
+    }
   return (
     
     <div>
@@ -163,7 +185,7 @@ export default function DroneBookingCatalog() {
                 <br></br>
             </ul>
             <div className="dronedisplay">
-            <ul>
+            {/* <ul> */}
               {/* {
             <div className="row">
                  
@@ -193,12 +215,33 @@ export default function DroneBookingCatalog() {
                 ))} </div> 
              } 
                 </div> } */}
-                {allitemslist&&    <div className="row">
+                
+                {/* {allitemslist&&    <div className="row">
          {allitemslist.map((drone) => (
                   <AllDrone key={drone.name} dronedetails={drone}></AllDrone>
                 //  console.log("asdasd",drone)
                 ))} </div> }
-            </ul>
+//             </ul> */}
+
+<div className="drones_list">
+                {allitemslist.length && allitemslist.map(drone => 
+                    <Card style={{ width: '13rem' }}  className={selectedDrone === drone.id ? "selected" : ""} onClick={() => selectDrone(drone)} >
+                      <Card.Body>
+                        <Card.Title>{drone.name}</Card.Title>
+                        <Card.Subtitle className="mb-2 text-muted">Drone ID: {drone.id}</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted">Drone Price: {drone.price}</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted">Drone Equipment: {drone.equipment}</Card.Subtitle>
+                        {/* <Card.Subtitle className="mb-2 text-muted">Drone Manufacturer: {drone.equipment}</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted">Drone Service:{drone.equipment}</Card.Subtitle> */}
+                        <Card.Text>
+                          {/* <Badge bg={drone.status ? statusColors[drone.status] : "primary"}>{capitalizeFirst(drone.status)}</Badge> */}
+                        </Card.Text>
+                      </Card.Body>
+                    </Card>
+                   
+           
+                )}
+            </div>
 
             </div>
 
