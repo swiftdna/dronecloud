@@ -3,7 +3,7 @@ const { makeHTTPRequest } = require('./ExtCall');
 const _ = require('underscore');
 
 const registerDrone = async (req, res, next) => {
-    const { body } = req;
+    const { body, internal } = req;
     const path = `/flight_data_collect/register-drone/`;
     const httpParams = {
         host,
@@ -12,6 +12,9 @@ const registerDrone = async (req, res, next) => {
         form: body
     };
     const result = await makeHTTPRequest(httpParams);
+    if (internal) {
+        return result;
+    }
     req.model.data = {success: true, data: result};
     return next();
 };
@@ -21,7 +24,7 @@ const updateDrone = async (params) => {
 };
 
 const deleteDrone = async (req, res, next) => {
-    const {params : { id }} = req;
+    const {params : { id }, internal} = req;
     const path = `/flight_data_collect/delete-drone/`;
     const httpParams = {
         host,
@@ -32,6 +35,9 @@ const deleteDrone = async (req, res, next) => {
         }
     };
     const result = await makeHTTPRequest(httpParams);
+    if (internal) {
+        return result;
+    }
     req.model.data = {success: true, data: result};
     return next();
 };

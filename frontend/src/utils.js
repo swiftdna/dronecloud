@@ -62,6 +62,46 @@ export function getPendingMgmtDrones(dispatch, params) {
         });
 }
 
+export function registerDrone(dispatch, id, callback) {
+    axios.post(`/api/drones/${id}/register`)
+        .then(response => {
+            const {data} = response;
+            if (data.success) {
+                dispatch(setToast({
+                    type: 'success',
+                    message: 'Drone registered successfully!'
+                }));
+                return callback(true);
+            } else {
+                dispatch(setToast({
+                    type: 'failure',
+                    message: 'Unable to register drone. Try again later'
+                }));
+                return callback(false);
+            }
+        });
+}
+
+export function deregisterDrone(dispatch, id, callback) {
+    axios.post(`/api/drones/${id}/deregister`)
+        .then(response => {
+            const {data} = response;
+            if (data.success) {
+                dispatch(setToast({
+                    type: 'success',
+                    message: 'Drone deregistered successfully!'
+                }));
+                return callback(true);
+            } else {
+                dispatch(setToast({
+                    type: 'failure',
+                    message: 'Unable to deregister drone. Try again later'
+                }));
+                return callback(false);
+            }
+        });
+}
+
 export function capitalizeFirst(str){
     return str.charAt(0).toUpperCase() + str.slice(1);
 }

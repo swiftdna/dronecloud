@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { MdOutlineClose } from 'react-icons/md';
 import { FaTrashAlt } from 'react-icons/fa';
-import { getManagementDrones, capitalizeFirst, getPendingMgmtDrones } from '../utils';
+import { getManagementDrones, capitalizeFirst, getPendingMgmtDrones, registerDrone, deregisterDrone } from '../utils';
 import { Row, Col, Form, Button, Spinner, Table } from 'react-bootstrap';
 
 function DroneManagement() {
@@ -22,9 +22,9 @@ function DroneManagement() {
 
     useEffect(() => {
         if (isLoggedIn) {
-            getManagementDrones(dispatch, { status: 'registered'});
+            getManagementDrones(dispatch, { status: 'available,booked,deployed'});
             if (addView) {
-                getPendingMgmtDrones(dispatch, { status: 'added'});
+                getPendingMgmtDrones(dispatch, { status: 'added,deleted'});
             }
         }
     }, [isLoggedIn]);
@@ -40,7 +40,7 @@ function DroneManagement() {
     }
 
     const fetchAddedDrones = () => {
-        getPendingMgmtDrones(dispatch, { status: 'added'});
+        getPendingMgmtDrones(dispatch, { status: 'added,deleted'});
     }
 
     const selectChanged = (e) => {
@@ -52,12 +52,20 @@ function DroneManagement() {
         }
     }
 
-    const registerDrone = () => {
-        console.log('selected bf sub -> ', selected);
+    const regDrone = () => {
+        registerDrone(dispatch, selected.id, () => {
+            getManagementDrones(dispatch, { status: 'available,booked,deployed'});
+            setSelected(null);
+            exitAddView();
+        });
     }
 
-    const deregisterDrone = (drone) => {
-        console.log('deregister bf del -> ', drone);
+    const deregDrone = (drone) => {
+        deregisterDrone(dispatch, drone.id, (successFlag) => {
+            if (successFlag) {
+                getManagementDrones(dispatch, { status: 'available,booked,deployed'});
+            }
+        });
     }
     
     return(
@@ -93,7 +101,7 @@ function DroneManagement() {
                   <td>{drone.model}</td>
                   <td>{drone.manufacturer}</td>
                   <td>{capitalizeFirst(drone.status)}</td>
-                  <td align="center"><FaTrashAlt style={{color: '#de0000'}} onClick={() => deregisterDrone(drone)} /></td>
+                  <td align="center"><FaTrashAlt style={{color: '#de0000', cursor: 'pointer'}} onClick={() => deregDrone(drone)} /></td>
                 </tr>
                 )}
               </tbody>
@@ -106,13 +114,13 @@ function DroneManagement() {
                     {loadingPending ? <Spinner animation="border" role="status">
                       <span className="visually-hidden">Loading...</span>
                     </Spinner> : ''}
-                    {!loadingPending && addedDrones && addedDrones.length && 
+                    {!loadingPending && addedDrones && addedDrones.length ?
                         <Form.Select aria-label="Default select example" onChange={e => selectChanged(e)}>
                           <option value="">Select one</option>
                           {addedDrones.map(drone =>
                             <option key={drone.id} value={drone.id}>{drone.id} - {drone.manufacturer} {drone.model}</option>
                           )}
-                        </Form.Select>
+                        </Form.Select> : ''
                     }
                     {!loadingPending && selected && selected.id ?
                         <div className="selected_pending_list">
@@ -125,10 +133,10 @@ function DroneManagement() {
                     {!loadingPending && selected && selected.id ?
                         <div className="text-center button_panel">
                             <Button variant="secondary" onClick={() => exitAddView()}>Cancel</Button>
-                            <Button variant="primary" onClick={() => registerDrone()}>Register</Button>
+                            <Button variant="primary" onClick={() => regDrone()}>Register</Button>
                         </div>: ''}
                     {!loadingPending && (!addedDrones || !addedDrones.length) ? 
-                        <p>No drones available to register. Check back later</p> : ''
+                        <p style={{padding: '0'}}>No drones available to register. Check back later</p> : ''
                     } 
                 </Row>
             </div> : ''}
