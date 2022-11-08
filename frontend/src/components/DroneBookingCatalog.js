@@ -93,7 +93,7 @@ export default function DroneBookingCatalog() {
            <img src="Step2.png"width="300" height="50" />
            <h3>Step 2: Drone Catalog</h3>
       Select a service and choose your done <br></br><br></br>
-        
+        <div>
             <ul >
                     
                  <li class="dronebookdropdown" >
@@ -167,19 +167,15 @@ export default function DroneBookingCatalog() {
                 </li>
                 <br></br><br></br>
                 
-                  <div className="dateinput">
                   <li class="dronebookdropdown">
                       <input className="form-date"  type="date"  onChange={(event) => {
             setfromDate(event.target.value);
           }}/>
                       </li>
-                  </div>
-                  <div className="dateinput"> 
                 <input  className="form-date"  type="date"  onChange={(event) => {
             settoDate(event.target.value);
           }}/>
                 
-                  </div>
                
               <div className="gobutton">
                 <button class="button button2" onClick={filterSubmit} style = {{padding: "10px"}}> Go</button>
@@ -246,9 +242,10 @@ export default function DroneBookingCatalog() {
             </div>
 
             </div>
-
+            </div>
            <div className="navigation">
             <ul>
+              
                 <li className="navigationbutton">
                 <button class="button button1"> <Link to="/book-drone" >Back</Link>
                 </button> 

@@ -1,12 +1,14 @@
-import { React, useState } from 'react';
+import { React, useState,useEffect } from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 import {   Routes, Route, NavLink, useNavigate, useLocation } from 'react-router-dom';
+import { Row, Col, Form, Card, Badge, Spinner } from 'react-bootstrap';
+
 import {  Button } from 'react-bootstrap';
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import "../components/css/BookDrone.css";
 import DroneBookingCatalog from "./DroneBookingCatalog";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector  } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import {bookdrone, booking} from "../reducers/bookSlice";
@@ -27,9 +29,11 @@ const setGrid = (grid) => {
 
 }
 
+
 function GridItem1({ classes }) {
-   
+
   return (
+    
     // From 0 to 600px wide (smart-phones), I take up 12 columns, or the whole device width!
     // From 600-690px wide (tablets), I take up 6 out of 12 columns, so 2 columns fit the screen.
     // From 960px wide and above, I take up 25% of the device (3/12), so 4 columns fit the screen.
@@ -85,7 +89,47 @@ function GridItem2({ classes }) {
     );
   }
   
+
+
+  
 export default function BookDrone() {
+ const farmdetails = ["1","2","3","1","2","3","1","2","3"]
+  const name = useSelector((store) =>store.bookdrone.name);
+  const farmtype = useSelector((store) =>store.bookdrone.farmtype);
+  const equipment = useSelector((store) =>store.bookdrone.equipment);
+  const id = useSelector((store) =>store.bookdrone.id);
+  const price = useSelector((store) =>store.bookdrone.price);
+  const service = useSelector((store) =>store.bookdrone.service);
+  const manufacturer = useSelector((store) =>store.bookdrone.manufacturer);
+  const dronedatetime = useSelector((store) =>store.bookdrone.dronedatetime);
+  const userid = useSelector((store) =>store.app.user.id);
+  const [allitemslist,setAllItemsList] = useState([]);
+  const [selectedFarmtype, setSelectedFarmtype] = useState("");  
+  const [selectedFarmID, setSelectedFarmID] = useState("");  
+  console.log(userid)
+
+  const selectFarm = (farm) => {
+    
+    console.log("&&&&&&&&&&&&",farm)
+    setSelectedFarmtype(farm.name)
+    setSelectedFarmID(farm.id)
+    dispatch(
+      bookdrone({
+      
+        farmtype:selectedFarmtype,
+      }))
+  }
+
+  
+  useEffect( () => {
+    
+    axios.post(`/api/farmuser`)
+      .then(response => {
+        console.log("donrappppi------------",response.data.data)
+        setAllItemsList(response.data.data)
+      });
+  } , []);
+    console.log()
     const dispatch = useDispatch();
     const [droneid, setDroneid] = useState('');
     const [dronename, setDronename] = useState('');
@@ -111,13 +155,27 @@ export default function BookDrone() {
         <img src="Step1.png"width="300" height="50" />
       <h3>Step 1: Select Farmland Type: </h3>
       Please select the farm land you would like the drone to service on:
-      <br></br>
-      <Grid container spacing={1}>
+      <br></br><br></br>
+      {/* <Grid container spacing={1}>
         <GridItem1  classes={classes} />
         <GridItem2  classes={classes} /><br></br>
         <GridItem3  classes={classes} />
         <GridItem4  classes={classes} />
-      </Grid>
+      </Grid> */}
+       <div className="farm_list">
+                
+                {allitemslist&& allitemslist.map(drone => 
+                    <Card className="farm_disp" style={{ width: '13rem' }} className={selectedFarmID === drone.id ? "" : "selected"}  onClick={() =>  selectFarm (drone)} >
+                      <Card.Body>
+                        <Card.Title> </Card.Title>
+                        <Card.Subtitle className="mb-2 text-muted">{drone.name} </Card.Subtitle>
+                        <Card.Text>
+                          {/* <Badge bg={drone.status ? statusColors[drone.status] : "primary"}>{capitalizeFirst(drone.status)}</Badge> */}
+                        </Card.Text>
+                      </Card.Body>
+                </Card>
+                )}
+            </div>
       <br></br>
         {/* <Routes>
             <Route path="/drone-catalog" element={<DroneBookingCatalog />} />

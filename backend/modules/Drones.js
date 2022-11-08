@@ -74,9 +74,33 @@ const BookingDroneDetails = async (req, res, next) => {
         return next();
     }
 };
+const FarmUserDroneDetails = async (req, res, next) => {
+    const { models: {farm : Farm } } = COREAPP;
+    try {
+        console.log("@@@@@@@@@@@@@@@@@",req.body)
+		// const bookingData = await Booking.findAll({
+        //  raw:true
+		// });
+        const droneFarm = await Farm.findAll({
+            raw:true
+		});
+        console.log("dorne",droneFarm)
+        req.model = {};
+        req.model.data = {
+            sucess: true,
+            data: droneFarm
+        };
+        return next();
+    }
+    catch(e) {
+        console.log('error for drones data',e.message);
+        return next();
+    }
+};
 
 module.exports = {
     getDroneDetails,
     filterDroneDetails,
-    BookingDroneDetails
+    BookingDroneDetails,
+    FarmUserDroneDetails
 };
