@@ -47,7 +47,7 @@ function AddDrone() {
          }).catch((err)=>{
              console.log(err);
          })
-         
+         navigate("/admin/addDrone2")
         }
 const addDrone2=()=>{
     navigate("/admin/addDrone2")
@@ -104,6 +104,7 @@ const addDrone2=()=>{
                     id="drone-picture"
                     aria-describedby="image"
                     onChange={uploadImage}
+                    style={{margin:"20px",width:"100px",align:"center"}}
                   />
                 <br>
                 </br>
