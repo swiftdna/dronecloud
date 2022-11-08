@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import { selectIsLoggedIn, selectUser } from '../selectors/appSelector';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -6,7 +6,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import "../CSS/dronecatalog.css";
 import {Link} from "react-router-dom";
- 
+import axios  from 'axios';
 
 function DroneCatalog() {
     const dispatch = useDispatch();
@@ -14,17 +14,57 @@ function DroneCatalog() {
     const userObj = useSelector(selectUser);
     const navigate = useNavigate();
     const userLandedPage = useLocation();
+    const [drones,setDrones]=useState([]);
     
 
     useEffect(() => {
         if (isLoggedIn) {
             console.log('DroneCatalog === user logged in!');
         }
+        getProducts();  
     }, [isLoggedIn]);
+    const getProducts=() =>{
+      axios.get('http://localhost:3000/api/droneCatalog/getDrones')
+      .then((response) =>{
+        console.log(response);
+        if(response.data.success){
+         
+            setDrones([...drones, ...response.data.result])
+            console.log(drones.length);
+             
+        }else{
+          alert("failed to fetch Drones")
+        }
+      })
+    }
     
     const navigateAdd = () => {
         navigate("/admin/addDrone");
     };
+    const renderCards = drones.map((drone) => {
+      
+            {/* <div className="col-md-4 mb-4"> */}
+            <div className="card" style={{height:"fit-content",width:"350px"}}>
+          
+              <div className="card-body">
+                  <div className="card-header" >
+                <h5 className="card-title">{drone.name}</h5>
+                <img style={{width:"100px",height:"100px", float:"right-top"}} src="https://blogs.icrc.org/law-and-policy/wp-content/uploads/sites/102/2022/03/Drone-image-1096x620.jpg" alt="" />
+                </div>
+                {/* <p style={{marginTop:"10px"}} className='heading-dronecatalog'>3-axis gimble</p> */}
+                <p className='heading-dronecatalog'>{drone.camera}</p>
+                <p className='heading-dronecatalog'>30 minute flight time</p>
+                <p className='heading-dronecatalog'>8 m/s flight speed</p>
+                <p className='heading-dronecatalog'>249 grams</p>
+                <div style={{display:"inline"}}>
+                <h4 style={{float:"left"}}>$180 / hour</h4>
+                <Link to={`/`} className="btn btn-edit">edit</Link>
+                </div>
+          </div>
+            </div>
+         
+
+    })
 
     
     return(
@@ -72,48 +112,19 @@ function DroneCatalog() {
             <p className='heading-dronecatalog'>3 drones found</p>
             
             <div className="cards">
-            {/* <div className="col-md-4 mb-4"> */}
-            <div className="card" style={{height:"fit-content",width:"350px"}}>
-          
-              <div className="card-body">
-                  <div className="card-header" >
-                <h5 className="card-title">DJI mini SE Data collection</h5>
-                <img style={{width:"100px",height:"100px", float:"right-top"}} src="https://blogs.icrc.org/law-and-policy/wp-content/uploads/sites/102/2022/03/Drone-image-1096x620.jpg" alt="" />
+            {drones.length === 0 ?
+                <div style={{ display: 'flex', height: '300px', justifyContent: 'center', alignItems: 'center' }}>
+                    <h2>No post yet...</h2>
+                </div> :
+                <div className="container-fluid mx-1">
+                <div className="row mt-5 mx-1">
+                  <div className="col-md-15">
+                    <div className="row">{renderCards}</div>
+                  </div>
                 </div>
-                <p style={{marginTop:"10px"}} className='heading-dronecatalog'>3-axis gimble</p>
-                <p className='heading-dronecatalog'>2.7k camera</p>
-                <p className='heading-dronecatalog'>30 minute flight time</p>
-                <p className='heading-dronecatalog'>8 m/s flight speed</p>
-                <p className='heading-dronecatalog'>249 grams</p>
-                <div style={{display:"inline"}}>
-                <h4 style={{float:"left"}}>$180 / hour</h4>
-                <Link to={`/`} className="btn btn-edit">edit</Link>
-                </div>
-          </div>
-            </div>
-            {/* </div> */}
+              </div>
+              } 
             
-        {/* <div className="col-md-4 mb-4"> */}
-            <div className="card" style={{height:"fit-content",width:"350px", marginLeft:"20px"}}>
-          
-             
-              
-              <div className="card-body">
-                  <div className="card-header" >
-                <h5 className="card-title">DJI mini SE Data collection</h5>
-                <img style={{width:"100px",height:"100px", float:"right-top"}} src="https://blogs.icrc.org/law-and-policy/wp-content/uploads/sites/102/2022/03/Drone-image-1096x620.jpg" alt="" />
-                </div>
-                <p style={{marginTop:"10px"}} className='heading-dronecatalog'>3-axis gimble</p>
-                <p className='heading-dronecatalog'>2.7k camera</p>
-                <p className='heading-dronecatalog'>30 minute flight time</p>
-                <p className='heading-dronecatalog'>8 m/s flight speed</p>
-                <p className='heading-dronecatalog'>249 grams</p>
-                <div style={{display:"inline"}}>
-                <h4 style={{float:"left"}}>$180 / hour</h4>
-                <Link to={`/`} className="btn btn-edit">edit</Link>
-                </div>
-          </div>
-            </div>
             <div className="card add-new" style={{height:"305px",width:"200px",marginLeft:"20px"}} onClick={navigateAdd}>
                 <h4>Add a new drone</h4>
                 <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">

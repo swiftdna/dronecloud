@@ -4,7 +4,7 @@ import "../CSS/addDrone.css"
 import axios  from 'axios';
 import { useNavigate} from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
-import { uploadImageToCloud } from '../utils';
+import { addDrone, uploadImageToCloud } from '../utils';
 function AddDrone() {
     const navigate=useNavigate()
    
@@ -41,12 +41,14 @@ function AddDrone() {
        formData.time = time;
       formData.service = service;
        formData.price = price;
+       const result=await addDrone(formData);
+       console.log(result);
 
-       axios.post("http://localhost:3000/api/droneCatalog/add", formData).then((res)=>{
-             console.log(res);
-         }).catch((err)=>{
-             console.log(err);
-         })
+      //  axios.post("http://localhost:3000/api/droneCatalog/add", formData).then((res)=>{
+      //        console.log(res);
+      //    }).catch((err)=>{
+      //        console.log(err);
+      //    })
          navigate("/admin/addDrone2")
         }
 const addDrone2=()=>{

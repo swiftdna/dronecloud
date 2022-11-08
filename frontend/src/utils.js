@@ -105,3 +105,15 @@ export function uploadImageToCloud(file) {
       formData
     );
 }
+export function addDrone(formData){
+    axios.post("http://localhost:3000/api/droneCatalog/add", formData).then((res)=>{
+        if(res.data.success){
+             console.log("success");
+             return (true);
+        }
+         }).catch((err)=>{
+             console.log(err);
+         })
+    
+
+}

@@ -29,6 +29,24 @@ const addDrone = async (req, res, next) => {
   }
 };
 
+const getDrone = async (req,res,next)=>{
+  const { models: { drone: Drone } } = COREAPP;
+  try{
+    console.log("hi");
+    const drones= await Drone.findAll();
+
+  console.log(drones);
+  if(drones){
+  res.send({success:true, result:drones});
+  
+  }
+}catch(err){
+  console.log(err);
+  return next();
+}
+} 
+
 module.exports = {
-	addDrone
+	addDrone,
+  getDrone
 };
