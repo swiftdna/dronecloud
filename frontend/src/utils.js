@@ -94,14 +94,14 @@ export function checkSession(dispatch) {
         });
 }
 
-export function uploadImageToCloud(dispatch, file) {
+export function uploadImageToCloud(file) {
     const formData = new FormData()
     formData.append('file', file)
     formData.append('cloud_name', 'dylqg3itm')
-    formData.append('upload_preset', 'j8gp4zov')
+    formData.append('upload_preset', 'ld9mmcgj')
 
     return axios.post(
-      'https://api.cloudinary.com/v1_1/dac0hzhv5/image/upload',
+      'https://api.cloudinary.com/v1_1/dylqg3itm/image/upload',
       formData
     );
 }

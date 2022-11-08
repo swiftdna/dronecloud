@@ -3,7 +3,7 @@ import { Navigate } from 'react-router'
 import "../CSS/addDrone.css"
 import axios  from 'axios';
 import { useNavigate} from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { uploadImageToCloud } from '../utils';
 function AddDrone() {
     const navigate=useNavigate()
@@ -11,7 +11,7 @@ function AddDrone() {
     const [name,setName]=useState(" ");
     const [brand,setBrand]=useState(" ");
     const [camera,setCamera]=useState("");
-    const [image,setImage]=useState();
+    const [image,setImage]=useState("");
    const [speed,setSpeed]=useState(0);
    const [weight,setWeight]=useState(0);
    const [time,setTime]=useState(0);
@@ -19,41 +19,30 @@ function AddDrone() {
    const [price,setPrice]=useState(0);
    const uploadImage = async (e) => {
 		e.preventDefault();
-		const res = await uploadImageToCloud( e.target.files[0]);
+		const res = await uploadImageToCloud(e.target.files[0]);
 		  // console.log(res.data.secure_url);
 		const {data: {secure_url}} = res;
 		if (secure_url) {
-			
-				console.log("image uploaded sucessfully");
-		
-		}
-		;
+				console.log("image uploaded sucessfully - ", secure_url);
+		};
 		setImage(secure_url);
-		
     }
    const handleUserData=async()=>
    {
        //e.preventDefault();
        
-       var formData = new FormData();
-       
-       //formData.append("image", image);
-       
-       formData.append("droneName", name);
-       formData.append("brand", brand);
- 
-       formData.append("camera", camera);
-       formData.append("speed", speed);
-       formData.append("weight", weight);
-       formData.append("time",time);
+       var formData = {};
+       formData.image_url= image;
+       formData.droneName = name;
+       formData.brand = brand;
+        formData.camera = camera;
+       formData.speed = speed;
+       formData.weight = weight;
+       formData.time = time;
+      formData.service = service;
+       formData.price = price;
 
-       formData.append("service",service)
-       formData.append("price",price)
-       console.log(formData.get("price"));
-
-       axios.post("http://localhost:3000/api/droneCatalog/add", formData, {
-        headers: { "content-Type": "multipart/form-data" },
-       }).then((res)=>{
+       axios.post("http://localhost:3000/api/droneCatalog/add", formData).then((res)=>{
              console.log(res);
          }).catch((err)=>{
              console.log(err);
@@ -110,13 +99,12 @@ const addDrone2=()=>{
           setPrice(event.target.value);
         }}></input>
                 <p className='DroneDetails'>Upload image</p>
-                <input
-                type="file"
-                name="droneImage"
-                id="drone-picture"
-                onChange={uploadImage}
-                
-                />
+                <Form.Control
+                    type="file"
+                    id="drone-picture"
+                    aria-describedby="image"
+                    onChange={uploadImage}
+                  />
                 <br>
                 </br>
                 <button variant="secondary" className='dc-default btn btn-secondary m20'>Back</button>

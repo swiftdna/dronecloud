@@ -46,6 +46,9 @@ module.exports = function(sequelize, Sequelize) {
         },
         time:{
             type:Sequelize.INTEGER
+        },
+        image_url: {
+            type:Sequelize.TEXT
         }
     });
     return Drone;
