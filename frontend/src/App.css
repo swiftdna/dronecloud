@@ -353,8 +353,10 @@
 }
 
 .dc-default .farm_list > .farm_disp {
-	flex: 0 1 24%;
-	margin: 5px 0;
+	flex: -22 1 30%;
+    margin: 45px 99px;
+    height: 217px;
+
 }
 
 .dc-default .drones_list {
@@ -389,18 +391,20 @@
 }
 
 .dc-default .farm_list > .card.selected {
-	background-color: #5932ea;
+	background-color: #f6f6f8;
 	color: #5932ea;
+	margin: 35px 99px;
 }
 
 .dc-default .farm_list > .card.selected:hover {
 	cursor: default;
 	color: #5932ea;
+	
 }
 
 .dc-default .farm_list > .card:not(.selected):hover {
 	cursor: pointer;
-	background-color: #f1dfdf;
+	background-color: #dbd6ef;
 	color: #5932ea;
 }
 

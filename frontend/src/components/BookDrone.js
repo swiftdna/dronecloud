@@ -106,18 +106,39 @@ export default function BookDrone() {
   const [allitemslist,setAllItemsList] = useState([]);
   const [selectedFarmtype, setSelectedFarmtype] = useState("");  
   const [selectedFarmID, setSelectedFarmID] = useState("");  
+  const [selectedfarmimage, setSelectedFarmImage] = useState("");  
+
   console.log(userid)
 
   const selectFarm = (farm) => {
     
-    console.log("&&&&&&&&&&&&",farm)
+    console.log("&&&&&&&&&&&&",farm.type)
     setSelectedFarmtype(farm.name)
     setSelectedFarmID(farm.id)
+    // if(farm.type==="stock"){
+    //   setSelectedFarmImage("live-stock.jpeg")
+
+    // }
+    // if(farm.type==="fruit"){
+    //   setSelectedFarmImage("fruit-crop.jpeg")
+
+
+    // }
+    // if(farm.type==="nursery"){
+    //   setSelectedFarmImage("crop-farm.jpeg")
+
+    // }
+    // if(farm.type==="crop"){
+    // setSelectedFarmImage("crop-farm.jpeg")
+
+    // }
+    
     dispatch(
       bookdrone({
       
         farmtype:selectedFarmtype,
       }))
+      console.log(selectedfarmimage)
   }
 
   
@@ -165,15 +186,18 @@ export default function BookDrone() {
        <div className="farm_list">
                 
                 {allitemslist&& allitemslist.map(drone => 
-                    <Card className="farm_disp" style={{ width: '13rem' }} className={selectedFarmID === drone.id ? "" : "selected"}  onClick={() =>  selectFarm (drone)} >
-                      <Card.Body>
+                    <Card  style={{ width: '13rem' }} className={selectedFarmID === drone.id ? "selected" : "farm_disp"}  onClick={() =>  selectFarm (drone)} >
+                      
+                      <Card.Body style={{backgroundImage: "url(" + drone.type + ".jpeg )"}}>
                         <Card.Title> </Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted">{drone.name} </Card.Subtitle>
+                        {/* <Card.Subtitle className="mb-2 text-muted">{drone.name} </Card.Subtitle> */}
                         <Card.Text>
                           {/* <Badge bg={drone.status ? statusColors[drone.status] : "primary"}>{capitalizeFirst(drone.status)}</Badge> */}
                         </Card.Text>
                       </Card.Body>
+                      <Card.Subtitle className="mb-2 text-muted"  ><span style={{color:'white',background: "#898f95"}}> {drone.name} </span> </Card.Subtitle>
                 </Card>
+                
                 )}
             </div>
       <br></br>
