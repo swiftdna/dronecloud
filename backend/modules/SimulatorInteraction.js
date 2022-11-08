@@ -112,7 +112,7 @@ const getDroneLastSeenLocations = async (req, res, next) => {
         method: 'GET'
     };
     const result = await makeHTTPRequest(params);
-    const formattedData = result && typeof result === 'string' ? JSON.parse(result) : {};
+    const formattedData = result && typeof result === 'string' ? JSON.parse(result) : result;
     const lastSeenLocationData = formattedData && formattedData.tracking_data ? formattedData.tracking_data : [];
     const lastSeenLocationDataMap = {};
     for (let i = 0; i < lastSeenLocationData.length; i++) {

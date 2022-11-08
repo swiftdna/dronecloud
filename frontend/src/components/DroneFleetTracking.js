@@ -25,7 +25,7 @@ function DroneFleetTracking() {
     const navigate = useNavigate();
     const userLandedPage = useLocation();
     const statusColors = {
-        registered: "primary",
+        available: "primary",
         active: "success",
         stopped: "danger",
         connected: "warning"
