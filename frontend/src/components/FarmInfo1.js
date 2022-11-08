@@ -28,16 +28,8 @@ export default function FarmInfo1() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const submitRegister = () => {
-        console.log('regForm => ', regForm);
-        register(dispatch, regForm, (err, successFlag) => {
-            if (successFlag) {
-                dispatch(setAlert({
-                    type: 'success',
-                    message: 'Farm details updated, click next'
-                }));
-                navigate('/Farmer_addFarmDetails2');
-            }
-        });
+        console.log('Farmer details updated, click next')
+        navigate('/LandOwner');
     };
     const goBack = () => {
         navigate('/FarmerInfo1');
