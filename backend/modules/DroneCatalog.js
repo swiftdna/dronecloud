@@ -1,8 +1,8 @@
 const multer=require('multer');
-const drone_catalog=require('./models/drone_catalog');
+
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, '../etsyfrontend/src/uploads')
+        cb(null, '../../frontend/public')
     },
     filename: (req, file, cb)=>{
         const mimeExtension={
@@ -29,61 +29,46 @@ var upload = multer({
 }
 })
 const addDrone = async (req, res, next) => {
+  const { models: { drone: Drone } } = COREAPP;
     try {
-        let upload = multer({ storage: storage }).single("droneImage");
+      console.log("hi");
+        // let upload = multer({ storage: storage }).single("droneImage");
   
-        upload(req, res, function (err) {
-            console.log("image name"+req.file);
-          if (!req.file) {
-            return res.send("Please select an image to upload");
-          } else if (err instanceof multer.MulterError) {
-            return res.send(err);
-          } else if (err) {
-            return res.send(err);
-          }
+        // upload(req, res, function (err) {
+        //     console.log("image name"+req.file);
+        //   if (!req.file) {
+        //     return res.send("Please select an image to upload");
+        //   } else if (err instanceof multer.MulterError) {
+        //     return res.send(err);
+        //   } else if (err) {
+        //     return res.send(err);
+        //   }
     
+         
+          const name = req.body.droneName;
+          const brand = req.body.brand;
+          const camera = req.body.camera;
+          const speed = req.body.speed;
+          const weight = req.body.weight;
+          const price = req.body.price;
+          const time = req.body.time;
+          const service = req.body.service;
           
-          const name = req.body.name;
-          const brand = req.body.itemDescription;
-          const camera = req.body.itemPrice;
-          const speed = req.body.itemCount;
-          const weight = req.file.filename;
-          const price = req.body.itemCategory;
-          const time=req.body.id;
-          const service=req.params.shop;
-          
-          dbConnection.query(
-            "INSERT INTO drone_catalog (name, manufacturer, camera, speed, weight, price, time, service) VALUES (?, ?, ?, ?, ?, ?,?, ?)",
-            [
+        const droneDetails= await Drone.create({manufacturer:brand},
+         {model:name},
+          {camera:camera},
+          {speed:speed},
+          {weight:weight},
+          {price:price},
+          {time:time},
+          {service:service});
             
-              name,
-              brand,
-              camera,
-              speed,
-              weight,
-              price,
-              time,
-              service
-  
-            ],
-            (err, result) => {
-              if (err) {
-                console.log(err);
-                res.send({ message: "error" });
-              } else {
-                res.send({ message: "success" });
-              }
-            }
-          );
-        });
+          res.send ( {success : true});
+        
       } catch (err) {
         console.log(err);
       }
     }
-
-
-
-
 
 module.exports = {
 	addDrone

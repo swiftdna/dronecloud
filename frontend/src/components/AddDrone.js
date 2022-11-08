@@ -4,7 +4,7 @@ import "../CSS/addDrone.css"
 import axios  from 'axios';
 import { useNavigate} from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-
+import { uploadImageToCloud } from '../utils';
 function AddDrone() {
     const navigate=useNavigate()
    
@@ -17,14 +17,27 @@ function AddDrone() {
    const [time,setTime]=useState(0);
    const [service,setService]=useState("");
    const [price,setPrice]=useState(0);
-  
+   const uploadImage = async (e) => {
+		e.preventDefault();
+		const res = await uploadImageToCloud( e.target.files[0]);
+		  // console.log(res.data.secure_url);
+		const {data: {secure_url}} = res;
+		if (secure_url) {
+			
+				console.log("image uploaded sucessfully");
+		
+		}
+		;
+		setImage(secure_url);
+		
+    }
    const handleUserData=async()=>
    {
        //e.preventDefault();
        
        var formData = new FormData();
        
-       formData.append("image", image);
+       //formData.append("image", image);
        
        formData.append("droneName", name);
        formData.append("brand", brand);
@@ -36,10 +49,10 @@ function AddDrone() {
 
        formData.append("service",service)
        formData.append("price",price)
-       
+       console.log(formData.get("price"));
 
-       axios.post("http://localhost:3000/droneCatalog/add", formData, {
-         headers: { "content-Type": "multipart/form-data" },
+       axios.post("http://localhost:3000/api/droneCatalog/add", formData, {
+        headers: { "content-Type": "multipart/form-data" },
        }).then((res)=>{
              console.log(res);
          }).catch((err)=>{
@@ -101,9 +114,7 @@ const addDrone2=()=>{
                 type="file"
                 name="droneImage"
                 id="drone-picture"
-                onChange={(event) => {
-                  setImage(event.target.files[0]);
-                }}
+                onChange={uploadImage}
                 
                 />
                 <br>

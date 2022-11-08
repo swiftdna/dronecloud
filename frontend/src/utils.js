@@ -97,7 +97,7 @@ export function checkSession(dispatch) {
 export function uploadImageToCloud(dispatch, file) {
     const formData = new FormData()
     formData.append('file', file)
-    formData.append('cloud_name', 'dac0hzhv5')
+    formData.append('cloud_name', 'dylqg3itm')
     formData.append('upload_preset', 'j8gp4zov')
 
     return axios.post(

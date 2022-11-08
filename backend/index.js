@@ -5,6 +5,8 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const app = express();
+const formidable = require('express-formidable');
+app.use(formidable());
 const routes = require('./routes');
 const {injectModel} = require('./modules/utils');
 require('dotenv').config();
@@ -14,11 +16,12 @@ const mysqlConnect = require('./config/mysql_connect');
 const jwtSecret = require('./config/jwtConfig');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
-
+app.use(express.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true, parameterLimit: 1000000}));
 //For BodyParser
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
+// app.use(bodyParser.urlencoded({
+//     extended: true
+// }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
@@ -33,8 +36,17 @@ app.use(session({
 })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
-
-app.use('/api', routes);
+app.use((req, res, next) => {
+res.header('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 
+  'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+  );
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
+});
+  app.use('/api', routes);
 COREAPP = {};
 //Sync Database
 

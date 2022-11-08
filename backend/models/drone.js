@@ -32,11 +32,20 @@ module.exports = function(sequelize, Sequelize) {
         distance_flown: {
             type: Sequelize.FLOAT
         },
-        battery: {
-            type: Sequelize.FLOAT
-        },
         status: {
             type: Sequelize.TEXT
+        },
+        camera:{
+            type: Sequelize.TEXT
+        },
+        speed:{
+            type:Sequelize.INTEGER
+        },
+        weight: {
+            type:Sequelize.INTEGER
+        },
+        time:{
+            type:Sequelize.INTEGER
         }
     });
     return Drone;
