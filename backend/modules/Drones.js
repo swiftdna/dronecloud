@@ -3,8 +3,9 @@ const Op = sequelize.Op
 
 const getDrones = async (req, res, next) => {
     const { models: { drone: Drone } } = COREAPP;
+    const { query } = req;
     try {
-		const droneData = await Drone.findAll({raw: true});
+		const droneData = await Drone.findAll({where:{...query}, raw: true});
         req.model = {};
         req.model.data = {
             success: true,

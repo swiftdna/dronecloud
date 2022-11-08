@@ -460,3 +460,24 @@
 .m20{
 	margin: 20px;
 }
+
+.dc-default .selected_pending_list {
+	margin-top: 30px;
+}
+
+.dc-default .selected_pending_list > p:not(.title) {
+	margin: 0;
+}
+
+.dc-default .selected_pending_list > p.title {
+	margin-bottom: 2px;
+	font-weight: bold;
+}
+
+.dc-default .button_panel {
+	margin-top: 20px;
+}
+
+.dc-default .button_panel > .btn:not(:first-child) {
+	margin-left: 10px;
+}

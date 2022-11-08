@@ -14,7 +14,7 @@ function LiveTracker(props) {
 
 	const containerStyle = {
       width: '100%',
-      height: '690px'
+      height: '490px'
     };
 
 	const { isLoaded } = useJsApiLoader({

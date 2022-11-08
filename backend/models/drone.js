@@ -32,9 +32,6 @@ module.exports = function(sequelize, Sequelize) {
         distance_flown: {
             type: Sequelize.FLOAT
         },
-        battery: {
-            type: Sequelize.FLOAT
-        },
         status: {
             type: Sequelize.TEXT
         }

@@ -1,5 +1,6 @@
 import { profileLoading, handleProfilesResponse } from './actions/app-profile';
 import { handleLoginResponse, setToast, handleCountriesResponse } from './actions/app-actions';
+import { droneMgmtLoading, handleDroneMgmtResponse, pendingDronesLoading, handlePendingDronesResponse } from './actions/app-drones-mgmt';
 import { adminDroneTrackingLoading, handleAdminDroneTrackingResponse, adminDroneIDTrackingLoading, handleAdminDroneIDTrackingResponse } from './actions/app-admin-drone-tracking';
 // import { useNavigate } from 'react-router-dom';
 
@@ -42,6 +43,22 @@ export function getAdminDroneDetails(dispatch, drone_id) {
     axios.get(`/api/tracking/drones/${drone_id}`)
         .then(response => {
             dispatch(handleAdminDroneIDTrackingResponse(drone_id, response));
+        });
+}
+
+export function getManagementDrones(dispatch, params) {
+    dispatch(droneMgmtLoading());
+    axios.get(`/api/drones`, { params })
+        .then(response => {
+            dispatch(handleDroneMgmtResponse(response));
+        });
+}
+
+export function getPendingMgmtDrones(dispatch, params) {
+    dispatch(pendingDronesLoading());
+    axios.get(`/api/drones`, { params })
+        .then(response => {
+            dispatch(handlePendingDronesResponse(response));
         });
 }
 
