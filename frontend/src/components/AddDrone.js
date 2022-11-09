@@ -42,13 +42,6 @@ function AddDrone() {
       formData.service = service;
        formData.price = price;
        const result=await addDrone(formData);
-       console.log(result);
-
-      //  axios.post("http://localhost:3000/api/droneCatalog/add", formData).then((res)=>{
-      //        console.log(res);
-      //    }).catch((err)=>{
-      //        console.log(err);
-      //    })
          navigate("/admin/addDrone2")
         }
 const addDrone2=()=>{

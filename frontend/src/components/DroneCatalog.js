@@ -24,7 +24,7 @@ function DroneCatalog() {
         getProducts();  
     }, [isLoggedIn]);
     const getProducts=() =>{
-      axios.get('http://localhost:3000/api/droneCatalog/getDrones')
+      axios.get('/api/droneCatalog/getDrones')
       .then((response) =>{
         console.log(response);
         if(response.data.success){
