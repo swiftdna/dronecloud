@@ -1,11 +1,12 @@
 const sequelize = require('sequelize');
+const _ = require('underscore');
 const drone = require('../models/drone');
 const Op = sequelize.Op;
 const { registerDrone, deleteDrone } = require('./SimulatorInteraction');
 
 const getDrones = async (req, res, next) => {
     const { models: { drone: Drone } } = COREAPP;
-    const { query } = req;
+    const { query, internal } = req;
     for (let key in query) {
         if (query[key].indexOf(',')) {
             query[key] = {
@@ -15,6 +16,9 @@ const getDrones = async (req, res, next) => {
     }
     try {
 		const droneData = await Drone.findAll({where:{...query}, raw: true});
+        if (internal) {
+            return droneData;
+        }
         req.model = {};
         req.model.data = {
             success: true,
@@ -189,9 +193,70 @@ const deregisterUAV = async (req, res, next) => {
     }
 };
 
+const getAvailableDrones = async (req, res, next) => {
+    const { from, to, service, price, equipment, brand } = req;
+    const droneReq = {
+        query: {
+            status: 'available,deployed,booked'
+        },
+        internal: true
+    };
+    if (service) {
+        droneReq.query = {
+            ...droneReq.query,
+            service
+        };
+    }
+    if (equipment) {
+        droneReq.query = {
+            ...droneReq.query,
+            equipment
+        };
+    }
+    if (price) {
+        droneReq.query = {
+            ...droneReq.query,
+            price: {
+                [Op.lte]: price
+            }
+        };
+    }
+    if (equipment) {
+        droneReq.query = {
+            ...droneReq.query,
+            equipment
+        };
+    }
+    if (brand) {
+        droneReq.query = {
+            ...droneReq.query,
+            manufacturer: brand
+        };
+    }
+    try {
+        const dronesData = await getDrones(droneReq);
+        console.log(dronesData);
+        const AllDroneIDs = _.pluck(dronesData, 'id');
+        req.model.data = {
+            success: true,
+            data: AllDroneIDs
+        };
+        return next();
+    } catch(e) {
+        req.model.data = {
+            success: false,
+            data: {
+                message: e.message
+            }
+        };
+        return next();
+    }
+};
+
 module.exports = {
     getDrones,
     registerUAV,
     deregisterUAV,
-    filterDroneDetails
+    filterDroneDetails,
+    getAvailableDrones
 };
