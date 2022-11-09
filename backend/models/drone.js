@@ -34,6 +34,21 @@ module.exports = function(sequelize, Sequelize) {
         },
         status: {
             type: Sequelize.TEXT
+        },
+        camera:{
+            type: Sequelize.TEXT
+        },
+        speed:{
+            type:Sequelize.INTEGER
+        },
+        weight: {
+            type:Sequelize.INTEGER
+        },
+        time:{
+            type:Sequelize.INTEGER
+        },
+        image_url: {
+            type:Sequelize.TEXT
         }
     });
     return Drone;

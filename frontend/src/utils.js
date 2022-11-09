@@ -154,14 +154,26 @@ export function checkSession(dispatch) {
         });
 }
 
-export function uploadImageToCloud(dispatch, file) {
+export function uploadImageToCloud(file) {
     const formData = new FormData()
     formData.append('file', file)
-    formData.append('cloud_name', 'dac0hzhv5')
-    formData.append('upload_preset', 'j8gp4zov')
+    formData.append('cloud_name', 'dylqg3itm')
+    formData.append('upload_preset', 'ld9mmcgj')
 
     return axios.post(
-      'https://api.cloudinary.com/v1_1/dac0hzhv5/image/upload',
+      'https://api.cloudinary.com/v1_1/dylqg3itm/image/upload',
       formData
     );
+}
+export function addDrone(formData){
+    axios.post("/api/droneCatalog/add", formData).then((res)=>{
+        if(res.data.success){
+             console.log("success");
+             return (true);
+        }
+         }).catch((err)=>{
+             console.log(err);
+         })
+    
+
 }
