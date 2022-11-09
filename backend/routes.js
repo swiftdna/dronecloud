@@ -2,9 +2,11 @@ const express = require('express');
 const passport = require('passport');
 const router = express.Router();
 const { getUserDetails, updateUserDetails} = require('./modules/UserProfile');
-const { filterDroneDetails,BookingDroneDetails,FarmUserDroneDetails,getDrones, registerUAV, deregisterUAV  } = require('./modules/Drones');
 const { getDronePaths, registerDrone, deleteDrone, getAllDrones, getDroneLastSeenLocations, getDroneLastSeenLocationsOld } = require('./modules/SimulatorInteraction');
-const {addDrone,getDrone} =require('./modules/DroneCatalog');
+const { getDrones, filterDroneDetails, registerUAV, deregisterUAV, getAvailableDrones, FarmUserDroneDetails } = require('./modules/Drones');
+const { BookingDroneDetails } = require('./modules/Booking');
+const { addDrone, getDrone } = require('./modules/DroneCatalog');
+
 const pusher = (req, res, next) => {
   let {model, model: {data: response}} = req;
   if (model && response) {
@@ -22,16 +24,19 @@ router.get('/', isLoggedIn, (req, res) => {
 	res.json({success: true, message: 'Welcome to API page!'});
 });
 
-router.get('/drones', isLoggedIn, getDrones, pusher);
-router.post('/drone/filter', isLoggedIn, filterDroneDetails, pusher);
+
 router.post('/drone/booking', isLoggedIn, BookingDroneDetails, pusher);
 router.post('/farmuser', isLoggedIn, FarmUserDroneDetails, pusher);
 
 router.get('/users/:user_id', isLoggedIn, getUserDetails);
 router.put('/users/profile', isLoggedIn, updateUserDetails);
+
+router.post('/drone/filter', isLoggedIn, filterDroneDetails, pusher);
+router.get('/drones', isLoggedIn, getDrones, pusher);
+router.post('/drone/filter', isLoggedIn, filterDroneDetails, pusher);
 router.post('/drones/:id/register', isLoggedIn, registerUAV, pusher);
 router.post('/drones/:id/deregister', isLoggedIn, deregisterUAV, pusher);
-
+router.get('/drones/availability', isLoggedIn, getAvailableDrones, pusher);
 
 router.get('/tracking/drones/:id', isLoggedIn, getDronePaths, pusher);
 router.get('/tracking/drones', isLoggedIn, getDrones, getDroneLastSeenLocations, pusher);
@@ -39,8 +44,10 @@ router.get('/tracking/drones', isLoggedIn, getDrones, getDroneLastSeenLocations,
 router.get('/ext/drones', isLoggedIn, getAllDrones, getDroneLastSeenLocationsOld, pusher);
 router.post('/ext/drone', isLoggedIn, registerDrone, pusher);
 router.delete('/ext/drone/:id', isLoggedIn, deleteDrone, pusher);
+
 router.post('/droneCatalog/add',addDrone);
 router.get('/droneCatalog/getDrones',getDrone);
+
 router.get('/session', isLoggedIn, async (req, res, next) => {
   if (req.user) {
     const {user} = req;

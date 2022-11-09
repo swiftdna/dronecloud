@@ -1,11 +1,14 @@
 const sequelize = require('sequelize');
+const _ = require('underscore');
+const moment = require('moment');
 const drone = require('../models/drone');
 const Op = sequelize.Op;
 const { registerDrone, deleteDrone } = require('./SimulatorInteraction');
+const { getBookings } = require('./Booking');
 
 const getDrones = async (req, res, next) => {
     const { models: { drone: Drone } } = COREAPP;
-    const { query } = req;
+    const { query, internal } = req;
     for (let key in query) {
         if (query[key].indexOf(',')) {
             query[key] = {
@@ -15,6 +18,9 @@ const getDrones = async (req, res, next) => {
     }
     try {
 		const droneData = await Drone.findAll({where:{...query}, raw: true});
+        if (internal) {
+            return droneData;
+        }
         req.model = {};
         req.model.data = {
             success: true,
@@ -62,35 +68,7 @@ const filterDroneDetails = async (req, res, next) => {
         return next();
     }
 };
-const BookingDroneDetails = async (req, res, next) => {
-    const { models: { booking: Booking } } = COREAPP;
-    try {
-        console.log("@@@@@@@@@@@@@@@@@",req.body,req.body.user_id)
-		// const bookingData = await Booking.findAll({
-        //  raw:true
-		// });
-        const bookingData = await Booking.create({
-            user_id:req.body.user_id,
-            drone_id:req.body.drone_id,
-            land_id:req.body.land_id,
-            farm_id:req.body.farm_id,
-            pilot_id:req.body.pilot_id,
-            start_date:req.body.start_date,
-            end_date:req.body.end_dates,
-           });
-        console.log(bookingData)
-        req.model = {};
-        req.model.data = {
-            sucess: true,
-            data: bookingData
-        };
-        return next();
-    }
-    catch(e) {
-        console.log('error for drones data',e.message);
-        return next();
-    }
-};
+
 const FarmUserDroneDetails = async (req, res, next) => {
     const { models: {farm : Farm } } = COREAPP;
     try {
@@ -114,8 +92,6 @@ const FarmUserDroneDetails = async (req, res, next) => {
         return next();
     }
 };
-
-    
 
 const registerUAV = async (req, res, next) => {
     const { models: { drone: Drone } } = COREAPP;
@@ -242,12 +218,99 @@ const deregisterUAV = async (req, res, next) => {
     }
 };
 
+const getAvailableDrones = async (req, res, next) => {
+    const { from, to, service, price, equipment, brand } = req.query;
+    const droneReq = {
+        query: {
+            status: 'available,deployed,booked'
+        },
+        internal: true
+    };
+    if (service) {
+        droneReq.query = {
+            ...droneReq.query,
+            service
+        };
+    }
+    if (equipment) {
+        droneReq.query = {
+            ...droneReq.query,
+            equipment
+        };
+    }
+    if (price) {
+        droneReq.query = {
+            ...droneReq.query,
+            price: {
+                [Op.lte]: price
+            }
+        };
+    }
+    if (equipment) {
+        droneReq.query = {
+            ...droneReq.query,
+            equipment
+        };
+    }
+    if (brand) {
+        droneReq.query = {
+            ...droneReq.query,
+            manufacturer: brand
+        };
+    }
+    try {
+        const dronesData = await getDrones(droneReq);
+        const allDroneIDs = _.pluck(dronesData, 'id');
+        let bookingParams = {
+            query: {
+                drone_id: {
+                    [Op.in]: allDroneIDs
+                }
+            },
+            internal: true
+        };
+        if (from && to) {
+            bookingParams.query = {
+                ...bookingParams.query,
+                [Op.or]: [
+                    {
+                        start_date: {
+                            [Op.between]: [moment.unix(from).format('YYYY-MM-DD HH:mm:ss'), moment.unix(to).format('YYYY-MM-DD HH:mm:ss')]
+                        }
+                    },
+                    {
+                        end_date: {
+                            [Op.between]: [moment.unix(from).format('YYYY-MM-DD HH:mm:ss'), moment.unix(to).format('YYYY-MM-DD HH:mm:ss')]
+                        }
+                    }
+                ]
+            }
+        }
+        const bookingsData = await getBookings(bookingParams);
+        const bookedDroneIDs = _.pluck(bookingsData, 'drone_id');
+        const availableDroneIDs = allDroneIDs.filter(droneID => bookedDroneIDs.indexOf(droneID) === -1);
+        const availableDrones = dronesData.filter(drone => availableDroneIDs.indexOf(drone.id) !== -1);
+        req.model.data = {
+            success: true,
+            data: availableDrones
+        };
+        return next();
+    } catch(e) {
+        req.model.data = {
+            success: false,
+            data: {
+                message: e.message
+            }
+        };
+        return next();
+    }
+};
+
 module.exports = {
     getDrones,
     registerUAV,
     deregisterUAV,
+    getAvailableDrones,
     filterDroneDetails,
-    filterDroneDetails,
-    BookingDroneDetails,
     FarmUserDroneDetails,
 };
