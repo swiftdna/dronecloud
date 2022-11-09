@@ -5,9 +5,6 @@ module.exports = function(sequelize, Sequelize) {
             primaryKey: true,
             type: Sequelize.INTEGER
         },
-        name: {
-            type: Sequelize.TEXT
-        },
         manufacturer: {
             type: Sequelize.TEXT
         },
@@ -35,17 +32,23 @@ module.exports = function(sequelize, Sequelize) {
         distance_flown: {
             type: Sequelize.FLOAT
         },
-        battery: {
-            type: Sequelize.FLOAT
-        },
         status: {
             type: Sequelize.TEXT
         },
-        created: {
-            type: Sequelize.DATE
+        camera:{
+            type: Sequelize.TEXT
         },
-        updated: {
-            type: Sequelize.DATE
+        speed:{
+            type:Sequelize.INTEGER
+        },
+        weight: {
+            type:Sequelize.INTEGER
+        },
+        time:{
+            type:Sequelize.INTEGER
+        },
+        image_url: {
+            type:Sequelize.TEXT
         }
     });
     return Drone;

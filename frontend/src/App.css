@@ -212,6 +212,10 @@
 .dc-default a:hover {
 	color: #dedede;
 }
+
+.dc-default.navbar .nav-buttons.active {
+	background-color: rgba(255, 255, 255, .2);
+}
 /*
 .dc-default.navbar > .container {
   margin-top: 10px;
@@ -222,9 +226,14 @@
 	border: none;
 	color: #ffffff;
 	font-size: 18px;
+	outline: none;
 }
 
-.dc-default .btn.btn-light:hover {
+.dc-default .btn.btn-light.active {
+	box-shadow: none;
+}
+
+.dc-default .btn.btn-light:not(.active):hover {
 	color: #dedede;
 }
 
@@ -263,6 +272,7 @@
 	text-align: left;
 	height: 50px;
 	padding: 12px 16px;
+	border-radius: 8px;
 }
 
 .dc-default > .nav-item:not(:last-child) {
@@ -270,14 +280,12 @@
 }
 
 .dc-default > .nav-item > a:hover {
-	border-radius: 8px;
 	background-color: #dedede;
 }
 
 .dc-default > .nav-item > a.active {
 	background-color: #1a3447;
 	color: #ffffff;
-	border-radius: 8px;
 }
 
 .dc-default .right-contents {
@@ -483,4 +491,28 @@
 
 .dc-default .drone_details .drone_chars {
 	margin-bottom: 10px;
+}
+.m20{
+	margin: 20px;
+}
+
+.dc-default .selected_pending_list {
+	margin-top: 30px;
+}
+
+.dc-default .selected_pending_list > p:not(.title) {
+	margin: 0;
+}
+
+.dc-default .selected_pending_list > p.title {
+	margin-bottom: 2px;
+	font-weight: bold;
+}
+
+.dc-default .button_panel {
+	margin-top: 20px;
+}
+
+.dc-default .button_panel > .btn:not(:first-child) {
+	margin-left: 10px;
 }

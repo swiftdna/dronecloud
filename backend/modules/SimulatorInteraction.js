@@ -3,7 +3,7 @@ const { makeHTTPRequest } = require('./ExtCall');
 const _ = require('underscore');
 
 const registerDrone = async (req, res, next) => {
-    const { body } = req;
+    const { body, internal } = req;
     const path = `/flight_data_collect/register-drone/`;
     const httpParams = {
         host,
@@ -12,6 +12,9 @@ const registerDrone = async (req, res, next) => {
         form: body
     };
     const result = await makeHTTPRequest(httpParams);
+    if (internal) {
+        return result;
+    }
     req.model.data = {success: true, data: result};
     return next();
 };
@@ -21,7 +24,7 @@ const updateDrone = async (params) => {
 };
 
 const deleteDrone = async (req, res, next) => {
-    const {params : { id }} = req;
+    const {params : { id }, internal} = req;
     const path = `/flight_data_collect/delete-drone/`;
     const httpParams = {
         host,
@@ -32,6 +35,9 @@ const deleteDrone = async (req, res, next) => {
         }
     };
     const result = await makeHTTPRequest(httpParams);
+    if (internal) {
+        return result;
+    }
     req.model.data = {success: true, data: result};
     return next();
 };
@@ -49,7 +55,7 @@ const getDronePaths = async (req, res, next) => {
     return next();
 };
 
-const getDrones = async (req, res, next) => {
+const getAllDrones = async (req, res, next) => {
     const path = `/flight_data_collect/get-drones/`;
     const params = {
         host,
@@ -61,9 +67,9 @@ const getDrones = async (req, res, next) => {
     return next();
 };
 
-const getDroneLastSeenLocations = async (req, res, next) => {
+const getDroneLastSeenLocationsOld = async (req, res, next) => {
     const {data} = req.model.data;
-    const dataCleansed = JSON.parse(data);
+    const dataCleansed = data && typeof data === 'string' ? JSON.parse(data) : data;
     const ids = _.pluck(dataCleansed, 'drone_id');
     const path = `/flight_data_collect/get-recent-tracking/${ids.join(',')}`;
     const params = {
@@ -95,11 +101,46 @@ const getDroneLastSeenLocations = async (req, res, next) => {
     return next();
 };
 
+const getDroneLastSeenLocations = async (req, res, next) => {
+    const {data} = req.model.data;
+    const dataCleansed = data && typeof data === 'string' ? JSON.parse(data) : data;
+    const ids = _.pluck(dataCleansed, 'id');
+    const path = `/flight_data_collect/get-recent-tracking/${ids.join(',')}`;
+    const params = {
+        host,
+        path,
+        method: 'GET'
+    };
+    const result = await makeHTTPRequest(params);
+    const formattedData = result && typeof result === 'string' ? JSON.parse(result) : result;
+    const lastSeenLocationData = formattedData && formattedData.tracking_data ? formattedData.tracking_data : [];
+    const lastSeenLocationDataMap = {};
+    for (let i = 0; i < lastSeenLocationData.length; i++) {
+        lastSeenLocationDataMap[lastSeenLocationData[i].drone_id] = lastSeenLocationData[i];
+    }
+    for (let i = 0; i < dataCleansed.length; i++) {
+        if (dataCleansed[i].id && lastSeenLocationDataMap[dataCleansed[i].id]) {
+            dataCleansed[i].last_seen = {
+                lat: lastSeenLocationDataMap[dataCleansed[i].id].latitude,
+                lng: lastSeenLocationDataMap[dataCleansed[i].id].longitude,
+                alt: lastSeenLocationDataMap[dataCleansed[i].id].altitude,
+            }
+        }
+    }
+    req.model.data = {
+        ...req.model.data,
+        data: dataCleansed
+    };
+    // req.model.data = {success: true, data: result};
+    return next();
+};
+
 module.exports = {
 	registerDrone,
     updateDrone,
     deleteDrone,
     getDronePaths,
-    getDrones,
-    getDroneLastSeenLocations
+    getAllDrones,
+    getDroneLastSeenLocations,
+    getDroneLastSeenLocationsOld
 };

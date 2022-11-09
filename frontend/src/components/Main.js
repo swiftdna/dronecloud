@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  Routes,
-  Route
-} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Login from './Login';
 import Navbar from './Navbar';
 import Footer from './Footer';
@@ -19,6 +16,13 @@ import {Toast, ToastContainer} from 'react-bootstrap';
 import { selectAlertFlag, selectToastFlag, selectAlertMessage, selectAlertType, selectIsLoggedIn } from '../selectors/appSelector';
 import { clearToast } from '../actions/app-actions';
 import DroneCatalog from './DroneCatalog';
+import FarmerInfo1 from "./FarmerInfo1";
+import FarmInfo1 from "./FarmInfo1";
+import Contact from './Contact';
+import {LandOwner} from "./LandOwner";
+import {IDInfo} from "./IDInfo";
+import {UtilityBill} from "./UtilityBill";
+import {BillingInfo} from "./BillingInfo";
 
 //Create a Main Component
 export function Main() {
@@ -64,8 +68,14 @@ export function Main() {
               {/* <Route path="/home" element={isAuthenticated ? <Home /> : <Login />} /> */}
               {/* <Route path="/profile" element={isAuthenticated ? <Profile /> : <Login />} /> */}
               <Route path="/register" element={<Register />} />
+                <Route path="/FarmerInfo1" element={<FarmerInfo1 />} />
+                <Route path="/FarmInfo1" element={<FarmInfo1 />} />
+                <Route path="/LandOwner" element={<LandOwner />} />
+                <Route path="/IDInfo" element={<IDInfo />} />
+                <Route path="/UtilityBill" element={<UtilityBill />} />
+                <Route path="/BillingInfo" element={<BillingInfo />} />
               <Route path="admin/*" element={<Admin />} />
-              
+              <Route path="/contact" element={<Contact />} />
               <Route path="/*" element={<LandingPage />} />
             </Routes>
             {location.pathname !== '/login' && <Footer />}

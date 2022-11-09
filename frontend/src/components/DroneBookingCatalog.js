@@ -62,8 +62,8 @@ export default function DroneBookingCatalog() {
     
     axios.get(`/api/drone`)
       .then(response => {
-        console.log("donrappppi",response.data)
-      setAllItemsList(response.data)
+        console.log("donrappppi",response.data.data)
+      setAllItemsList(response.data.data)
 
       });
   } , []);
@@ -222,7 +222,7 @@ export default function DroneBookingCatalog() {
 //             </ul> */}
 
 <div className="drones_list">
-                {allitemslist.length && allitemslist.map(drone => 
+                {allitemslist && allitemslist.map(drone => 
                     <Card style={{ width: '13rem' }}  className={selectedDrone === drone.id ? "selected" : ""} onClick={() => selectDrone(drone)} >
                       <Card.Body>
                         <Card.Title>{drone.name}</Card.Title>

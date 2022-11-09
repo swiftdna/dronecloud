@@ -25,7 +25,7 @@ function DroneFleetTracking() {
     const navigate = useNavigate();
     const userLandedPage = useLocation();
     const statusColors = {
-        registered: "primary",
+        available: "primary",
         active: "success",
         stopped: "danger",
         connected: "warning"
@@ -33,15 +33,14 @@ function DroneFleetTracking() {
 
     useEffect(() => {
         if (isLoggedIn) {
-            console.log('DroneFleetTracking === user logged in!');
             getAdminDroneList(dispatch);
         }
     }, [isLoggedIn]);
 
     useEffect(() => {
-        if (indDrone && indDrone.drone_id) {
-            if (trackingMap[indDrone.drone_id] && trackingMap[indDrone.drone_id].length) {
-                setIndDronePaths(trackingMap[indDrone.drone_id]);
+        if (indDrone && indDrone.id) {
+            if (trackingMap[indDrone.id] && trackingMap[indDrone.id].length) {
+                setIndDronePaths(trackingMap[indDrone.id]);
             } else {
                 setIndDronePaths([]);
             }
@@ -67,6 +66,10 @@ function DroneFleetTracking() {
     const onLoad = React.useCallback(function callback(map) {
         const bounds = new window.google.maps.LatLngBounds();
         for (let i = 0; i < drones.length; i++) {
+            console.log(drones[i].last_seen);
+            if (!drones[i].last_seen) {
+                continue;
+            }
             const path = {
                 lat: drones[i].last_seen.lat,
                 lng: drones[i].last_seen.lng
@@ -83,7 +86,12 @@ function DroneFleetTracking() {
 
     const selectDrone = (drone) => {
         setIndDrone(drone);
-        getAdminDroneDetails(dispatch, drone.drone_id);
+        getAdminDroneDetails(dispatch, drone.id);
+    }
+
+    const closeDetailedDroneView = () => {
+        setIndDrone();
+        onLoad();
     }
 
     return(
@@ -95,10 +103,10 @@ function DroneFleetTracking() {
                   <span className="visually-hidden">Loading...</span>
                 </Spinner> : ''}
                 {!loading && drones && drones.length && drones.map(drone => 
-                    <Card style={{ width: '13rem' }} className={indDrone && (drone.drone_id === indDrone.drone_id) ? 'selected' : ''} onClick={() => selectDrone(drone)}>
+                    <Card style={{ width: '13rem' }} className={indDrone && (drone.id === indDrone.id) ? 'selected' : ''} onClick={() => selectDrone(drone)}>
                       <Card.Body>
-                        <Card.Title>{drone.drone_maker} {drone.drone_model}</Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted">Drone #{drone.drone_id}</Card.Subtitle>
+                        <Card.Title>{drone.manufacturer} {drone.model}</Card.Title>
+                        <Card.Subtitle className="mb-2 text-muted">Drone #{drone.id}</Card.Subtitle>
                         <Card.Text>
                           <Badge bg={drone.status ? statusColors[drone.status] : "primary"}>{capitalizeFirst(drone.status)}</Badge>
                         </Card.Text>
@@ -106,25 +114,25 @@ function DroneFleetTracking() {
                 </Card>
                 )}
             </div>
-            {indDrone && indDrone.drone_id ? <div className="drone_details">
-                    <div style={{float: 'right'}}><MdOutlineClose size={40} style={{cursor: 'pointer'}} onClick={() => setIndDrone()} /></div>
-                    <h4>Drone ID #{indDrone.drone_id}</h4>
+            {indDrone && indDrone.id ? <div className="drone_details">
+                    <div style={{float: 'right'}}><MdOutlineClose size={40} style={{cursor: 'pointer'}} onClick={() => closeDetailedDroneView()} /></div>
+                    <h4>Drone ID #{indDrone.id}</h4>
                     <Row>
                         <Col className="drone_chars">
                             <p className="title">Tracking details</p>
                             <p>Status: {indDrone.status}</p>
                             <p>Location (lat, lng, alt):  {indDrone.last_seen ? `${indDrone.last_seen.lat},${indDrone.last_seen.lng},${indDrone.last_seen.alt}` : 'Not available'}</p>
-                            {tloading ? <p>Loading paths..</p> : <p>{indDronePaths.length} paths found</p>}
+                            {tloading ? <p>Loading paths..</p> : <p>{indDronePaths && indDronePaths.length ? `${indDronePaths.length} paths found` : 'No paths found'} </p>}
                         </Col>
                         <Col className="drone_chars">
                             <p className="title">Drone details</p>
-                            <p>ID: {indDrone.drone_id}</p>
-                            <p>Model: {indDrone.drone_maker} {indDrone.drone_model}</p>
+                            <p>ID: {indDrone.id}</p>
+                            <p>Model: {indDrone.manufacturer} {indDrone.model}</p>
                             <p>Service Type: {indDrone.service_type}</p>
                         </Col>
-                        {!tloading ? <LiveTracking 
+                        {!tloading && indDronePaths && indDronePaths.length  ? <LiveTracking 
                             paths={indDronePaths}
-                        /> : ''}
+                        /> : <p>No drone paths to display in the map</p>}
                     </Row>
                 </div> : <div style={{ height: '670px', width: '100%', marginTop: '10px' }}>
                 {isLoaded ? <GoogleMap

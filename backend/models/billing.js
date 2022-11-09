@@ -28,12 +28,6 @@ module.exports = function(sequelize, Sequelize) {
                 model: 'subscriptions',
                 key: 'id'
             }
-        },
-        created: {
-            type: Sequelize.DATE
-        },
-        updated: {
-            type: Sequelize.DATE
         }
     });
     return Billing;

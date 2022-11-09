@@ -1,5 +1,6 @@
 import { profileLoading, handleProfilesResponse } from './actions/app-profile';
 import { handleLoginResponse, setToast, handleCountriesResponse } from './actions/app-actions';
+import { droneMgmtLoading, handleDroneMgmtResponse, pendingDronesLoading, handlePendingDronesResponse } from './actions/app-drones-mgmt';
 import { adminDroneTrackingLoading, handleAdminDroneTrackingResponse, adminDroneIDTrackingLoading, handleAdminDroneIDTrackingResponse } from './actions/app-admin-drone-tracking';
 // import { useNavigate } from 'react-router-dom';
 
@@ -31,7 +32,7 @@ export function fetchProfile(dispatch, userObj) {
 
 export function getAdminDroneList(dispatch) {
     dispatch(adminDroneTrackingLoading());
-    axios.get(`/api/ext/drones`)
+    axios.get(`/api/tracking/drones`)
         .then(response => {
             dispatch(handleAdminDroneTrackingResponse(response));
         });
@@ -45,7 +46,66 @@ export function getAdminDroneDetails(dispatch, drone_id) {
         });
 }
 
+export function getManagementDrones(dispatch, params) {
+    dispatch(droneMgmtLoading());
+    axios.get(`/api/drones`, { params })
+        .then(response => {
+            dispatch(handleDroneMgmtResponse(response));
+        });
+}
+
+export function getPendingMgmtDrones(dispatch, params) {
+    dispatch(pendingDronesLoading());
+    axios.get(`/api/drones`, { params })
+        .then(response => {
+            dispatch(handlePendingDronesResponse(response));
+        });
+}
+
+export function registerDrone(dispatch, id, callback) {
+    axios.post(`/api/drones/${id}/register`)
+        .then(response => {
+            const {data} = response;
+            if (data.success) {
+                dispatch(setToast({
+                    type: 'success',
+                    message: 'Drone registered successfully!'
+                }));
+                return callback(true);
+            } else {
+                dispatch(setToast({
+                    type: 'failure',
+                    message: 'Unable to register drone. Try again later'
+                }));
+                return callback(false);
+            }
+        });
+}
+
+export function deregisterDrone(dispatch, id, callback) {
+    axios.post(`/api/drones/${id}/deregister`)
+        .then(response => {
+            const {data} = response;
+            if (data.success) {
+                dispatch(setToast({
+                    type: 'success',
+                    message: 'Drone deregistered successfully!'
+                }));
+                return callback(true);
+            } else {
+                dispatch(setToast({
+                    type: 'failure',
+                    message: 'Unable to deregister drone. Try again later'
+                }));
+                return callback(false);
+            }
+        });
+}
+
 export function capitalizeFirst(str){
+    if (!str) {
+        return;
+    }
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
@@ -94,14 +154,26 @@ export function checkSession(dispatch) {
         });
 }
 
-export function uploadImageToCloud(dispatch, file) {
+export function uploadImageToCloud(file) {
     const formData = new FormData()
     formData.append('file', file)
-    formData.append('cloud_name', 'dac0hzhv5')
-    formData.append('upload_preset', 'j8gp4zov')
+    formData.append('cloud_name', 'dylqg3itm')
+    formData.append('upload_preset', 'ld9mmcgj')
 
     return axios.post(
-      'https://api.cloudinary.com/v1_1/dac0hzhv5/image/upload',
+      'https://api.cloudinary.com/v1_1/dylqg3itm/image/upload',
       formData
     );
+}
+export function addDrone(formData){
+    axios.post("/api/droneCatalog/add", formData).then((res)=>{
+        if(res.data.success){
+             console.log("success");
+             return (true);
+        }
+         }).catch((err)=>{
+             console.log(err);
+         })
+    
+
 }

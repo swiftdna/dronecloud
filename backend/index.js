@@ -33,7 +33,6 @@ app.use(session({
 })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
-
 app.use('/api', routes);
 COREAPP = {};
 //Sync Database

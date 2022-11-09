@@ -26,12 +26,6 @@ module.exports = function(sequelize, Sequelize) {
         },
         expiry_year: {
             type: Sequelize.STRING
-        },
-        created: {
-            type: Sequelize.DATE
-        },
-        updated: {
-            type: Sequelize.DATE
         }
     });
     return CardDetail;
