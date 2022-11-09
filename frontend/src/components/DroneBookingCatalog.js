@@ -60,7 +60,7 @@ export default function DroneBookingCatalog() {
     };
   useEffect( () => {
     
-    axios.get(`/api/drone`)
+    axios.get(`/api/drones`)
       .then(response => {
         console.log("donrappppi",response.data.data)
       setAllItemsList(response.data.data)

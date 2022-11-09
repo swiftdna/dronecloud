@@ -22,7 +22,7 @@ router.get('/', isLoggedIn, (req, res) => {
 	res.json({success: true, message: 'Welcome to API page!'});
 });
 
-router.get('/drone', isLoggedIn, getDrones, pusher);
+router.get('/drones', isLoggedIn, getDrones, pusher);
 router.post('/drone/filter', isLoggedIn, filterDroneDetails, pusher);
 router.post('/drone/booking', isLoggedIn, BookingDroneDetails, pusher);
 router.post('/farmuser', isLoggedIn, FarmUserDroneDetails, pusher);
