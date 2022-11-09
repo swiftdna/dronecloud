@@ -1,5 +1,5 @@
 import { Grid } from '@material-ui/core';
-import {React, useEffect } from 'react';
+import {React, useEffect, useState  } from 'react';
 import Paper from '@material-ui/core/Paper';
 import {Link} from 'react-router-dom';
 import { useDispatch,useSelector } from "react-redux";
@@ -13,18 +13,25 @@ export default function AllDrone(props) {
   const service = props.dronedetails.service;
   const equipment = props.dronedetails.equipment;
   const price = props.dronedetails.price;
-  const brand = props.dronedetails.brand;
+  const manufacturer = props.dronedetails.brand;
   const status = props.dronedetails.status;
   const farmtype = useSelector((store) =>store.bookdrone.farmtype);
+  const [btnClass, setBtnClass] = useState(false);
   console.log("type",farmtype)
   const dispatch = useDispatch();
   const selectDrone = (e) => {
+    setBtnClass(true)
     e.preventDefault();
     dispatch(
         bookdrone({
           id:droneid,
           name:dronename,
-          farmtype:farmtype
+          farmtype:farmtype,
+          manufacturer:manufacturer,
+          service:service,
+          equipment:equipment,
+          price:price
+
         })
       );
     };
@@ -46,7 +53,7 @@ export default function AllDrone(props) {
             <br></br>
             <b>Drone Price: </b>{price}
             <br></br>
-            <b>Drone Brand: </b>{brand}
+            <b>Drone Brand: </b>{manufacturer}
             <br></br>
             <b>Drone Status: </b>{status}
 
@@ -54,8 +61,10 @@ export default function AllDrone(props) {
         </div>
        
       </Paper> <br></br>
-      <button class="button button2" onClick={selectDrone}> Select
+      <button class={btnClass ? "button button2" : "button button1"} onClick={selectDrone}> Select
+    
                 </button> 
+                
       <br></br> 
     </div>
     </Grid>
