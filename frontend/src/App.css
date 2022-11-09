@@ -351,6 +351,22 @@
 	width: fit-content;
 }
 
+.dc-default .farm_list {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
+	
+}
+
+.dc-default .farm_list > .farm_disp {
+	flex: -22 1 30%;
+    margin: 45px 99px;
+    height: 217px;
+
+}
+
 .dc-default .drones_list {
 	width: inherit;
 	display: inline-block;
@@ -381,6 +397,25 @@
 .dc-default .drones_list > .card .card-subtitle {
 	font-size: 13px;
 }
+
+.dc-default .farm_list > .card.selected {
+	background-color: #f6f6f8;
+	color: #5932ea;
+	margin: 35px 99px;
+}
+
+.dc-default .farm_list > .card.selected:hover {
+	cursor: default;
+	color: #5932ea;
+	
+}
+
+.dc-default .farm_list > .card:not(.selected):hover {
+	cursor: pointer;
+	background-color: #dbd6ef;
+	color: #5932ea;
+}
+
 
 .dc-default .drones_list > .card.selected {
 	background-color: #f4f2fd;
