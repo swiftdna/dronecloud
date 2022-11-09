@@ -1,8 +1,10 @@
 const sequelize = require('sequelize');
 const _ = require('underscore');
+const moment = require('moment');
 const drone = require('../models/drone');
 const Op = sequelize.Op;
 const { registerDrone, deleteDrone } = require('./SimulatorInteraction');
+const { getBookings } = require('./Booking');
 
 const getDrones = async (req, res, next) => {
     const { models: { drone: Drone } } = COREAPP;
@@ -66,35 +68,7 @@ const filterDroneDetails = async (req, res, next) => {
         return next();
     }
 };
-const BookingDroneDetails = async (req, res, next) => {
-    const { models: { booking: Booking } } = COREAPP;
-    try {
-        console.log("@@@@@@@@@@@@@@@@@",req.body,req.body.user_id)
-		// const bookingData = await Booking.findAll({
-        //  raw:true
-		// });
-        const bookingData = await Booking.create({
-            user_id:req.body.user_id,
-            drone_id:req.body.drone_id,
-            land_id:req.body.land_id,
-            farm_id:req.body.farm_id,
-            pilot_id:req.body.pilot_id,
-            start_date:req.body.start_date,
-            end_date:req.body.end_dates,
-           });
-        console.log(bookingData)
-        req.model = {};
-        req.model.data = {
-            sucess: true,
-            data: bookingData
-        };
-        return next();
-    }
-    catch(e) {
-        console.log('error for drones data',e.message);
-        return next();
-    }
-};
+
 const FarmUserDroneDetails = async (req, res, next) => {
     const { models: {farm : Farm } } = COREAPP;
     try {
@@ -245,7 +219,7 @@ const deregisterUAV = async (req, res, next) => {
 };
 
 const getAvailableDrones = async (req, res, next) => {
-    const { from, to, service, price, equipment, brand } = req;
+    const { from, to, service, price, equipment, brand } = req.query;
     const droneReq = {
         query: {
             status: 'available,deployed,booked'
@@ -286,11 +260,39 @@ const getAvailableDrones = async (req, res, next) => {
     }
     try {
         const dronesData = await getDrones(droneReq);
-        console.log(dronesData);
-        const AllDroneIDs = _.pluck(dronesData, 'id');
+        const allDroneIDs = _.pluck(dronesData, 'id');
+        let bookingParams = {
+            query: {
+                drone_id: {
+                    [Op.in]: allDroneIDs
+                }
+            },
+            internal: true
+        };
+        if (from && to) {
+            bookingParams.query = {
+                ...bookingParams.query,
+                [Op.or]: [
+                    {
+                        start_date: {
+                            [Op.between]: [moment.unix(from).format('YYYY-MM-DD HH:mm:ss'), moment.unix(to).format('YYYY-MM-DD HH:mm:ss')]
+                        }
+                    },
+                    {
+                        end_date: {
+                            [Op.between]: [moment.unix(from).format('YYYY-MM-DD HH:mm:ss'), moment.unix(to).format('YYYY-MM-DD HH:mm:ss')]
+                        }
+                    }
+                ]
+            }
+        }
+        const bookingsData = await getBookings(bookingParams);
+        const bookedDroneIDs = _.pluck(bookingsData, 'drone_id');
+        const availableDroneIDs = allDroneIDs.filter(droneID => bookedDroneIDs.indexOf(droneID) === -1);
+        const availableDrones = dronesData.filter(drone => availableDroneIDs.indexOf(drone.id) !== -1);
         req.model.data = {
             success: true,
-            data: AllDroneIDs
+            data: availableDrones
         };
         return next();
     } catch(e) {
@@ -310,6 +312,5 @@ module.exports = {
     deregisterUAV,
     getAvailableDrones,
     filterDroneDetails,
-    BookingDroneDetails,
     FarmUserDroneDetails,
 };

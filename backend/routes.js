@@ -3,8 +3,9 @@ const passport = require('passport');
 const router = express.Router();
 const { getUserDetails, updateUserDetails} = require('./modules/UserProfile');
 const { getDronePaths, registerDrone, deleteDrone, getAllDrones, getDroneLastSeenLocations, getDroneLastSeenLocationsOld } = require('./modules/SimulatorInteraction');
-const { getDrones, filterDroneDetails, registerUAV, deregisterUAV, getAvailableDrones, BookingDroneDetails, FarmUserDroneDetails } = require('./modules/Drones');
-const { addDrone, getDrone } =require('./modules/DroneCatalog');
+const { getDrones, filterDroneDetails, registerUAV, deregisterUAV, getAvailableDrones, FarmUserDroneDetails } = require('./modules/Drones');
+const { BookingDroneDetails } = require('./modules/Booking');
+const { addDrone, getDrone } = require('./modules/DroneCatalog');
 
 const pusher = (req, res, next) => {
   let {model, model: {data: response}} = req;
@@ -23,14 +24,14 @@ router.get('/', isLoggedIn, (req, res) => {
 	res.json({success: true, message: 'Welcome to API page!'});
 });
 
-router.get('/drones', isLoggedIn, getDrones, pusher);
-router.post('/drone/filter', isLoggedIn, filterDroneDetails, pusher);
+
 router.post('/drone/booking', isLoggedIn, BookingDroneDetails, pusher);
 router.post('/farmuser', isLoggedIn, FarmUserDroneDetails, pusher);
 
 router.get('/users/:user_id', isLoggedIn, getUserDetails);
 router.put('/users/profile', isLoggedIn, updateUserDetails);
 
+router.post('/drone/filter', isLoggedIn, filterDroneDetails, pusher);
 router.get('/drones', isLoggedIn, getDrones, pusher);
 router.post('/drone/filter', isLoggedIn, filterDroneDetails, pusher);
 router.post('/drones/:id/register', isLoggedIn, registerUAV, pusher);
