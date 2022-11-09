@@ -1,15 +1,15 @@
 import { Marker } from '@react-google-maps/api';
 
 const colorMappings = {
-	registered: "#917ff4",
-	active: "#4bc475",
+	  available: "#917ff4",
+	  active: "#4bc475",
     stopped: "#dc3545",
     connected: "#ffc107"
 };
 
 const strokeMappings = {
-	registered: "#6c5acf",
-	active: "#24904a",
+  	available: "#6c5acf",
+  	active: "#24904a",
     stopped: "#801620",
     connected: "#bb8d04"
 };

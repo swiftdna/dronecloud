@@ -1,5 +1,6 @@
 import { profileLoading, handleProfilesResponse } from './actions/app-profile';
 import { handleLoginResponse, setToast, handleCountriesResponse } from './actions/app-actions';
+import { droneMgmtLoading, handleDroneMgmtResponse, pendingDronesLoading, handlePendingDronesResponse } from './actions/app-drones-mgmt';
 import { adminDroneTrackingLoading, handleAdminDroneTrackingResponse, adminDroneIDTrackingLoading, handleAdminDroneIDTrackingResponse } from './actions/app-admin-drone-tracking';
 // import { useNavigate } from 'react-router-dom';
 
@@ -45,7 +46,66 @@ export function getAdminDroneDetails(dispatch, drone_id) {
         });
 }
 
+export function getManagementDrones(dispatch, params) {
+    dispatch(droneMgmtLoading());
+    axios.get(`/api/drones`, { params })
+        .then(response => {
+            dispatch(handleDroneMgmtResponse(response));
+        });
+}
+
+export function getPendingMgmtDrones(dispatch, params) {
+    dispatch(pendingDronesLoading());
+    axios.get(`/api/drones`, { params })
+        .then(response => {
+            dispatch(handlePendingDronesResponse(response));
+        });
+}
+
+export function registerDrone(dispatch, id, callback) {
+    axios.post(`/api/drones/${id}/register`)
+        .then(response => {
+            const {data} = response;
+            if (data.success) {
+                dispatch(setToast({
+                    type: 'success',
+                    message: 'Drone registered successfully!'
+                }));
+                return callback(true);
+            } else {
+                dispatch(setToast({
+                    type: 'failure',
+                    message: 'Unable to register drone. Try again later'
+                }));
+                return callback(false);
+            }
+        });
+}
+
+export function deregisterDrone(dispatch, id, callback) {
+    axios.post(`/api/drones/${id}/deregister`)
+        .then(response => {
+            const {data} = response;
+            if (data.success) {
+                dispatch(setToast({
+                    type: 'success',
+                    message: 'Drone deregistered successfully!'
+                }));
+                return callback(true);
+            } else {
+                dispatch(setToast({
+                    type: 'failure',
+                    message: 'Unable to deregister drone. Try again later'
+                }));
+                return callback(false);
+            }
+        });
+}
+
 export function capitalizeFirst(str){
+    if (!str) {
+        return;
+    }
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
