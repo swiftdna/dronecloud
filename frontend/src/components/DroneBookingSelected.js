@@ -1,12 +1,16 @@
-import React from "react";
+import {React,useEffect} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {   Routes, Route, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { Row, Col, Form, Card, Badge, Spinner } from 'react-bootstrap';
 import { useDispatch,useSelector } from "react-redux";
 import {  Button } from 'react-bootstrap';
 import Paper from "@material-ui/core/Paper";
+import {bookdrone, booking} from "../reducers/bookSlice";
+
 import Grid from "@material-ui/core/Grid";
 import { Link } from "react-router-dom";
+import axios from 'axios';
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(1),
@@ -26,9 +30,37 @@ export default function DroneBookingSelected() {
   const dronedatetime = useSelector((store) =>store.bookdrone.dronedatetime);
   const fromdate = useSelector((store) =>store.bookdrone.fromdate);
   const todate = useSelector((store) =>store.bookdrone.todate);
+  const farmland = useSelector((store) =>store.bookdrone.farmland);
+  const farmid = useSelector((store) =>console.log(store));
+  const dispatch = useDispatch();
 
 
-
+  useEffect( () => {
+    dispatch(
+      bookdrone({
+      from:fromdate,
+      to:todate,
+      service:service,
+      price:price,
+      equipment:equipment,
+      brand:manufacturer,
+      farmtype:farmtype,
+      farmland:farmland,
+      farmid:farmid,
+      }))}, []);
+  // useEffect( () => {
+  //   dispatch(
+  //     bookdrone({
+  //     from:"2022-01-01",
+  //     to:"2022-01-01",
+  //     service:"service",
+  //     price:"price",
+  //     equipment:"equipment",
+  //     brand:"manufacturer",
+  //     farmtype:"farmtype",
+  //     farmland:"farmland",
+  //     farmid:"farmid",
+  //     }))}, []);
   return (
     <div>
            <img src="Step3.png"width="300" height="50" />
@@ -65,7 +97,7 @@ export default function DroneBookingSelected() {
                 </button> 
                 </li>
                 <li className="navigationbutton">
-                <button class="button button1"> <Link to="/drone-booking-review" >Next</Link>
+                <button class="button button1" > <Link to="/drone-booking-review" >Next</Link>
                 </button> 
                 </li>
             </ul>

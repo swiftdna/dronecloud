@@ -76,7 +76,7 @@ select::-ms-expand {
     float: left;
     display:inline;
     margin-top: 150px;
-    margin-left: 79px;
+    margin-left: 109px;
 }
 .selectdrone{
     float: left;
@@ -118,3 +118,18 @@ select::-ms-expand {
 .gobutton{
     margin-left:-74px
 }
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }

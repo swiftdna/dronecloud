@@ -13,6 +13,9 @@ export const bookSlice = createSlice({
     dronedatetime:null,
     fromdate:null,
     todate:null,
+    farmland:null,
+    farmid:null,
+    pilotid:null,
   },
   reducers: {
     bookdrone: (state, action) => {
@@ -26,6 +29,11 @@ export const bookSlice = createSlice({
       state.dronedatetime = action.payload.dronedatetime
       state.fromdate = action.payload.fromdate
       state.todate = action.payload.todate
+      state.farmland = action.payload.farmland
+      state.farmid = action.payload.farmid
+      state.pilotid = action.payload.pilotid
+
+
     },
    
     

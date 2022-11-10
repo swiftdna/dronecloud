@@ -8,6 +8,7 @@ import {  Button } from 'react-bootstrap';
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { Link } from "react-router-dom";
+import {bookdrone, booking} from "../reducers/bookSlice";
 
 import axios from 'axios';
 
@@ -35,11 +36,16 @@ export default function DroneBookingReview() {
   const fromdate = useSelector((store) =>store.bookdrone.fromdate);
   const todate = useSelector((store) =>store.bookdrone.todate);
   const user_id = useSelector((store) =>store.app.user.id);
+  const farmland = useSelector((store) =>store.bookdrone.farmland);
+  const farmid = useSelector((store) =>store.bookdrone.farmid);
+
+  const dispatch = useDispatch();
+
   const total = 55+price
 //store.profile.data.id
   useEffect(() => {
     const abortController = new AbortController()
-    
+
     selectPilot()
     selectUser()
       
@@ -62,10 +68,27 @@ export default function DroneBookingReview() {
         .then(response => {
           console.log("donrappppi------------",response.data)
           setAllPilotList(response.data)
-  
+          
         });
       }
-  console.log("&&&&",setuserdetails)
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("dissspay",fromdate,todate,service,price,equipment,manufacturer,farmtype,farmland,farmid,allpilotlist.id)
+        dispatch(
+          bookdrone({
+          from:fromdate,
+          to:todate,
+          service:service,
+          price:price,
+          equipment:equipment,
+          brand:manufacturer,
+          farmtype:farmtype,
+          farmland:farmland,
+          farmid:farmid,
+          pilotid:allpilotlist.id,
+          }))
+      }
+  console.log("&&&&",setuserdetails,allpilotlist)
   return (
     <div>
            <img src="Step4.png"width="300" height="50" />
@@ -130,8 +153,8 @@ export default function DroneBookingReview() {
                       
                       {/* <Card.Subtitle className="mb-2 text-muted"> {dronedatetime}</Card.Subtitle> */}
                     </Card>  
-                    <Card style={{ width:'44rem',height:'225px',marginLeft:'84px', marginTop:'20px'}}  >
-                      <Card.Body >
+                    <Card style={{ width:'34rem',height:'225px',marginLeft:'264px', marginTop:'20px', borderColor:'white'}}  >
+                      {/* <Card.Body > */}
                       <div>
                         <table style={{width:"100%",marginLeft:"-80px"}}>
                       
@@ -179,7 +202,7 @@ export default function DroneBookingReview() {
                         </table>
                       </div>
                       
-                      </Card.Body>
+                      {/* </Card.Body> */}
                       
                       {/* <Card.Subtitle className="mb-2 text-muted"> {dronedatetime}</Card.Subtitle> */}
                     </Card>   
@@ -190,7 +213,7 @@ export default function DroneBookingReview() {
                 </button> 
                 </li>
                 <li className="navigationbutton">
-                <button class="button button1"> <Link to="/drone-booking-confirmation" >Confirm</Link>
+                <button class="button button1"  onClick={handleSubmit}> <Link to="/drone-booking-confirmation" >Confirm</Link>
                 </button> 
                 </li>
             </ul>

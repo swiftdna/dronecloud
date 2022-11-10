@@ -39,6 +39,10 @@ export default function DroneBookingCatalog() {
   const [todate,settoDate] = useState("");
   const [selectedDrone, setSelectedDrone] = useState("");
   const farmtype = useSelector((store) =>store.bookdrone.farmtype);
+  const farmland = useSelector((store) =>store.bookdrone.farmland);
+  const farmid = useSelector((store) =>store.bookdrone.farmid);
+
+
 
   const filterSubmit = (e) => {
     e.preventDefault();
@@ -49,7 +53,10 @@ export default function DroneBookingCatalog() {
       service:droneservice,
       price:droneprice,
       equipment:droneequipment,
-      brand:dronebrand
+      brand:dronebrand,
+      farmtype:farmtype,
+      farmland:farmland,
+      farmid:farmid,
   })
     .then(response => {
       console.log("&&&&",response.data.data)
@@ -220,7 +227,7 @@ export default function DroneBookingCatalog() {
                 ))} </div> }
 //             </ul> */}
 
-<div className="drones_list">
+        <div className="drones_list">
                 {allitemslist && allitemslist.length&&allitemslist.map(drone => 
                     <Card style={{ width: '13rem' }}  className={selectedDrone === drone.id ? "selected" : ""} onClick={() => selectDrone(drone)} >
                       <Card.Body>

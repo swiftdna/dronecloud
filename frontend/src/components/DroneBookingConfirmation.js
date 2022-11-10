@@ -28,19 +28,26 @@ export default function DroneBookingConfirmation() {
   const service = useSelector((store) =>store.bookdrone.service);
   const manufacturer = useSelector((store) =>store.bookdrone.manufacturer);
   const dronedatetime = useSelector((store) =>store.bookdrone.dronedatetime);
+  const user_id = useSelector((store) =>store.app.user.id);
+  const farm_id = useSelector((store) =>store.bookdrone.farmid);
+  const land_id = useSelector((store) =>store.bookdrone.farmland);
+  const pilot_id = useSelector((store) =>store.bookdrone.pilotid);
+
+  const fromdate = useSelector((store) =>store.bookdrone.fromdate);
+  const todate = useSelector((store) =>store.bookdrone.todate);
   const total = 55+price
 
   console.log(total,bookingid)
   useEffect( () => {
     
     axios.post(`/api/drone/booking`,{
-      user_id:1,
-      drone_id:14551,
-      land_id:1,
-      farm_id:1,
-      pilot_id:1,
-      start_date:1,
-      end_date:1,
+      user_id:user_id,
+      drone_id:id,
+      land_id:land_id,
+      farm_id:farm_id,
+      pilot_id:pilot_id,
+      start_date:fromdate,
+      end_date:todate,
     })
       .then(response => {
         
@@ -87,8 +94,9 @@ export default function DroneBookingConfirmation() {
                       
                       {/* <Card.Subtitle className="mb-2 text-muted"> {dronedatetime}</Card.Subtitle> */}
                     </Card>  
-                    <Card style={{ width:'44rem',height:'225px',marginLeft:'84px', marginTop:'19px'}}  >
-                      <Card.Body >
+                    <Card style={{ width:'34rem',height:'225px',marginLeft:'264px', marginTop:'20px', borderColor:'white'}}  >
+                  
+                      {/* <Card.Body > */}
                       <div>
                         <table style={{width:"100%",marginLeft:"-80px"}}>
                       
@@ -134,8 +142,8 @@ export default function DroneBookingConfirmation() {
                             </tr>
                         </table>
                       </div>
-                      
-                      </Card.Body>
+{/*                       
+                      </Card.Body> */}
                       
                       {/* <Card.Subtitle className="mb-2 text-muted"> {dronedatetime}</Card.Subtitle> */}
                     </Card>   
