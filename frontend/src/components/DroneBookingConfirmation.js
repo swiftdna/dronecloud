@@ -141,12 +141,12 @@ export default function DroneBookingConfirmation() {
                     </Card>   
            <div className="navigation">
             <ul>
-                <li className="navigationbutton">
+                {/* <li className="navigationbutton">
                 <button class="button button1"> <Link to="/drone-booking-selected" >Back</Link>
                 </button> 
-                </li>
+                </li> */}
                 <li className="navigationbutton">
-                <button class="button button1"> <Link to="/drone-booking-confirmation" >Confirm</Link>
+                <button class="button button1" style={{marginLeft:"180px"}}> <Link to="/" >My Bookings</Link>
                 </button> 
                 </li>
             </ul>

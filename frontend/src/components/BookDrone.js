@@ -2,6 +2,7 @@ import { React, useState,useEffect } from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 import {   Routes, Route, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { Row, Col, Form, Card, Badge, Spinner } from 'react-bootstrap';
+import { selectIsLoggedIn, selectUser } from '../selectors/appSelector';
 
 import {  Button } from 'react-bootstrap';
 import Paper from "@material-ui/core/Paper";
@@ -107,6 +108,7 @@ export default function BookDrone() {
   const [selectedFarmtype, setSelectedFarmtype] = useState("");  
   const [selectedFarmID, setSelectedFarmID] = useState("");  
   const [selectedfarmimage, setSelectedFarmImage] = useState("");  
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   console.log(userid)
 
@@ -149,7 +151,7 @@ export default function BookDrone() {
         console.log("donrappppi------------",response.data.data)
         setAllItemsList(response.data.data)
       });
-  } , []);
+  } , [isLoggedIn]);
     console.log()
     const dispatch = useDispatch();
     const [droneid, setDroneid] = useState('');
@@ -186,7 +188,7 @@ export default function BookDrone() {
        <div className="farm_list">
                 
                 {allitemslist&& allitemslist.map(drone => 
-                    <Card  style={{ width: '13rem' }} className={selectedFarmID === drone.id ? "selected" : "farm_disp"}  onClick={() =>  selectFarm (drone)} >
+                    <Card  style={{ width: '16rem' }} className={selectedFarmID === drone.id ? "selected" : "farm_disp"}  onClick={() =>  selectFarm (drone)} >
                       
                       <Card.Body style={{backgroundImage: "url(" + drone.type + ".jpeg )"}}>
                         <Card.Title> </Card.Title>
@@ -195,7 +197,7 @@ export default function BookDrone() {
                           {/* <Badge bg={drone.status ? statusColors[drone.status] : "primary"}>{capitalizeFirst(drone.status)}</Badge> */}
                         </Card.Text>
                       </Card.Body>
-                      <Card.Subtitle className="mb-2 text-muted"  ><span style={{color:'white',background: "#898f95"}}> {drone.name} </span> </Card.Subtitle>
+                      <Card.Subtitle className="mb-2 text-muted"  ><span ><br></br> {drone.name} </span> </Card.Subtitle>
                 </Card>
                 
                 )}

@@ -42,19 +42,18 @@ export default function DroneBookingCatalog() {
 
   const filterSubmit = (e) => {
     e.preventDefault();
-  //   console.log("1*********************************",droneservice,dronedatetime,typeof(droneprice),dronebrand,droneequipment,dronestatus);
-  //   allitemslist.filter((val)=> {
-  //     console.log("1*********************************",val.availablefrom)
-  //     setSearchItemsList(searchitemslist=> [...searchitemslist, val]);
-
-      
-    
-  //   })
-  // console.log("***4444444444",searchitemslist)
-    axios.post(`/api/drone/filter`,{service:droneservice.toLowerCase(),brand:dronebrand.toLowerCase(),price:droneprice,equipment:droneequipment.toLowerCase(),status:dronestatus.toLowerCase()})
+    console.log("!!!!!!!!!",droneservice,dronebrand,droneprice,dronestatus,droneequipment)
+    axios.get(`/api/drones/availability`,{
+      from:fromdate,
+      to:todate,
+      service:droneservice,
+      price:droneprice,
+      equipment:droneequipment,
+      brand:dronebrand
+  })
     .then(response => {
-      console.log("go",response)
-      setAllItemsList(response.data)
+      console.log("&&&&",response.data.data)
+      setAllItemsList(response.data.data)
     });
 
     };
@@ -70,7 +69,7 @@ export default function DroneBookingCatalog() {
   const dispatch = useDispatch();
      const selectDrone = (drone) => {
       setSelectedDrone(drone.id);
-        console.log("clicked",drone);
+        console.log("clicked",drone,fromdate,todate);
         dispatch(
           bookdrone({
             id:drone.id,
@@ -222,7 +221,7 @@ export default function DroneBookingCatalog() {
 //             </ul> */}
 
 <div className="drones_list">
-                {allitemslist && allitemslist.map(drone => 
+                {allitemslist && allitemslist.length&&allitemslist.map(drone => 
                     <Card style={{ width: '13rem' }}  className={selectedDrone === drone.id ? "selected" : ""} onClick={() => selectDrone(drone)} >
                       <Card.Body>
                         <Card.Title>{drone.name}</Card.Title>

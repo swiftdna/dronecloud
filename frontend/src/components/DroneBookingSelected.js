@@ -17,13 +17,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function DroneBookingSelected() {
   const classes = useStyles();
-  const farmtype = useSelector((store) =>store.bookdrone.farmtype);
+  const farmtype = useSelector((store) => store.bookdrone.farmtype);
   const equipment = useSelector((store) =>store.bookdrone.equipment);
   const id = useSelector((store) =>store.bookdrone.id);
   const price = useSelector((store) =>store.bookdrone.price);
   const service = useSelector((store) =>store.bookdrone.service);
   const manufacturer = useSelector((store) =>store.bookdrone.manufacturer);
   const dronedatetime = useSelector((store) =>store.bookdrone.dronedatetime);
+  const fromdate = useSelector((store) =>store.bookdrone.fromdate);
+  const todate = useSelector((store) =>store.bookdrone.todate);
+
+
 
   return (
     <div>
@@ -32,15 +36,15 @@ export default function DroneBookingSelected() {
            </h3>
       This is your selected drone<br></br><br></br>
       <Card style={{ width:'43rem',height:'205px',marginLeft:'83px' }}  >
-                      <Card.Body >Drone Information
-                        <Card.Title ></Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted">Drone ID: {id}</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted">Drone Farm Type: {farmtype}</Card.Subtitle>
+                      <Card.Body >
+                        <Card.Title style={{ marginLeft:"250px"}}  >Drone Information</Card.Title>
+                        <Card.Subtitle className="mb-2 text-muted"><b>Drone ID:</b> {id}</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted"><b>Drone Farm Type:</b> {farmtype}</Card.Subtitle>
 
-                        <Card.Subtitle className="mb-2 text-muted">Drone Price: {price}</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted">Drone Equipment: {equipment}</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted">Drone Brand: {manufacturer}</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted">Drone Service: {service}</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted"><b>Drone Price:</b> {price}</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted"><b>Drone Equipment: </b>{equipment}</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted"><b>Drone Brand:</b> {manufacturer}</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted"><b>Drone Service: </b>{service}</Card.Subtitle>
                         
                         {/* <Card.Subtitle className="mb-2 text-muted">Drone Manufacturer: {drone.equipment}</Card.Subtitle>
                         <Card.Subtitle className="mb-2 text-muted">Drone Service:{drone.equipment}</Card.Subtitle> */}
@@ -49,7 +53,9 @@ export default function DroneBookingSelected() {
                         </Card.Text>
                       </Card.Body>
                       Date and Time:
-                      <Card.Subtitle className="mb-2 text-muted"> {dronedatetime}</Card.Subtitle>
+                      <Card.Subtitle className="mb-2 text-muted"> {fromdate}</Card.Subtitle>
+                      Location:
+                      <Card.Subtitle className="mb-2 text-muted"> {}</Card.Subtitle>
                     </Card>
          
            <div className="navigation">
