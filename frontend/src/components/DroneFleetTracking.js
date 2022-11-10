@@ -3,7 +3,7 @@ import { selectIsLoggedIn, selectUser } from '../selectors/appSelector';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAdminDroneList, capitalizeFirst, getAdminDroneDetails } from '../utils';
-import { Row, Col, Form, Card, Badge, Spinner } from 'react-bootstrap';
+import { Row, Col, Form, Card, Badge, Spinner, Image } from 'react-bootstrap';
 import { MdOutlineClose } from 'react-icons/md';
 import { GoogleMap, useJsApiLoader, Polyline } from '@react-google-maps/api';
 import Marker from './Marker';
@@ -106,10 +106,17 @@ function DroneFleetTracking() {
                     <Card style={{ width: '13rem' }} className={indDrone && (drone.id === indDrone.id) ? 'selected' : ''} onClick={() => selectDrone(drone)}>
                       <Card.Body>
                         <Card.Title>{drone.manufacturer} {drone.model}</Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted">Drone #{drone.id}</Card.Subtitle>
-                        <Card.Text>
-                          <Badge bg={drone.status ? statusColors[drone.status] : "primary"}>{capitalizeFirst(drone.status)}</Badge>
-                        </Card.Text>
+                        <Row>
+                        <Col xs={drone.image_url ? 7 : 12}>
+                            <Card.Subtitle className="mb-2 text-muted">Drone #{drone.id}</Card.Subtitle>
+                            <Card.Text>
+                              <Badge bg={drone.status ? statusColors[drone.status] : "primary"}>{capitalizeFirst(drone.status)}</Badge>
+                            </Card.Text>
+                        </Col>
+                        {drone.image_url ? <Col xs={5}>
+                            <Image src={drone.image_url} style={{marginLeft: '-20px', marginTop: '-5px'}} width="80" height="60" />
+                        </Col> : ''}
+                        </Row>
                       </Card.Body>
                 </Card>
                 )}

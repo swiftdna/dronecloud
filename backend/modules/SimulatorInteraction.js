@@ -125,6 +125,8 @@ const getDroneLastSeenLocations = async (req, res, next) => {
                 lng: lastSeenLocationDataMap[dataCleansed[i].id].longitude,
                 alt: lastSeenLocationDataMap[dataCleansed[i].id].altitude,
             }
+        } else {
+            dataCleansed[i].last_seen = {};
         }
     }
     req.model.data = {
