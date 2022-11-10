@@ -165,8 +165,22 @@ export function uploadImageToCloud(file) {
       formData
     );
 }
-export function addDrone(formData){
+export function addDrone(dispatch,formData){
     axios.post("/api/droneCatalog/add", formData).then((res)=>{
+        if(res.data.success){
+            dispatch(setToast({
+                type: 'success',
+                message: 'Drone details added successfully!'
+            }));
+        }
+         }).catch((err)=>{
+             console.log(err);
+         })
+    
+
+}
+export function updateDrone(formData,id){
+    axios.post(`/api/droneCatalog/updateDrone/${id}`, formData).then((res)=>{
         if(res.data.success){
              console.log("success");
              return (true);

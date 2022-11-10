@@ -3,9 +3,11 @@ const passport = require('passport');
 const router = express.Router();
 const { getUserDetails, updateUserDetails} = require('./modules/UserProfile');
 const { getDronePaths, registerDrone, deleteDrone, getAllDrones, getDroneLastSeenLocations, getDroneLastSeenLocationsOld } = require('./modules/SimulatorInteraction');
+
+const {addDrone,getDrone,getSingleDrone,updateDrone} =require('./modules/DroneCatalog');
+
 const { getDrones, filterDroneDetails, registerUAV, deregisterUAV, getAvailableDrones, FarmUserDroneDetails,PilotAvailability } = require('./modules/Drones');
 const { BookingDroneDetails } = require('./modules/Booking');
-const { addDrone, getDrone } = require('./modules/DroneCatalog');
 
 const pusher = (req, res, next) => {
   let {model, model: {data: response}} = req;
@@ -47,6 +49,9 @@ router.delete('/ext/drone/:id', isLoggedIn, deleteDrone, pusher);
 
 router.post('/droneCatalog/add',addDrone);
 router.get('/droneCatalog/getDrones',getDrone);
+
+router.get('/droneCatalog/getDrone/:id',getSingleDrone);
+router.post('/droneCatalog/updateDrone/:id',updateDrone);
 
 router.get('/session', isLoggedIn, async (req, res, next) => {
   if (req.user) {
