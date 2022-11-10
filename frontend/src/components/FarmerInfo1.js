@@ -38,6 +38,7 @@ export default function FarmerInfo1() {
         navigate('/FarmInfo1');
 
     };
+    
     return (
         <div style={{
             display: 'flex',

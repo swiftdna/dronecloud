@@ -43,7 +43,7 @@ function Admin() {
         <div className="container fill-page">
             <Row className="fill-page">
                 <Col xs={3} className="py-3 dc-default dc-leftpane dc-admin-leftpane">
-                    <h3 className="title"><RiSettingsLine size={40} style={{marginTop: '-5px'}} /> Dashboard</h3>
+                    <h3 className="title"><RiSettingsLine size={40} style={{marginTop: '-5px'}} /> Dashboard <span style={{fontSize: '12px', color: '#808080'}}>Admin</span></h3>
                     <ul className="nav flex-column dc-default dc-admin-nav">
                       <li className="nav-item">
                         <NavLink className="nav-link" activeClassName="active" to="/admin" end>Drone Catalog</NavLink>
