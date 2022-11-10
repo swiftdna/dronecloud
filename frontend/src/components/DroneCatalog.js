@@ -49,7 +49,9 @@ function DroneCatalog() {
       
 
     }
-    const filterStatus=()=>{
+    const filterStatus=(statusFilter)=>{
+      const filterStatus=drones?.filter((drone)=>(drone.status===statusFilter));
+      setDrones(filterStatus);
 
     }
 
@@ -96,16 +98,16 @@ function DroneCatalog() {
              <div className='dropdown-container'>
 
             <DropdownButton id="dropdown-item-button" title="Price" size="lg" >
-            <Dropdown.Item  style={{color:"black"}} onClick={filterDroneDetails(200)} >below 200</Dropdown.Item>
-             <Dropdown.Item  style={{color:"black"}} onClick={filterDroneDetails(200)}>below 400</Dropdown.Item>
-            <Dropdown.Item  style={{color:"black"}} onClick={filterDroneDetails(200)}>below 1000</Dropdown.Item>
+            <Dropdown.Item  style={{color:"black"}} onClick={()=>filterDroneDetails(200)} >below 200</Dropdown.Item>
+             <Dropdown.Item  style={{color:"black"}} onClick={()=>filterDroneDetails(200)}>below 400</Dropdown.Item>
+            <Dropdown.Item  style={{color:"black"}} onClick={()=>filterDroneDetails(200)}>below 1000</Dropdown.Item>
              </DropdownButton>
            
              <DropdownButton id="dropdown-item-button" title="Status" size="lg" >
-            <Dropdown.Item href="#/action-1" style={{color:"black"}} onClick={filterStatus("Added")}>Added</Dropdown.Item>
-             <Dropdown.Item href="#/action-2" style={{color:"black"}} onClick={filterStatus("Registered")}>Registerd</Dropdown.Item>
-            <Dropdown.Item href="#/action-3" style={{color:"black"}} onClick={filterStatus("Deleted")}>Deleted</Dropdown.Item>
-            <Dropdown.Item href="#/action-3" style={{color:"black"}} onClick={filterStatus("Available")}>Available</Dropdown.Item>
+            <Dropdown.Item href="#/action-1" style={{color:"black"}} onClick={()=>filterStatus("added")}>Added</Dropdown.Item>
+             <Dropdown.Item href="#/action-2" style={{color:"black"}} onClick={()=>filterStatus("registered")}>Registerd</Dropdown.Item>
+            <Dropdown.Item href="#/action-3" style={{color:"black"}} onClick={()=>filterStatus("deleted")}>Deleted</Dropdown.Item>
+            <Dropdown.Item href="#/action-3" style={{color:"black"}} onClick={()=>filterStatus("available")}>Available</Dropdown.Item>
              </DropdownButton>
              </div>
             </div>

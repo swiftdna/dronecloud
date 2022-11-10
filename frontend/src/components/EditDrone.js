@@ -82,11 +82,10 @@ function EditDrone(props) {
        formData.price = price;
        console.log(image);
        const result=updateDrone(formData, drone_id);
+       navigate("/admin");
     } 
   
-const addDrone2=()=>{
-    navigate("/admin/addDrone2")
-}
+
     
   return (
     <div className="container main-frame">
