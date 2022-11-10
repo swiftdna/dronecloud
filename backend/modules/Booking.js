@@ -57,8 +57,38 @@ const getBookings = async(req, res, next) => {
         return next();
     }
 }
-
+const getUserBookings = async(req, res, next) => {
+    const { models: { booking: Booking } } = COREAPP;
+    console.log()
+    try {
+        console.log("999qwerwerwer9")
+        console.log(typeof req.body.id);
+        const userbookings = await Booking.findAll({
+            where:{
+                user_id: req.body.id
+            },
+            raw: true
+        });
+        req.model = {};
+        req.model.data = {
+            sucess: true,
+            data: userbookings
+        };
+        //console.log(req.model.data)
+        return next();
+    }
+    catch(e) {
+        req.model.data = {
+            sucess: false,
+            data: {
+                message: e.message
+            }
+        };
+        return next();
+    }
+}
 module.exports = {
     BookingDroneDetails,
     getBookings,
+    getUserBookings,
 };
