@@ -1,7 +1,8 @@
 const express = require('express');
 const passport = require('passport');
 const router = express.Router();
-const { getUserDetails, updateUserDetails} = require('./modules/UserProfile');
+const { getUserDetails, updateUserDetails } = require('./modules/UserProfile');
+const { handleBookingSchedule } = require('./modules/Scheduler');
 const { getDronePaths, registerDrone, deleteDrone, getAllDrones, getDroneLastSeenLocations, getDroneLastSeenLocationsOld } = require('./modules/SimulatorInteraction');
 
 const {addDrone,getDrone,getSingleDrone,updateDrone} =require('./modules/DroneCatalog');
@@ -26,6 +27,8 @@ router.get('/', isLoggedIn, (req, res) => {
 	res.json({success: true, message: 'Welcome to API page!'});
 });
 
+// Bootstrap Scheduler
+handleBookingSchedule();
 
 router.post('/drone/booking', isLoggedIn, BookingDroneDetails, pusher);
 router.post('/farmuser', isLoggedIn, FarmUserDroneDetails, pusher);
