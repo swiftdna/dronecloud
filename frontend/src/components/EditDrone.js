@@ -1,56 +1,158 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
-function EditDrone() {
+import "../CSS/addDrone.css"
+import React, { useEffect,useState } from 'react';
+import { selectIsLoggedIn, selectUser } from '../selectors/appSelector';
+import { useNavigate, useLocation,useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import "../CSS/dronecatalog.css";
+import {Link} from "react-router-dom";
+import { Button, Form } from 'react-bootstrap';
+import axios  from 'axios';
+import {Image} from 'react-bootstrap'
+import { uploadImageToCloud,updateDrone } from '../utils';
+function EditDrone(props) {
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
     const navigate=useNavigate();
-   
-    const editDrone2=()=>{
-        navigate("/admin/addDrone2")
+    const {id}=useParams();
+    const drone_id=Number(id);
+    const [name,setName]=useState(" ");
+    const [brand,setBrand]=useState(" ");
+    const [camera,setCamera]=useState("");
+    const [image,setImage]=useState(" ");
+   const [speed,setSpeed]=useState(0);
+   const [weight,setWeight]=useState(0);
+   const [time,setTime]=useState(0);
+   const [service,setService]=useState(" ");
+   const [price,setPrice]=useState(0);
+    
+   useEffect(() => {
+    if (isLoggedIn) {
+        console.log('DroneCatalog === user logged in!');
     }
-        
-      return (
-        <div className="container main-frame">
-             <div className="div1-drone-catalog">
-                <h2 className='header-dronecatalog' style={{marginLeft:"100px"}}> Edit Drone</h2>
+    getSingleDrone();  
+}, [isLoggedIn]);
+  const getSingleDrone=()=>{
+    axios.get( `/api/droneCatalog/getDrone/${drone_id}`)
+      .then((response) =>{
+        console.log(response);
+        const {data: {success, result}} = response;
+        if(success){
+          setName(result.model);
+          setBrand(result.manufacturer);
+          setCamera(result.camera);
+          setImage(result.image);
+          setSpeed(result.speed);
+          setWeight(result.weight);
+          setTime(result.time);
+          setService(result.service);
+          setPrice(result.price);
+            
+        } else {
+          alert("failed to fetch Drones")
+        }
+      })
+  }
+  const uploadImage = async (e) => {
+		e.preventDefault();
+		const res = await uploadImageToCloud(e.target.files[0]);
+
+		  // console.log(res.data.secure_url);
+		const {data: {secure_url}} = res;
+		if (secure_url) {
+				console.log("image uploaded sucessfully - ", secure_url);
+		};
+		setImage(secure_url);
+    }
+
+    const handleUserData=async()=>
+   {
+       //e.preventDefault();
+       
+       var formData = {};
+       formData.image_url= image;
+       formData.droneName = name;
+       formData.brand = brand;
+       formData.camera = camera;
+       formData.speed = speed;
+       formData.weight = weight;
+       formData.time = time;
+       formData.service = service;
+       formData.price = price;
+       console.log(image);
+       const result=updateDrone(formData, drone_id);
+    } 
+  
+const addDrone2=()=>{
+    navigate("/admin/addDrone2")
+}
     
-                <p className='heading-dronecatalog' style={{marginTop:"10px",marginLeft:"100px"}}>Edit details of the selected drone</p>
-             </div>
-             <div>
-                 <div className=' droneDetails'>
-                     <p className="DroneInfo">Drone information</p>
-                     <p className='DroneDetails'>Name</p>
-                    <input type="text" className='input_text'></input>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
-  <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
-</svg>
-                    <p className='DroneDetails'>Brand</p>
-                    <input type="text" className='input_text'></input>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
-  <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
-</svg>
-                    <p className='DroneDetails'>Product URL</p>
-                    <input type="text" className='input_text'></input>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
-  <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
-</svg>
-                    <p className='DroneDetails'>Price of service</p>
-                    <input type="text" className='input_text'></input>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
-  <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
-</svg>
-                    <br>
-                    </br>
-                    <button variant="secondary" className='dc-default btn btn-secondary m20'>Back</button>
-                    <button variant="primary" className='dc-default btn btn-primary m20' 
-                    style={{float:"right",margin:"20px",}}
-                    onClick={editDrone2}>Next</button>
+  return (
+    <div className="container main-frame">
+         <div className="div1-drone-catalog">
+            <h1 className='header-dronecatalog' style={{marginLeft:"100px"}}> Edit Drone details</h1>
+
+            <p className='heading-dronecatalog' style={{marginTop:"10px",marginLeft:"100px"}}>Enter the details of the drone</p>
+         </div>
+         <div>
+
+             <div className='droneDetails'>
+
+                 <p className="DroneInfo">Drone information</p>
+                 <p className='DroneDetails'>Name</p>
+                <input type="text" className='input_text' value={name} onChange={(event) => {
+          setName(event.target.value);
+        }}></input>
+                <p className='DroneDetails'>Brand</p>
+                <input type="text" className='input_text' value={brand} onChange={(event) => {
+          setBrand(event.target.value);
+        }}></input>
+                <p className='DroneDetails'>Camera</p>
+                <input type="text" className='input_text' value={camera} onChange={(event) => {
+          setCamera(event.target.value);
+        }}></input>
+                <p className='DroneDetails'>Speed of Flight</p>
+                <input type="text" className='input_text' value={speed} onChange={(event) => {
+          setSpeed(event.target.value);
+        }}></input>
+
+                <p className='DroneDetails'>weight of the Drone</p>
+                <input type="text" className='input_text'  value={weight} onChange={(event) => {
+          setWeight(event.target.value);
+        }}></input>
+                <p className='DroneDetails'>Flight time</p>
+                <input type="text" className='input_text' value={time} onChange={(event) => {
+          setTime(event.target.value);
+        }}></input>
+                <p className='DroneDetails'>Service</p>
+                <input type="text" className='input_text' value={service} onChange={(event) => {
+          setService(event.target.value);
+        }}></input>
+                <p className='DroneDetails'>Price of service</p>
+                <input type="text" className='input_text' value={price} onChange={(event) => {
+          setPrice(event.target.value);
+        }}></input>
+                <p className='DroneDetails'>Upload image</p>
+                <Form.Control
+                    type="file"
+                    id="drone-picture"
+                    aria-describedby="image"
+                    onChange={uploadImage}
                     
-    
-                     
-    
-                 </div>
+                    style={{margin:"20px",width:"100px",align:"center"}}
+                  />
+                  <p>{image}</p>
+                <br>
+                </br>
+                <button variant="secondary" className='dc-default btn btn-secondary m20'>Back</button>
+                <button variant="primary" className='dc-default btn btn-primary m20' 
+                style={{float:"right",margin:"20px",}}
+                onClick={handleUserData}>Next</button>
              </div>
-        </div>
-      )
+         </div>
+    </div>
+  )
   
 }
 

@@ -68,7 +68,7 @@ function Admin() {
                         <Route path="/addDrone" element={<AddDrone/>}/>
                         <Route path="/addDrone2" element={<AddDrone2/>}/>
 
-                        <Route path="/editDrone" element={<EditDrone/>}/>
+                        <Route path="/editDrone/:id" element={<EditDrone/>}/>
                         <Route path="/editDrone2" element={<EditDrone2/>}/>
                         <Route path="/editDrone3" element={<EditDrone3/>}/>
                         <Route path="/editDrone4" element={<EditDrone4/>}/>

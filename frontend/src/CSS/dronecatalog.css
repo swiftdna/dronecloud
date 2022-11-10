@@ -35,24 +35,24 @@
 
 .dropdown .btn {
 	font-size: 15px;
-	min-width: 120px;
-	padding: 8px 18px !important;
+	min-width: 50px;
+	padding: 8px 8px !important;
 }
 .heading-dronecatalog {
 	margin-top: 20px;
 }
 .drone-catalog .card-header {
 	background: none;
-    border: none;
+	border: none;
 }
 .drone-catalog .card.add-new {
 	padding: 10px;
 }
 .drone-catalog .btn.btn-edit {
-	padding: 4px 12px;
-	background-color: #0070BA;
-	font-size: 13px;
+	padding: 4px 5px;
+	background-color: #0070ba;
+	font-size: 9px;
 	float: right;
 	border-radius: 10px;
+	width: 50px;
 }
-

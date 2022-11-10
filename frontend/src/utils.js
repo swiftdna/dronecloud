@@ -177,3 +177,15 @@ export function addDrone(formData){
     
 
 }
+export function updateDrone(formData,id){
+    axios.post(`/api/droneCatalog/updateDrone/${id}`, formData).then((res)=>{
+        if(res.data.success){
+             console.log("success");
+             return (true);
+        }
+         }).catch((err)=>{
+             console.log(err);
+         })
+    
+
+}
