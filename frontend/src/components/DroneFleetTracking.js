@@ -107,14 +107,14 @@ function DroneFleetTracking() {
                       <Card.Body>
                         <Card.Title>{drone.manufacturer} {drone.model}</Card.Title>
                         <Row>
-                        <Col xs={drone.image_url ? 9 : 12}>
+                        <Col xs={drone.image_url ? 7 : 12}>
                             <Card.Subtitle className="mb-2 text-muted">Drone #{drone.id}</Card.Subtitle>
                             <Card.Text>
                               <Badge bg={drone.status ? statusColors[drone.status] : "primary"}>{capitalizeFirst(drone.status)}</Badge>
                             </Card.Text>
                         </Col>
-                        {drone.image_url ? <Col xs={3}>
-                            <Image src={drone.image_url} style={{marginLeft: '-25px'}} width="50" height="40" />
+                        {drone.image_url ? <Col xs={5}>
+                            <Image src={drone.image_url} style={{marginLeft: '-20px', marginTop: '-5px'}} width="80" height="60" />
                         </Col> : ''}
                         </Row>
                       </Card.Body>
