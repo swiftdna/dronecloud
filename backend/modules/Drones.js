@@ -305,6 +305,48 @@ const getAvailableDrones = async (req, res, next) => {
         return next();
     }
 };
+const PilotAvailability = async (req, res, next) => {
+    const { models: { pilot_info: PilotInfo,booking:Booking } } = COREAPP;
+    try {
+		const pilotinfo = await PilotInfo.findAll({
+		});
+        req.model = {};
+        req.model.data = pilotinfo;
+        console.log("",req.model.data)
+        const AllpilotIDs = _.pluck(req.model.data , 'id');
+
+        const bookingData = await Booking.findAll({
+            raw: true,
+            group: ["pilot_id"]
+        });
+        req.model = {};
+        req.model.data = bookingData;
+        console.log("&&&",req.model.data )
+
+        const bookedPilotIDs = _.pluck(req.model.data , 'pilot_id');
+       // const availableDroneIDs = .filter(droneID => bookedDroneIDs.indexOf(droneID) === -1);
+        console.log("&&&333",bookedPilotIDs ,AllpilotIDs)
+        const availableDroneIDs = AllpilotIDs.filter(droneID => bookedPilotIDs.indexOf(droneID) === -1);
+        console.log(availableDroneIDs)
+        const availablepilotinfo = await PilotInfo.findAll({
+            where:{
+                id: {
+                    [Op.in]: availableDroneIDs
+                  }
+            }, 
+            raw: true
+		});
+        req.model = {};
+        req.model.data = availablepilotinfo;
+        console.log("&&&111111",req.model.data )
+
+        return next();
+    }
+    catch {
+        console.log('error for drones data');
+        return next();
+    }
+};
 
 module.exports = {
     getDrones,
@@ -313,4 +355,5 @@ module.exports = {
     getAvailableDrones,
     filterDroneDetails,
     FarmUserDroneDetails,
+    PilotAvailability
 };

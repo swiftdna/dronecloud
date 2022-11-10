@@ -70,7 +70,7 @@ export default function DroneBookingCatalog() {
   const dispatch = useDispatch();
      const selectDrone = (drone) => {
       setSelectedDrone(drone.id);
-        console.log("clicked",drone);
+        console.log("clicked",drone,fromdate,todate);
         dispatch(
           bookdrone({
             id:drone.id,
