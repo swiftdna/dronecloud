@@ -172,6 +172,7 @@ export default function DroneBookingCatalog() {
                          
                         </select>
                 </li>
+            </ul>
                 <br></br><br></br>
                 
                   <DateTimePicker
@@ -208,7 +209,6 @@ export default function DroneBookingCatalog() {
                 <button class="button button2" onClick={filterSubmit} style = {{padding: "10px"}}> Go</button>
                 </div>
                 <br></br>
-            </ul>
             <div className="dronedisplay">
             {/* <ul> */}
               {/* {
