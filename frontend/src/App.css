@@ -256,7 +256,11 @@
 }
 
 .dc-login .form-group {
-	margin-top: 10px;
+	margin-top: 20px;
+}
+
+.dc-login .form-group > input {
+	height: 45px;
 }
 
 .dc-default.dc-admin-nav {
@@ -515,6 +519,46 @@
 
 .dc-default .button_panel > .btn:not(:first-child) {
 	margin-left: 10px;
+}
+
+.dc-default .video-background {
+  background: #000;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -99;
+}
+
+.dc-default .video-foreground,
+.dc-default .video-background iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+@media (min-aspect-ratio: 16/9) {
+  .dc-default .video-foreground {
+    height: 300%;
+    top: -100%;
+  }
+}
+
+@media (max-aspect-ratio: 16/9) {
+  .dc-default .video-foreground {
+    width: 300%;
+    left: -100%;
+  }
+}
+
+.dc-default .dc-login.login-form {
+	background-color: rgba(255, 255, 255, 0.6);
+	padding: 45px;
+	border-radius: 6px;
 }
 
 .dc-default #searchbox {

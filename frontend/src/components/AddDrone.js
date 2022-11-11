@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import { Navigate } from 'react-router'
 import "../CSS/addDrone.css"
+import { useDispatch } from 'react-redux';
 import axios  from 'axios';
 import { useNavigate} from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import { addDrone, uploadImageToCloud } from '../utils';
 function AddDrone() {
     const navigate=useNavigate()
-   
+    const dispatch = useDispatch();
     const [name,setName]=useState(" ");
     const [brand,setBrand]=useState(" ");
     const [camera,setCamera]=useState("");
@@ -41,12 +42,10 @@ function AddDrone() {
        formData.time = time;
       formData.service = service;
        formData.price = price;
-       const result=await addDrone(formData);
-         navigate("/admin/addDrone2")
+       const result=await addDrone(dispatch,formData);
+         navigate("/admin")
         }
-const addDrone2=()=>{
-    navigate("/admin/addDrone2")
-}
+
     
   return (
     <div className="container main-frame">
