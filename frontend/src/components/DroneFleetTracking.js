@@ -5,11 +5,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getAdminDroneList, capitalizeFirst, getAdminDroneDetails } from '../utils';
 import { Row, Col, Form, Card, Badge, Spinner, Image } from 'react-bootstrap';
 import { MdOutlineClose } from 'react-icons/md';
-import { GoogleMap, useJsApiLoader, Polyline } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader, Polyline, StandaloneSearchBox } from '@react-google-maps/api';
 import Marker from './Marker';
 import LiveTracking from './LiveTracking';
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+const libraries = ["drawing", "places", "geometry"];
 
 function DroneFleetTracking() {
     const dispatch = useDispatch();
@@ -17,6 +17,10 @@ function DroneFleetTracking() {
     const [indDronePaths, setIndDronePaths] = useState([]);
     const isLoggedIn = useSelector(selectIsLoggedIn);
     const [map, setMap] = React.useState(null);
+    const [searchBox, setSearchBox] = React.useState(null);
+    const [searchedName, setSearchedName] = React.useState(null);
+    const [withIn, setWithIn] = React.useState(20);
+    const [proximityDrones, setProximityDrones] = useState([]);
     const loading = useSelector((state) => state.admindronetracking.loading);
     const tloading = useSelector((state) => state.admindronetracking.trackingLoading);
     const drones = useSelector((state) => state.admindronetracking.data);
@@ -54,19 +58,18 @@ function DroneFleetTracking() {
 
     const center = {
       lat: 37,
-      lng: -122,
-      zoom: 10
+      lng: -122
     };
 
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
-        googleMapsApiKey: "AIzaSyDAY3yhqc24s5SpDcxRXTnObJXbQTBwtV4"
+        googleMapsApiKey: "AIzaSyDAY3yhqc24s5SpDcxRXTnObJXbQTBwtV4",
+        libraries
     });
 
     const onLoad = React.useCallback(function callback(map) {
         const bounds = new window.google.maps.LatLngBounds();
         for (let i = 0; i < drones.length; i++) {
-            console.log(drones[i].last_seen);
             if (!drones[i].last_seen) {
                 continue;
             }
@@ -92,6 +95,54 @@ function DroneFleetTracking() {
     const closeDetailedDroneView = () => {
         setIndDrone();
         onLoad();
+    }
+
+    const onSBLoad = ref => {
+        setSearchBox(ref);
+    };
+
+    const filterDronesByProximity = center => {
+        const tempDrones = drones.slice();
+        const filtered = tempDrones
+            .filter(dr => dr.last_seen && dr.last_seen.lat)
+            .filter(dr => {
+                const dist_mts = window.google.maps.geometry.spherical.computeDistanceBetween({
+                  lat: center.lat,
+                  lng: center.lng
+                }, {
+                  lat: dr.last_seen.lat,
+                  lng: dr.last_seen.lng
+                });
+                return dist_mts > 0 && (dist_mts/1609 <= withIn);
+            });
+        setProximityDrones(filtered);
+    }
+
+    const onPlacesChanged = () => {
+        let results = searchBox.getPlaces();
+        const placeName = results && results.length ? results[0].name : '';
+        setSearchedName(placeName);
+        const bounds = new window.google.maps.LatLngBounds();
+        for (let i = 0; i < results.length; i++) {
+            let place = results[i].geometry.location;
+            const path = {
+                lat: place.lat(),
+                lng: place.lng()
+            };
+            filterDronesByProximity(path);
+            bounds.extend(path);
+        }
+        map.setOptions({ maxZoom: 8 });
+        map.fitBounds(bounds);
+        map.setOptions({ maxZoom: null });
+        setMap(map);
+    };
+
+    const handleSearchChange = (e) => {
+        const {target: {value}} = e;
+        if (!value) {
+            setSearchedName('');
+        }
     }
 
     return(
@@ -121,6 +172,41 @@ function DroneFleetTracking() {
                 </Card>
                 )}
             </div>
+            <Row>
+            <Col xs={6} className="search_helper">Showing drones within <span className="dist">{withIn}</span> miles {searchedName ? `of ${searchedName}` : ''}</Col>
+            <Col xs={3} className="search_helper"></Col>
+            <Col xs={3}>
+                {!loading && drones && drones.length ? 
+                    <div id="searchbox">
+                    <StandaloneSearchBox
+                      onLoad={onSBLoad}
+                      onPlacesChanged={
+                        onPlacesChanged
+                      }
+                    >
+                      <input
+                        type="search"
+                        placeholder="Search by region"
+                        onChange={handleSearchChange}
+                        style={{
+                          boxSizing: `border-box`,
+                          border: `1px solid transparent`,
+                          width: `200px`,
+                          height: `40px`,
+                          padding: `0 12px`,
+                          borderRadius: `3px`,
+                          boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+                          fontSize: `14px`,
+                          outline: `none`,
+                          textOverflow: `ellipses`,
+                          position: "absolute",
+                        }}
+                      />
+                    </StandaloneSearchBox>
+                    </div> : ''
+                }
+            </Col>
+            </Row>
             {indDrone && indDrone.id ? <div className="drone_details">
                     <div style={{float: 'right'}}><MdOutlineClose size={40} style={{cursor: 'pointer'}} onClick={() => closeDetailedDroneView()} /></div>
                     <h4>Drone ID #{indDrone.id}</h4>
@@ -148,8 +234,16 @@ function DroneFleetTracking() {
                     onLoad={onLoad}
                     onUnmount={onUnmount}
                   >
-                  {!loading && drones && drones.length && drones.map(drone => 
-                    drone.last_seen ? <Marker
+                  {!loading && searchedName && proximityDrones && proximityDrones.length && proximityDrones.map(drone => 
+                    drone.last_seen && drone.last_seen.lat ? <Marker
+                      lat={drone.last_seen.lat}
+                      lng={drone.last_seen.lng}
+                      type={drone.status}
+                    /> : ''
+                    )
+                  }
+                  {!loading && !searchedName && drones && drones.length && drones.map(drone => 
+                    drone.last_seen && drone.last_seen.lat ? <Marker
                       lat={drone.last_seen.lat}
                       lng={drone.last_seen.lng}
                       type={drone.status}
