@@ -17,7 +17,7 @@ function MyBookings() {
 
     useEffect(() => {
         axios.post(`/api/userbookings`,{
-            id:user_id
+            id:1
         })
         .then(response => {
           console.log("donrappppi------------",response.data.data)
@@ -29,7 +29,8 @@ function MyBookings() {
     return(
         <div className="container main-frame fill-page">
             <h4  style={{marginLeft:"350px"}}>My Bookings page</h4>
-            <table style={{position: "fixed",width:"960px",marginTop:"50px"}}>
+            <div style={{width:"960px",marginTop:"50px"}}>
+            <table >
                 <tr>
                     <th>Booking ID</th>
                     <th>Farmland</th>
@@ -39,13 +40,15 @@ function MyBookings() {
 
                 </tr>
                 {allbookingslist && allbookingslist.length&& allbookingslist.map(booking => 
-                     <tr  style={{textAlign:"center"}}>
+                     <tr class="border-bottom">
                      <td>{booking.id}</td>
                      <td>{booking.farm_id}</td>
                      <td>{booking.farm_id}</td>
                      <td>{booking.start_date&&booking.start_date.substring(0,10)} to {booking.end_date&&booking.end_date.substring(0,10)}</td>
-                     <td>{booking.status}</td>
+                     <td>
+                        {booking.status==="booked" ? <button class="button-booked buttonbooked1">Booked</button> : booking.status==="deleted" ? <button class="button-deleted buttondeleted1">Deleted</button>: booking.status==="finished" ? <button class="button-finished buttonfinished1">Finished</button>:<div></div>}
 
+</td>  
                      {/* <td>{booking.status}</td> */}
                  </tr>
                  
@@ -53,6 +56,8 @@ function MyBookings() {
                     )}
                
             </table>
+            </div>
+           
 
         </div>
     )
