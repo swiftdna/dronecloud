@@ -16,7 +16,10 @@ const makeHTTPRequest = async (params) => {
         body = formData;
     }
     const response = await fetch(`${host}${path}`, {method, body});
-    const data = await response.text();
+    let data = await response.text();
+    if (data && typeof data === 'string') {
+        data = JSON.parse(data);
+    }
     return data;
 };
 

@@ -1,12 +1,15 @@
 import {React, useState,useEffect} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {   Routes, Route, NavLink, useNavigate, useLocation } from 'react-router-dom';
+import { Row, Col, Form, Card, Badge, Spinner } from 'react-bootstrap';
 import {  Button } from 'react-bootstrap';
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import "../components/css/DroneBookingCatalog.css"
 import { Link } from "react-router-dom";
 import DateTimePicker from 'react-datetime-picker';
+import { useDispatch,useSelector } from "react-redux";
+import {bookdrone, booking} from "../reducers/bookSlice";
 import AllDrone from "./AllDrone";
 import axios from 'axios';
 
@@ -34,42 +37,62 @@ export default function DroneBookingCatalog() {
   const [searchitemslist,setSearchItemsList] = useState([])
   const [fromdate,setfromDate] = useState("");
   const [todate,settoDate] = useState("");
-
+  const [selectedDrone, setSelectedDrone] = useState("");
+  const farmtype = useSelector((store) =>store.bookdrone.farmtype);
 
   const filterSubmit = (e) => {
     e.preventDefault();
-  //   console.log("1*********************************",droneservice,dronedatetime,typeof(droneprice),dronebrand,droneequipment,dronestatus);
-  //   allitemslist.filter((val)=> {
-  //     console.log("1*********************************",val.availablefrom)
-  //     setSearchItemsList(searchitemslist=> [...searchitemslist, val]);
-
-      
-    
-  //   })
-  // console.log("***4444444444",searchitemslist)
-    axios.post(`/api/drone/filter`,{service:droneservice.toLowerCase(),brand:dronebrand.toLowerCase(),price:droneprice,equipment:droneequipment.toLowerCase(),status:dronestatus.toLowerCase()})
+    console.log("!!!!!!!!!",droneservice,dronebrand,droneprice,dronestatus,droneequipment)
+    axios.get(`/api/drones/availability`,{
+      from:fromdate,
+      to:todate,
+      service:droneservice,
+      price:droneprice,
+      equipment:droneequipment,
+      brand:dronebrand
+  })
     .then(response => {
-      console.log("go",response)
-      setAllItemsList(response.data)
+      console.log("&&&&",response.data.data)
+      setAllItemsList(response.data.data)
     });
 
     };
   useEffect( () => {
     
-    axios.get(`/api/drone`)
+    axios.get(`/api/drones`)
       .then(response => {
-        console.log("donrappppi",response.data)
-      setAllItemsList(response.data)
+        console.log("donrappppi",response.data.data)
+      setAllItemsList(response.data.data)
 
       });
   } , []);
+  const dispatch = useDispatch();
+     const selectDrone = (drone) => {
+      setSelectedDrone(drone.id);
+        console.log("clicked",drone,fromdate,todate);
+        dispatch(
+          bookdrone({
+            id:drone.id,
+            name:drone.name,
+            farmtype:farmtype,
+            manufacturer:drone.manufacturer,
+            service:drone.service,
+            equipment:drone.equipment,
+            price:drone.price,
+            dronedatetime:dronedatetime,
+            fromdate:fromdate,
+            todate:todate,
+
+          })
+        );
+    }
   return (
     
     <div>
            <img src="Step2.png"width="300" height="50" />
            <h3>Step 2: Drone Catalog</h3>
       Select a service and choose your done <br></br><br></br>
-        
+        <div>
             <ul >
                     
                  <li class="dronebookdropdown" >
@@ -143,19 +166,15 @@ export default function DroneBookingCatalog() {
                 </li>
                 <br></br><br></br>
                 
-                  <div className="dateinput">
                   <li class="dronebookdropdown">
                       <input className="form-date"  type="date"  onChange={(event) => {
             setfromDate(event.target.value);
           }}/>
                       </li>
-                  </div>
-                  <div className="dateinput"> 
                 <input  className="form-date"  type="date"  onChange={(event) => {
             settoDate(event.target.value);
           }}/>
                 
-                  </div>
                
               <div className="gobutton">
                 <button class="button button2" onClick={filterSubmit} style = {{padding: "10px"}}> Go</button>
@@ -163,7 +182,7 @@ export default function DroneBookingCatalog() {
                 <br></br>
             </ul>
             <div className="dronedisplay">
-            <ul>
+            {/* <ul> */}
               {/* {
             <div className="row">
                  
@@ -193,17 +212,39 @@ export default function DroneBookingCatalog() {
                 ))} </div> 
              } 
                 </div> } */}
-                {allitemslist&&    <div className="row">
+                
+                {/* {allitemslist&&    <div className="row">
          {allitemslist.map((drone) => (
                   <AllDrone key={drone.name} dronedetails={drone}></AllDrone>
                 //  console.log("asdasd",drone)
                 ))} </div> }
-            </ul>
+//             </ul> */}
 
+<div className="drones_list">
+                {allitemslist && allitemslist.length&&allitemslist.map(drone => 
+                    <Card style={{ width: '13rem' }}  className={selectedDrone === drone.id ? "selected" : ""} onClick={() => selectDrone(drone)} >
+                      <Card.Body>
+                        <Card.Title>{drone.name}</Card.Title>
+                        <Card.Subtitle className="mb-2 text-muted">Drone ID: {drone.id}</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted">Drone Price: {drone.price}</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted">Drone Equipment: {drone.equipment}</Card.Subtitle>
+                        {/* <Card.Subtitle className="mb-2 text-muted">Drone Manufacturer: {drone.equipment}</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted">Drone Service:{drone.equipment}</Card.Subtitle> */}
+                        <Card.Text>
+                          {/* <Badge bg={drone.status ? statusColors[drone.status] : "primary"}>{capitalizeFirst(drone.status)}</Badge> */}
+                        </Card.Text>
+                      </Card.Body>
+                    </Card>
+                   
+           
+                )}
             </div>
 
+            </div>
+            </div>
            <div className="navigation">
             <ul>
+              
                 <li className="navigationbutton">
                 <button class="button button1"> <Link to="/book-drone" >Back</Link>
                 </button> 

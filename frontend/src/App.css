@@ -256,7 +256,11 @@
 }
 
 .dc-login .form-group {
-	margin-top: 10px;
+	margin-top: 20px;
+}
+
+.dc-login .form-group > input {
+	height: 45px;
 }
 
 .dc-default.dc-admin-nav {
@@ -351,6 +355,22 @@
 	width: fit-content;
 }
 
+.dc-default .farm_list {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
+	
+}
+
+.dc-default .farm_list > .farm_disp {
+	flex: -22 1 30%;
+    margin: 45px 99px;
+    height: 217px;
+
+}
+
 .dc-default .drones_list {
 	width: inherit;
 	display: inline-block;
@@ -381,6 +401,25 @@
 .dc-default .drones_list > .card .card-subtitle {
 	font-size: 13px;
 }
+
+.dc-default .farm_list > .card.selected {
+	background-color: #f6f6f8;
+	color: #5932ea;
+	margin: 35px 99px;
+}
+
+.dc-default .farm_list > .card.selected:hover {
+	cursor: default;
+	color: #5932ea;
+	
+}
+
+.dc-default .farm_list > .card:not(.selected):hover {
+	cursor: pointer;
+	background-color: #dbd6ef;
+	color: #5932ea;
+}
+
 
 .dc-default .drones_list > .card.selected {
 	background-color: #f4f2fd;
@@ -459,4 +498,85 @@
 }
 .m20{
 	margin: 20px;
+}
+
+.dc-default .selected_pending_list {
+	margin-top: 30px;
+}
+
+.dc-default .selected_pending_list > p:not(.title) {
+	margin: 0;
+}
+
+.dc-default .selected_pending_list > p.title {
+	margin-bottom: 2px;
+	font-weight: bold;
+}
+
+.dc-default .button_panel {
+	margin-top: 20px;
+}
+
+.dc-default .button_panel > .btn:not(:first-child) {
+	margin-left: 10px;
+}
+
+.dc-default .video-background {
+  background: #000;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -99;
+}
+
+.dc-default .video-foreground,
+.dc-default .video-background iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+@media (min-aspect-ratio: 16/9) {
+  .dc-default .video-foreground {
+    height: 300%;
+    top: -100%;
+  }
+}
+
+@media (max-aspect-ratio: 16/9) {
+  .dc-default .video-foreground {
+    width: 300%;
+    left: -100%;
+  }
+}
+
+.dc-default .dc-login.login-form {
+	background-color: rgba(255, 255, 255, 0.6);
+	padding: 45px;
+	border-radius: 6px;
+}
+
+.dc-default #searchbox {
+	margin-bottom: 40px;
+}
+
+.dc-default #searchbox > input::-webkit-search-cancel-button {
+    -webkit-appearance: searchfield-cancel-button;
+}
+
+.dc-default .search_helper {
+	margin-top: 10px;
+	color: #808080;
+}
+
+.dc-default .search_helper > span.dist {
+	color: #0070BA;
+	cursor: pointer;
+	text-decoration: underline;
+	text-decoration-style: dotted;
 }

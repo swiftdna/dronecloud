@@ -15,6 +15,12 @@ module.exports = function(sequelize, Sequelize) {
         name: {
             type: Sequelize.TEXT
         },
+        address: {
+            type: Sequelize.TEXT
+        },
+        contact: {
+            type: Sequelize.BIGINT
+        },
         issued_by: {
             type: Sequelize.TEXT
         },
