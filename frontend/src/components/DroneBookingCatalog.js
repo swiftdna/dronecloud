@@ -41,15 +41,17 @@ export default function DroneBookingCatalog() {
   const farmtype = useSelector((store) =>store.bookdrone.farmtype);
   const farmland = useSelector((store) =>store.bookdrone.farmland);
   const farmid = useSelector((store) =>store.bookdrone.farmid);
+  console.log("ASDASDASDASDA",new Date(fromdate).valueOf())
+  console.log("%^%^%^%^%^",new Date(todate).valueOf())
 
 
-
+  
   const filterSubmit = (e) => {
     e.preventDefault();
     console.log("!!!!!!!!!",droneservice,dronebrand,droneprice,dronestatus,droneequipment)
     axios.get(`/api/drones/availability`,{
-      from:fromdate,
-      to:todate,
+      from:new Date(fromdate).valueOf(),
+      to:new Date(todate).valueOf(),
       service:droneservice,
       price:droneprice,
       equipment:droneequipment,
