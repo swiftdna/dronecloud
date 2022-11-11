@@ -48,6 +48,7 @@ export default function DroneBookingConfirmation() {
       pilot_id:pilot_id,
       start_date:fromdate,
       end_date:todate,
+      status:"booked"
     })
       .then(response => {
         

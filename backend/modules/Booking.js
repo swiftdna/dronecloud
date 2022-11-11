@@ -10,6 +10,7 @@ const BookingDroneDetails = async (req, res, next) => {
             pilot_id:req.body.pilot_id,
             start_date:req.body.start_date,
             end_date:req.body.end_dates,
+            status:req.body.status,
         });
         if (internal) {
             return bookingData;
