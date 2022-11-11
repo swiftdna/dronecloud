@@ -12,6 +12,7 @@ import { useDispatch,useSelector } from "react-redux";
 import {bookdrone, booking} from "../reducers/bookSlice";
 import AllDrone from "./AllDrone";
 import axios from 'axios';
+import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -20,9 +21,6 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary
   }
 }));
-
-
-
 
 export default function DroneBookingCatalog() {
   const classes = useStyles();
@@ -35,37 +33,38 @@ export default function DroneBookingCatalog() {
   const [dronestatus, setStatus] = useState("");
   const [allitemslist,setAllItemsList] = useState([])
   const [searchitemslist,setSearchItemsList] = useState([])
-  const [fromdate,setfromDate] = useState("");
-  const [todate,settoDate] = useState("");
+  const [fromdate, setfromDate] = useState(new Date());
+  const [todate, settoDate] = useState(new Date());
   const [selectedDrone, setSelectedDrone] = useState("");
   const farmtype = useSelector((store) =>store.bookdrone.farmtype);
   const farmland = useSelector((store) =>store.bookdrone.farmland);
   const farmid = useSelector((store) =>store.bookdrone.farmid);
-  console.log("ASDASDASDASDA",new Date(fromdate).valueOf())
-  console.log("%^%^%^%^%^",new Date(todate).valueOf())
-
-
+  // console.log("ASDASDASDASDA",new Date(fromdate).valueOf())
+  // console.log("%^%^%^%^%^",new Date(todate).valueOf())
   
   const filterSubmit = (e) => {
     e.preventDefault();
-    console.log("!!!!!!!!!",droneservice,dronebrand,droneprice,dronestatus,droneequipment)
-    axios.get(`/api/drones/availability`,{
-      from:new Date(fromdate).valueOf(),
-      to:new Date(todate).valueOf(),
+    const from = moment(fromdate).unix();
+    const to = moment(todate).unix();
+    axios.get(`/api/drones/availability`,{params: {
+      from,
+      to,
       service:droneservice,
       price:droneprice,
       equipment:droneequipment,
       brand:dronebrand,
-      farmtype:farmtype,
-      farmland:farmland,
-      farmid:farmid,
+      // farmtype:farmtype,
+      // farmland:farmland,
+      // farmid:farmid,
+    }
   })
     .then(response => {
-      console.log("&&&&",response.data.data)
-      setAllItemsList(response.data.data)
+      console.log("&&&&",response.data.data);
+      setAllItemsList(response.data.data);
     });
 
-    };
+  };
+
   useEffect( () => {
     
     axios.get(`/api/drones`)
@@ -175,15 +174,35 @@ export default function DroneBookingCatalog() {
                 </li>
                 <br></br><br></br>
                 
-                  <li class="dronebookdropdown">
-                      <input className="form-date"  type="date"  onChange={(event) => {
-            setfromDate(event.target.value);
-          }}/>
-                      </li>
-                <input  className="form-date"  type="date"  onChange={(event) => {
-            settoDate(event.target.value);
-          }}/>
-                
+                  <DateTimePicker
+                    amPmAriaLabel="Select AM/PM"
+                    calendarAriaLabel="Toggle calendar"
+                    clearAriaLabel="Clear value"
+                    dayAriaLabel="Day"
+                    hourAriaLabel="Hour"
+                    maxDetail="second"
+                    minuteAriaLabel="Minute"
+                    monthAriaLabel="Month"
+                    nativeInputAriaLabel="Date and time"
+                    onChange={setfromDate}
+                    secondAriaLabel="Second"
+                    value={fromdate}
+                    yearAriaLabel="Year" />
+                <DateTimePicker
+                    amPmAriaLabel="Select AM/PM"
+                    calendarAriaLabel="Toggle calendar"
+                    clearAriaLabel="Clear value"
+                    dayAriaLabel="Day"
+                    hourAriaLabel="Hour"
+                    maxDetail="second"
+                    minuteAriaLabel="Minute"
+                    monthAriaLabel="Month"
+                    nativeInputAriaLabel="Date and time"
+                    onChange={settoDate}
+                    secondAriaLabel="Second"
+                    value={todate}
+                    yearAriaLabel="Year" />
+              
                
               <div className="gobutton">
                 <button class="button button2" onClick={filterSubmit} style = {{padding: "10px"}}> Go</button>
