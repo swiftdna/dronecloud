@@ -13,16 +13,6 @@ import { setToast } from '../actions/app-actions';
 
 export function UtilityBill() {
 
-    const [regForm, setRegForm] = useState({
-        agreementID: '',
-        billDate: ''
-    });
-    const onInputChange = (e) => {
-        const tmpForm = {...regForm};
-        const name = e.target.getAttribute('id');
-        tmpForm[name] = e.target.value;
-        setRegForm(tmpForm);
-    }
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const submitRegister = () => {
@@ -45,51 +35,50 @@ export function UtilityBill() {
         }
     }
     return (
-        <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100vh',
-        }} className="container pull-down fill-page dc-default">
-            <Form>
-                <img src="Step4.png"width="300" height="50" /><br/><br/>
-                <h4>Lets verify your farm operation</h4><br/>
-                <p>Please submit a copy of your farm's utility bill. This can be an
-                    electric bill, or alternatively a water bill</p><br/>
-                <h5>Farm Utility Bill</h5>
-                <Row className="mb-3">
-                    <Form.Group as={Col} className="mb-3" controlId="agreementID">
-                        <Form.Label>Statement agreement ID</Form.Label>
-                        <Form.Control
-                            type="text"
-                            value={regForm.agreementID}
-                            aria-describedby="agreementID"
-                        />
-                    </Form.Group>
-                    <Form.Group as={Col} className="mb-3" controlId="billDate">
-                        <Form.Label>Date of bill statement</Form.Label>
-                        <Form.Control
-                            type="date"
-                            value={regForm.billDate}
-                            aria-describedby="billDate"
-                        />
-                    </Form.Group>
+        // <div><img src="Step4.png"width="300" height="50" /></div>
+        <div className="container main-frame">
+            <div className="div1-drone-catalog">
+                <h1 className='header-dronecatalog' style={{marginLeft:"100px"}}> Lets verify your farm operation</h1>
 
-                </Row>
-                <Form.Group as={Col} className="mb-3" controlId="image">
-                    <Form.Label className="form_label" htmlFor="image">File upload:</Form.Label>
-                    <Form.Control
-                        type="file"
-                        id="image"
-                        aria-describedby="image"
-                        onChange={uploadImage}
-                    />
-                </Form.Group>
-                <div className="btn_panel">
-                    <Button variant="secondary" onClick={() => goBack()}>Back</Button>
-                    <Button variant="primary" onClick={() => submitRegister()} type="submit">Next</Button>
-                </div>
-            </Form>
+                <p className='heading-dronecatalog' style={{marginTop:"10px",marginLeft:"100px"}}>Please submit a copy of your farm's utility bill.
+                    This can be an electricity bill, or alternatively a water bill.</p>
+            </div>
+            <div className='userDetails'>
+                <Form><br/>
+                    <p className="userInfo">Farm Utility Bill</p>
+                        <Form.Group className="UserDetails" controlId="agreementID">
+                            <Form.Label className='DroneDetails'>Statement agreement ID</Form.Label>
+                            <Form.Control
+                                type="text"
+                                className='input_text'
+                                aria-describedby="agreementID"
+                            />
+                        </Form.Group>
+                        <Form.Group className="UserDetails" controlId="billDate">
+                            <Form.Label className='DroneDetails'>Date of bill statement</Form.Label>
+                            <Form.Control
+                                type="date"
+                                className='input_text'
+                                aria-describedby="billDate"
+                            />
+                        </Form.Group>
+                        <Form.Group className="UserDetails" controlId="image">
+                            <Form.Label className='DroneDetails' htmlFor="image">File upload:</Form.Label>
+                            <Form.Control
+                                type="file"
+                                className='input_text'
+                                id="image"
+                                aria-describedby="image"
+                                onChange={uploadImage}
+                            />
+                        </Form.Group>
+                    <button variant="secondary" className='dc-default btn btn-secondary m20' onClick={goBack}>Back</button>
+                    <button variant="primary" className='dc-default btn btn-primary m20'
+                            style={{float:"right",margin:"20px",}}
+                            onClick={submitRegister}>Next</button>
+                </Form>
+            </div>
+
         </div>
     );
 }

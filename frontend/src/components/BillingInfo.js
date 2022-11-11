@@ -13,18 +13,6 @@ import {setToast} from "../actions/app-actions";
 
 export function BillingInfo() {
 
-    const [regForm, setRegForm] = useState({
-        name: '',
-        cardNumber: '',
-        expiry: '',
-        cvv: ''
-    });
-    const onInputChange = (e) => {
-        const tmpForm = {...regForm};
-        const name = e.target.getAttribute('id');
-        tmpForm[name] = e.target.value;
-        setRegForm(tmpForm);
-    }
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const submitRegister = () => {
@@ -35,57 +23,52 @@ export function BillingInfo() {
         navigate('/UtilityBill');
     };
     return (
-        <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100vh',
-        }} className="container pull-down fill-page dc-default">
-            <Form><br/><br/>
-                <img src="Step5.png"width="300" height="50" /><br/><br/>
-                <h4>Billing information</h4><br/>
-                <p>Fill in the billing information for your profile</p>
-                <h5>Payment method</h5>
-                {/*add radio buttons for wallet and paypal*/}
-                <Form.Group as={Col} className="mb-3" controlId="name">
-                    <Form.Label>Name of Land Owner</Form.Label>
-                    <Form.Control
-                        type="text"
-                        value={regForm.name}
-                        aria-describedby="name"
-                    />
-                </Form.Group>
-                <Form.Group as={Col} className="mb-3" controlId="cardNumber">
-                    <Form.Label>Card Number</Form.Label>
-                    <Form.Control
-                        type="text"
-                        value={regForm.cardNumber}
-                        aria-describedby="cardNumber"
-                    />
-                </Form.Group>
-                <Row className="mb-3">
-                    <Form.Group as={Col} className="mb-3" controlId="expiry">
-                        <Form.Label>Expiration Date</Form.Label>
+        <div className="container main-frame">
+            <div className="div1-drone-catalog">
+                <h1 className='header-dronecatalog' style={{marginLeft:"100px"}}> Billing Information</h1>
+
+                <p className='heading-dronecatalog' style={{marginTop:"10px",marginLeft:"100px"}}>Fill in billing information
+                    for your profile.</p>
+            </div>
+            <div className='userDetails'>
+                <Form><br/>
+                    {/*<img src="Step5.png"width="300" height="50" /><br/><br/>*/}
+                    <p className="userInfo">Credit Card Details</p>
+                    {/*add radio buttons for wallet and paypal*/}
+                    <Form.Group className="UserDetails" controlId="name">
+                        <Form.Label className='DroneDetails'>Name on card</Form.Label>
                         <Form.Control
-                            type="date"
-                            value={regForm.expiry}
-                            aria-describedby="expiry"
-                        />
+                            type="text"
+                            className='input_text'
+                            aria-describedby="name"/>
                     </Form.Group>
-                    <Form.Group as={Col} className="mb-3" controlId="cvv">
-                        <Form.Label>CVV</Form.Label>
+                    <Form.Group className="UserDetails" controlId="cardNumber">
+                        <Form.Label className='DroneDetails'>Card Number</Form.Label>
                         <Form.Control
-                            type="password"
-                            value={regForm.cvv}
-                            aria-describedby="cvv"
-                        />
+                            type="text"
+                            className='input_text'
+                            aria-describedby="cardNumber"/>
                     </Form.Group>
-                </Row>
-                <div className="btn_panel">
-                    <Button variant="secondary" onClick={() => goBack()}>Back</Button>
-                    <Button variant="primary" onClick={() => submitRegister()} type="submit">Next</Button>
-                </div>
-            </Form>
+                        <Form.Group className="UserDetails" controlId="expiry">
+                            <Form.Label className='DroneDetails'>Expiration Date</Form.Label>
+                            <Form.Control
+                                type="date"
+                                className='input_text'
+                                aria-describedby="expiry"/>
+                        </Form.Group>
+                        <Form.Group className="UserDetails" controlId="cvv">
+                            <Form.Label className='DroneDetails'>CVV</Form.Label>
+                            <Form.Control
+                                type="password"
+                                className='input_text'
+                                aria-describedby="cvv"/>
+                        </Form.Group>
+                    <button variant="secondary" className='dc-default btn btn-secondary m20' onClick={goBack}>Back</button>
+                    <button variant="primary" className='dc-default btn btn-primary m20'
+                            style={{float:"right",margin:"20px",}}
+                            onClick={submitRegister}>Next</button>
+                </Form>
+            </div>
         </div>
     );
 }
