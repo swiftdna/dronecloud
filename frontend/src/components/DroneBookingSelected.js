@@ -27,19 +27,17 @@ export default function DroneBookingSelected() {
   const price = useSelector((store) =>store.bookdrone.price);
   const service = useSelector((store) =>store.bookdrone.service);
   const manufacturer = useSelector((store) =>store.bookdrone.manufacturer);
-  const dronedatetime = useSelector((store) =>store.bookdrone.dronedatetime);
+  const farmland = useSelector((store) =>store.bookdrone.farmland);
+  const farmid = useSelector((store) =>store.bookdrone.farmid);
+
   const fromdate = useSelector((store) =>store.bookdrone.fromdate);
   const todate = useSelector((store) =>store.bookdrone.todate);
-  const farmland = useSelector((store) =>store.bookdrone.farmland);
-  const farmid = useSelector((store) =>console.log(store));
   const dispatch = useDispatch();
 
 
   useEffect( () => {
     dispatch(
       bookdrone({
-      from:fromdate,
-      to:todate,
       service:service,
       price:price,
       equipment:equipment,
@@ -47,7 +45,11 @@ export default function DroneBookingSelected() {
       farmtype:farmtype,
       farmland:farmland,
       farmid:farmid,
+      fromdate:fromdate,
+      todate:todate,
       }))}, []);
+
+
   // useEffect( () => {
   //   dispatch(
   //     bookdrone({
@@ -78,10 +80,7 @@ export default function DroneBookingSelected() {
                         <Card.Subtitle className="mb-2 text-muted"><b>Drone Brand:</b> {manufacturer}</Card.Subtitle>
                         <Card.Subtitle className="mb-2 text-muted"><b>Drone Service: </b>{service}</Card.Subtitle>
                         
-                        {/* <Card.Subtitle className="mb-2 text-muted">Drone Manufacturer: {drone.equipment}</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted">Drone Service:{drone.equipment}</Card.Subtitle> */}
-                        <Card.Text>
-                          {/* <Badge bg={drone.status ? statusColors[drone.status] : "primary"}>{capitalizeFirst(drone.status)}</Badge> */}
+                         <Card.Text>
                         </Card.Text>
                       </Card.Body>
                       Date and Time:

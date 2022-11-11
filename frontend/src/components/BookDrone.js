@@ -142,7 +142,7 @@ export default function BookDrone() {
        <div className="farm_list">
               
                 {allitemslist&& allitemslist.map(drone => 
-                    <Card  style={{ width: '16rem' }} className={selectedFarmID === drone.id ? "selected" : "farm_disp"}  onClick={() =>  selectFarm (drone)} >
+                    <Card  style={{ width: '13rem',padding:"4px" }} className={selectedFarmID === drone.id ? "selected" : "farm_disp"}  onClick={() =>  selectFarm (drone)} >
                       
                       <Card.Body style={{backgroundImage: "url(" + drone.type + ".jpeg )"}}>
                         <Card.Title> </Card.Title>

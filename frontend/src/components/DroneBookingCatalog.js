@@ -35,7 +35,14 @@ export default function DroneBookingCatalog() {
   const [searchitemslist,setSearchItemsList] = useState([])
   const [fromdate, setfromDate] = useState(new Date());
   const [todate, settoDate] = useState(new Date());
-  const [selectedDrone, setSelectedDrone] = useState("");
+  const [selectedDroneid, setSelectedDroneID] = useState("");
+  const [selectedDroneprice, setSelectedDronePrice] = useState("");
+  const [selectedDroneequipment, setSelectedDroneEquipment] = useState("");
+  const [selectedDroneservice, setSelectedDroneService] = useState("");
+  const [selectedDronebrand, setSelectedDroneBrand] = useState("");
+  const [selectedDronestatus, setSelectedDroneStatus] = useState("");
+
+
   const farmtype = useSelector((store) =>store.bookdrone.farmtype);
   const farmland = useSelector((store) =>store.bookdrone.farmland);
   const farmid = useSelector((store) =>store.bookdrone.farmid);
@@ -75,25 +82,40 @@ export default function DroneBookingCatalog() {
       });
   } , []);
   const dispatch = useDispatch();
-     const selectDrone = (drone) => {
-      setSelectedDrone(drone.id);
-        console.log("clicked",drone,fromdate,todate);
-        dispatch(
-          bookdrone({
-            id:drone.id,
-            name:drone.name,
-            farmtype:farmtype,
-            manufacturer:drone.manufacturer,
-            service:drone.service,
-            equipment:drone.equipment,
-            price:drone.price,
-            dronedatetime:dronedatetime,
-            fromdate:fromdate,
-            todate:todate,
 
-          })
-        );
+  const selectDrone = (drone) => {
+  setSelectedDroneID(drone.id);
+  setSelectedDronePrice(drone.price);
+  setSelectedDroneEquipment(drone.service);
+  setSelectedDroneStatus(drone.status);
+  setSelectedDroneService(drone.service);
+  setSelectedDroneBrand(drone.manufacturer);
+
+  console.log("!!!!!!!!!!!!!!!!!!",drone)
+
     }
+
+const DroneDispatch = () => {
+console.log(fromdate.toString().substring(4,15))
+  dispatch(
+    bookdrone({
+      id:selectedDroneid,
+      farmtype:farmtype,
+      farmland:farmland,
+      farmid:farmid,
+      manufacturer:selectedDronebrand,
+      service:selectedDroneservice,
+      equipment:selectedDroneequipment,
+      price:selectedDroneprice,
+      fromdate:fromdate.toString().substring(4,15),
+      todate:todate.toString().substring(4,15),
+
+    })
+  );
+
+
+}
+
   return (
     
     <div>
@@ -210,56 +232,18 @@ export default function DroneBookingCatalog() {
                 </div>
                 <br></br>
             <div className="dronedisplay">
-            {/* <ul> */}
-              {/* {
-            <div className="row">
-                 
-                 {searchitemslist.length>0 ?   <div className="row">
-            {[searchitemslist].map((drone) => (
-                 <AllDrone key={drone.name} dronedetails={drone}></AllDrone>
-             ))} </div>
-             : allitemslist&&    <div className="row">
-         {allitemslist.map((drone) => (
-                  <AllDrone key={drone.name} dronedetails={drone}></AllDrone>
-                  // console.log("asdasd",drone)
-                ))} </div> 
-             } 
-                </div> } */}
-   {/* {
-            <div className="row">
-                 
-                 {searchitemslist.length>0 ?   <div className="row">
-            {searchitemslist.map((drone) => (
-                <AllDrone key={drone.name} dronedetails={drone}></AllDrone>
-                // console.log("asdasdsearch",drone)
-             ))} </div>
-             : allitemslist&&    <div className="row">
-         {allitemslist.map((drone) => (
-                  <AllDrone key={drone.name} dronedetails={drone}></AllDrone>
-                //  console.log("asdasd",drone)
-                ))} </div> 
-             } 
-                </div> } */}
-                
-                {/* {allitemslist&&    <div className="row">
-         {allitemslist.map((drone) => (
-                  <AllDrone key={drone.name} dronedetails={drone}></AllDrone>
-                //  console.log("asdasd",drone)
-                ))} </div> }
-//             </ul> */}
+
 
         <div className="drones_list">
                 {allitemslist && allitemslist.length&&allitemslist.map(drone => 
-                    <Card style={{ width: '13rem' }}  className={selectedDrone === drone.id ? "selected" : ""} onClick={() => selectDrone(drone)} >
+                    <Card style={{ width: '13rem' }}  className={selectedDroneid === drone.id ? "selected" : ""} onClick={() => selectDrone(drone)} >
                       <Card.Body>
                         <Card.Title>{drone.name}</Card.Title>
                         <Card.Subtitle className="mb-2 text-muted">Drone ID: {drone.id}</Card.Subtitle>
                         <Card.Subtitle className="mb-2 text-muted">Drone Price: {drone.price}</Card.Subtitle>
                         <Card.Subtitle className="mb-2 text-muted">Drone Equipment: {drone.equipment}</Card.Subtitle>
-                        {/* <Card.Subtitle className="mb-2 text-muted">Drone Manufacturer: {drone.equipment}</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted">Drone Service:{drone.equipment}</Card.Subtitle> */}
+                     
                         <Card.Text>
-                          {/* <Badge bg={drone.status ? statusColors[drone.status] : "primary"}>{capitalizeFirst(drone.status)}</Badge> */}
                         </Card.Text>
                       </Card.Body>
                     </Card>
@@ -278,7 +262,7 @@ export default function DroneBookingCatalog() {
                 </button> 
                 </li>
                 <li className="navigationbutton">
-                <button class="button button1"> <Link to="/drone-booking-selected" >Next</Link>
+                <button class="button button1" onClick={() => DroneDispatch()}><Link to="/drone-booking-selected" >Next</Link>
                 </button> 
                 </li>
             </ul>
