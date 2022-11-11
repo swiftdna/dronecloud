@@ -516,3 +516,23 @@
 .dc-default .button_panel > .btn:not(:first-child) {
 	margin-left: 10px;
 }
+
+.dc-default #searchbox {
+	margin-bottom: 40px;
+}
+
+.dc-default #searchbox > input::-webkit-search-cancel-button {
+    -webkit-appearance: searchfield-cancel-button;
+}
+
+.dc-default .search_helper {
+	margin-top: 10px;
+	color: #808080;
+}
+
+.dc-default .search_helper > span.dist {
+	color: #0070BA;
+	cursor: pointer;
+	text-decoration: underline;
+	text-decoration-style: dotted;
+}
