@@ -18,13 +18,14 @@ export default function FarmerInfo1() {
     const submitRegister = () => {
          // Make an API call
         updateProfile(dispatch, {
-            name:name,
-            phone:phone,
-            address:address,
-            city:city,
-            state:state,
-            country:country,
-            zipcode:zipcode
+            name,
+            phone,
+            address,
+            city,
+            state,
+            country,
+            zipcode,
+            status: 'complete'
         }, (err, success) => {
             if (success) {
                 navigate("/FarmInfo1");
@@ -121,11 +122,11 @@ export default function FarmerInfo1() {
                                     onChange={(event) => {setZipcode(event.target.value)}}
                                     />
                         </Form.Group>
-                        <button variant="secondary" className='dc-default btn btn-secondary m20' onClick={goBack}>Back</button>
-                        <button variant="primary" className='dc-default btn btn-primary m20'
-                                style={{float:"right",margin:"20px",}}
-                                onClick={() => submitRegister()}>Next</button>
                 </Form>
+                <button variant="secondary" className='dc-default btn btn-secondary m20' onClick={() => goBack()}>Back</button>
+                <button variant="primary" className='dc-default btn btn-primary m20'
+                        style={{float:"right",margin:"20px",}}
+                        onClick={() => submitRegister()}>Next</button>
             </div>
         </div>
 );

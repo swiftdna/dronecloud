@@ -4,6 +4,8 @@ const router = express.Router();
 const { getUserDetails, updateUserDetails } = require('./modules/UserProfile');
 const { getDronePaths, registerDrone, deleteDrone, getAllDrones, getDroneLastSeenLocations, getDroneLastSeenLocationsOld } = require('./modules/SimulatorInteraction');
 const { getDrones,filterDroneDetails } = require('./modules/Drones');
+const { getFarms, addFarm } = require('./modules/Farms');
+
 const pusher = (req, res, next) => {
   let {model, model: {data: response}} = req;
   if (model && response) {
@@ -26,6 +28,11 @@ router.post('/drone/filter', isLoggedIn, filterDroneDetails, pusher);
 router.get('/users/:user_id', isLoggedIn, getUserDetails);
 router.put('/users/profile', isLoggedIn, updateUserDetails);
 
+router.post('/farms', isLoggedIn, addFarm, pusher);
+router.get('/farms', isLoggedIn, getFarms, pusher);
+// router.get('/farms/:farm_id', isLoggedIn, getFarmDetails);
+// router.put('/farms/edit', isLoggedIn, updateFarmDetails);
+
 router.get('/tracking/drones/:id', isLoggedIn, getDronePaths, pusher);
 router.get('/tracking/drones', isLoggedIn, getDrones, getDroneLastSeenLocations, pusher);
 
@@ -36,7 +43,7 @@ router.delete('/ext/drone/:id', isLoggedIn, deleteDrone, pusher);
 router.get('/session', isLoggedIn, async (req, res, next) => {
   if (req.user) {
     const {user} = req;
-    res.json({ success: true, isAuthenticated: true, user: {email: user.email, id: user.id, username: user.username} });
+    res.json({ success: true, isAuthenticated: true, user: {email: user.email, id: user.id, username: user.username, role: user.role, status: user.status} });
   } else {
     res.status(401).json({message: "Not authorized", success: false});
   }

@@ -20,7 +20,6 @@ function Navbar() {
             navigate('/');
         } else {
             console.log('navbar - login success');
-            navigate('/SelectRole');
         }
     }, [isAuthenticated])
 

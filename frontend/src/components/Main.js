@@ -20,6 +20,7 @@ import Contact from './Contact';
 import SelectRole from "./SelectRole";
 import FarmerInfo1 from "./FarmerInfo1";
 import FarmInfo1 from "./FarmInfo1";
+import FarmInfo from "./FarmInfo";
 import PilotInfo1 from "./PilotInfo1";
 import { PilotCertificate } from "./PilotCertificate";
 import {LandOwner} from "./LandOwner";
@@ -72,6 +73,7 @@ export function Main() {
                 <Route path="/SelectRole" element={<SelectRole />} />
                 <Route path="/FarmerInfo1" element={<FarmerInfo1 />} />
                 <Route path="/FarmInfo1" element={<FarmInfo1 />} />
+                <Route path="/farminfo" element={<FarmInfo />} />
                 <Route path="/FarmInfoMap" element={<FarmInfoMap />} />
                 <Route path="/LandOwner" element={<LandOwner />} />
                 <Route path="/IDInfo" element={<IDInfo />} />

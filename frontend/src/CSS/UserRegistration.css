@@ -50,3 +50,11 @@
 .m5 {
     margin: 5px;
 }
+
+.land_add_menu, .farm_add_menu {
+    width: 100%;
+}
+
+.land_add_menu > #searchbox, .farm_add_menu > #searchbox {
+    margin-bottom: 50px;
+}

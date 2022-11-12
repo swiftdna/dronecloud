@@ -67,6 +67,20 @@ export function updateProfile(dispatch, params, callback) {
         });
 }
 
+export function addFarm(dispatch, params, callback) {
+    if (params.id)
+        delete params.id;
+    axios.post(`/api/farms`, params)
+        .then(response => {
+            const {data} = response;
+            if (data.success) {
+                return callback(null, true);
+            } else {
+                return callback(true);
+            }
+        });
+}
+
 export function register(dispatch, data, callback) {
     // const navigate = useNavigate();
     // dispatch(profileLoading());

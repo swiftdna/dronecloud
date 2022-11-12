@@ -34,6 +34,18 @@ function LandingPage() {
         if (isLoggedIn) {
             console.log('user logged in!');
             console.log(userLandedPage.pathname);
+            if (userObj.role === 'admin') {
+                navigate('/admin')
+            } else {
+                // farmer
+                if (userObj.status === 'complete') {
+                    // navigate('/FarmInfo1')
+                    navigate('/farminfo')
+                } else {
+                    // incomplete profile
+                    navigate('/SelectRole')
+                }
+            }
             if (redirectionURL) {
                 navigate(`${redirectionURL}`);
                 dispatch(clearRedirectionPath());

@@ -17,6 +17,12 @@ module.exports = function(sequelize, Sequelize) {
         },
         address: {
             type: Sequelize.TEXT
+        },
+        lat: {
+            type: Sequelize.INTEGER
+        },
+        lng: {
+            type: Sequelize.INTEGER
         }
     });
     return Farm;
