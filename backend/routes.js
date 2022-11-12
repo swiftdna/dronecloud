@@ -1,7 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 const router = express.Router();
-const { getUserDetails, updateUserDetails} = require('./modules/UserProfile');
+const { getUserDetails, updateUserDetails } = require('./modules/UserProfile');
 const { getDronePaths, registerDrone, deleteDrone, getAllDrones, getDroneLastSeenLocations, getDroneLastSeenLocationsOld } = require('./modules/SimulatorInteraction');
 const { getDrones,filterDroneDetails } = require('./modules/Drones');
 const pusher = (req, res, next) => {

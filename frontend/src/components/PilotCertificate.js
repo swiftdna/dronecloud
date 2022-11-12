@@ -2,8 +2,6 @@ import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {uploadImageToCloud} from "../utils";
@@ -13,21 +11,6 @@ import {setToast} from "../actions/app-actions";
 
 export function PilotCertificate() {
 
-    const [regForm, setRegForm] = useState({
-        idNumber: '',
-        name: '',
-        address: '',
-        city: '',
-        state: '',
-        country: '',
-        zipcode: '',
-    });
-    const onInputChange = (e) => {
-        const tmpForm = {...regForm};
-        const name = e.target.getAttribute('id');
-        tmpForm[name] = e.target.value;
-        setRegForm(tmpForm);
-    }
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const submitRegister = () => {
@@ -50,53 +33,52 @@ export function PilotCertificate() {
         }
     }
     return (
-        <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100vh',
-        }} className="container pull-down fill-page dc-default">
-            <Form><br/>
-                <img src="Step2.png"width="300" height="50" />
-                <h3>Lets verify your pilot certification</h3>
-                <p>Fill in more data regarding your pilot certification</p><br/>
-                <h4>Remote pilot certificate</h4>
-                <Form.Group as={Col} className="mb-3" controlId="idNumber">
-                    <Form.Label>Certificate ID number</Form.Label>
-                    <Form.Control
-                        type="text"
-                        value={regForm.name}
-                        aria-describedby="idNumber"
-                    />
-                </Form.Group>
-                <Form.Group as={Col} className="mb-3" controlId="name">
-                    <Form.Label>Name of certificate holder</Form.Label>
-                    <Form.Control
-                        type="text"
-                        value={regForm.name}
-                        aria-describedby="name"
-                    />
-                </Form.Group>
-                <Form.Group as={Col} className="mb-3" controlId="address">
-                    <Form.Label>Address</Form.Label>
-                    <Form.Control
-                        type="text"
-                        value={regForm.address}
-                        aria-describedby="address"
-                    />
-                </Form.Group>
-                <Form.Group as={Col} className="mb-3" controlId="city">
-                    <Form.Label>City</Form.Label>
-                    <Form.Control
-                        type="text"
-                        value={regForm.city}
-                        aria-describedby="city"
-                    />
-                </Form.Group>
-                <Row className="mb-3">
-                    <Form.Group className="mb-3" controlId="country">
-                        <Form.Label>Country</Form.Label>
-                        <Form.Select as={Col} aria-label="Default select example">
+        <div className="container main-frame">
+            <div className="div1-drone-catalog">
+                <h1 className='header-dronecatalog' style={{marginLeft:"100px"}}>Lets verify your pilot certification</h1>
+
+                <p className='heading-dronecatalog' style={{marginTop:"10px",marginLeft:"100px"}}>Fill in more data regarding
+                    your pilot certification</p>
+            </div>
+            <div className='userDetails'>
+                <Form><br/>
+                    {/*<img src="Step2.png"width="300" height="50" />*/}
+                    <p className="userInfo">Remote Pilot Certificate</p>
+                    <Form.Group className="UserDetails" controlId="idNumber">
+                        <Form.Label className='DroneDetails'>Certificate ID number</Form.Label>
+                        <Form.Control
+                            type="text"
+                            className='input_text'
+                            aria-describedby="idNumber"
+                        />
+                    </Form.Group>
+                    <Form.Group className="UserDetails" controlId="name">
+                        <Form.Label className='DroneDetails'>Name of certificate holder</Form.Label>
+                        <Form.Control
+                            type="text"
+                            className='input_text'
+                            aria-describedby="name"
+                        />
+                    </Form.Group>
+                    <Form.Group className="UserDetails" controlId="address">
+                        <Form.Label className='DroneDetails'>Address</Form.Label>
+                        <Form.Control
+                            type="text"
+                            className='input_text'
+                            aria-describedby="address"
+                        />
+                    </Form.Group>
+                    <Form.Group className="UserDetails" controlId="city">
+                        <Form.Label className='DroneDetails'>City</Form.Label>
+                        <Form.Control
+                            type="text"
+                            className='input_text'
+                            aria-describedby="city"
+                        />
+                    </Form.Group>
+                    <Form.Group className="UserDetails" controlId="country">
+                        <Form.Label className='DroneDetails'>Country</Form.Label>
+                        <Form.Select aria-label="Default select example" className='input_text'>
                             <option>Choose</option>
                             <option value="1">India</option>
                             <option value="2">United States</option>
@@ -104,35 +86,41 @@ export function PilotCertificate() {
                             <option value="4">South Africa</option>
                         </Form.Select>
                     </Form.Group>
-                    <Form.Group as={Col} controlId="formGridState">
-                        <Form.Label>State</Form.Label>
-                        <Form.Select defaultValue="Choose...">
-                            <option>Choose...</option>
-                            <option>...</option>
+                    <Form.Group className="UserDetails" controlId="formGridState">
+                        <Form.Label className='DroneDetails'>State</Form.Label>
+                        <Form.Select defaultValue="Choose..." className='input_text'>
+                            <option>Choose</option>
+                            <option value="1">California</option>
+                            <option value="2">Arizona</option>
+                            <option value="3">Colorado</option>
+                            <option value="4">Texas</option>
+                            <option value="5">Florida</option>
                         </Form.Select>
                     </Form.Group>
-                    <Form.Group as={Col} className="mb-3" controlId="zipcode">
-                        <Form.Label>Zipcode</Form.Label>
+                    <Form.Group className="UserDetails" controlId="zipcode">
+                        <Form.Label className='DroneDetails'>Zipcode</Form.Label>
                         <Form.Control
                             type="text"
+                            className='input_text'
                             aria-describedby="zipcode"
                         />
                     </Form.Group>
-                </Row>
-                <Form.Group as={Col} className="mb-3" controlId="image">
-                    <Form.Label className="form_label" htmlFor="image">File upload:</Form.Label>
-                    <Form.Control
-                        type="file"
-                        id="image"
-                        aria-describedby="image"
-                        onChange={uploadImage}
-                    />
-                </Form.Group>
-                <div className="btn_panel">
-                    <Button variant="secondary" onClick={() => goBack()}>Back</Button>
-                    <Button variant="primary" onClick={() => submitRegister()} type="submit">Next</Button>
-                </div>
-            </Form>
+                    <Form.Group className="UserDetails" controlId="image">
+                        <Form.Label className='DroneDetails' htmlFor="image">File upload:</Form.Label>
+                        <Form.Control
+                            type="file"
+                            className='input_text'
+                            id="image"
+                            aria-describedby="image"
+                            onChange={uploadImage}
+                        />
+                    </Form.Group>
+                    <button variant="secondary" className='dc-default btn btn-secondary m20' onClick={goBack}>Back</button>
+                    <button variant="primary" className='dc-default btn btn-primary m20'
+                            style={{float:"right",margin:"20px",}}
+                            onClick={submitRegister}>Next</button>
+                </Form>
+            </div>
         </div>
     );
 }

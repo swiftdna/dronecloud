@@ -43,7 +43,7 @@ export default function Register() {
 	}
 
 	return (
-		<div className="container pull-down fill-page">
+		<div className="container pull-down fill-page dc-default">
 			<h5>Registration Form</h5>
 			<Form>
 				<Form.Group className="mb-3" controlId="username">

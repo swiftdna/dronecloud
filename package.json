@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "input": "^1.0.1",
+    "mdb-react-ui-kit": "^5.0.0",
+    "mdbreact": "^5.2.0",
+    "prop-types": "^15.8.1",
+    "react-bootstrap-country-select": "^1.0.0"
+  }
+}

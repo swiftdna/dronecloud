@@ -56,10 +56,10 @@ export function updateProfile(dispatch, params, callback) {
         .then(response => {
             const {data} = response;
             if (data.success) {
-                dispatch(setToast({
-                    type: 'success',
-                    message: 'User profile updated successfully!'
-                }));
+                // dispatch(setToast({
+                //     type: 'success',
+                //     message: 'User profile updated successfully!'
+                // }));
                 return callback(null, true);
             } else {
                 return callback(true);
