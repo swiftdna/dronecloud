@@ -8,8 +8,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { uploadImageToCloud } from '../utils';
 import { setToast } from '../actions/app-actions';
-// import 'react-bootstrap-country-select/dist/react-bootstrap-country-select.css';
-// import CountrySelect from 'react-bootstrap-country-select';
 
 export function UtilityBill() {
 

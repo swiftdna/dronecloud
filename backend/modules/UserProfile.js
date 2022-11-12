@@ -8,7 +8,6 @@ const getUserDetails = async (req, res, next) => {
 	            id: user_id
 	        }
 	    });
-    	// console.log('user -> ', user);
     	if (user) {
     		res.json({
     			success: true,

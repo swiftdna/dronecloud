@@ -8,8 +8,6 @@ import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {uploadImageToCloud} from "../utils";
 import {setToast} from "../actions/app-actions";
-// import 'react-bootstrap-country-select/dist/react-bootstrap-country-select.css';
-// import CountrySelect from 'react-bootstrap-country-select';
 
 export function BillingInfo() {
 

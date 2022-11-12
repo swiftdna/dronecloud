@@ -7,9 +7,7 @@ import {useNavigate} from "react-router-dom";
 import "../CSS/UserRegistration.css"
 import { useDispatch } from "react-redux";
 import 'bootstrap/dist/css/bootstrap.css';
-import 'react-bootstrap-country-select/dist/react-bootstrap-country-select.css';
 import {updateProfile} from "../utils";
-import CountrySelect from 'react-bootstrap-country-select';
 import axios from 'axios';
 
 export default function FarmerInfo1() {

@@ -33,7 +33,6 @@ app.use(session({
 })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
-
 app.use('/api', routes);
 COREAPP = {};
 //Sync Database
@@ -48,11 +47,10 @@ COREAPP.models = models;
 //load passport strategies
 require('./config/passport.js')(passport, models.user);
 models.sequelize.sync().then(function() {
-  console.log('MySQL setup complete!')
+  console.log('MySQL setup complete!');
 }).catch(function(err) {
   console.log(err, "Something went wrong with the MySQL Database Update!")
 });
-// });
 
 app.post('/signin', (req, res, next) => {
   passport.authenticate('local-signin', {session: false}, (err, user, info) => {
