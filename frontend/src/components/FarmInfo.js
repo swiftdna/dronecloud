@@ -44,7 +44,6 @@ export default function FarmerInfo() {
     const [searchBox, setSearchBox] = React.useState(null);
     const [searchedName, setSearchedName] = React.useState(null);
     const [markers, setMarkers] = useState([]);
-    const [lands, setLands] = useState([]);
     const [addFarmView, setAddFarmView] = useState(false);
 
 
@@ -56,9 +55,10 @@ export default function FarmerInfo() {
 
     useEffect(() => {
         if (isLoaded && lat && lng) {
-            updateMapWithRecentLocation(parseInt(lat), parseInt(lng));
+            console.log('updating recent location');
+            updateMapWithRecentLocation(parseFloat(lat), parseFloat(lng));
         }
-    }, [lat, lng]);
+    }, [markers, address, lat, lng]);
 
     const containerStyle = {
         width: '100%',
@@ -140,6 +140,7 @@ export default function FarmerInfo() {
           }
         );
         setMarkers(tempMarkers);
+        console.log('completed recent location');
     }
 
     const handleSearchChange = (e) => {
@@ -182,11 +183,6 @@ export default function FarmerInfo() {
                         <Form.Label className='DroneDetails'>Address</Form.Label>
                         {address ? <p>{address}</p> : <p>Not added yet</p>}
                         <Button variant="primary" onClick={() => setAddFarmView(true)}>Locate farm</Button>
-                    </Form.Group>
-                    <Form.Group className="UserDetails">
-                        <Form.Label className='DroneDetails'>Plots</Form.Label>
-                        {lands && lands.length ? <p>{lands.length} lands found</p> : <p>No lands added yet</p>}
-                        <Button variant="primary" onClick={() => setAddFarmView(true)}>Locate Land</Button>
                     </Form.Group>
                 </Form>
             </div> : 
