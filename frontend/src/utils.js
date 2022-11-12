@@ -32,7 +32,7 @@ export function fetchProfile(dispatch, userObj) {
 
 export function getAdminDroneList(dispatch) {
     dispatch(adminDroneTrackingLoading());
-    axios.get(`/api/tracking/drones`)
+    axios.get(`/api/tracking/drones?status=available,booked,deployed`)
         .then(response => {
             dispatch(handleAdminDroneTrackingResponse(response));
         });
