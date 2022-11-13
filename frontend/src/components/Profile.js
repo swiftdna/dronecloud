@@ -7,6 +7,7 @@ import { selectProfileData } from '../selectors/profileSelector';
 import { FaPencilAlt, FaSave } from 'react-icons/fa';
 import { setToast } from '../actions/app-actions';
 import { Form, Button, Row, Col, Image, FormGroup } from 'react-bootstrap';
+import {useNavigate} from "react-router-dom";
 
 export default function Profile() {
 	const dispatch = useDispatch();
@@ -17,6 +18,7 @@ export default function Profile() {
     const [editMode, setEditMode] = useState(false);
     const [userProfileForm, setUserProfileForm] = useState(userProfile);
     const [userImage, setUserImage] = useState();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (isLoggedIn) {
@@ -40,6 +42,10 @@ export default function Profile() {
 
     const reset = () => {
     	setUserProfileForm(userProfile);
+    };
+	const farmLand = () => {
+    	console.log('Farmland profile');
+		navigate('/FarmLand');
     };
 
     const getCountryName = (code) => {
@@ -82,10 +88,11 @@ export default function Profile() {
 				<FaPencilAlt className="edit_icon" size="1em" onClick={() => setEditMode(!editMode) } /> :
 				<FaSave className="edit_icon" size="1em" onClick={() => submitProfile() } />}
 			</h5>
-			<h5>{userProfile.name ? userProfile.name : 'User'}'s profile {!editMode ? 
-				<FaPencilAlt className="edit_icon" size="1em" onClick={() => setEditMode(!editMode) } /> :
-				<FaSave className="edit_icon" size="1em" onClick={() => submitProfile() } />}
-			</h5>
+			<Button variant="primary" className='dc-default btn btn-primary m20'
+                        style={{float:"right",margin:"20px",}} onClick={() => farmLand()}>
+									Farmland
+								</Button>
+		
 			<div className="user_details">
 				<Row>
 					<Col xs="3">

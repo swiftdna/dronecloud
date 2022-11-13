@@ -50,27 +50,27 @@ const addOwner = async (req, res, next) => {
     }
 }
 
-const getFarms = async (req, res, next) => {
-    const { models: { farm: Farm } } = COREAPP;
-    try {
-		const farmData = await Farm.findAll({raw: true});
-        req.model = {};
-        req.model.data = {
-            success: true,
-            data: farmData
-        };
-        return next();
-    } catch(e) {
-        req.model.data = {
-            success: false,
-            data: {
-                message: "Unable to fetch all farms data",
-                err: e.message
-            }
-        };
-        return next();
-    }
-};
+// const getFarms = async (req, res, next) => {
+//     const { models: { farm: Farm } } = COREAPP;
+//     try {
+// 		const farmData = await Farm.findAll({raw: true});
+//         req.model = {};
+//         req.model.data = {
+//             success: true,
+//             data: farmData
+//         };
+//         return next();
+//     } catch(e) {
+//         req.model.data = {
+//             success: false,
+//             data: {
+//                 message: "Unable to fetch all farms data",
+//                 err: e.message
+//             }
+//         };
+//         return next();
+//     }
+// };
 
 // const getFarmDetails = async (req, res, next) => {
 // 	const { user_id } = req.params;

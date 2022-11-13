@@ -13,6 +13,7 @@ import { GiDeliveryDrone } from 'react-icons/gi';
 import MyBookings from './MyBookings';
 import BookDrone from './BookDrone';
 import Profile from './Profile';
+import FarmLand from './FarmLand';
 import ServiceReports from './ServiceReports';
 import { Row, Col, Form } from 'react-bootstrap';
 import DroneBookingCatalog from './DroneBookingCatalog';
@@ -81,6 +82,7 @@ function LandingPage() {
                             <Route path="/book-drone" element={<BookDrone />} />
                             <Route path="/service-reports" element={<ServiceReports />} />
                             <Route path="/profile" element={<Profile />} />
+                            <Route path="/FarmLand" element={<FarmLand />} />
                             <Route path="/drone-booking-catalog" element={<DroneBookingCatalog />} />
                             <Route path="/drone-booking-selected" element={<DroneBookingSelected />} />
                             <Route path="/drone-booking-review" element={<DroneBookingReview />} />

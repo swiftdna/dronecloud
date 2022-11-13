@@ -29,6 +29,31 @@ export function fetchProfile(dispatch, userObj) {
             dispatch(handleProfilesResponse(response));
         });
 }
+export function fetchFarm(dispatch, farmObj) {
+    const {id: userID} = farmObj;
+    dispatch(profileLoading());
+    axios.get(`/api/farms/profile/${userID}`)
+        .then(response => {
+            dispatch(handleProfilesResponse(response));
+        });
+}
+export function updateFarm(dispatch, params, callback) {
+    if (params.id)
+        delete params.id;
+    axios.put(`/api/farms/profile`, params)
+        .then(response => {
+            const {data} = response;
+            if (data.success) {
+                // dispatch(setToast({
+                //     type: 'success',
+                //     message: 'User profile updated successfully!'
+                // }));
+                return callback(null, true);
+            } else {
+                return callback(true);
+            }
+        });
+}
 
 export function getAdminDroneList(dispatch) {
     dispatch(adminDroneTrackingLoading());

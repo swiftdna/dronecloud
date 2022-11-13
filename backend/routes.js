@@ -4,7 +4,7 @@ const router = express.Router();
 const { getUserDetails, updateUserDetails } = require('./modules/UserProfile');
 const { handleBookingSchedule } = require('./modules/Scheduler');
 const { getDronePaths, registerDrone, deleteDrone, getAllDrones, getDroneLastSeenLocations, getDroneLastSeenLocationsOld } = require('./modules/SimulatorInteraction');
-const { getFarms, addFarm, addOwner } = require('./modules/Farms');
+const { getFarms, addFarm, addOwner, getFarmDetails, updateFarmDetails } = require('./modules/Farms');
 const {addDrone,getDrone,getSingleDrone,updateDrone} =require('./modules/DroneCatalog');
 const { getDrones, filterDroneDetails, registerUAV, deregisterUAV, getAvailableDrones, FarmUserDroneDetails,PilotAvailability } = require('./modules/Drones');
 const { BookingDroneDetails } = require('./modules/Booking');
@@ -37,6 +37,8 @@ router.put('/users/profile', isLoggedIn, updateUserDetails);
 
 router.post('/farms', isLoggedIn, addFarm, pusher);
 router.get('/farms', isLoggedIn, getFarms, pusher);
+// router.get('/farms/profile', isLoggedIn, getFarmDetails, pusher);
+// router.put('/farms/profile', isLoggedIn, updateFarmDetails, pusher);
 router.post('/farms/owner', isLoggedIn, addOwner, pusher);
 
 router.post('/pilotfilter', isLoggedIn, PilotAvailability, pusher);
