@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Login from './Login';
 import Navbar from './Navbar';
 import Footer from './Footer';
@@ -23,6 +23,7 @@ import {LandOwner} from "./LandOwner";
 import {IDInfo} from "./IDInfo";
 import {UtilityBill} from "./UtilityBill";
 import {BillingInfo} from "./BillingInfo";
+import SelectRole from "./SelectRole";
 
 //Create a Main Component
 export function Main() {
@@ -49,8 +50,8 @@ export function Main() {
             {location.pathname !== '/login' && <Navbar />}
             {
                 alert ? 
-                <div className="container pull-down">
-                    <div className={alertMapping && alertMapping[alertType] ? alertMapping[alertType]: "alert alert-danger"} role="alert">
+                <div className="container pull-down hideAlert">
+                    <div className={alertMapping && alertMapping[alertType] ? alertMapping[alertType]: "alert alert-danger"} role="alert" autohide>
                         {alertMessage}
                     </div>
                 </div> : ''
@@ -69,6 +70,7 @@ export function Main() {
               {/* <Route path="/profile" element={isAuthenticated ? <Profile /> : <Login />} /> */}
               <Route path="/register" element={<Register />} />
                 <Route path="/FarmerInfo1" element={<FarmerInfo1 />} />
+                <Route path="/SelectRole" element={<SelectRole />} />
                 <Route path="/FarmInfo1" element={<FarmInfo1 />} />
                 <Route path="/LandOwner" element={<LandOwner />} />
                 <Route path="/IDInfo" element={<IDInfo />} />
@@ -78,7 +80,7 @@ export function Main() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/*" element={<LandingPage />} />
             </Routes>
-            {location.pathname !== '/login' && <Footer />}
+            {location.pathname !== '/login' && location.pathname !== '/register' && location.pathname !== '/' && <Footer />}
         </>
     )
 }

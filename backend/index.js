@@ -37,9 +37,9 @@ app.use('/api', routes);
 COREAPP = {};
 //Sync Database
 
-connect().then(() => {
-  console.log('MongoDB setup complete!');
-});
+// connect().then(() => {
+//   console.log('MongoDB setup complete!');
+// });
 
 // mysqlConnect().then(() => {
 const models = require("./models");

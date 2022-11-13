@@ -1,3 +1,4 @@
+import "../CSS/landing.css"
 import React, { useEffect, useState } from 'react';
 import Navbar from './Navbar';
 import axios from 'axios';
@@ -20,6 +21,11 @@ import DroneBookingSelected from './DroneBookingSelected';
 import DroneBookingReview from './DroneBookingReview';
 import DroneBooking from './DroneBooking';
 import DroneBookingConfirmation from './DroneBookingConfirmation';
+import Wrapper from './wrappers/LandingPageWrapper';
+import { TbDrone } from 'react-icons/tb';
+import { Link } from 'react-router-dom';
+import main from './wrappers/drone1.svg';
+
 //create the Navbar Component
 function LandingPage() {
     const dispatch = useDispatch();
@@ -40,43 +46,76 @@ function LandingPage() {
             }
         }
     }, [isLoggedIn]);
+
+    
+    const home = () => {
+      navigate('/');
+    }
+
+    const login = () => {
+      navigate('/login');
+    }
     
     return(
-        <div className="container main-frame fill-page">
-            {isLoggedIn ? 
-                <Row className="fill-page" style={{width: '100%'}}>
-                    <Col xs={3} className="text-center py-3 dc-default dc-leftpane">
-                        <h3 className="title"><RiSettingsLine size={40} style={{marginTop: '-5px'}} /> Dashboard</h3>
-                        <ul className="nav flex-column dc-default dc-admin-nav">
-                          <li className="nav-item">
-                            <NavLink className="nav-link" activeClassName="active" to="/"><RiListUnordered style={{marginTop: '-2px'}} /> My Bookings</NavLink>
-                          </li>
-                          <li className="nav-item">
-                            <NavLink className="nav-link" activeClassName="active" to="/book-drone"><GiDeliveryDrone size={20} style={{marginTop: '-2px'}} /> Book Drone</NavLink>
-                          </li>
-                          <li className="nav-item">
-                            <NavLink className="nav-link" activeClassName="active" to="/service-reports"><TbReportAnalytics size={20} style={{marginTop: '-5px'}} /> Service Reports</NavLink>
-                          </li>
-                          <li className="nav-item">
-                            <NavLink className="nav-link" activeClassName="active" to="/profile"><FaUser style={{marginTop: '-3px'}}  /> Profile</NavLink>
-                          </li>
-                      
-                        </ul>
-                    </Col>
-                    <Col xs={9} className="text-center py-3 dc-default content_panel">
-                        <Routes>
-                            <Route path="/book-drone" element={<BookDrone />} />
-                            <Route path="/service-reports" element={<ServiceReports />} />
-                            <Route path="/profile" element={<Profile />} />
-                            <Route path="/drone-booking-catalog" element={<DroneBookingCatalog />} />
-                            <Route path="/drone-booking-selected" element={<DroneBookingSelected />} />
-                            <Route path="/drone-booking-review" element={<DroneBookingReview />} />
-                            <Route path="/drone-booking-confirmation" element={<DroneBookingConfirmation />} />
-                            <Route path="/" element={<MyBookings />} />
-                        </Routes>
-                    </Col>
-                </Row> : <h4>Welcome to DroneCloud. Login to see the dashboard!</h4> }
-        </div>
+      isLoggedIn ? 
+        <div className="container main-frame fill-page">  
+          <Row className="fill-page" style={{width: '100%'}}>
+              <Col xs={3} className="text-center py-3 dc-default dc-leftpane">
+                  <h3 className="title"><RiSettingsLine size={40} style={{marginTop: '-5px'}} /> Dashboard</h3>
+                  <ul className="nav flex-column dc-default dc-admin-nav">
+                    <li className="nav-item">
+                      <NavLink className="nav-link" activeClassName="active" to="/"><RiListUnordered style={{marginTop: '-2px'}} /> My Bookings</NavLink>
+                    </li>
+                    <li className="nav-item">
+                      <NavLink className="nav-link" activeClassName="active" to="/book-drone"><GiDeliveryDrone size={20} style={{marginTop: '-2px'}} /> Book Drone</NavLink>
+                    </li>
+                    <li className="nav-item">
+                      <NavLink className="nav-link" activeClassName="active" to="/service-reports"><TbReportAnalytics size={20} style={{marginTop: '-5px'}} /> Service Reports</NavLink>
+                    </li>
+                    <li className="nav-item">
+                      <NavLink className="nav-link" activeClassName="active" to="/profile"><FaUser style={{marginTop: '-3px'}}  /> Profile</NavLink>
+                    </li>
+                
+                  </ul>
+              </Col>
+              <Col xs={9} className="text-center py-3 dc-default content_panel">
+                  <Routes>
+                      <Route path="/book-drone" element={<BookDrone />} />
+                      <Route path="/service-reports" element={<ServiceReports />} />
+                      <Route path="/profile" element={<Profile />} />
+                      <Route path="/drone-booking-catalog" element={<DroneBookingCatalog />} />
+                      <Route path="/drone-booking-selected" element={<DroneBookingSelected />} />
+                      <Route path="/drone-booking-review" element={<DroneBookingReview />} />
+                      <Route path="/drone-booking-confirmation" element={<DroneBookingConfirmation />} />
+                      <Route path="/" element={<MyBookings />} />
+                  </Routes>
+              </Col>
+          </Row> 
+        </div>  :
+        <Wrapper>
+          <body>
+            <landingnav>
+              <a className="logo" onClick={() => home()}><TbDrone size={40} /></a>
+              <span>&nbsp;DroneCloud</span>
+            </landingnav>
+            <div className='container page'>
+              {/* info */}
+              <div className='info'>
+                <h1>
+                  Welcome to <span>DroneCloud</span> 
+                </h1>
+                <h2>
+                  Login to see the dashboard!
+                </h2>
+                <br></br>
+                <Link to='/login' className='loginbtn btn-hero'>
+                  Login/Register
+                </Link>
+              </div>
+              <img src={main} alt='dronecloud' className='mainimg main-img' />
+            </div>
+          </body>
+        </Wrapper>
     )
 }
 

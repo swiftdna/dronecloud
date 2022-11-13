@@ -15,21 +15,21 @@ function Navbar() {
     const dispatch = useDispatch();
     const location = useLocation();
 
-    useEffect(() => {
-        if (!isAuthenticated) {
-            navigate('/');
-        } else {
-            console.log('navbar - login success');
-        }
-    }, [isAuthenticated])
+    // useEffect(() => {
+    //     if (!isAuthenticated) {
+    //         navigate('/');
+    //     } else {
+    //         console.log('navbar - login success');
+    //     }
+    // }, [isAuthenticated])
 
-    const login = () => {
-        navigate('/login');
-    }
+    // const login = () => {
+    //     navigate('/login');
+    // }
 
-    const register = () => {
-        navigate('/register');
-    }
+    // const register = () => {
+    //     navigate('/register');
+    // }
 
     const getActiveClass = (currPath) => {
         return currPath === location.pathname ? "btn btn-light nav-buttons active" : "btn btn-light nav-buttons";
@@ -53,36 +53,34 @@ function Navbar() {
             });
     }
 
-    return(
-        <nav className="navbar justify-content-between dc-default">
-            <div className="container">
-                <div className="col-3">
-                    <a className="navbar-brand" onClick={() => home()}><TbDrone size={40} /></a>
-                </div>
-                <div className="col-6 text-center">
-                    {
-                        isAuthenticated && (
-                            <>
-                                {/* <FaList className="nav-buttons" title="Purchases" size="3em" onClick={() => purchases()}/> 
-                                    <FaUserAlt className="nav-buttons" title="Profile" size="3em" onClick={() => profile()}/> */}
-                                    <button type="button" className={getActiveClass('/')} title="Home" onClick={() => home()}>Home</button>
-                                    <button type="button" className={getActiveClass('/contact')} title="Contact" onClick={() => contact()}>Contact</button>
-                                    <button type="button" className={getActiveClass('/profile')} title="Profile" onClick={() => profile()}>Profile</button>
-                            </>)
-                    }
-                </div>
-                <div className="col-3 right-contents">
-                    {
-                        isAuthenticated ? 
-                        <button type="button" className="btn btn-light nav-buttons" title="Log out" onClick={() => logout()}>Logout</button> : 
-                        <>
-                            <button type="button" className="btn btn-light nav-buttons" title="Log In" onClick={() => login()}>login</button>
-                            <button type="button" className="btn btn-light nav-buttons" title="Log In" onClick={() => register()}>register</button>
-                        </>
-                    }
-                </div>
-            </div>
-        </nav>
+    return( 
+        isAuthenticated && (
+            <>
+                <nav className="navbar justify-content-between dc-default">
+                    <div className="container">
+                        <div className="col-3">
+                            <a className="navbar-brand" onClick={() => home()}><TbDrone size={40} /></a>
+                        </div>
+                        <div className="col-6 text-center">     
+                            {/* <FaList className="nav-buttons" title="Purchases" size="3em" onClick={() => purchases()}/> 
+                            <FaUserAlt className="nav-buttons" title="Profile" size="3em" onClick={() => profile()}/> */}
+                            <button type="button" className={getActiveClass('/')} title="Home" onClick={() => home()}>Home</button>
+                            <button type="button" className={getActiveClass('/contact')} title="Contact" onClick={() => contact()}>Contact</button>
+                            <button type="button" className={getActiveClass('/profile')} title="Profile" onClick={() => profile()}>Profile</button>
+                        </div>
+                        <div className="col-3 right-contents">
+   
+                                <button type="button" className="btn btn-light nav-buttons" title="Log out" onClick={() => logout()}>Logout</button>
+                                {/* <>
+                                    <button type="button" className="btn btn-light nav-buttons" title="Log In" onClick={() => login()}>login</button>
+                                    <button type="button" className="btn btn-light nav-buttons" title="Log In" onClick={() => register()}>register</button>
+                                </> */}
+                            
+                        </div>
+                    </div>
+                </nav>
+            </>
+        )
     )
 }
 

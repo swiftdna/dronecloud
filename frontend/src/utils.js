@@ -2,7 +2,7 @@ import { profileLoading, handleProfilesResponse } from './actions/app-profile';
 import { handleLoginResponse, setToast, handleCountriesResponse } from './actions/app-actions';
 import { droneMgmtLoading, handleDroneMgmtResponse, pendingDronesLoading, handlePendingDronesResponse } from './actions/app-drones-mgmt';
 import { adminDroneTrackingLoading, handleAdminDroneTrackingResponse, adminDroneIDTrackingLoading, handleAdminDroneIDTrackingResponse } from './actions/app-admin-drone-tracking';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
 
@@ -17,8 +17,26 @@ export function login(dispatch, data) {
                 // navigate('login');
             } else {
                 console.log('Login failure');
+                dispatch(setToast({
+                    type: 'failure',
+                    message: 'Invalid Credentials!'
+                }));
             }
         });
+}
+
+export function incompleteFields(dispatch) {
+    // console.log('entered app-actions');
+    dispatch(setToast({
+        type: 'incomplete',
+        message: 'Please fill out all fields'
+    }));
+}
+export function emailValidation(dispatch) {
+    dispatch(setToast({
+        type: 'failure',
+        message: 'Invalid email format'
+    }));
 }
 
 export function fetchProfile(dispatch, userObj) {
@@ -138,8 +156,15 @@ export function register(dispatch, data, callback) {
                 return callback(null, true);
                 // navigate('login');
             } else {
+                const msg = data.message.message; 
+                // console.log(data.message.message);
+                if (msg == "That username is already taken") {
+                    dispatch(setToast({
+                        type: 'failure',
+                        message: 'That username is already taken'
+                    }));
+                }
                 return callback(true);
-                console.log('Registration failure');
             }
         });
 }

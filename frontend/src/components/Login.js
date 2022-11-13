@@ -3,8 +3,10 @@ import '../App.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { login } from '../utils';
+import { login, incompleteFields } from '../utils';
 import { selectIsLoggedIn } from '../selectors/appSelector';
+import "../CSS/landing.css"
+import { TbDrone } from 'react-icons/tb';
 
 //Define a Login Component
 export function Login() {
@@ -36,8 +38,20 @@ export function Login() {
             username,
             password
         };
+        if (!username || !password) {
+            incompleteFields(dispatch)
+            return;
+        }
         login(dispatch, data)
     }
+
+    const register = () => {
+        navigate('/register');
+    }
+
+    const home = () => {
+        navigate('/');
+      }
 
     return (
         <div className="container dc-default">
@@ -49,16 +63,30 @@ export function Login() {
             <div className="login-form dc-login">
                 <div className="main-div">
                     <div className="login-panel">
-                        <h2>Login</h2>
+                        <div>
+                            <h2><span class="register"> <a className="loginlogo" onClick={() => home()}><TbDrone size={40} /></a>&nbsp;DroneCloud</span> | Login</h2>
+                        </div>
+                        {/* <h2><span class="register">DroneCloud</span> | Login</h2> */}
                         <p>Please enter your username and password</p>
                         <div className="form-group">
-                            <input onChange = {usernameChangeHandler} type="text" className="form-control" name="username" value={username} placeholder="Username"/>
+                            <input onChange = {usernameChangeHandler} type="text" className="form-control" name="username" value={username} placeholder="Username" required/>
                         </div>
                         <div className="form-group">
-                            <input onChange = {passwordChangeHandler} type="password" className="form-control" name="password" value={password} placeholder="Password"/>
+                            <input onChange = {passwordChangeHandler} type="password" className="form-control" name="password" value={password} placeholder="Password" required/>
                         </div>
                         <div className="form-group">
-                            <button onClick = {() => submitLogin()} className="btn btn-primary">Log In</button>                 
+                            <button onClick = {() => submitLogin()} className="btn btn-primary">Log in</button>               
+                        </div>
+                        <div>
+                            <br></br>  
+                            <button type='button' onClick={() => register()} className='registerbtn'>
+                                <h5>Reset Password</h5>
+                            </button> 
+                            <span class="registerspan"> | </span>        
+                            <button type='button' onClick={() => register()} className='registerbtn'>
+                                <h5>Register</h5>
+                            </button> 
+         
                         </div>
                     </div>
                 </div>
