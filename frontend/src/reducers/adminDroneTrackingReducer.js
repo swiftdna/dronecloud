@@ -11,8 +11,8 @@ import {
 
 const initialState = {
   loading: false,
-  data: {},
-  tracking: {},
+  data: [],
+  tracking: [],
   trackingLoading: false,
   trackingError: false,
   trackingErrorMessage: '',
