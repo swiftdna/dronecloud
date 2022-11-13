@@ -25,33 +25,34 @@ function LandingPage() {
     const dispatch = useDispatch();
     const isLoggedIn = useSelector(selectIsLoggedIn);
     const userObj = useSelector(selectUser);
+    // const farmObj = useSelector(selectFarm);
     const redirectionURL = useSelector(selectRedirectionPath);
     const navigate = useNavigate();
     const userLandedPage = useLocation();
 
-    useEffect(() => {
-        // fetchProducts(dispatch);
-        if (isLoggedIn) {
-            console.log('user logged in!');
-            console.log(userLandedPage.pathname);
-            if (userObj.role === 'admin') {
-                navigate('/admin')
-            } else {
-                // farmer
-                if (userObj.status === 'complete') {
-                    // navigate('/FarmInfo1')
-                    navigate('/farminfo')
-                } else {
-                    // incomplete profile
-                    navigate('/SelectRole')
-                }
-            }
-            if (redirectionURL) {
-                navigate(`${redirectionURL}`);
-                dispatch(clearRedirectionPath());
-            }
-        }
-    }, [isLoggedIn]);
+    // useEffect(() => {
+    //     // fetchProducts(dispatch);
+    //     if (isLoggedIn) {
+    //         console.log('user logged in!');
+    //         console.log(userLandedPage.pathname);
+    //         if (userObj.role === 'admin') {
+    //             navigate('/admin')
+    //         } else {
+    //             // farmer
+    //             if (userObj.status === 'complete') {
+    //                 navigate('/FarmInfo')
+    //             } 
+    //             else {
+    //                 // incomplete profile
+    //                 navigate('/SelectRole')
+    //             }
+    //         }
+    //         if (redirectionURL) {
+    //             navigate(`${redirectionURL}`);
+    //             dispatch(clearRedirectionPath());
+    //         }
+    //     }
+    // }, [isLoggedIn]);
     
     return(
         <div className="container main-frame fill-page">

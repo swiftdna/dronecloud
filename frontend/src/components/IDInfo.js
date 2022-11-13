@@ -19,7 +19,7 @@ export function IDInfo() {
         navigate('/UtilityBill');
     };
     const goBack = () => {
-        navigate('/landOwner');
+        navigate('/LandOwner');
     };
     const uploadImage = async (e) => {
         e.preventDefault();
@@ -43,7 +43,7 @@ export function IDInfo() {
             <div className='userDetails'>
                 <Form>
                     <p className="userInfo">Driver's License</p>
-                    <Form.Group className="UserDetails" controlId="name" className="DroneInfo">
+                    <Form.Group className="UserDetails" controlId="name">
                         <Form.Label className='DroneDetails'>Name</Form.Label>
                         <Form.Control
                             type="text"

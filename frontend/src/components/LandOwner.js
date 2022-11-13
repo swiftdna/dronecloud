@@ -25,7 +25,7 @@ export function LandOwner(){
            status: 'complete'
        }, (err, success) => {
            if (success) {
-               navigate("/IDInfo");
+                navigate('/IDInfo');
            } else {
                // Failure
                console.log('Saving land certification failed!');

@@ -24,9 +24,12 @@ export default function FarmInfo() {
             lat,
             lng,
             address,
+            type,
+            status: 'complete'
         }, (err, success) => {
             if (success) {
-                navigate("/FarmPlotInfo");
+                navigate("/LandOwner");
+                console.log('going to landowner');
             } else {
                 // Failure
                 console.log('Saving profile info failed!');
@@ -40,6 +43,7 @@ export default function FarmInfo() {
     const [lat, setLat] = useState("");
     const [lng, setLng] = useState("");
     const [address, setAddress] = useState("");
+    const [type, setType] = useState("");
     const [map, setMap] = React.useState(null);
     const [searchBox, setSearchBox] = React.useState(null);
     const [searchedName, setSearchedName] = React.useState(null);
@@ -179,6 +183,16 @@ export default function FarmInfo() {
                             onChange={(event) => {setName(event.target.value)}}
                         />
                     </Form.Group>
+                    <Form.Label className='DroneDetails'>Plot type</Form.Label>
+                        {['radio'].map((type) => (
+                            <div key={`reverse-${type}`} className='input_text' onChange={(event) => {setName(event.target.value)}}>
+                                <Form.Check reverse label="Livestock" name="Livestock" type={type} id={`reverse-${type}-1`} />
+                                <Form.Check reverse label="Crops" name="Crops" type={type} id={`reverse-${type}-1`} />
+                                <Form.Check reverse label="Fruit" name="Fruit" type={type} id={`reverse-${type}-1`} />
+                                <Form.Check reverse label="Nursery" name="Nursery" type={type} id={`reverse-${type}-1`} />
+                                <br/>
+                            </div>
+                        ))}
                     <Form.Group className="UserDetails">
                         <Form.Label className='DroneDetails'>Address</Form.Label>
                         {address ? <p>{address}</p> : <p>Not added yet</p>}

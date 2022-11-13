@@ -26,8 +26,6 @@ import {LandOwner} from "./LandOwner";
 import {IDInfo} from "./IDInfo";
 import {UtilityBill} from "./UtilityBill";
 import {BillingInfo} from "./BillingInfo";
-import FarmInfoMap from "./FarmInfoMap";
-import FarmPlotInfo from "./FarmPlotInfo";
 //Create a Main Component
 export function Main() {
     const alert = useSelector(selectAlertFlag);
@@ -69,17 +67,15 @@ export function Main() {
             </ToastContainer>
             <Routes>
               <Route path="/login" element={<Login />} />
-                <Route path="/SelectRole" element={<SelectRole />} />
-                <Route path="/FarmerInfo1" element={<FarmerInfo1 />} />
-                <Route path="/farminfo" element={<FarmInfo />} />
-                <Route path="/FarmInfoMap" element={<FarmInfoMap />} />
-                <Route path="/LandOwner" element={<LandOwner />} />
-                <Route path="/IDInfo" element={<IDInfo />} />
-                <Route path="/UtilityBill" element={<UtilityBill />} />
-                <Route path="/BillingInfo" element={<BillingInfo />} />
-                <Route path="/PilotInfo1" element={<PilotInfo1 />} />
-                <Route path="/PilotCertificate" element={<PilotCertificate />} />
-                <Route path="/FarmPlotInfo" element={<FarmPlotInfo />} />
+                <Route path="/selectRole" element={<SelectRole />} />
+                <Route path="/farmerInfo1" element={<FarmerInfo1 />} />
+                <Route path="/farmInfo" element={<FarmInfo />} />
+                <Route path="/landOwner" element={<LandOwner />} />
+                <Route path="/idInfo" element={<IDInfo />} />
+                <Route path="/utilityBill" element={<UtilityBill />} />
+                <Route path="/billingInfo" element={<BillingInfo />} />
+                <Route path="/pilotInfo1" element={<PilotInfo1 />} />
+                <Route path="/pilotCertificate" element={<PilotCertificate />} />
               {/* <Route path="/home" element={isAuthenticated ? <Home /> : <Login />} /> */}
               {/* <Route path="/profile" element={isAuthenticated ? <Profile /> : <Login />} /> */}
               <Route path="/register" element={<Register />} />
