@@ -2,8 +2,6 @@ import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import {register} from "../utils";
 import {setAlert} from "../actions/app-actions";
 import {useDispatch} from "react-redux";
@@ -14,22 +12,6 @@ import '../App.css';
 
 export default function PilotInfo1() {
 
-    const [regForm, setRegForm] = useState({
-        first_name: '',
-        last_name: '',
-        phone: '',
-        address: '',
-        city: '',
-        state: '',
-        zipcode: '',
-        country: ''
-    });
-    const onInputChange = (e) => {
-        const tmpForm = {...regForm};
-        const name = e.target.getAttribute('id');
-        tmpForm[name] = e.target.value;
-        setRegForm(tmpForm);
-    }
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const submitRegister = () => {
@@ -37,66 +19,55 @@ export default function PilotInfo1() {
         navigate('/PilotCertificate');
 
     };
+    const goBack = () => {
+        navigate('/SelectRole');
+    };
     return (
-        <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100vh',
-        }} className="container pull-down fill-page dc-default">
+        <div className="container main-frame">
+            <div className="div1-drone-catalog">
+                <h1 className='header-dronecatalog' style={{marginLeft:"100px"}}> Pilot Information</h1>
 
-            <Form>
-                <img src="Step1.png"width="300" height="50" />
-                <h4>Pilot Information</h4><br/>
-                <p>Fill in the data for your profile, It will only take a couple of minutes</p>
-                <Row className="mb-3">
-                    <Form.Group as={Col} className="mb-3" controlId="first_name">
-                        <Form.Label>First Name</Form.Label>
+                <p className='heading-dronecatalog' style={{marginTop:"10px",marginLeft:"100px"}}>Fill in the data for your profile,
+                    It will only take a couple of minutes</p>
+            </div>
+            <div className='userDetails'>
+                <Form><br/>
+                    {/*<img src="Step1.png"width="300" height="50" />*/}
+                    <Form.Group className="UserDetails" controlId="name">
+                        <Form.Label className='DroneDetails'>Name</Form.Label>
                         <Form.Control
                             type="text"
-                            value={regForm.first_name}
-                            aria-describedby="first_name"
+                            className='input_text'
+                            aria-describedby="name"
                         />
                     </Form.Group>
-                    <Form.Group as={Col} className="mb-3" controlId="last_name">
-                        <Form.Label>Last Name</Form.Label>
+                    <Form.Group className="UserDetails" controlId="phone">
+                        <Form.Label className='DroneDetails'>Phone</Form.Label>
                         <Form.Control
                             type="text"
-                            value={regForm.last_name}
-                            aria-describedby="last_name"
+                            className='input_text'
+                            aria-describedby="phone"
                         />
                     </Form.Group>
-                </Row>
-                <Form.Group className="mb-3" controlId="phone">
-                    <Form.Label>Phone</Form.Label>
-                    <Form.Control
-                        type="text"
-                        value={regForm.phone}
-                        aria-describedby="phone"
-                    />
-                </Form.Group>
-                <Row className="mb-3">
-                    <Form.Group as={Col}className="mb-3" controlId="address">
-                        <Form.Label>Address</Form.Label>
+                    <Form.Group className="UserDetails" controlId="address">
+                        <Form.Label className='DroneDetails'>Address</Form.Label>
                         <Form.Control
                             type="text"
-                            value={regForm.address}
+                            className='input_text'
                             aria-describedby="address"
                         />
                     </Form.Group>
-                    <Form.Group as={Col} className="mb-3" controlId="city">
-                        <Form.Label>City</Form.Label>
+                    <Form.Group className="UserDetails" controlId="city">
+                        <Form.Label className='DroneDetails'>City</Form.Label>
                         <Form.Control
                             type="text"
-                            value={regForm.city}
+                            className='input_text'
                             aria-describedby="city"
                         />
                     </Form.Group>
-                </Row>
-                <Row className="mb-3">
-                    <Form.Group className="mb-3" controlId="country">
-                        <Form.Label>Country</Form.Label>
-                        <Form.Select as={Col} aria-label="Default select example">
+                    <Form.Group className="UserDetails" controlId="country">
+                        <Form.Label className='DroneDetails'>Country</Form.Label>
+                        <Form.Select aria-label="Default select example" className='input_text'>
                             <option>Choose</option>
                             <option value="1">India</option>
                             <option value="2">United States</option>
@@ -104,28 +75,27 @@ export default function PilotInfo1() {
                             <option value="4">South Africa</option>
                         </Form.Select>
                     </Form.Group>
-                    <Form.Group as={Col} controlId="formGridState">
-                        <Form.Label>State</Form.Label>
-                        <Form.Select defaultValue="Choose...">
-                            <option>Choose...</option>
-                            <option>...</option>
+                    <Form.Group controlId="formGridState" className="UserDetails">
+                        <Form.Label className='DroneDetails'>State</Form.Label>
+                        <Form.Select defaultValue="Choose..." className='input_text'>
+                            <option value="1">Choose</option>
+                            <option value="2">California</option>
+                            <option value="3">Arizona</option>
+                            <option value="4">Colorado</option>
+                            <option value="5">Texas</option>
+                            <option value="6">Florida</option>
                         </Form.Select>
                     </Form.Group>
-                    <Form.Group as={Col} className="mb-3" controlId="zipcode">
-                        <Form.Label>Zipcode</Form.Label>
-                        <Form.Control
-                            type="text"
-                            value={regForm.zipcode}
-                            aria-describedby="zipcode"
-                        />
+                    <Form.Group className="UserDetails" controlId="zipcode">
+                        <Form.Label className='DroneDetails'>Zipcode</Form.Label>
+                        <Form.Control type="text" aria-describedby="zipcode" className='input_text'/>
                     </Form.Group>
-                </Row>
-                <div className="btn_panel">
-                    <Button variant="primary" onClick={() => submitRegister()} type="submit">
-                        Next
-                    </Button>
-                </div>
-            </Form>
+                    <button variant="secondary" className='dc-default btn btn-secondary m20' onClick={goBack}>Back</button>
+                    <button variant="primary" className='dc-default btn btn-primary m20'
+                            style={{float:"right",margin:"20px",}}
+                            onClick={submitRegister}>Next</button>
+                </Form>
+            </div>
         </div>
     );
 }

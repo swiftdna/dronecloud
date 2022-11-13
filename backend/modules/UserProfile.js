@@ -64,7 +64,6 @@ const updateUserDetails = async (req, res, next) => {
 			throw new Error('User not found in the database');
 		}
 	} catch(err) {
-    	console.log('getUserDetails ERR!! -> ', err);
     	res.json({
 	    	success: false,
 	    	message: err.message
@@ -77,3 +76,4 @@ module.exports = {
 	getUserDetails,
 	updateUserDetails
 };
+

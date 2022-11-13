@@ -41,10 +41,13 @@ module.exports = function(sequelize, Sequelize) {
             type: Sequelize.TEXT
         },
         country: {
-            type: Sequelize.INTEGER
+            type: Sequelize.TEXT
         },
         zipcode: {
             type: Sequelize.INTEGER
+        },
+        status: {
+            type: Sequelize.TEXT
         }
     });
     return User;

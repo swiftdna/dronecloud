@@ -6,22 +6,12 @@ import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {uploadImageToCloud} from "../utils";
 import {setToast} from "../actions/app-actions";
-import Col from "react-bootstrap/Col";
+import "../CSS/UserRegistration.css"
 // import 'react-bootstrap-country-select/dist/react-bootstrap-country-select.css';
 // import CountrySelect from 'react-bootstrap-country-select';
 
 export function IDInfo() {
 
-    const [regForm, setRegForm] = useState({
-        name: '',
-        licenseId: ''
-    });
-    const onInputChange = (e) => {
-        const tmpForm = {...regForm};
-        const name = e.target.getAttribute('id');
-        tmpForm[name] = e.target.value;
-        setRegForm(tmpForm);
-    }
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const submitRegister = () => {
@@ -44,46 +34,47 @@ export function IDInfo() {
         }
     }
     return (
-        <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100vh',
-        }} className="container pull-down fill-page dc-default">
-            <Form>
-                <img src="Step3.png"width="300" height="50" /><br/><br/>
-                <h4>Lets verify your identity.</h4><br/>
-                <p>Please upload your driver's license.</p>
-                <Form.Group className="mb-3" controlId="name">
-                    <Form.Label>Name</Form.Label>
-                    <Form.Control
-                        type="text"
-                        value={regForm.name}
-                        aria-describedby="name"
-                    />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="licenseID">
-                    <Form.Label>License ID</Form.Label>
-                    <Form.Control
-                        type="text"
-                        value={regForm.licenseId}
-                        aria-describedby="licenseID"
-                    />
-                </Form.Group>
-                <Form.Group as={Col} className="mb-3" controlId="image">
-                    <Form.Label className="form_label" htmlFor="image">File upload:</Form.Label>
-                    <Form.Control
-                        type="file"
-                        id="image"
-                        aria-describedby="image"
-                        onChange={uploadImage}
-                    />
-                </Form.Group>
-                <div className="btn_panel">
-                    <Button variant="secondary" onClick={() => goBack()}>Back</Button>
-                    <Button variant="primary" onClick={() => submitRegister()} type="submit">Next</Button>
-                </div>
-            </Form>
+        <div className="container main-frame">
+            <div className="div1-drone-catalog">
+                <h1 className='header-dronecatalog' style={{marginLeft:"100px"}}> Lets verify your identity</h1>
+
+                <p className='heading-dronecatalog' style={{marginTop:"10px",marginLeft:"100px"}}>Please upload your driver's license.</p>
+            </div>
+            <div className='userDetails'>
+                <Form>
+                    <p className="userInfo">Driver's License</p>
+                    <Form.Group className="UserDetails" controlId="name" className="DroneInfo">
+                        <Form.Label className='DroneDetails'>Name</Form.Label>
+                        <Form.Control
+                            type="text"
+                            className='input_text'
+                            aria-describedby="name"
+                        />
+                    </Form.Group>
+                    <Form.Group className="UserDetails" controlId="licenseID">
+                        <Form.Label className='DroneDetails'>License ID</Form.Label>
+                        <Form.Control
+                            type="text"
+                            className='input_text'
+                            aria-describedby="licenseID"
+                        />
+                    </Form.Group>
+                    <Form.Group className="UserDetails" controlId="image">
+                        <Form.Label className='DroneDetails' htmlFor="image">File upload:</Form.Label>
+                        <Form.Control
+                            type="file"
+                            className='input_text'
+                            id="image"
+                            aria-describedby="image"
+                            onChange={uploadImage}
+                        />
+                    </Form.Group>
+                    <button variant="secondary" className='dc-default btn btn-secondary m20' onClick={goBack}>Back</button>
+                    <button variant="primary" className='dc-default btn btn-primary m20'
+                            style={{float:"right",margin:"20px",}}
+                            onClick={submitRegister}>Next</button>
+                </Form>
+            </div>
         </div>
     );
 }

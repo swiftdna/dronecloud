@@ -134,10 +134,37 @@ export function updateProfile(dispatch, params, callback) {
         .then(response => {
             const {data} = response;
             if (data.success) {
-                dispatch(setToast({
-                    type: 'success',
-                    message: 'User profile updated successfully!'
-                }));
+                // dispatch(setToast({
+                //     type: 'success',
+                //     message: 'User profile updated successfully!'
+                // }));
+                return callback(null, true);
+            } else {
+                return callback(true);
+            }
+        });
+}
+
+export function addFarm(dispatch, params, callback) {
+    if (params.id)
+        delete params.id;
+    axios.post(`/api/farms`, params)
+        .then(response => {
+            const {data} = response;
+            if (data.success) {
+                return callback(null, true);
+            } else {
+                return callback(true);
+            }
+        });
+}
+export function farmOwnerInfo(dispatch, params, callback) {
+    if (params.id)
+        delete params.id;
+    axios.post(`/api/farms/owner`, params)
+        .then(response => {
+            const {data} = response;
+            if (data.success) {
                 return callback(null, true);
             } else {
                 return callback(true);
