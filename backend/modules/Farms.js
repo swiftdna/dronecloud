@@ -25,6 +25,30 @@ const addFarm = async (req, res, next) => {
         return next();
     }
 }
+const addOwner = async (req, res, next) => {
+    const { models: { farm: Farm } } = COREAPP;
+    const { id: user_id } = req.user;
+    const { body } = req;
+    body.user_id = user_id;
+    try {
+		const ownerData = await Farm.create(body);
+        req.model = {};
+        req.model.data = {
+            success: true,
+            data: ownerData
+        };
+        return next();
+    } catch(e) {
+        req.model.data = {
+            success: false,
+            data: {
+                message: "Unable to add farm owner data",
+                err: e.message
+            }
+        };
+        return next();
+    }
+}
 
 const getFarms = async (req, res, next) => {
     const { models: { farm: Farm } } = COREAPP;
@@ -125,7 +149,8 @@ const getFarms = async (req, res, next) => {
 
 module.exports = {
     addFarm,
-    getFarms
+    getFarms,
+    addOwner
 	// getFarmDetails,
 	// updateFarmDetails
 };

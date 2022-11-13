@@ -26,7 +26,7 @@ export default function FarmerInfo1() {
             status: 'complete'
         }, (err, success) => {
             if (success) {
-                navigate("/FarmInfo1");
+                navigate("/FarmInfo");
             } else {
                 // Failure
                 console.log('Saving profile info failed!');

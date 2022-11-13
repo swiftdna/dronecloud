@@ -140,6 +140,19 @@ export function addFarm(dispatch, params, callback) {
             }
         });
 }
+export function farmOwnerInfo(dispatch, params, callback) {
+    if (params.id)
+        delete params.id;
+    axios.post(`/api/farms/owner`, params)
+        .then(response => {
+            const {data} = response;
+            if (data.success) {
+                return callback(null, true);
+            } else {
+                return callback(true);
+            }
+        });
+}
 
 export function register(dispatch, data, callback) {
     // const navigate = useNavigate();

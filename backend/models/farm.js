@@ -26,7 +26,23 @@ module.exports = function(sequelize, Sequelize) {
         },
         lng: {
             type: Sequelize.INTEGER
+        },
+        ownername: {
+            type: Sequelize.TEXT
+        },
+        area: {
+            type: Sequelize.INTEGER
+        },
+        issuedate: {
+            type: Sequelize.DATEONLY
+        },
+        imageurl: {
+            type: Sequelize.TEXT
+        },
+        status: {
+            type: Sequelize.TEXT
         }
+
     });
     return Farm;
 }

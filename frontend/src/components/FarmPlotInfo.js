@@ -12,7 +12,7 @@ export default function FarmPlotInfo() {
         navigate("/landOwner")
     }
     const goBack = () => {
-        navigate('/FarmInfo1');
+        navigate('/FarmInfo');
     };
     return (
 

@@ -6,22 +6,38 @@ import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {uploadImageToCloud} from "../utils";
 import {setToast} from "../actions/app-actions";
+import {farmOwnerInfo} from "../utils";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 // import 'react-bootstrap-country-select/dist/react-bootstrap-country-select.css';
 // import CountrySelect from 'react-bootstrap-country-select';
 
-export function LandOwner() {
+export function LandOwner(){
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
     const submitRegister = () => {
-        console.log('Certificate details updated, click next')
-        navigate('/IDInfo');
-    };
+        // Make an API call
+        farmOwnerInfo(dispatch, {
+            ownername,
+           area,
+           issuedate,
+           status: 'complete'
+       }, (err, success) => {
+           if (success) {
+               navigate("/IDInfo");
+           } else {
+               // Failure
+               console.log('Saving land certification failed!');
+           }
+       });
+    }
     const goBack = () => {
-        navigate('/FarmInfoMap');
+        navigate('/FarmInfo');
     };
+    const [ownername, setOwnerName] = useState("");
+    const [area, setArea] = useState("");
+    const [issuedate, setIssueDate] = useState("");
     const uploadImage = async (e) => {
         e.preventDefault();
         const res = await uploadImageToCloud(dispatch, e.target.files[0]);
@@ -51,59 +67,16 @@ export function LandOwner() {
                                     type="text"
                                     className='input_text'
                                     aria-describedby="name"
+                                    onChange={(event) => {setOwnerName(event.target.value)}}
                                 />
                             </Form.Group>
-                            <Form.Group className="UserDetails" controlId="address">
-                                <Form.Label className='DroneDetails'>Address</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    className='input_text'
-                                    aria-describedby="address"
-                                />
-                            </Form.Group>
-                            <Form.Group className="UserDetails" controlId="city">
-                                <Form.Label className='DroneDetails'>City</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    className='input_text'
-                                    aria-describedby="city"
-                                />
-                            </Form.Group>
-                                <Form.Group className="UserDetails" controlId="country">
-                                    <Form.Label className='DroneDetails'>Country</Form.Label>
-                                    <Form.Select aria-label="Default select example" className='input_text'>
-                                        <option>choose</option>
-                                        <option value="1">India</option>
-                                        <option value="2">United States</option>
-                                        <option value="3">United Kingdom</option>
-                                        <option value="4">South Africa</option>
-                                    </Form.Select>
-                                </Form.Group>
-                                <Form.Group className="UserDetails" controlId="formGridState">
-                                    <Form.Label className='DroneDetails'>State</Form.Label>
-                                    <Form.Select defaultValue="Choose..." className='input_text'>
-                                        <option>Choose</option>
-                                        <option value="1">California</option>
-                                        <option value="2">Arizona</option>
-                                        <option value="3">Colorado</option>
-                                        <option value="4">Texas</option>
-                                        <option value="5">Florida</option>
-                                    </Form.Select>
-                                </Form.Group>
-                                <Form.Group className="UserDetails" controlId="zipcode">
-                                    <Form.Label className='DroneDetails'>Zipcode</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        className='input_text'
-                                        aria-describedby="zipcode"
-                                    />
-                                </Form.Group>
                                 <Form.Group className="UserDetails" controlId="totalArea">
                                     <Form.Label className='DroneDetails'>Total Area(square feet)</Form.Label>
                                     <Form.Control
                                         type="text"
                                         className='input_text'
-                                        aria-describedby="zipcode"
+                                        aria-describedby="area"
+                                        onChange={(event) => {setArea(event.target.value)}}
                                     />
                                 </Form.Group>
                                 <Form.Group className="UserDetails" controlId="certificateIssueDate">
@@ -112,6 +85,7 @@ export function LandOwner() {
                                         type="date"
                                         className='input_text'
                                         aria-describedby="certificateIssueDate"
+                                        onChange={(event) => {setIssueDate(event.target.value)}}
                                     />
                                 </Form.Group>
                             <Form.Group className="UserDetails" controlId="image">

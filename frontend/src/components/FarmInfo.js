@@ -7,26 +7,26 @@ import {useNavigate} from "react-router-dom";
 import "../CSS/UserRegistration.css"
 import { useDispatch } from "react-redux";
 import 'bootstrap/dist/css/bootstrap.css';
-import {updateProfile} from "../utils";
+import {addFarm} from "../utils";
 import { Button } from 'react-bootstrap';
 import axios from 'axios';
 import { GoogleMap, useJsApiLoader, Polyline, StandaloneSearchBox, Marker } from '@react-google-maps/api';
 
 const libraries = ["drawing", "places", "geometry"];
 
-export default function FarmerInfo() {
+export default function FarmInfo() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const submitRegister = () => {
          // Make an API call
-        updateProfile(dispatch, {
+         addFarm(dispatch, {
             name,
             lat,
             lng,
             address,
         }, (err, success) => {
             if (success) {
-                navigate("/FarmInfo1");
+                navigate("/FarmPlotInfo");
             } else {
                 // Failure
                 console.log('Saving profile info failed!');
@@ -34,7 +34,7 @@ export default function FarmerInfo() {
         });
     }
     const goBack = () => {
-        navigate('/SelectRole');
+        navigate('/FarmerInfo1');
     };
     const [name, setName] = useState("");
     const [lat, setLat] = useState("");
@@ -185,6 +185,10 @@ export default function FarmerInfo() {
                         <Button variant="primary" onClick={() => setAddFarmView(true)}>Locate farm</Button>
                     </Form.Group>
                 </Form>
+                <button variant="secondary" className='dc-default btn btn-secondary m20' onClick={() => goBack()}>Back</button>
+                <button variant="primary" className='dc-default btn btn-primary m20'
+                        style={{float:"right",margin:"20px",}}
+                        onClick={() => submitRegister()}>Next</button>
             </div> : 
             <div className="farm_add_menu">
                 {isLoaded ?<div id="searchbox">
