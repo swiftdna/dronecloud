@@ -66,12 +66,12 @@ export default function Profile() {
 				type: 'success',
                 message: 'User image uploaded successfully!'
 			}));
+			setUserImage(secure_url);
 		}
 		const tempForm = {...userProfileForm};
 		tempForm.dp_url = secure_url;
 		setUserProfileForm(tempForm);
     }
-
     const submitProfile = () => {
     	console.log('userProfileForm -> ' , userProfileForm);
     	// const {id: userID} = userProfile;
@@ -124,25 +124,26 @@ export default function Profile() {
 							}
 						</Form.Group>
 						<Form.Group className="UserDetails">
-							<Form.Label className="form_label" htmlFor="dob">Date of Birth</Form.Label>
-							{!editMode ? <p>{userProfileForm.dob}</p> : 
+							<Form.Label className="form_label" htmlFor="phone">Phone</Form.Label>
+							{!editMode ? <p>{userProfileForm.phone}</p> : 
 								<Form.Control
-									type="date"
-									id="dob"
-									aria-describedby="name"
-									value={userProfileForm.dob}
+									type="text"
+									id="phone"
+									aria-describedby="phone"
+									value={userProfileForm.phone}
 									onChange={onUserProfileChange}
 								/>
 							}
-						</Form.Group>					
+						</Form.Group>
+									
 						<Form.Group className="UserDetails">
-							<Form.Label className="form_label" htmlFor="address1">Address Line 1</Form.Label>
-							{!editMode ? <p>{userProfileForm.address1}</p> : 
+							<Form.Label className="form_label" htmlFor="address">Address Line 1</Form.Label>
+							{!editMode ? <p>{userProfileForm.address}</p> : 
 								<Form.Control
 									type="text"
-									id="address1"
-									aria-describedby="address1"
-									value={userProfileForm.address1}
+									id="address"
+									aria-describedby="address"
+									value={userProfileForm.address}
 									onChange={onUserProfileChange}
 								/>
 							}
@@ -158,7 +159,8 @@ export default function Profile() {
 									onChange={onUserProfileChange}
 								/>
 							}
-						</Form.Group>						
+						</Form.Group>	
+										
 						<Form.Group className="UserDetails">
 							<Form.Label className="form_label" htmlFor="state">State</Form.Label>
 							{!editMode ? <p>{userProfileForm.state}</p> : 
@@ -192,6 +194,18 @@ export default function Profile() {
 									id="email"
 									aria-describedby="email"
 									value={userProfileForm.email}
+									onChange={onUserProfileChange}
+								/>
+							}
+						</Form.Group>
+						<Form.Group className="UserDetails">
+							<Form.Label className="form_label" htmlFor="driverlicense">Driving license ID</Form.Label>
+							{!editMode ? <p>{userProfileForm.driverlicense}</p> : 
+								<Form.Control
+									type="driverlicense"
+									id="driverlicense"
+									aria-describedby="driverlicense"
+									value={userProfileForm.driverlicense}
 									onChange={onUserProfileChange}
 								/>
 							}
