@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { fetchFarm, updateFarm, uploadImageToCloud, getCountries } from '../utils';
+import { fetchFarm, addFarm, uploadImageToCloud } from '../utils';
 import { selectIsLoggedIn, selectFarm, selectCountries } from '../selectors/appSelector';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectFarmData } from '../selectors/profileSelector';
@@ -20,12 +20,12 @@ export default function FarmLand() {
     const [farmImage, setFarmImage] = useState();
 	const navigate = useNavigate();
 
-	// useEffect(() => {
-	// 	if (isLoggedIn) {
-	// 		console.log('profile - ', farmObj);
-    //     	fetchFarm(dispatch, farmObj);
-	// 	}
-    // }, [isLoggedIn]);
+	useEffect(() => {
+		if (isLoggedIn) {
+			console.log('profile - ', farmObj);
+        	fetchFarm(dispatch, farmObj);
+		}
+    }, [isLoggedIn]);
 
     useEffect(() => {
     	if (farmProfile) {
@@ -43,14 +43,6 @@ export default function FarmLand() {
     const reset = () => {
     	setFarmProfileForm(farmProfile);
     };
-
-    const getCountryName = (code) => {
-    	if (!countries || !countries.length) {
-    		return code;
-    	}
-    	const filteredCountryArr = countries.filter(cntry => cntry.code === code);
-    	return filteredCountryArr && filteredCountryArr.length && filteredCountryArr[0].name;
-    }
 
     const uploadImage = async (e) => {
 		e.preventDefault();
@@ -70,12 +62,12 @@ export default function FarmLand() {
 
     const submitProfile = () => {
     	console.log('farmProfileForm -> ' , farmProfileForm);
-    	// const {id: userID} = userProfile;
-		// updateFarm(dispatch, farmProfileForm, (err, successFlag) => {
-		// 	if (successFlag) {
-		// 		setEditMode(false);
-		// 	}
-		// });
+    	const {id: farm_id} = farmProfile;
+		addFarm(dispatch, farmProfileForm, (err, successFlag) => {
+			if (successFlag) {
+				setEditMode(false);
+			}
+		});
     };
 
 	return (
@@ -100,8 +92,8 @@ export default function FarmLand() {
 									id="image"
 									aria-describedby="image"
 									onChange={uploadImage}
-								/>
-								</> : ''}
+                                    />
+                                    </> : ''}
 						</Form.Group>
 						<Form.Group className="UserDetails">
 							<Form.Label className="form_label" htmlFor="name">Farm Name</Form.Label>
@@ -117,7 +109,7 @@ export default function FarmLand() {
 						</Form.Group>
 						<Form.Group className="UserDetails">
 							<Form.Label className="form_label" htmlFor="dob">Farm Type</Form.Label>
-							{!editMode ? <p>{getCountryName(farmProfileForm.type)}</p> : 
+							{!editMode ? <p>{farmProfileForm.type}</p> : 
 								<Form.Select className="form_label" id="type" value={farmProfileForm.type} onChange={onFarmProfileChange}>
 								<option>Choose</option>
 								<option value="Livestock">Livestock</option>
@@ -141,20 +133,20 @@ export default function FarmLand() {
 							}
 						</Form.Group>					
 						<Form.Group className="UserDetails">
-							<Form.Label className="form_label" htmlFor="name">Land Owner Name</Form.Label>
-							{!editMode ? <p>{farmProfileForm.owner}</p> : 
+							<Form.Label className="form_label" htmlFor="ownername">Land Owner Name</Form.Label>
+							{!editMode ? <p>{farmProfileForm.ownername}</p> : 
 								<Form.Control
 									type="text"
-									id="owner"
-									aria-describedby="owner"
-									value={farmProfileForm.owner}
+									id="ownername"
+									aria-describedby="ownername"
+									value={farmProfileForm.ownername}
 									onChange={onFarmProfileChange}
 								/>
 							}
 						</Form.Group>						
 						<Form.Group className="UserDetails">
 							<Form.Label className="form_label" htmlFor="state">Total Area</Form.Label>
-							{!editMode ? <p>{farmProfileForm.state}</p> : 
+							{!editMode ? <p>{farmProfileForm.area}</p> : 
 								<Form.Control
 									type="text"
 									id="area"
