@@ -41,9 +41,9 @@
 	transition: all 0.3s ease 0s;
 }
 
-.card-title {
+/*.card-title {
 	max-width: 80%;
-}
+}*/
 
 .card-btn:hover {
 	color: #fff;
@@ -354,32 +354,6 @@
 
 .dc-default .react-datetime-picker.dc-blue .react-datetime-picker__inputGroup__input {
 	color: white;
-}
-
-.header-dronecatalog {
-	color: #1a3447;
-
-	font-size: 36px;
-	font-weight: 600;
-	line-height: 44px;
-	letter-spacing: 0em;
-	text-align: left;
-	height: 41px;
-	width: 1007px;
-	left: 358px;
-	top: 282px;
-	border-radius: nullpx;
-}
-.heading-dronecatalog {
-	text-align: left;
-	font-size: 16px;
-	color: #4a5e6d;
-	font-family: Inter;
-
-	font-weight: 300;
-		line-height: 6px;
-		letter-spacing: 0em;
-		text-align: left;
 }
 .rectangle {
 	height: 71px;
