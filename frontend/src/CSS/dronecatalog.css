@@ -15,6 +15,7 @@
 }
 .card-header {
 	display: inline-flex;
+	padding: none;
 }
 .cards {
 	display: flex;
@@ -38,9 +39,9 @@
 	min-width: 50px;
 	padding: 8px 8px !important;
 }
-.heading-dronecatalog {
+/* .heading-dronecatalog {
 	margin-top: 20px;
-}
+} */
 .drone-catalog .card-header {
 	background: none;
 	border: none;
