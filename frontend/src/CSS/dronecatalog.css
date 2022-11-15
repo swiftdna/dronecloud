@@ -15,6 +15,7 @@
 }
 .card-header {
 	display: inline-flex;
+	padding: none;
 }
 .cards {
 	display: flex;
@@ -38,9 +39,9 @@
 	min-width: 50px;
 	padding: 8px 8px !important;
 }
-.heading-dronecatalog {
+/* .heading-dronecatalog {
 	margin-top: 20px;
-}
+} */
 .drone-catalog .card-header {
 	background: none;
 	border: none;
@@ -55,4 +56,60 @@
 	float: right;
 	border-radius: 10px;
 	width: 50px;
+}
+.dc-default .drone-catalog .card .card-title {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.dc-default .drone-catalog .card-body {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.dc-default .drone-catalog .card-body p.heading-dronecatalog{
+	padding: 0;
+	margin: 6px 0px;
+	font-size: 13px;
+}
+
+.dc-default .drone-catalog .card {
+	margin: 0;
+}
+
+.dc-default .dc-blue {
+	background-color: #027bff !important;
+	font-size: 12px !important;
+	color: white;
+}
+
+.dc-default .hr_rates {
+	color: #8d8d8d;
+	font-size: 14px;
+}
+
+.header-dronecatalog {
+	color: #1a3447;
+
+	font-size: 36px;
+	font-weight: 600;
+	line-height: 44px;
+	letter-spacing: 0em;
+	text-align: left;
+	height: 41px;
+	width: 1007px;
+	left: 358px;
+	top: 282px;
+	border-radius: nullpx;
+}
+.heading-dronecatalog {
+	text-align: left;
+	font-size: 16px;
+	color: #8d8d8d;
+
+	font-weight: 300;
+	line-height: 1rem;
+	letter-spacing: 0em;
+	text-align: left;
 }

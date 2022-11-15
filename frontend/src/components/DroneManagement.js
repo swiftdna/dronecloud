@@ -45,7 +45,9 @@ function DroneManagement() {
 
     const selectChanged = (e) => {
         const {target: {value}} = e;
-        console.log(value);
+        if (!value) {
+            setSelected(null);
+        }
         const fetchSelected = addedDrones.filter(dr => dr.id === parseInt(value));
         if (value && fetchSelected.length) {
             setSelected(fetchSelected[0]);
@@ -92,7 +94,7 @@ function DroneManagement() {
                   <th align="center">Model</th>
                   <th align="center">Manufacturer</th>
                   <th align="center">Status</th>
-                  <th align="center">Actions</th>
+                  <th className="text-center">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -128,7 +130,7 @@ function DroneManagement() {
                             <p>Drone #{selected.id}</p>
                             <p>Manufacturer: {selected.manufacturer}</p>
                             <p>Model: {selected.model}</p>
-                            <p>Statues: {selected.status}</p>
+                            <p>Status: {selected.status}</p>
                         </div>: ''}
                     {!loadingPending && selected && selected.id ?
                         <div className="text-center button_panel">

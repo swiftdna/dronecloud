@@ -6,8 +6,8 @@ const { handleBookingSchedule } = require('./modules/Scheduler');
 const { getDronePaths, registerDrone, deleteDrone, getAllDrones, getDroneLastSeenLocations, getDroneLastSeenLocationsOld } = require('./modules/SimulatorInteraction');
 const { getFarms, addFarm, addOwner } = require('./modules/Farms');
 const {addDrone,getDrone,getSingleDrone,updateDrone} =require('./modules/DroneCatalog');
-const { getDrones, filterDroneDetails, registerUAV, deregisterUAV, getAvailableDrones, FarmUserDroneDetails,PilotAvailability } = require('./modules/Drones');
-const { BookingDroneDetails } = require('./modules/Booking');
+const { getDrones, filterDroneDetails, registerUAV, deregisterUAV, getAvailableDrones, FarmUserDroneDetails,PilotAvailability, getFarmLands } = require('./modules/Drones');
+const { BookingDroneDetails, getUserBookings } = require('./modules/Booking');
 const { addPayment } = require('./modules/Payment');
 const { addPilotInfo } = require('./modules/Pilot');
 const { updateFarmDetails, getFarmDetails } = require('./modules/Farms');
@@ -32,7 +32,7 @@ router.get('/', isLoggedIn, (req, res) => {
 // Bootstrap Scheduler
 handleBookingSchedule();
 
-router.post('/drone/booking', isLoggedIn, BookingDroneDetails, pusher);
+router.post('/drone/booking', BookingDroneDetails, pusher);
 router.post('/farmuser', isLoggedIn, FarmUserDroneDetails, pusher);
 
 router.get('/users/:user_id', isLoggedIn, getUserDetails);
@@ -56,6 +56,9 @@ router.post('/drone/filter', isLoggedIn, filterDroneDetails, pusher);
 router.post('/drones/:id/register', isLoggedIn, registerUAV, pusher);
 router.post('/drones/:id/deregister', isLoggedIn, deregisterUAV, pusher);
 router.get('/drones/availability', isLoggedIn, getAvailableDrones, pusher);
+router.post('/userbookings', isLoggedIn,getUserBookings, pusher);
+router.post('/farmlands', isLoggedIn,getFarmLands, pusher);
+
 
 router.get('/tracking/drones/:id', isLoggedIn, getDronePaths, pusher);
 router.get('/tracking/drones', isLoggedIn, getDrones, getDroneLastSeenLocations, pusher);

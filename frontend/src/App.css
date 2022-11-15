@@ -53,9 +53,9 @@
 	transition: all 0.3s ease 0s;
 }
 
-.card-title {
+/*.card-title {
 	max-width: 80%;
-}
+}*/
 
 .card-btn:hover {
 	color: #fff;
@@ -163,6 +163,7 @@
 	height: 70px;
 	line-height: 37px; /* Vertically center the text there */
 	background-color: #f5f5f5;
+	overflow-x: hidden;
 }
 
 .custom_toast {
@@ -187,8 +188,8 @@
 
 .fill-page {
 	min-height: 50vw;
-	margin-bottom: -50px;
-	margin-bottom: 70px;
+/*	margin-bottom: 70px;*/
+	margin-bottom: 1px;
 }
 
 .currency_btn {
@@ -381,30 +382,41 @@
   background-color: #fbfdfe;
 }*/
 
-.header-dronecatalog {
-	color: #1a3447;
-
-	font-size: 36px;
-	font-weight: 600;
-	line-height: 44px;
-	letter-spacing: 0em;
-	text-align: left;
-	height: 41px;
-	width: 1007px;
-	left: 358px;
-	top: 282px;
-	border-radius: nullpx;
+.dc-default select.dc-blue {
+	background-color: #236dff;
+  color: white;
+  border: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3e%3cpath fill=%27none%27 stroke=%27%23ffffff%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%272%27 d=%27M2 5l6 6 6-6%27/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 14px;
 }
-.heading-dronecatalog {
-	text-align: left;
-	font-size: 16px;
-	color: #4a5e6d;
-	font-family: Inter;
 
-	font-weight: 300;
-		line-height: 6px;
-		letter-spacing: 0em;
-		text-align: left;
+.dc-default input.dc-blue {
+	background-color: #236dff;
+  color: white;
+  border: none;
+  height: 36px;
+}
+
+.dc-default .react-datetime-picker.dc-blue > .react-datetime-picker__wrapper {
+	background-color: #236dff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  height: 38px;
+}
+
+.dc-default .react-datetime-picker.dc-blue:not(:first-child) {
+	margin-left: 15px;
+}
+
+.dc-default .react-datetime-picker.dc-blue button > svg {
+	stroke: white;
+}
+
+.dc-default .react-datetime-picker.dc-blue .react-datetime-picker__inputGroup__input {
+	color: white;
 }
 .rectangle {
 	height: 71px;
@@ -459,6 +471,9 @@
 
 .dc-default .drones_list > .card .card-title {
 	font-size: 15px;
+	overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .dc-default .drones_list > .card .card-subtitle {
@@ -545,7 +560,6 @@
 .dc-default .drone_details {
 	margin-top: 20px;
 }
-
 
 .dc-default .drone_details .drone_chars > p.title {
 	margin-bottom: 5px;

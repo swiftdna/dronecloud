@@ -51,9 +51,15 @@ function DroneFleetTracking() {
         }
     }, [indDrone, tloading]);
 
+    useEffect(() => {
+        if (map) {
+            fixMapDefaultPosition();            
+        }
+    }, [drones, map]);
+
     const containerStyle = {
       width: '100%',
-      height: '690px'
+      height: '640px'
     };
 
     const center = {
@@ -68,20 +74,43 @@ function DroneFleetTracking() {
     });
 
     const onLoad = React.useCallback(function callback(map) {
+        console.log('onLoad');
         const bounds = new window.google.maps.LatLngBounds();
         for (let i = 0; i < drones.length; i++) {
-            if (!drones[i].last_seen) {
+            if (!drones[i].last_seen || !drones[i].last_seen.lat) {
                 continue;
             }
             const path = {
                 lat: drones[i].last_seen.lat,
                 lng: drones[i].last_seen.lng
             };
+            console.log('path --> ', path);
             bounds.extend(path);
         }
+        // map.setOptions({ maxZoom: 8 });
         map.fitBounds(bounds);
-        setMap(map)
-    }, [])
+        // map.setOptions({ maxZoom: null });
+        setMap(map);
+    }, []);
+
+    const fixMapDefaultPosition = () => {
+        const bounds = new window.google.maps.LatLngBounds();
+        const tmpdrones = searchedName ? proximityDrones.slice() : drones.slice();
+        for (let i = 0; i < tmpdrones.length; i++) {
+            if (!tmpdrones[i].last_seen || !tmpdrones[i].last_seen.lat) {
+                continue;
+            }
+            const path = {
+                lat: tmpdrones[i].last_seen.lat,
+                lng: tmpdrones[i].last_seen.lng
+            };
+            bounds.extend(path);
+        }
+        map.setOptions({ maxZoom: 8 });
+        map.fitBounds(bounds);
+        map.setOptions({ maxZoom: null });
+        setMap(map);
+    }
 
     const onUnmount = React.useCallback(function callback(map) {
         setMap(null)
@@ -94,7 +123,8 @@ function DroneFleetTracking() {
 
     const closeDetailedDroneView = () => {
         setIndDrone();
-        onLoad();
+        // onLoad();
+        // fixMapDefaultPosition();
     }
 
     const onSBLoad = ref => {
@@ -140,20 +170,37 @@ function DroneFleetTracking() {
 
     const handleSearchChange = (e) => {
         const {target: {value}} = e;
-        if (!value) {
-            setSearchedName('');
-        }
+        setSearchedName(value);
     }
 
     return(
         <div className="container">
             <h4>Service cloud Dashboard</h4>
-            <p>{drones.length} drones found</p>
+            {!loading && searchedName && proximityDrones ? proximityDrones.length ? <p>{proximityDrones.length} drones found</p> : <p>No drones found</p> : ''}
+            {!loading && !searchedName && drones ? <p>{drones.length} drones found</p> : ''}
             <div className="drones_list">
                 {loading ? <Spinner animation="border" role="status">
                   <span className="visually-hidden">Loading...</span>
                 </Spinner> : ''}
-                {!loading && drones && drones.length && drones.map(drone => 
+                {!loading && searchedName && proximityDrones && proximityDrones.length ? proximityDrones.map(drone => 
+                    <Card style={{ width: '13rem' }} className={indDrone && (drone.id === indDrone.id) ? 'selected' : ''} onClick={() => selectDrone(drone)}>
+                      <Card.Body>
+                        <Card.Title>{drone.manufacturer} {drone.model}</Card.Title>
+                        <Row>
+                        <Col xs={drone.image_url ? 7 : 12}>
+                            <Card.Subtitle className="mb-2 text-muted">Drone #{drone.id}</Card.Subtitle>
+                            <Card.Text>
+                              <Badge bg={drone.status ? statusColors[drone.status] : "primary"}>{capitalizeFirst(drone.status)}</Badge>
+                            </Card.Text>
+                        </Col>
+                        {drone.image_url ? <Col xs={5}>
+                            <Image src={drone.image_url} style={{marginLeft: '-20px', marginTop: '-5px'}} width="80" height="60" />
+                        </Col> : ''}
+                        </Row>
+                      </Card.Body>
+                    </Card>
+                ) : ''}
+                {!loading && !searchedName && drones && drones.length ? drones.map(drone => 
                     <Card style={{ width: '13rem' }} className={indDrone && (drone.id === indDrone.id) ? 'selected' : ''} onClick={() => selectDrone(drone)}>
                       <Card.Body>
                         <Card.Title>{drone.manufacturer} {drone.model}</Card.Title>
@@ -170,9 +217,9 @@ function DroneFleetTracking() {
                         </Row>
                       </Card.Body>
                 </Card>
-                )}
+                ) : ''}
             </div>
-            <Row>
+            {indDrone && indDrone.id ? '' : <Row>
             <Col xs={6} className="search_helper">Showing drones within <span className="dist">{withIn}</span> miles {searchedName ? `of ${searchedName}` : ''}</Col>
             <Col xs={3} className="search_helper"></Col>
             <Col xs={3}>
@@ -201,12 +248,13 @@ function DroneFleetTracking() {
                           textOverflow: `ellipses`,
                           position: "absolute",
                         }}
+                        value={searchedName}
                       />
                     </StandaloneSearchBox>
                     </div> : ''
                 }
             </Col>
-            </Row>
+            </Row>}
             {indDrone && indDrone.id ? <div className="drone_details">
                     <div style={{float: 'right'}}><MdOutlineClose size={40} style={{cursor: 'pointer'}} onClick={() => closeDetailedDroneView()} /></div>
                     <h4>Drone ID #{indDrone.id}</h4>
