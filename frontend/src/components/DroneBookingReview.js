@@ -136,15 +136,22 @@ export default function DroneBookingReview() {
                         <Card.Title ></Card.Title>
                         {allpilotlist && allpilotlist.length &&
                           <div>
-                            <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}>Name:</span> {allpilotlist[0].name}</Card.Subtitle>
+                            {/* <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}>Name:</span> {allpilotlist[0].name}</Card.Subtitle>
                         <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}>License: </span> {allpilotlist[0].license_number}</Card.Subtitle>
                         <Card.Subtitle className="mb-2 text-muted"> <span style={{color:"black"}}>Address: </span> {allpilotlist[0].address}</Card.Subtitle>
                         <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}> Contact: </span>912-8585-888</Card.Subtitle>
+ */}
 
 
                        
                           </div>
                         }
+                            <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}>Name:</span> Simon Sol</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}>License: </span>454544</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted"> <span style={{color:"black"}}>Address: </span> Pilot street east evenue. park road</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}> Contact: </span>912-8585-888</Card.Subtitle>
+
+
                          
                         {/* <Card.Subtitle className="mb-2 text-muted">Drone Manufacturer: {drone.equipment}</Card.Subtitle>
                         <Card.Subtitle className="mb-2 text-muted">Drone Service:{drone.equipment}</Card.Subtitle> */}

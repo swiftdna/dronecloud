@@ -67,7 +67,7 @@ const getUserBookings = async(req, res, next) => {
     console.log()
     try {
         console.log("999qwerwerwer9")
-        console.log(typeof req.body.id);
+        console.log(req.body.id);
         const userbookings = await Booking.findAll({
             where:{
                 user_id: req.body.id

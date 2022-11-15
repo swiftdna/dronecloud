@@ -38,7 +38,7 @@ router.put('/users/profile', isLoggedIn, updateUserDetails);
 
 router.post('/drone/filter', isLoggedIn, filterDroneDetails, pusher);
 router.get('/drones', isLoggedIn, getDrones, pusher);
-router.post('/pilotfilter', isLoggedIn, PilotAvailability, pusher);
+router.post('/pilotfilter', PilotAvailability, pusher);
 router.post('/drones/:id/register', isLoggedIn, registerUAV, pusher);
 router.post('/drones/:id/deregister', isLoggedIn, deregisterUAV, pusher);
 router.get('/drones/availability', isLoggedIn, getAvailableDrones, pusher);

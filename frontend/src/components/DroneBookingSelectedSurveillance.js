@@ -69,23 +69,34 @@ export default function DroneBookingSelected() {
   return (
     <div>
            <img src="Step3.png"width="300" height="50" />
-           <h3>Step 3: Selected0000 Drone</h3>
+           <h3>Step 3: Selected Surveillance Service Drone</h3>
             <div class="mainclass" style={{ width:'23rem',height:'205px',marginLeft:'83px' }}>
             This is your selected drone<br></br><br></br>
-      <Card  >
+      <Card  style={{height:"516px"}}>
                       <Card.Body >
                         <Card.Title style={{ marginLeft:"80px" }}  >Drone Information</Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted"><b>Drone ID:</b> {id}</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted"><b>Drone Farm Type:</b> {farmtype}</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted"><b>Drone ID:</b> </Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted">{id}</Card.Subtitle>
 
-                        <Card.Subtitle className="mb-2 text-muted"><b>Drone Price:</b>$ {price}</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted"><b>Drone Equipment: </b>{equipment}</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted"><b>Drone Brand:</b> {manufacturer}</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted"><b>Drone Service: </b>{service}</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted"><b>Drone Farm Type:</b></Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted">{farmtype}</Card.Subtitle>
+
+                        <Card.Subtitle className="mb-2 text-muted"><b>Drone Price:</b></Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted">$ {price}</Card.Subtitle>
+
+                        <Card.Subtitle className="mb-2 text-muted"><b>Drone Equipment: </b></Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted">{equipment}</Card.Subtitle>
+
+                        <Card.Subtitle className="mb-2 text-muted"><b>Drone Brand:</b> </Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted"> {manufacturer}</Card.Subtitle>
+
+                        <Card.Subtitle className="mb-2 text-muted"><b>Drone Service: </b></Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted">{service}</Card.Subtitle>
+
                         
                          <Card.Text>
                         </Card.Text>
-                      </Card.Body><br></br>
+                      </Card.Body>
                       
                       <Card.Title style={{ marginLeft:"110px" }} >Delivery Details</Card.Title>
 
@@ -96,12 +107,12 @@ export default function DroneBookingSelected() {
 
                       Location:
                       <Card.Subtitle className="mb-2 text-muted"> 3433 West street road, Santa Clara, 998989</Card.Subtitle>
-                      <button style={{ backgroundColor: "#4CAF50",borderRadius:"10px",border:" none",height:"43",width:"259",color:"white",marginLeft:"53px"}}>Selected </button>
-                     
+                      <Card.Subtitle className="mb-2 text-muted"> </Card.Subtitle>
+                   
 
                     </Card>
                     <br></br>
-                    </div>
+                    </div>    
 
                     <Card style={{ marginLeft:"480px",marginTop:"-156px",width:'24rem'}}  >
                       <Card.Body >
@@ -110,23 +121,23 @@ export default function DroneBookingSelected() {
                         </Card.Title>
                         <div className="farm_list">
                     
-                        <Card  style={{ width: '6.5rem',height:'3.5rem',padding:"4px" }}   >
-                        <Card.Subtitle ><b>Flight time</b></Card.Subtitle>
+                        <Card  style={{ width: '6.5rem',height:'4rem',padding:"4px" }}   >
+                        <Card.Subtitle ><b>Flight time</b></Card.Subtitle><br></br>
                         <Card.Subtitle ><p style={{fontSize:"12px"}}>30 minutes</p></Card.Subtitle>
                       
                         </Card>
                       
-                        <Card  style={{ width: '6rem',height:'3rem',padding:"4px" }}   >
-                        <Card.Subtitle ><b>Max Speed</b></Card.Subtitle>
+                        <Card  style={{ width: '6rem',height:'4rem',padding:"4px" }}   >
+                        <Card.Subtitle ><b>Max Speed</b></Card.Subtitle><br></br>
                         <Card.Subtitle ><p style={{fontSize:"12px"}}>P-mode 8m/s</p></Card.Subtitle>
                         
                        
                         </Card>
 
-                        <Card  style={{ width: '6rem',height:'3rem',padding:"4px" }}   >
-                        <Card.Subtitle  style={{fontSize:"16px"}}><b>Service</b></Card.Subtitle>
+                        <Card  style={{ width: '6rem',height:'4rem',padding:"9px" ,textAlign:"center"}}   >
+                        <Card.Subtitle  style={{fontSize:"16px"}}><b>Service</b></Card.Subtitle><br></br>
                         <Card.Subtitle ><p style={{fontSize:"12px"}}>6000m</p></Card.Subtitle>
-                          
+                        
                         </Card>
                         </div>
                         </Card.Body>
@@ -140,20 +151,20 @@ export default function DroneBookingSelected() {
                         </Card.Title>
                         <div className="farm_list">
                     
-                        <Card  style={{ width: '6rem',height:'3rem',padding:"4px" }}   >
-                        <Card.Subtitle style={{fontSize:"16px"}}><b>Sensor</b></Card.Subtitle>
+                        <Card  style={{ width: '6rem',height:'4rem',padding:"4px" }}   >
+                        <Card.Subtitle style={{fontSize:"16px"}}><b>Sensor</b></Card.Subtitle><br></br>
                         <Card.Subtitle ><p style={{fontSize:"12px"}}>1 inch CMOS</p></Card.Subtitle>
                           
                         </Card>
                       
-                        <Card  style={{ width: '6rem',height:'3rem',padding:"4px" }}   >
-                        <Card.Subtitle style={{fontSize:"16px"}}><b>Lens</b></Card.Subtitle>
+                        <Card  style={{ width: '6rem',height:'4rem',padding:"4px" }}   >
+                        <Card.Subtitle style={{fontSize:"16px"}}><b>Lens</b></Card.Subtitle><br></br>
                         <Card.Subtitle ><p style={{fontSize:"12px"}}>FOV 84'</p></Card.Subtitle>
                           
                         </Card>
 
-                        <Card  style={{ width: '6rem',height:'3rem',padding:"4px" }}   >
-                        <Card.Subtitle  style={{fontSize:"16px"}}><b> Range</b></Card.Subtitle>
+                        <Card  style={{ width: '6rem',height:'4rem',padding:"4px" }}   >
+                        <Card.Subtitle  style={{fontSize:"16px"}}><b> Range</b></Card.Subtitle><br></br>
                         <Card.Subtitle ><p style={{fontSize:"12px"}}>0-10m</p></Card.Subtitle>
                           
                         </Card>
@@ -165,18 +176,18 @@ export default function DroneBookingSelected() {
                         </Card.Title>
                         <div className="farm_list">
                     
-                        <Card  style={{ width: '6rem',height:'3rem',padding:"4px" }}   >
-                        <Card.Subtitle style={{fontSize:"16px"}}><b>Resolution</b></Card.Subtitle>
+                        <Card  style={{ width: '6rem',height:'4rem',padding:"4px" }}   >
+                        <Card.Subtitle style={{fontSize:"16px"}}><b>Resolution</b></Card.Subtitle><br></br>
                         <Card.Subtitle ><p style={{fontSize:"12px"}}>4K 3840x2150</p></Card.Subtitle>
                         </Card>
                       
-                        <Card  style={{ width: '6rem',height:'3rem',padding:"4px" }}   >
-                        <Card.Subtitle  style={{fontSize:"16px"}}><b>Lens</b></Card.Subtitle>
+                        <Card  style={{ width: '6rem',height:'4rem',padding:"4px" }}   >
+                        <Card.Subtitle  style={{fontSize:"16px"}}><b>Lens</b></Card.Subtitle><br></br>
                         <Card.Subtitle ><p style={{fontSize:"12px"}}>4K 3840x2150</p></Card.Subtitle>
                         </Card>
 
-                        <Card  style={{ width: '6rem',height:'3rem',padding:"4px" }}   >
-                        <Card.Subtitle  style={{fontSize:"16px"}}><b>Rate</b></Card.Subtitle>
+                        <Card  style={{ width: '6rem',height:'4rem',padding:"4px" }}   >
+                        <Card.Subtitle  style={{fontSize:"16px"}}><b>Rate</b></Card.Subtitle><br></br>
                         <Card.Subtitle ><p style={{fontSize:"12px"}}>60fps</p></Card.Subtitle>
                         </Card>
                         </div>
@@ -187,18 +198,18 @@ export default function DroneBookingSelected() {
                         </Card.Title>
                         <div className="farm_list">
                     
-                        <Card  style={{ width: '6rem',height:'3rem',padding:"4px" }}   >
-                        <Card.Subtitle  style={{fontSize:"16px"}}><b>Sensor</b></Card.Subtitle>
+                        <Card  style={{ width: '6rem',height:'4rem',padding:"4px" }}   >
+                        <Card.Subtitle  style={{fontSize:"16px"}}><b>Sensor</b></Card.Subtitle><br></br>
                         <Card.Subtitle ><p style={{fontSize:"12px"}}>0.2m - 7m</p></Card.Subtitle>
                         </Card>
                       
-                        <Card  style={{ width: '6rem',height:'3rem',padding:"4px" }}   >
-                        <Card.Subtitle style={{fontSize:"16px"}}><b>FOV</b></Card.Subtitle>
+                        <Card  style={{ width: '6rem',height:'4rem',padding:"4px" }}   >
+                        <Card.Subtitle style={{fontSize:"16px"}}><b>FOV</b></Card.Subtitle><br></br>
                         <Card.Subtitle ><p style={{fontSize:"12px"}}>70' Horiz</p></Card.Subtitle>
                         </Card>
 
-                        <Card  style={{ width: '6rem',height:'3rem',padding:"4px" }}   >
-                        <Card.Subtitle  style={{fontSize:"16px"}}><b>Freq</b></Card.Subtitle>
+                        <Card  style={{ width: '6rem',height:'4rem',padding:"4px" }}   >
+                        <Card.Subtitle  style={{fontSize:"16px"}}><b>Freq</b></Card.Subtitle><br></br>
                         <Card.Subtitle ><p style={{fontSize:"12px"}}>10Hz</p></Card.Subtitle>
                         </Card>
                         </div>

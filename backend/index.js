@@ -65,7 +65,7 @@ app.post('/signin', (req, res, next) => {
     } else {
       req.login(user, error => {
         if (error) return next(error);
-        const userObj = {email: user.email, id: user._id, username: user.username};
+        const userObj = {email: user.email, id: user.id, username: user.username};
         const token = jwt.sign(userObj, jwtSecret.secret);
         res.cookie('dc_token', token, { httpOnly: true });
         res.json({ info, success: true, isAuthenticated: true, user: userObj, token });

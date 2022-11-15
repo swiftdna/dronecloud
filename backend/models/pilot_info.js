@@ -12,19 +12,19 @@ module.exports = function(sequelize, Sequelize) {
                 key: 'id'
             }
         },
-        name: {
+        certname: {
             type: Sequelize.TEXT
         },
-        address: {
+        certid: {
             type: Sequelize.TEXT
         },
-        contact: {
-            type: Sequelize.BIGINT
+        certexpdate: {
+            type: Sequelize.DATEONLY
         },
-        issued_by: {
+        pilotcertimg: {
             type: Sequelize.TEXT
         },
-        license_number: {
+        status: {
             type: Sequelize.TEXT
         }
     });

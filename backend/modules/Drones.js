@@ -310,7 +310,7 @@ const getAvailableDrones = async (req, res, next) => {
     }
 };
 const PilotAvailability = async (req, res, next) => {
-    const { models: { pilot_info: PilotInfo,booking:Booking } } = COREAPP;
+    const { models: { pilot_info: PilotInfo,booking:Booking, user: User } } = COREAPP;
     try {
 		const pilotinfo = await PilotInfo.findAll({
 		});
@@ -342,7 +342,20 @@ const PilotAvailability = async (req, res, next) => {
 		});
         req.model = {};
         req.model.data = availablepilotinfo;
-        console.log("&&&111111",req.model.data )
+        if(req.model.data){
+        user_id=req.model.data[0].user_id
+        console.log(typeof user_id)
+        const userData = await User.findOne({
+            where:{
+                id: user_id
+            }, 
+            raw: true
+		});
+        req.model = {};
+        req.model.data = userData;
+        console.log(req.model.data)
+
+        }
 
         return next();
     }
