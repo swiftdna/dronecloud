@@ -57,12 +57,12 @@ function DroneCatalog() {
 
 
     const renderCards = drones.map((drone) =>
-            <div className="card" style={{height:"fit-content",width:"250px",margin:"5px",borderRadius:"10px"}}>
+            <div className="card" style={{height:"300px",width:"250px",margin:"5px",borderRadius:"10px"}}>
             {/* <div className="col-md-4 mb-4"> */}
-              <div className="card-body">
-                  <div className="card-header" >
-                <h5 className="card-title">{drone.model}</h5>
-                  <Image src={drone.image_url} style={{width: '100px', height: '100px', display: 'block'}} />
+              <div className="card-body" style={{width:"224px",height:"300px"}}>
+                  <div className="card-header" style={{width:"224px",height:"100px"}}>
+                <h5 className="card-title" style={{alignSelf:"left",width:"100px",marginRight:"10px"}}>{drone.model}</h5>
+                  <Image src={drone.image_url} style={{width: '100px', height: '100px', display: 'block',marginRight:"10px"}} />
                 </div>
                 {/* <p style={{marginTop:"10px"}} className='heading-dronecatalog'>3-axis gimble</p> */}
                 <p className='heading-dronecatalog'>{drone.camera}</p>
@@ -115,9 +115,12 @@ function DroneCatalog() {
 
             <br>
             </br>
+            </div>
+                
+        
+                </div>
 
-
-            <p className='heading-dronecatalog'>{drones.length} drones found</p>
+            <div className='heading-dronecatalog' style={{marginTop:"40px",lineHeight:"12px"}}>{drones.length} drones found</div>
             
            
             {!drones.length ?
@@ -143,10 +146,7 @@ function DroneCatalog() {
              
               
           
-      </div>
-                
-        
-            </div>
+     
             </div>
             </div>
                
