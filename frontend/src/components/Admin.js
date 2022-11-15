@@ -3,7 +3,7 @@ import { selectIsLoggedIn, selectUser } from '../selectors/appSelector';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setRedirectionPath } from '../actions/app-actions';
-import { RiSettingsLine, RiListUnordered } from 'react-icons/ri';
+import { RiSettingsLine, RiListUnordered, RiSettings5Fill, RiMapPinFill, RiBookOpenFill } from 'react-icons/ri';
 import { Row, Col } from 'react-bootstrap';
 import {
   Routes,
@@ -46,16 +46,16 @@ function Admin() {
                     <h3 className="title"><RiSettingsLine size={40} style={{marginTop: '-5px'}} /> Dashboard <span style={{fontSize: '12px', color: '#808080'}}>Admin</span></h3>
                     <ul className="nav flex-column dc-default dc-admin-nav">
                       <li className="nav-item">
-                        <NavLink className="nav-link" activeClassName="active" to="/admin" end>Drone Catalog</NavLink>
+                        <NavLink className="nav-link" activeClassName="active" to="/admin" end><RiBookOpenFill style={{marginTop: '-2px', marginRight: '2px'}} /> Drone Catalog</NavLink>
                       </li>
                       <li className="nav-item">
-                        <NavLink className="nav-link" activeClassName="active" to="/admin/drone-management">Drone Management</NavLink>
+                        <NavLink className="nav-link" activeClassName="active" to="/admin/drone-management"><RiSettings5Fill style={{marginTop: '-2px', marginRight: '2px'}} /> Drone Management</NavLink>
                       </li>
                       <li className="nav-item">
-                        <NavLink className="nav-link" activeClassName="active" to="/admin/drone-booking">Drone Booking</NavLink>
+                        <NavLink className="nav-link" activeClassName="active" to="/admin/drone-booking"><RiListUnordered style={{marginTop: '-2px', marginRight: '2px'}} /> Drone Booking</NavLink>
                       </li>
                       <li className="nav-item">
-                        <NavLink className="nav-link" activeClassName="active" to="/admin/drone-fleet-tracking">Drone Fleet Tracking</NavLink>
+                        <NavLink className="nav-link" activeClassName="active" to="/admin/drone-fleet-tracking"><RiMapPinFill style={{marginTop: '-2px', marginRight: '2px'}} /> Drone Fleet Tracking</NavLink>
                       </li>
                     </ul>
                 </Col>

@@ -133,8 +133,8 @@
 
 .fill-page {
 	min-height: 50vw;
-	margin-bottom: -50px;
-	margin-bottom: 70px;
+/*	margin-bottom: 70px;*/
+	margin-bottom: 1px;
 }
 
 .currency_btn {
