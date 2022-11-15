@@ -137,7 +137,7 @@ console.log(fromdate.toString().substring(4,15),selectedDroneid)
                     
                  <li class="dronebookdropdown" >
                     
-                        <select className="form-select" name="service" id="service"  onChange={(event) => {
+                        <select className="form-select dc-blue" name="service" id="service"  onChange={(event) => {
             setService(event.target.value);
           }}>
                             <option>Service</option>
@@ -158,7 +158,7 @@ console.log(fromdate.toString().substring(4,15),selectedDroneid)
 
                 </li>
                 <li class="dronebookdropdown">
-                        <select name="price" className="form-select" id="price"  onChange={(event) => {
+                        <select name="price" className="form-select dc-blue" id="price"  onChange={(event) => {
             setPrice(event.target.value);
           }}>
                             <option>Price  
@@ -170,7 +170,7 @@ console.log(fromdate.toString().substring(4,15),selectedDroneid)
                         </select>
                 </li>
                 <li class="dronebookdropdown">
-                        <select name="brand" className="form-select" id="brand"  onChange={(event) => {
+                        <select name="brand" className="form-select dc-blue" id="brand"  onChange={(event) => {
             setBrand(event.target.value);
           }}>
                             <option>Brand</option>
@@ -183,7 +183,7 @@ console.log(fromdate.toString().substring(4,15),selectedDroneid)
                         </select>
                 </li>
                 <li class="dronebookdropdown">
-                        <select name="equipment" className="form-select" id="equipment"  onChange={(event) => {
+                        <select name="equipment" className="form-select dc-blue" id="equipment"  onChange={(event) => {
             setEquipment(event.target.value);
           }}>
                             <option>Equipment</option>
@@ -195,7 +195,7 @@ console.log(fromdate.toString().substring(4,15),selectedDroneid)
                         </select>
                 </li>
                 <li class="dronebookdropdown">
-                        <select name="status" className="form-select" id="status"  onChange={(event) => {
+                        <select name="status" className="form-select dc-blue" id="status"  onChange={(event) => {
             setStatus(event.target.value);
           }}>
                             <option>Status</option>
@@ -206,8 +206,8 @@ console.log(fromdate.toString().substring(4,15),selectedDroneid)
                 </li>
             </ul>
                 <br></br><br></br>
-                
                   <DateTimePicker
+                    className="dc-blue"
                     amPmAriaLabel="Select AM/PM"
                     calendarAriaLabel="Toggle calendar"
                     clearAriaLabel="Clear value"
@@ -222,6 +222,7 @@ console.log(fromdate.toString().substring(4,15),selectedDroneid)
                     value={fromdate}
                     yearAriaLabel="Year" />
                 <DateTimePicker
+                    className="dc-blue"
                     amPmAriaLabel="Select AM/PM"
                     calendarAriaLabel="Toggle calendar"
                     clearAriaLabel="Clear value"
@@ -235,8 +236,6 @@ console.log(fromdate.toString().substring(4,15),selectedDroneid)
                     secondAriaLabel="Second"
                     value={todate}
                     yearAriaLabel="Year" />
-              
-               
               <div className="gobutton">
                 <button class="button button2" onClick={filterSubmit} style = {{padding: "10px"}}> Go</button>
                 </div>
