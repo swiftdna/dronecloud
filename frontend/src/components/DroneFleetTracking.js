@@ -59,7 +59,7 @@ function DroneFleetTracking() {
 
     const containerStyle = {
       width: '100%',
-      height: '690px'
+      height: '640px'
     };
 
     const center = {
