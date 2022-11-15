@@ -1,6 +1,7 @@
 const BookingDroneDetails = async (req, res, next) => {
     const { models: { booking: Booking } } = COREAPP;
     const { internal } = req;
+    console.log(req.body)
     try {
         const bookingData = await Booking.create({
             user_id:req.body.user_id,
@@ -11,6 +12,9 @@ const BookingDroneDetails = async (req, res, next) => {
             start_date:req.body.start_date,
             end_date:req.body.end_dates,
             status:req.body.status,
+            service:req.body.service,
+            farmland:req.body.landtype,
+            landtype:req.body.landtype,
         });
         if (internal) {
             return bookingData;

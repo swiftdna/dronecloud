@@ -41,7 +41,10 @@ export default function DroneBookingCatalog() {
   const [selectedDroneservice, setSelectedDroneService] = useState("");
   const [selectedDronebrand, setSelectedDroneBrand] = useState("");
   const [selectedDronestatus, setSelectedDroneStatus] = useState("");
-
+  const date1 = fromdate && new Date(fromdate.toString().substring(4,15))
+  const date2 = todate && new Date(todate.toString().substring(4,15))
+  const diffTime = Math.abs(date2 - date1);
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
 
   const farmtype = useSelector((store) =>store.bookdrone.farmtype);
   const farmland = useSelector((store) =>store.bookdrone.farmland);
@@ -50,9 +53,9 @@ export default function DroneBookingCatalog() {
   // console.log("%^%^%^%^%^",new Date(todate).valueOf())
   
   const filterSubmit = (e) => {
-    e.preventDefault();
     const from = moment(fromdate).unix();
     const to = moment(todate).unix();
+    console.log("SSERRVI",droneservice,droneservice&&droneservice==="surveillance" )
     axios.get(`/api/drones/availability`,{params: {
       from,
       to,
@@ -64,6 +67,7 @@ export default function DroneBookingCatalog() {
       // farmland:farmland,
       // farmid:farmid,
     }
+    
   })
     .then(response => {
       console.log("&&&&",response.data.data);
@@ -71,6 +75,8 @@ export default function DroneBookingCatalog() {
     });
 
   };
+
+
 
   useEffect( () => {
     
@@ -91,12 +97,15 @@ export default function DroneBookingCatalog() {
   setSelectedDroneService(drone.service);
   setSelectedDroneBrand(drone.manufacturer);
 
-  console.log("!!!!!!!!!!!!!!!!!!",drone)
 
-    }
+
+  }
+  
+
 
 const DroneDispatch = () => {
-console.log(fromdate.toString().substring(4,15))
+console.log(fromdate.toString().substring(4,15),selectedDroneid)
+
   dispatch(
     bookdrone({
       id:selectedDroneid,
@@ -109,6 +118,7 @@ console.log(fromdate.toString().substring(4,15))
       price:selectedDroneprice,
       fromdate:fromdate.toString().substring(4,15),
       todate:todate.toString().substring(4,15),
+      duration:diffDays,
 
     })
   );
@@ -262,8 +272,18 @@ console.log(fromdate.toString().substring(4,15))
                 </button> 
                 </li>
                 <li className="navigationbutton">
-                <button class="button button1" onClick={() => DroneDispatch()}><Link to="/drone-booking-selected" >Next</Link>
+                  {droneservice&&droneservice==="data collection" && <div>
+                  <button class="button button1" onClick={() => DroneDispatch()}><Link to="/drone-booking-selected" >Next</Link>
                 </button> 
+                    </div>}
+                    {droneservice&&droneservice==="payload" && <div>
+                  <button class="button button1" onClick={() => DroneDispatch()}><Link to="/drone-booking-selected" >Next</Link>
+                </button> 
+                    </div>}
+                    {droneservice&&droneservice==="surveillance" && <div>
+                  <button class="button button1" onClick={() => DroneDispatch()}><Link to="/drone-booking-selected-surveillance" >Next</Link>
+                </button> 
+                    </div>}
                 </li>
             </ul>
            

@@ -56,13 +56,15 @@ export default function DroneBookingReview() {
   } , [isLoggedIn]);
 
   const selectUser = () => {
-    axios.get(`/api/users/`+user_id.toString())
-      .then(response => {
-        console.log("userrrr------------",response.data,user_id,`/api/users/`+user_id.toString())
-        setUserDetails(response.data)
+    {user_id && axios.get(`/api/users/`+user_id.toString())
+    .then(response => {
+      setUserDetails(response.data)
 
-      });
+    });}
+   
     }
+
+    
     const selectPilot = () => {
       axios.post(`/api/pilotfilter`)
         .then(response => {
@@ -95,18 +97,17 @@ export default function DroneBookingReview() {
            <h3>Step 4: Review Booking
            </h3>
       Please confirm your selected service details. Cost estimation shown below:<br></br><br></br>
-      <Card style={{ width:'18rem',height:'185px',marginLeft:'13px', marginTop:'-7px'}}  >
-      
-
+      <Card style={{ width:'18rem',height:'195px',marginLeft:'190px', marginTop:'-7px'}}  >
+     
                       <Card.Body ><b>Order Summary</b>
                         <Card.Title ></Card.Title>
                         <Card.Subtitle className="mb-2 text-muted">
                         {setuserdetails && 
                           <div>
-                            <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}>Name:</span> {setuserdetails.name}</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}><img src="calendar.jpeg"  height="40px" width="40px" /> </span> {setuserdetails.dob}</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted"> <span style={{color:"black"}}> <img src="location.jpeg" height="20px" width="20px" /></span> {setuserdetails.address}</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}> <img src="calendar.jpeg"  height="40px" width="40px" /> </span>{setuserdetails.phone}</Card.Subtitle>
+                            <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}>Name:</span> Sravya</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}><img src="calendar.jpeg"  height="30px" width="30px" /> </span> 17/11/1996</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted"> <span style={{color:"black"}}> <img src="location.jpeg" height="20px" width="20px" /></span> 3433 West street road, Santa Clara, 998989</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}> <img src="contact.jpeg"  height="30px" width="30px" /> </span>889-8585-777</Card.Subtitle>
 
 
                        
@@ -129,7 +130,8 @@ export default function DroneBookingReview() {
                       
                       {/* <Card.Subtitle className="mb-2 text-muted"> {dronedatetime}</Card.Subtitle> */}
                     </Card>
-                    <Card style={{ width:'18rem',height:'185px',marginLeft:'643px', marginTop:'-181px'}}  >
+                    <Card style={{ width:'18rem',height:'195px',marginLeft:'499px', marginTop:'-194px'}}  >
+                    
                       <Card.Body ><b>Pilot Summary</b>
                         <Card.Title ></Card.Title>
                         {allpilotlist && allpilotlist.length &&
@@ -137,7 +139,7 @@ export default function DroneBookingReview() {
                             <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}>Name:</span> {allpilotlist[0].name}</Card.Subtitle>
                         <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}>License: </span> {allpilotlist[0].license_number}</Card.Subtitle>
                         <Card.Subtitle className="mb-2 text-muted"> <span style={{color:"black"}}>Address: </span> {allpilotlist[0].address}</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}> Contact: </span>{allpilotlist[0].contact}</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}> Contact: </span>912-8585-888</Card.Subtitle>
 
 
                        
@@ -194,12 +196,18 @@ export default function DroneBookingReview() {
                               <td>$10</td>
                               
                             </tr>
+                       
                             <tr>
                               <td><b>Total Price</b></td>
                               <td>${total}</td>
                               
                             </tr>
                         </table>
+                        <tr>
+                              <td>Payment Method</td>
+                              <td>Card Ending in 8898</td>
+                              
+                            </tr>
                       </div>
                       
                       {/* </Card.Body> */}
@@ -213,7 +221,7 @@ export default function DroneBookingReview() {
                 </button> 
                 </li>
                 <li className="navigationbutton">
-                <button class="button button1"  onClick={handleSubmit}> <Link to="/drone-booking-confirmation" >Confirm</Link>
+                <button class="button button1"  onClick={handleSubmit}> <Link to="/drone-booking-confirmation" >Make Payment</Link>
                 </button> 
                 </li>
             </ul>

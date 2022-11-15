@@ -32,12 +32,14 @@ export default function DroneBookingConfirmation() {
   const farm_id = useSelector((store) =>store.bookdrone.farmid);
   const land_id = useSelector((store) =>store.bookdrone.farmland);
   const pilot_id = useSelector((store) =>store.bookdrone.pilotid);
-
+  const farm_land = useSelector((store) =>store.bookdrone.farmland);
   const fromdate = useSelector((store) =>store.bookdrone.fromdate);
   const todate = useSelector((store) =>store.bookdrone.todate);
+  const fromtype = useSelector((store) =>store.bookdrone.farmtype);
+
   const total = 55+price
 
-  console.log(total,bookingid)
+  console.log("!!!!!!!!!!!",total,bookingid,user_id,id,land_id,farm_id,pilot_id,fromdate,todate)
   useEffect( () => {
     
     axios.post(`/api/drone/booking`,{
@@ -48,7 +50,10 @@ export default function DroneBookingConfirmation() {
       pilot_id:pilot_id,
       start_date:fromdate,
       end_date:todate,
-      status:"booked"
+      status:"booked",
+      service:service,
+      farmland:farm_land,
+      landtype:fromtype,
     })
       .then(response => {
         
@@ -63,38 +68,65 @@ export default function DroneBookingConfirmation() {
       Your Booking is Confirmed, please review the booking details<br></br>
 
       <span style={{fontSize:"20px"}}>Booking ID</span><br></br> <span style={{fontSize:"15px"}}>  <b>{bookingid}</b></span>
-      <Card style={{ width:'13rem',height:'85px',marginLeft:'13px' }}  >
+      <Card style={{ width:'18rem',height:'195px',marginLeft:'190px', marginTop:'6px'}}   >
       
 
-                      <Card.Body ><b>Summary</b>
-                        <Card.Title ></Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted">{name}</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted">{dronedatetime}</Card.Subtitle>
-                        
-                        {/* <Card.Subtitle className="mb-2 text-muted">Drone Manufacturer: {drone.equipment}</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted">Drone Service:{drone.equipment}</Card.Subtitle> */}
-                        <Card.Text>
-                          {/* <Badge bg={drone.status ? statusColors[drone.status] : "primary"}>{capitalizeFirst(drone.status)}</Badge> */}
-                        </Card.Text>
-                      </Card.Body>
-                      
-                      {/* <Card.Subtitle className="mb-2 text-muted"> {dronedatetime}</Card.Subtitle> */}
-                    </Card>
-                    <Card style={{ width:'13rem',height:'85px',marginLeft:'643px', marginTop:'-81px'}}  >
-                      <Card.Body ><b>Pilot Summary</b>
-                        <Card.Title ></Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted">{name}</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted">{dronedatetime}</Card.Subtitle>
-                        
-                        {/* <Card.Subtitle className="mb-2 text-muted">Drone Manufacturer: {drone.equipment}</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted">Drone Service:{drone.equipment}</Card.Subtitle> */}
-                        <Card.Text>
-                          {/* <Badge bg={drone.status ? statusColors[drone.status] : "primary"}>{capitalizeFirst(drone.status)}</Badge> */}
-                        </Card.Text>
-                      </Card.Body>
-                      
-                      {/* <Card.Subtitle className="mb-2 text-muted"> {dronedatetime}</Card.Subtitle> */}
-                    </Card>  
+      <Card.Body ><b>Order Summary</b>
+        <Card.Title ></Card.Title>
+        <Card.Subtitle className="mb-2 text-muted">
+        {
+          <div>
+            <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}>Name:</span> Sravya</Card.Subtitle>
+        <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}><img src="calendar.jpeg"  height="30px" width="30px" /> </span> 17/11/1996</Card.Subtitle>
+        <Card.Subtitle className="mb-2 text-muted"> <span style={{color:"black"}}> <img src="location.jpeg" height="20px" width="20px" /></span> 3433 West street road, Santa Clara, 998989</Card.Subtitle>
+        <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}> <img src="contact.jpeg"  height="30px" width="30px" /> </span>889-8585-777</Card.Subtitle>
+
+
+       
+          </div>
+        }
+        </Card.Subtitle>
+        {/* <Card.Subtitle className="mb-2 text-muted">{farmtype}</Card.Subtitle>
+        <Card.Subtitle className="mb-2 text-muted">{dronedatetime}</Card.Subtitle>
+        <Card.Subtitle className="mb-2 text-muted">  <img src="location.jpeg" height="20px" width="20px" /> </Card.Subtitle>
+       
+        <Card.Subtitle className="mb-2 text-muted">  <img src="calendar.jpeg"  height="40px" width="40px" />
+{fromdate} to {todate}</Card.Subtitle> */}
+        
+        {/* <Card.Subtitle className="mb-2 text-muted">Drone Manufacturer: {drone.equipment}</Card.Subtitle>
+        <Card.Subtitle className="mb-2 text-muted">Drone Service:{drone.equipment}</Card.Subtitle> */}
+        <Card.Text>
+          {/* <Badge bg={drone.status ? statusColors[drone.status] : "primary"}>{capitalizeFirst(drone.status)}</Badge> */}
+        </Card.Text>
+      </Card.Body>
+      
+      {/* <Card.Subtitle className="mb-2 text-muted"> {dronedatetime}</Card.Subtitle> */}
+    </Card>
+    <Card style={{ width:'18rem',height:'195px',marginLeft:'499px', marginTop:'-194px'}}  >
+      <Card.Body ><b>Pilot Summary</b>
+        <Card.Title ></Card.Title>
+        {
+          <div>
+            <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}>Name:</span> pilot 2</Card.Subtitle>
+        <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}>License: 758985898</span></Card.Subtitle>
+        <Card.Subtitle className="mb-2 text-muted"> <span style={{color:"black"}}>Address: </span> 5655 Pilot road,Celina Road</Card.Subtitle>
+        <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}> Contact: </span>912-22-2222</Card.Subtitle>
+
+
+       
+          </div>
+        }
+         
+        {/* <Card.Subtitle className="mb-2 text-muted">Drone Manufacturer: {drone.equipment}</Card.Subtitle>
+        <Card.Subtitle className="mb-2 text-muted">Drone Service:{drone.equipment}</Card.Subtitle> */}
+        <Card.Text>
+          {/* <Badge bg={drone.status ? statusColors[drone.status] : "primary"}>{capitalizeFirst(drone.status)}</Badge> */}
+        </Card.Text>
+      </Card.Body>
+      
+      {/* <Card.Subtitle className="mb-2 text-muted"> {dronedatetime}</Card.Subtitle> */}
+    </Card>  
+      {/* <Card.Body > */} 
                     <Card style={{ width:'34rem',height:'225px',marginLeft:'264px', marginTop:'20px', borderColor:'white'}}  >
                   
                       {/* <Card.Body > */}

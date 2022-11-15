@@ -43,6 +43,15 @@ module.exports = function(sequelize, Sequelize) {
                 key: 'id'
             }
         },
+        farmland: {
+            type: Sequelize.STRING,
+        },
+        landtype: {
+            type: Sequelize.STRING,
+        },
+        service: {
+            type: Sequelize.STRING,
+        },
         start_date: {
             type: Sequelize.DATE
         },

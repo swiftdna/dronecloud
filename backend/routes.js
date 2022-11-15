@@ -30,7 +30,7 @@ router.get('/', isLoggedIn, (req, res) => {
 // Bootstrap Scheduler
 handleBookingSchedule();
 
-router.post('/drone/booking', isLoggedIn, BookingDroneDetails, pusher);
+router.post('/drone/booking', BookingDroneDetails, pusher);
 router.post('/farmuser', isLoggedIn, FarmUserDroneDetails, pusher);
 
 router.get('/users/:user_id', isLoggedIn, getUserDetails);

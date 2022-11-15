@@ -219,8 +219,11 @@ const deregisterUAV = async (req, res, next) => {
 };
 
 const getAvailableDrones = async (req, res, next) => {
-    console.log("9999")
+
+    
     const { from, to, service, price, equipment, brand } = req.query;
+    console.log("9999",from, to, service, price, equipment, brand)
+    console.log(service)
     const droneReq = {
         query: {
             status: 'available,deployed,booked'
