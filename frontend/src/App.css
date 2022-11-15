@@ -108,6 +108,7 @@
 	height: 70px;
 	line-height: 37px; /* Vertically center the text there */
 	background-color: #f5f5f5;
+	overflow-x: hidden;
 }
 
 .custom_toast {
@@ -396,6 +397,9 @@
 
 .dc-default .drones_list > .card .card-title {
 	font-size: 15px;
+	overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .dc-default .drones_list > .card .card-subtitle {
@@ -482,7 +486,6 @@
 .dc-default .drone_details {
 	margin-top: 20px;
 }
-
 
 .dc-default .drone_details .drone_chars > p.title {
 	margin-bottom: 5px;
