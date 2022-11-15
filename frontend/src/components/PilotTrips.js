@@ -6,7 +6,7 @@ import "../components/css/DroneBookingCatalog.css"
 import { Row, Col, Form } from 'react-bootstrap';
 import axios from 'axios';
 
-function MyBookings() {
+function PilotTrips() {
     const dispatch = useDispatch();
     const isLoggedIn = useSelector(selectIsLoggedIn);
     const userObj = useSelector(selectUser);
@@ -29,13 +29,13 @@ function MyBookings() {
 
     return(
         <div>
-          <h3>Welcome Sravya!</h3><img src="avatar.jpeg" alt="Avatar" style={{width:"200px",borderRadius: "50%",marginLeft:"628px",marginTop:"-77"}}/>
+          <h3>Welcome Pilot!</h3><img src="avatar.jpeg" alt="Avatar" style={{width:"200px",borderRadius: "50%",marginLeft:"628px",marginTop:"-77"}}/>
 
         <div className="container main-frame fill-page">    
 
        
             
-            <h4  style={{marginTop:"-146px",marginLeft:"349px"}}>My Bookings page</h4>
+            <h4  style={{marginTop:"-146px",marginLeft:"349px"}}>My Trips page</h4>
             <div style={{width:"960px",marginTop:"-350px",marginLeft:"149px"}}>
             <table >
                 <tr>
@@ -79,4 +79,4 @@ function MyBookings() {
     )
 }
 
-export default MyBookings;
+export default PilotTrips;

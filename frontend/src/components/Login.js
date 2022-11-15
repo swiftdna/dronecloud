@@ -8,6 +8,7 @@ import { selectIsLoggedIn } from '../selectors/appSelector';
 import "../CSS/landing.css"
 import { TbDrone } from 'react-icons/tb';
 import { blue } from '@material-ui/core/colors';
+import {Button} from 'react-bootstrap';
 
 //Define a Login Component
 export function Login() {
@@ -73,13 +74,13 @@ export function Login() {
                         </div>
                         <div>
                             <br></br>  
-                            <button type='button' onClick={() => register()} className='registerbtn'>
+                            {/* <button type='button' onClick={() => register()} className='registerbtn'>
                                 <h5>Reset Password</h5>
-                            </button> 
-                            <span class="registerspan"> | </span>        
-                            <button type='button' onClick={() => register()} className='registerbtn'>
-                                <h5>Register</h5>
-                            </button> 
+                            </button>
+                            <span class="registerspan"> | </span>  */}       
+                            <Button variant="primary" onClick={() => register()}>
+                                Register
+                            </Button> 
          
                         </div>
                     </div>

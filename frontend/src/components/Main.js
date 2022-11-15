@@ -57,8 +57,8 @@ export function Main() {
             {location.pathname !== '/login' && <Navbar />}
             {
                 alert ? 
-                <div className="container pull-down hideAlert">
-                    <div className={alertMapping && alertMapping[alertType] ? alertMapping[alertType]: "alert alert-danger"} role="alert" autohide>
+                <div className="container pull-down">
+                    <div className={alertMapping && alertMapping[alertType] ? alertMapping[alertType]: "alert alert-danger"} role="alert">
                         {alertMessage}
                     </div>
                 </div> : ''

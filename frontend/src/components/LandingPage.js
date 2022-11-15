@@ -14,6 +14,7 @@ import {BiUserCircle} from 'react-icons/bi';
 import { GrContact } from 'react-icons/gr';
 import { GiDeliveryDrone } from 'react-icons/gi';
 import MyBookings from './MyBookings';
+import PilotTrips from './PilotTrips';
 import BookDrone from './BookDrone';
 import Profile from './Profile';
 import ServiceReports from './ServiceReports';
@@ -71,9 +72,20 @@ function LandingPage() {
         }
     }, [isLoggedIn]);
 
-    
+    const isUserPilot = () => {
+        return userObj.role === 'pilot';
+    }
+
+    const isUserFarmer = () => {
+        return userObj.role === 'farmer';
+    }
+
     const home = () => {
-      navigate('/');
+        if (isUserPilot()) {
+            navigate('/pilot-trips');
+            return;
+        }
+        navigate('/');
     }
 
     const login = () => {
@@ -86,23 +98,33 @@ function LandingPage() {
                 <Row className="fill-page" style={{width: '100%'}}>
                     <Col xs={3} className="text-center py-3 dc-default dc-leftpane">
                         <h3 className="title"><RiSettingsLine size={40} style={{marginTop: '-5px'}} /> Dashboard</h3>
-                        <ul className="nav flex-column dc-default dc-admin-nav">
+                        {
+                            isUserFarmer() ? <ul className="nav flex-column dc-default dc-admin-nav">
+                              <li className="nav-item">
+                                <NavLink className="nav-link" activeClassName="active" to="/"><RiListUnordered style={{marginTop: '-2px'}} /> My Bookings</NavLink>
+                              </li>
+                              <li className="nav-item">
+                                <NavLink className="nav-link" activeClassName="active" to="/book-drone"><GiDeliveryDrone size={20} style={{marginTop: '-2px'}} /> Book Drone</NavLink>
+                              </li>
+                              <li className="nav-item">
+                                <NavLink className="nav-link" activeClassName="active" to="/service-reports"><TbReportAnalytics size={20} style={{marginTop: '-5px'}} /> Service Reports</NavLink>
+                              </li>
+                              <li className="nav-item">
+                                <NavLink className="nav-link" activeClassName="active" to="/profile"><BiUserCircle style={{marginTop: '-3px'}}  /> Profile</NavLink>
+                              </li>
+                              <li className="nav-item">
+                                <NavLink className="nav-link" activeClassName="active" to="/contact"><GrContact size={18} style={{marginTop: '-3px'}}  /> Contact</NavLink>
+                              </li>
+                            </ul> : ''
+                        }
+                        { isUserPilot() ? <ul className="nav flex-column dc-default dc-admin-nav">
                           <li className="nav-item">
-                            <NavLink className="nav-link" activeClassName="active" to="/"><RiListUnordered style={{marginTop: '-2px'}} /> My Bookings</NavLink>
-                          </li>
-                          <li className="nav-item">
-                            <NavLink className="nav-link" activeClassName="active" to="/book-drone"><GiDeliveryDrone size={20} style={{marginTop: '-2px'}} /> Book Drone</NavLink>
-                          </li>
-                          <li className="nav-item">
-                            <NavLink className="nav-link" activeClassName="active" to="/service-reports"><TbReportAnalytics size={20} style={{marginTop: '-5px'}} /> Service Reports</NavLink>
+                            <NavLink className="nav-link" activeClassName="active" to="/pilot-trips"><RiListUnordered style={{marginTop: '-2px'}} /> My Trips</NavLink>
                           </li>
                           <li className="nav-item">
                             <NavLink className="nav-link" activeClassName="active" to="/profile"><BiUserCircle style={{marginTop: '-3px'}}  /> Profile</NavLink>
                           </li>
-                          <li className="nav-item">
-                            <NavLink className="nav-link" activeClassName="active" to="/contact"><GrContact size={18} style={{marginTop: '-3px'}}  /> Contact</NavLink>
-                          </li>
-                        </ul>
+                        </ul> : ''}
                     </Col>
                     <Col xs={9} className="text-center py-3 dc-default content_panel">
                         <Routes>
@@ -116,6 +138,7 @@ function LandingPage() {
                             <Route path="/drone-booking-review" element={<DroneBookingReview />} />
                             <Route path="/drone-booking-confirmation" element={<DroneBookingConfirmation />} />
                             <Route path="/drone-booking-selected-surveillance" element={<DroneBookingSelectedSurveillance />} />
+                            <Route path="/pilot-trips" element={<PilotTrips />} />
                             <Route path="/" element={<MyBookings />} />
                         </Routes>
                     </Col>

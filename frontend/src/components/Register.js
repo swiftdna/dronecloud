@@ -109,10 +109,10 @@ export default function Register() {
 					</div>
 					<div className='login-panel'>
 						<br></br>  
-						<span class="registerspan">Already a member?</span>        
+						{/* <span class="registerspan">Already a member?</span>        
 						<button type='button' onClick={() => login()} className='registerbtn'>
 							<h5>Login</h5>
-						</button> 
+						</button> */}
                     </div>
 				</div>
 			</div>
