@@ -71,7 +71,7 @@ export default function BookDrone() {
       })
       .then(response => {
         console.log("farmssslandss------------",response.data)
-        setFarmLandList(response.data.data)
+        setFarmLandList(response.data)
       });
       console.log(selectedfarmimage)
   }
@@ -118,13 +118,13 @@ export default function BookDrone() {
      <div>
       <ul style={{marginLeft:"260px"}}>
              
-                <li style={{width:"150px",listStyle: "none",float:" left"}}>
+                <li style={{width:"150px",listStyle: "none",float:" left",marginLeft:"100px"}}>
                         <select name="brand" className="form-select" id="brand" onChange={(event) => {
             setSelectedFarmLandID(event.target.value);
           }} >
                             <option>Select Land</option>
-                            {allitemslist.map(land => 
-                            <option >{land.id}</option>
+                            {allfarmlands && allfarmlands.map(land => 
+                            <option >{land.name}</option>
                             
                             )}
                         </select>

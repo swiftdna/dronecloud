@@ -93,11 +93,15 @@ export default function DroneBookingReview() {
   console.log("&&&&",setuserdetails,allpilotlist)
   return (
     <div>
-           <img src="Step4.png"width="300" height="50" />
+      <div style={{marginLeft:'134px'}}>
+      <img src="Step4.png"width="300" height="50"  />
+     
            <h3>Step 4: Review Booking
            </h3>
       Please confirm your selected service details. Cost estimation shown below:<br></br><br></br>
-      <Card style={{ width:'18rem',height:'195px',marginLeft:'190px', marginTop:'-7px'}}  >
+      </div>
+      <div></div>
+      <Card style={{ width:'18rem',height:'195px',marginLeft:'244px', marginTop:'-7px'}}  >
      
                       <Card.Body ><b>Order Summary</b>
                         <Card.Title ></Card.Title>
@@ -130,7 +134,7 @@ export default function DroneBookingReview() {
                       
                       {/* <Card.Subtitle className="mb-2 text-muted"> {dronedatetime}</Card.Subtitle> */}
                     </Card>
-                    <Card style={{ width:'18rem',height:'195px',marginLeft:'499px', marginTop:'-194px'}}  >
+                    <Card style={{ width:'18rem',height:'195px',marginLeft:'538px', marginTop:'-194px'}}  >
                     
                       <Card.Body ><b>Pilot Summary</b>
                         <Card.Title ></Card.Title>
@@ -162,7 +166,7 @@ export default function DroneBookingReview() {
                       
                       {/* <Card.Subtitle className="mb-2 text-muted"> {dronedatetime}</Card.Subtitle> */}
                     </Card>  
-                    <Card style={{ width:'34rem',height:'225px',marginLeft:'264px', marginTop:'20px', borderColor:'white'}}  >
+                    <Card style={{ width:'34rem',height:'225px',marginLeft:'363px', marginTop:'20px', borderColor:'white'}}  >
                       {/* <Card.Body > */}
                       <div>
                         <table style={{width:"100%",marginLeft:"-80px"}}>

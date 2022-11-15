@@ -372,15 +372,23 @@
 }
 
 .dc-default .drones_list {
-	width: inherit;
+	/* width: inherit;
 	display: inline-block;
 	height: 120px;
 	white-space: nowrap;
 	position: relative;
 	overflow-x: scroll;
 	overflow-y: hidden;
+	-ms-overflow-style: none; 
+	scrollbar-width: none;  */
+	
+	display: flex;
+	
+	justify-content: space-between;
 	-ms-overflow-style: none; /* IE and Edge */
-	scrollbar-width: none; /* Firefox */
+	scrollbar-width: none; 
+	width: 1000px;
+	height:150px;
 }
 
 .dc-default .drones_list::-webkit-scrollbar {

@@ -193,7 +193,7 @@ export default function DroneBookingConfirmation() {
                 </button> 
                 </li> */}
                 <li className="navigationbutton">
-                <button class="button button1" style={{marginLeft:"180px"}}> <Link to="/" >My Bookings</Link>
+                <button class="button button1" style={{marginLeft:"49px"}}> <Link to="/" >My Bookings</Link>
                 </button> 
                 </li>
             </ul>

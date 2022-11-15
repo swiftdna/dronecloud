@@ -132,7 +132,7 @@ console.log(fromdate.toString().substring(4,15),selectedDroneid)
            <img src="Step2.png"width="300" height="50" />
            <h3>Step 2: Drone Catalog</h3>
       Select a service and choose your done <br></br><br></br>
-        <div>
+        <div style={{marginLeft:"100px"}}>
             <ul >
                     
                  <li class="dronebookdropdown" >
@@ -204,7 +204,7 @@ console.log(fromdate.toString().substring(4,15),selectedDroneid)
                          
                         </select>
                 </li>
-            </ul>
+           
                 <br></br><br></br>
                 
                   <DateTimePicker
@@ -236,12 +236,15 @@ console.log(fromdate.toString().substring(4,15),selectedDroneid)
                     value={todate}
                     yearAriaLabel="Year" />
               
-               
+              </ul>
               <div className="gobutton">
-                <button class="button button2" onClick={filterSubmit} style = {{padding: "10px"}}> Go</button>
+                <button class="button button2" onClick={filterSubmit} style = {{padding: "10px",marginLeft:"51px",width:"74"}}> Go</button>
                 </div>
+                
                 <br></br>
             <div className="dronedisplay">
+
+
 
 
         <div className="drones_list">
@@ -249,9 +252,9 @@ console.log(fromdate.toString().substring(4,15),selectedDroneid)
                     <Card style={{ width: '13rem' }}  className={selectedDroneid === drone.id ? "selected" : ""} onClick={() => selectDrone(drone)} >
                       <Card.Body>
                         <Card.Title>{drone.name}</Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted">Drone ID: {drone.id}</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted">Drone Price: {drone.price}</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted">Drone Equipment: {drone.equipment}</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted"  style={{cole:"black"}}><b>Drone ID:</b> {drone.id}</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted"  style={{cole:"black"}}><b>Drone Price: </b>{drone.price}</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted" style={{cole:"black"}}><b>Drone Equipment: </b>{drone.equipment}</Card.Subtitle>
                      
                         <Card.Text>
                         </Card.Text>
