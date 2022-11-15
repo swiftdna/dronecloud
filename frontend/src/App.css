@@ -1,3 +1,15 @@
+
+:root {
+	--shadow-1: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+	--shadow-2: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+	  0 2px 4px -1px rgba(0, 0, 0, 0.06);
+	--shadow-3: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+	  0 4px 6px -2px rgba(0, 0, 0, 0.05);
+	--shadow-4: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+	  0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+
 .center-contents {
 	width: 50%;
 	padding: 0px 20px;
@@ -57,10 +69,15 @@
 
 .login-form {
 	left: 65%;
-	top: 35%;
+	top: 26%;
 	margin-left: -25%;
 	position: absolute;
 	/*margin-top: 25%;*/
+}
+
+.login-panel {
+	text-align: center !important;
+	margin: 0 auto;
 }
 
 .login-panel > .btn {
@@ -90,13 +107,51 @@
 	cursor: pointer;
 }
 
-.btn_panel {
+/* .btn_panel {
 	margin-top: 10px;
 	float: right;
 }
 
 .btn_panel > .btn:not(:first-child) {
 	margin-left: 10px;
+} */
+
+.btn_panel {
+	padding: 10px 24px;
+	text-align: center !important;
+	border: transparent;
+	font-size: 16px;
+	color: white;
+	outline: none;
+	background-color: #1a3447;
+	border-color: #1a3447;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: 0.3s ease-in-out all;
+}
+
+.btn_panel.btn-secondary {
+	background-color: #3b3b3d;
+	border-color: #b9b9c3;
+}
+
+.btn_panel:hover {
+	color: var(--white);
+	background: #3875a0;
+	box-shadow: var(--shadow-3);
+}
+
+
+.btn_panel.btn-secondary:hover {
+	background-color: #c9c9d3;
+	border-color: #b9b9c3;
+	box-shadow: var(--shadow-3);
+}
+
+.btn_panel.btn-secondary:disabled,
+.btn_panel.btn-secondary[disabled]{
+  background-color: #cccccc;
+  color: #666666;
 }
 
 .page-footer {
@@ -203,7 +258,7 @@
 .dc-default.navbar {
 	background-color: #1a3447;
 	color: #ffffff;
-	height: 80px;
+	height: 65px;
 }
 
 .dc-default a {
@@ -215,7 +270,7 @@
 }
 
 .dc-default.navbar .nav-buttons.active {
-	background-color: rgba(255, 255, 255, .2);
+	background-color: rgba(255, 255, 255, 0.059);
 }
 /*
 .dc-default.navbar > .container {
@@ -241,6 +296,14 @@
 .dc-default .btn.btn-primary {
 	background-color: #1a3447;
 	border-color: #1a3447;
+	transition: 0.3s ease-in-out all;
+}
+
+.dc-default .btn.btn-primary:hover {
+	color: var(--white);
+	background: #3875a0;
+	box-shadow: var(--shadow-3);
+	border-color: #3875a0;
 }
 
 .dc-default .btn.btn-secondary {
@@ -319,42 +382,6 @@
   background-color: #fbfdfe;
 }*/
 
-.dc-default select.dc-blue {
-	background-color: #236dff;
-  color: white;
-  border: none;
-  background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3e%3cpath fill=%27none%27 stroke=%27%23ffffff%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%272%27 d=%27M2 5l6 6 6-6%27/%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 0.75rem center;
-  background-size: 16px 14px;
-}
-
-.dc-default input.dc-blue {
-	background-color: #236dff;
-  color: white;
-  border: none;
-  height: 36px;
-}
-
-.dc-default .react-datetime-picker.dc-blue > .react-datetime-picker__wrapper {
-	background-color: #236dff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  height: 38px;
-}
-
-.dc-default .react-datetime-picker.dc-blue:not(:first-child) {
-	margin-left: 15px;
-}
-
-.dc-default .react-datetime-picker.dc-blue button > svg {
-	stroke: white;
-}
-
-.dc-default .react-datetime-picker.dc-blue .react-datetime-picker__inputGroup__input {
-	color: white;
-}
 .rectangle {
 	height: 71px;
 	width: 500px;
@@ -594,3 +621,26 @@
 	text-decoration: underline;
 	text-decoration-style: dotted;
 }
+
+.hideAlert {
+	animation: hideAnimation 0s ease-in 5s;
+	animation-fill-mode: forwards;
+	}
+	
+	@keyframes hideAnimation {
+	to {
+		visibility: hidden;
+		width: 0;
+		height: 0;
+	}
+	}
+
+.multistep {
+	width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+

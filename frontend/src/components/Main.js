@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Login from './Login';
 import Navbar from './Navbar';
 import Footer from './Footer';
@@ -16,13 +16,21 @@ import {Toast, ToastContainer} from 'react-bootstrap';
 import { selectAlertFlag, selectToastFlag, selectAlertMessage, selectAlertType, selectIsLoggedIn } from '../selectors/appSelector';
 import { clearToast } from '../actions/app-actions';
 import DroneCatalog from './DroneCatalog';
-import FarmerInfo1 from "./FarmerInfo1";
-import FarmInfo1 from "./FarmInfo1";
 import Contact from './Contact';
+import SelectRole from "./SelectRole";
+import FarmerInfo1 from "./FarmerInfo1";
+import FarmInfo from "./FarmInfo";
+import PilotInfo1 from "./PilotInfo1";
+import { PilotCertificate } from "./PilotCertificate";
 import {LandOwner} from "./LandOwner";
 import {IDInfo} from "./IDInfo";
 import {UtilityBill} from "./UtilityBill";
 import {BillingInfo} from "./BillingInfo";
+import FarmInfoMap from "./FarmInfoMap";
+import FarmPlotInfo from "./FarmPlotInfo";
+import FarmerParent from "./FarmerParent";
+import {ReviewRegistration} from "./ReviewRegistration";
+import PilotParent from './PilotParent';
 
 //Create a Main Component
 export function Main() {
@@ -65,20 +73,30 @@ export function Main() {
             </ToastContainer>
             <Routes>
               <Route path="/login" element={<Login />} />
-              {/* <Route path="/home" element={isAuthenticated ? <Home /> : <Login />} /> */}
-              {/* <Route path="/profile" element={isAuthenticated ? <Profile /> : <Login />} /> */}
-              <Route path="/register" element={<Register />} />
+                <Route path="/SelectRole" element={<SelectRole />} />
                 <Route path="/FarmerInfo1" element={<FarmerInfo1 />} />
-                <Route path="/FarmInfo1" element={<FarmInfo1 />} />
+                <Route path="/FarmInfo" element={<FarmInfo />} />
+                <Route path="/farminfo" element={<FarmInfo />} />
+                <Route path="/FarmerParent" element={<FarmerParent />} />
+                <Route path="/PilotParent" element={<PilotParent />} />
+                <Route path="/FarmInfoMap" element={<FarmInfoMap />} />
                 <Route path="/LandOwner" element={<LandOwner />} />
                 <Route path="/IDInfo" element={<IDInfo />} />
                 <Route path="/UtilityBill" element={<UtilityBill />} />
                 <Route path="/BillingInfo" element={<BillingInfo />} />
+                <Route path="/PilotInfo1" element={<PilotInfo1 />} />
+                <Route path="/PilotCertificate" element={<PilotCertificate />} />
+                <Route path="/FarmPlotInfo" element={<FarmPlotInfo />} />
+                <Route path="/ReviewRegistration" element={<ReviewRegistration />} />
+              <Route path="/register" element={<Register />} />
               <Route path="admin/*" element={<Admin />} />
-              <Route path="/contact" element={<Contact />} />
               <Route path="/*" element={<LandingPage />} />
             </Routes>
-            {location.pathname !== '/login' && <Footer />}
+            {/* {location.pathname !== '/login' && location.pathname !== '/register' && location.pathname !== '/FarmerParent' && location.pathname !== '/FarmerInfo1' 
+                            && location.pathname !== '/FarmInfo' && location.pathname !== '/LandOwner' && location.pathname !== '/IDInfo' 
+                            && location.pathname !== '/UtilityBill' && location.pathname !== '/BillingInfo' && location.pathname !== '/PilotInfo1' 
+                            && location.pathname !== '/PilotCertificate' && location.pathname !== '/SelectRole' 
+                            && location.pathname !== '/ReviewRegistration' && location.pathname !== '/' && <Footer />} */}
         </>
     )
 }

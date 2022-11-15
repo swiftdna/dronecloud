@@ -16,13 +16,14 @@ function MyBookings() {
     const user_id = useSelector((store) => store.app.user.id);
 
     useEffect(() => {
-        axios.post(`/api/userbookings`,{
-            id:user_id
-        })
-        .then(response => {
-          console.log("donrappppi------------",response.data.data)
-          setAllBookingsList(response.data.data)
-        });
+        if (isLoggedIn && user_id) {
+            axios.post(`/api/userbookings`,{
+                id:user_id
+            })
+            .then(response => {
+              setAllBookingsList(response.data.data)
+            });
+        }
     }, [isLoggedIn]);
     
 

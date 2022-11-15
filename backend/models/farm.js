@@ -20,7 +20,38 @@ module.exports = function(sequelize, Sequelize) {
         },
         address: {
             type: Sequelize.TEXT
+        },
+        lat: {
+            type: Sequelize.INTEGER
+        },
+        lng: {
+            type: Sequelize.INTEGER
+        },
+        ownername: {
+            type: Sequelize.TEXT
+        },
+        area: {
+            type: Sequelize.INTEGER
+        },
+        issuedate: {
+            type: Sequelize.DATEONLY
+        },
+        imageurl: {
+            type: Sequelize.TEXT
+        },
+        utilbillid: {
+            type: Sequelize.TEXT
+        },
+        billdate: {
+            type: Sequelize.DATEONLY
+        },
+        billimgurl: {
+            type: Sequelize.TEXT
+        },
+        status: {
+            type: Sequelize.TEXT
         }
+
     });
     return Farm;
 }

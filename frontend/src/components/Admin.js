@@ -12,7 +12,7 @@ import {
 } from "react-router-dom";
 import DroneCatalog from './DroneCatalog';
 import DroneManagement from './DroneManagement';
-import DroneBooking from './DroneBooking';
+// import DroneBooking from './DroneBooking';
 import DroneFleetTracking from './DroneFleetTracking';
 import AddDrone from './AddDrone';
 import AddDrone2 from './AddDrone2';
@@ -51,9 +51,9 @@ function Admin() {
                       <li className="nav-item">
                         <NavLink className="nav-link" activeClassName="active" to="/admin/drone-management"><RiSettings5Fill style={{marginTop: '-2px', marginRight: '2px'}} /> Drone Management</NavLink>
                       </li>
-                      <li className="nav-item">
+                      {/*<li className="nav-item">
                         <NavLink className="nav-link" activeClassName="active" to="/admin/drone-booking"><RiListUnordered style={{marginTop: '-2px', marginRight: '2px'}} /> Drone Booking</NavLink>
-                      </li>
+                      </li>*/}
                       <li className="nav-item">
                         <NavLink className="nav-link" activeClassName="active" to="/admin/drone-fleet-tracking"><RiMapPinFill style={{marginTop: '-2px', marginRight: '2px'}} /> Drone Fleet Tracking</NavLink>
                       </li>
@@ -62,7 +62,7 @@ function Admin() {
                 <Col xs={9} className="py-3 dc-default content_panel">
                     <Routes>
                         <Route path="/drone-management" element={<DroneManagement />} />
-                        <Route path="/drone-booking" element={<DroneBooking />} />
+                        {/*<Route path="/drone-booking" element={<DroneBooking />} />*/}
                         <Route path="/drone-fleet-tracking" element={<DroneFleetTracking />} />
                         <Route path="/" element={<DroneCatalog />} />
                         <Route path="/addDrone" element={<AddDrone/>}/>

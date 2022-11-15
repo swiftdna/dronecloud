@@ -1,130 +1,132 @@
 import React, {useState} from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import 'bootstrap/dist/css/bootstrap.css';
 import {register} from "../utils";
 import {setAlert} from "../actions/app-actions";
-import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import '../App.css';
-// import 'react-bootstrap-country-select/dist/react-bootstrap-country-select.css';
-// import CountrySelect from 'react-bootstrap-country-select';
+import "../CSS/UserRegistration.css"
+import { useDispatch } from "react-redux";
+import {updateProfile} from "../utils";
+import axios from 'axios';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 
-export default function FarmerInfo1() {
 
-    const [regForm, setRegForm] = useState({
-        first_name: '',
-        last_name: '',
-        phone: '',
-        address: '',
-        city: '',
-        state: '',
-        zipcode: '',
-        country: ''
-    });
-    const onInputChange = (e) => {
-        const tmpForm = {...regForm};
-        const name = e.target.getAttribute('id');
-        tmpForm[name] = e.target.value;
-        setRegForm(tmpForm);
-    }
-    const dispatch = useDispatch();
+
+export default function FarmerInfo1({ formData, setFormData }) {
     const navigate = useNavigate();
-    const submitRegister = () => {
+    const dispatch = useDispatch();
+    // const submitRegister = () => {
+    //      // Make an API call
+    //     updateProfile(dispatch, {
+    //         name,
+    //         phone,
+    //         address,
+    //         city,
+    //         state,
+    //         country,
+    //         zipcode,
+    //         status: ''
+    //     }, (err, success) => {
+    //         if (success) {
+    //             navigate("/FarmInfo");
+    //         } else {
+    //             // Failure
+    //             console.log('Saving profile info failed!');
+    //         }
+    //     });
+    // }
 
-        console.log('Farmer details updated, click next')
-        navigate('/FarmInfo1');
 
-    };
-    
+    // const goBack = () => {
+    //     navigate('/SelectRole');
+    // };
+
+
+    // const [zipcode, setZipcode] = useState("");
+    // const [name, setName] = useState("");
+    // const [phone, setPhone] = useState("");
+    // const [address, setAddress] = useState("");
+    // const [city, setCity] = useState("");
+    // const [state, setState] = useState("");
+    // const [country, setCountry] = useState("");
+
+
     return (
-        <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100vh',
-        }} className="container pull-down fill-page dc-default">
-            <Form>
-                <h4>Farmer Information</h4><br/>
-                <Row className="mb-3">
-                    <Form.Group as={Col} className="mb-3" controlId="first_name">
-                        <Form.Label>First Name</Form.Label>
+        <div>      
+            <h1 className='header-multistep'> Farmer Information</h1>
+            <p className='heading-multistep'>Fill in the data for your profile. It will only take a couple of minutes.</p>
+            <div className='userDetails'>
+                <Form>
+                    <Form.Group className="UserDetails">
+                        <Form.Label className='DroneDetails'>Full Name</Form.Label>
                         <Form.Control
                             type="text"
-                            value={regForm.first_name}
-                            aria-describedby="first_name"
+                            className='input_text'
+                            aria-describedby="name"
+                            value={formData.fullName}
+                            onChange={(event) =>
+                              setFormData({ ...formData, fullName: event.target.value })
+                            }
                         />
                     </Form.Group>
-                    <Form.Group as={Col} className="mb-3" controlId="last_name">
-                        <Form.Label>Last Name</Form.Label>
+                    <Form.Group className="UserDetails">
+                        <Form.Label className='DroneDetails'>Phone</Form.Label>
                         <Form.Control
                             type="text"
-                            value={regForm.last_name}
-                            aria-describedby="last_name"
+                            className='input_text'
+                            aria-describedby="phone"
+                            value={formData.phonenumber}
+                            onChange={(event) =>
+                              setFormData({ ...formData, phonenumber: event.target.value })
+                            }
                         />
                     </Form.Group>
-                </Row>
-                <Form.Group className="mb-3" controlId="phone">
-                    <Form.Label>Phone</Form.Label>
-                    <Form.Control
-                        type="text"
-                        value={regForm.phone}
-                        aria-describedby="phone"
-                    />
-                </Form.Group>
-                <Row className="mb-3">
-                    <Form.Group as={Col}className="mb-3" controlId="address">
-                        <Form.Label>Address</Form.Label>
+                    <Form.Group className="UserDetails">
+                        <Form.Label className='DroneDetails'>Address</Form.Label>
                         <Form.Control
                             type="text"
-                            value={regForm.address}
+                            className='input_text'
                             aria-describedby="address"
+                            value={formData.address}
+                            onChange={(event) =>
+                              setFormData({ ...formData, address: event.target.value })
+                            }
                         />
                     </Form.Group>
-                    <Form.Group as={Col} className="mb-3" controlId="city">
-                        <Form.Label>City</Form.Label>
+                    <Form.Group className="UserDetails">
+                        <Form.Label className='DroneDetails'>City</Form.Label>
                         <Form.Control
                             type="text"
-                            value={regForm.city}
+                            className='input_text'
                             aria-describedby="city"
+                            value={formData.city}
+                            onChange={(event) =>
+                              setFormData({ ...formData, city: event.target.value })
+                            }
                         />
                     </Form.Group>
-                </Row>
-                <Row className="mb-3">
-                    <Form.Group className="mb-3" controlId="country">
-                        <Form.Label>Country</Form.Label>
-                        <Form.Select as={Col} aria-label="Default select example">
-                            <option>Choose</option>
-                            <option value="1">India</option>
-                            <option value="2">United States</option>
-                            <option value="3">United Kingdom</option>
-                            <option value="4">South Africa</option>
-                        </Form.Select>
+                    <Form.Group className="UserDetails">
+                        <CountryDropdown className="countryselect" value={formData.country} onChange={(val) => setFormData({ ...formData, country: val})}  />
                     </Form.Group>
-                    <Form.Group as={Col} controlId="formGridState">
-                        <Form.Label>State</Form.Label>
-                        <Form.Select defaultValue="Choose...">
-                            <option>Choose...</option>
-                            <option>...</option>
-                        </Form.Select>
+                    <Form.Group className="UserDetails">                    
+                        <RegionDropdown blankOptionLabel="Select Region" className="countryselect" country={formData.country} value={formData.state} onChange={(val) => setFormData({ ...formData, state: val})} />
                     </Form.Group>
-                    <Form.Group as={Col} className="mb-3" controlId="zipcode">
-                        <Form.Label>Zipcode</Form.Label>
-                        <Form.Control
-                            type="text"
-                            value={regForm.zipcode}
-                            aria-describedby="zipcode"
-                        />
+                    <Form.Group className="UserDetails">
+                        <Form.Label className='DroneDetails'>Zipcode</Form.Label>
+                            <Form.Control
+                                type="text"
+                                className='input_text'
+                                aria-describedby="zipcode"
+                                value={formData.zipcode}
+                                onChange={(event) =>
+                                    setFormData({ ...formData, zipcode: event.target.value })
+                                }
+                                />
                     </Form.Group>
-                </Row>
-                <div className="btn_panel">
-                    <Button variant="primary" onClick={() => submitRegister()} type="submit">
-                        Next
-                    </Button>
-                </div>
-            </Form>
+                </Form>
+            </div>
         </div>
-    );
+);
 }
