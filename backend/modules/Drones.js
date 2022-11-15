@@ -219,11 +219,8 @@ const deregisterUAV = async (req, res, next) => {
 };
 
 const getAvailableDrones = async (req, res, next) => {
-
-    
+    console.log("9999")
     const { from, to, service, price, equipment, brand } = req.query;
-    console.log("9999",from, to, service, price, equipment, brand)
-    console.log(service)
     const droneReq = {
         query: {
             status: 'available,deployed,booked'
@@ -351,28 +348,6 @@ const PilotAvailability = async (req, res, next) => {
         return next();
     }
 };
-const getFarmLands = async (req, res, next) => {
-    const { models: { land: Land } } = COREAPP;
-    console.log("@@@@@@@@@@@@@@@@@",req.body)
-
-    try {
-        console.log("@@@@@@@@@@@@@@@@@",req.body)
-		const farmland = await Land.findAll({
-            where:{
-                farm_id:req.body.id
-            }, 
-            raw: true
-		});
-        req.model = {};
-        req.model.data = farmland;
-        console.log("mode;",req.model.data)
-        return next();
-    }
-    catch {
-        console.log('error for drones data');
-        return next();
-    }
-};
 
 module.exports = {
     getDrones,
@@ -381,6 +356,5 @@ module.exports = {
     getAvailableDrones,
     filterDroneDetails,
     FarmUserDroneDetails,
-    PilotAvailability,
-    getFarmLands
+    PilotAvailability
 };

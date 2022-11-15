@@ -25,9 +25,9 @@ module.exports = function(sequelize, Sequelize) {
         name: {
             type: Sequelize.TEXT
         },
-        // dob: {
-        //     type: Sequelize.DATEONLY
-        // },
+        dob: {
+            type: Sequelize.DATEONLY
+        },
         phone: {
             type: Sequelize.TEXT
         },

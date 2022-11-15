@@ -70,13 +70,13 @@ select::-ms-expand {
     transition: .25s all ease;
 }
 .navigation{
-    padding:20px;
+    padding:10px;
 }
 .navigationbutton{
     float: left;
     display:inline;
     margin-top: 150px;
-    margin-left: 109px;
+    margin-left: 79px;
 }
 .selectdrone{
     float: left;
@@ -117,78 +117,4 @@ select::-ms-expand {
 }
 .gobutton{
     margin-left:-74px
-}
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-  td, th {
-    border: 1px solid #060000;
-    text-align: left;
-    padding: 10px;
-  }
-  tr.border-bottom {
-    border-bottom: 1px solid #ff000d;
-  } 
-  
-  tr:nth-child(even) {
-  }
-  .button-booked {
-    background-color: #4CAF50;
-    border: none;
-    color: #caf4cf;
-    padding: -2px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 10px;
-}
-  
-.buttonbooked1 {
-    background-color: #caf4cf;
-    color: black;
-    border: 2px solid #4CAF50;
-}
-.button-deleted {
-    background-color: #e7d7cf;
-    border: none;
-    color: #f2d7c9;
-    padding: -2px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 10px;
-}
-  
-.buttondeleted1 {
-    background-color: #f8b3b3;
-    color: black;
-    border: 2px solid #d60303;
-}
-.button-finished {
-    background-color: #b2afe8;
-    border: none;
-    color: #b2afe8;
-    padding: -2px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 10px;
-}
-  
-.buttonfinished1 {
-    background-color: #b2afe8;
-    color: black;
-    border: 2px solid #333ac2;
 }

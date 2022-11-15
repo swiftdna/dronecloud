@@ -31,6 +31,67 @@ const setGrid = (grid) => {
 }
 
 
+function GridItem1({ classes }) {
+
+  return (
+    
+    // From 0 to 600px wide (smart-phones), I take up 12 columns, or the whole device width!
+    // From 600-690px wide (tablets), I take up 6 out of 12 columns, so 2 columns fit the screen.
+    // From 960px wide and above, I take up 25% of the device (3/12), so 4 columns fit the screen.
+    <Grid item xs={6} >
+      <Paper className={classes.paper}><img src="crop-farm.jpeg"width="200" height="200" /><br></br>
+      <input type="checkbox" name="West Plot A Crop" value="West Plot A Crop" onChange={(event) => {
+            setGrid(event.target.value)}}></input>
+      West Plot A Crop </Paper>
+      
+    </Grid>
+  );
+}
+function GridItem2({ classes }) {
+    return (
+      // From 0 to 600px wide (smart-phones), I take up 12 columns, or the whole device width!
+      // From 600-690px wide (tablets), I take up 6 out of 12 columns, so 2 columns fit the screen.
+      // From 960px wide and above, I take up 25% of the device (3/12), so 4 columns fit the screen.
+      <Grid item xs={6} >
+        <Paper className={classes.paper}><img src="fruit-crop.jpeg"width="200" height="200" /><br></br>
+        <input type="checkbox" name="North Plot B Fruit" value="North Plot B Fruit" onChange={(event) => {
+            setGrid(event.target.value)}}></input>
+        North Plot B Fruit
+        </Paper>
+      </Grid>
+    );
+  }
+  function GridItem3({ classes}) {
+    return (
+      // From 0 to 600px wide (smart-phones), I take up 12 columns, or the whole device width!
+      // From 600-690px wide (tablets), I take up 6 out of 12 columns, so 2 columns fit the screen.
+      // From 960px wide and above, I take up 25% of the device (3/12), so 4 columns fit the screen.
+      <Grid item xs={6} >
+        <Paper className={classes.paper}><img src="live-stock.jpeg"width="200" height="200" /><br></br>
+        <input type="checkbox" name="South Plot C Live Stock" value="South Plot C Live Stock" onChange={(event) => {
+            setGrid(event.target.value)}}></input>
+        South Plot C Live Stock
+        </Paper>
+      </Grid>
+    );
+  }
+  function GridItem4({ classes }) {
+    return (
+      // From 0 to 600px wide (smart-phones), I take up 12 columns, or the whole device width!
+      // From 600-690px wide (tablets), I take up 6 out of 12 columns, so 2 columns fit the screen.
+      // From 960px wide and above, I take up 25% of the device (3/12), so 4 columns fit the screen.
+      <Grid item xs={6} >
+        <Paper className={classes.paper}><img src="crop-farm.jpeg" width="200" height="200" /><br></br>
+        <input type="checkbox" name="East Plot D Nursery" value="East Plot D Nursery" onChange={(event) => {
+            setGrid(event.target.value)}}></input>
+        East Plot D Nursery
+        </Paper>
+      </Grid>
+    );
+  }
+  
+
+
   
 export default function BookDrone() {
  const farmdetails = ["1","2","3","1","2","3","1","2","3"]
@@ -44,13 +105,9 @@ export default function BookDrone() {
   const dronedatetime = useSelector((store) =>store.bookdrone.dronedatetime);
   const userid = useSelector((store) =>store.app.user.id);
   const [allitemslist,setAllItemsList] = useState([]);
-  const [allfarmlands,setFarmLandList] = useState([]);
   const [selectedFarmtype, setSelectedFarmtype] = useState("");  
   const [selectedFarmID, setSelectedFarmID] = useState("");  
-  const [selectedfarmname, setSelectedFarmName] = useState("");  
-  const [selectedfarmland, setSelectedFarmLandID] = useState("");  
-  const [selectedfarmimage, setFarmL] = useState("");  
-
+  const [selectedfarmimage, setSelectedFarmImage] = useState("");  
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
   console.log(userid)
@@ -58,21 +115,31 @@ export default function BookDrone() {
   const selectFarm = (farm) => {
     
     console.log("&&&&&&&&&&&&",farm.type)
-    setSelectedFarmtype(farm.type)
+    setSelectedFarmtype(farm.name)
     setSelectedFarmID(farm.id)
-    setSelectedFarmName(farm.name)
+    // if(farm.type==="stock"){
+    //   setSelectedFarmImage("live-stock.jpeg")
+
+    // }
+    // if(farm.type==="fruit"){
+    //   setSelectedFarmImage("fruit-crop.jpeg")
+
+
+    // }
+    // if(farm.type==="nursery"){
+    //   setSelectedFarmImage("crop-farm.jpeg")
+
+    // }
+    // if(farm.type==="crop"){
+    // setSelectedFarmImage("crop-farm.jpeg")
+
+    // }
+    
     dispatch(
       bookdrone({
       
-        farmtype:farm.type,
+        farmtype:selectedFarmtype,
       }))
-      axios.post(`/api/farmlands`,{
-        id:farm.id
-      })
-      .then(response => {
-        console.log("farmssslandss------------",response.data)
-        setFarmLandList(response.data.data)
-      });
       console.log(selectedfarmimage)
   }
 
@@ -95,16 +162,13 @@ export default function BookDrone() {
            setDronename(response.data.name)
            setDroneid(response.data.id)
         })
-
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        console.log("aab",farmtype,droneid,dronename,selectedfarmland)
+        console.log("aab",farmtype,droneid,dronename)
         dispatch(
           bookdrone({
-            farmtype:selectedFarmtype,
-            farmland:selectedfarmland,
-            farmid:selectedFarmID,
+            farmtype:farmtype,
+           
           })
         );
       };
@@ -114,23 +178,6 @@ export default function BookDrone() {
         <img src="Step1.png"width="300" height="50" />
       <h3>Step 1: Select Farmland Type: </h3>
       Please select the farm land you would like the drone to service on:
-     {selectedFarmID &&
-     <div>
-      <ul style={{marginLeft:"260px"}}>
-             
-                <li style={{width:"150px",listStyle: "none",float:" left"}}>
-                        <select name="brand" className="form-select" id="brand" onChange={(event) => {
-            setSelectedFarmLandID(event.target.value);
-          }} >
-                            <option>Select Land</option>
-                            {allitemslist.map(land => 
-                            <option >{land.id}</option>
-                            
-                            )}
-                        </select>
-                </li>
-                </ul>
-      </div>} 
       <br></br><br></br>
       {/* <Grid container spacing={1}>
         <GridItem1  classes={classes} />
@@ -138,11 +185,10 @@ export default function BookDrone() {
         <GridItem3  classes={classes} />
         <GridItem4  classes={classes} />
       </Grid> */}
-       
        <div className="farm_list">
-              
+                
                 {allitemslist&& allitemslist.map(drone => 
-                    <Card  style={{ width: '13rem',padding:"4px" }} className={selectedFarmID === drone.id ? "selected" : "farm_disp"}  onClick={() =>  selectFarm (drone)} >
+                    <Card  style={{ width: '16rem' }} className={selectedFarmID === drone.id ? "selected" : "farm_disp"}  onClick={() =>  selectFarm (drone)} >
                       
                       <Card.Body style={{backgroundImage: "url(" + drone.type + ".jpeg )"}}>
                         <Card.Title> </Card.Title>

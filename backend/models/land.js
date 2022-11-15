@@ -1,5 +1,5 @@
 module.exports = function(sequelize, Sequelize) {
-    const Land = sequelize.define('land', {
+    const Farm = sequelize.define('land', {
         id: {
             autoIncrement: true,
             primaryKey: true,
@@ -25,5 +25,5 @@ module.exports = function(sequelize, Sequelize) {
             type: Sequelize.FLOAT
         }
     });
-    return Land;
+    return Farm;
 }

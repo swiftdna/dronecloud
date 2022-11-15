@@ -17,8 +17,6 @@ import ServiceReports from './ServiceReports';
 import { Row, Col, Form } from 'react-bootstrap';
 import DroneBookingCatalog from './DroneBookingCatalog';
 import DroneBookingSelected from './DroneBookingSelected';
-import DroneBookingSelectedSurveillance from './DroneBookingSelectedSurveillance';
-
 import DroneBookingReview from './DroneBookingReview';
 import DroneBooking from './DroneBooking';
 import DroneBookingConfirmation from './DroneBookingConfirmation';
@@ -74,7 +72,6 @@ function LandingPage() {
                             <Route path="/drone-booking-selected" element={<DroneBookingSelected />} />
                             <Route path="/drone-booking-review" element={<DroneBookingReview />} />
                             <Route path="/drone-booking-confirmation" element={<DroneBookingConfirmation />} />
-                            <Route path="/drone-booking-selected-surveillance" element={<DroneBookingSelectedSurveillance />} />
                             <Route path="/" element={<MyBookings />} />
                         </Routes>
                     </Col>

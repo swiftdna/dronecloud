@@ -8,7 +8,6 @@ import {  Button } from 'react-bootstrap';
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { Link } from "react-router-dom";
-import {bookdrone, booking} from "../reducers/bookSlice";
 
 import axios from 'axios';
 
@@ -36,16 +35,11 @@ export default function DroneBookingReview() {
   const fromdate = useSelector((store) =>store.bookdrone.fromdate);
   const todate = useSelector((store) =>store.bookdrone.todate);
   const user_id = useSelector((store) =>store.app.user.id);
-  const farmland = useSelector((store) =>store.bookdrone.farmland);
-  const farmid = useSelector((store) =>store.bookdrone.farmid);
-
-  const dispatch = useDispatch();
-
   const total = 55+price
 //store.profile.data.id
   useEffect(() => {
     const abortController = new AbortController()
-
+    
     selectPilot()
     selectUser()
       
@@ -56,58 +50,40 @@ export default function DroneBookingReview() {
   } , [isLoggedIn]);
 
   const selectUser = () => {
-    {user_id && axios.get(`/api/users/`+user_id.toString())
-    .then(response => {
-      setUserDetails(response.data)
+    axios.get(`/api/users/`+user_id.toString())
+      .then(response => {
+        console.log("userrrr------------",response.data,user_id,`/api/users/`+user_id.toString())
+        setUserDetails(response.data)
 
-    });}
-   
+      });
     }
-
-    
     const selectPilot = () => {
       axios.post(`/api/pilotfilter`)
         .then(response => {
           console.log("donrappppi------------",response.data)
           setAllPilotList(response.data)
-          
+  
         });
       }
-      const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log("dissspay",fromdate,todate,service,price,equipment,manufacturer,farmtype,farmland,farmid,allpilotlist.id)
-        dispatch(
-          bookdrone({
-          from:fromdate,
-          to:todate,
-          service:service,
-          price:price,
-          equipment:equipment,
-          brand:manufacturer,
-          farmtype:farmtype,
-          farmland:farmland,
-          farmid:farmid,
-          pilotid:allpilotlist.id,
-          }))
-      }
-  console.log("&&&&",setuserdetails,allpilotlist)
+  console.log("&&&&",setuserdetails)
   return (
     <div>
            <img src="Step4.png"width="300" height="50" />
            <h3>Step 4: Review Booking
            </h3>
       Please confirm your selected service details. Cost estimation shown below:<br></br><br></br>
-      <Card style={{ width:'18rem',height:'195px',marginLeft:'190px', marginTop:'-7px'}}  >
-     
+      <Card style={{ width:'18rem',height:'185px',marginLeft:'13px', marginTop:'-7px'}}  >
+      
+
                       <Card.Body ><b>Order Summary</b>
                         <Card.Title ></Card.Title>
                         <Card.Subtitle className="mb-2 text-muted">
                         {setuserdetails && 
                           <div>
-                            <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}>Name:</span> Sravya</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}><img src="calendar.jpeg"  height="30px" width="30px" /> </span> 17/11/1996</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted"> <span style={{color:"black"}}> <img src="location.jpeg" height="20px" width="20px" /></span> 3433 West street road, Santa Clara, 998989</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}> <img src="contact.jpeg"  height="30px" width="30px" /> </span>889-8585-777</Card.Subtitle>
+                            <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}>Name:</span> {setuserdetails.name}</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}><img src="calendar.jpeg"  height="40px" width="40px" /> </span> {setuserdetails.dob}</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted"> <span style={{color:"black"}}> <img src="location.jpeg" height="20px" width="20px" /></span> {setuserdetails.address}</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}> <img src="calendar.jpeg"  height="40px" width="40px" /> </span>{setuserdetails.phone}</Card.Subtitle>
 
 
                        
@@ -130,8 +106,7 @@ export default function DroneBookingReview() {
                       
                       {/* <Card.Subtitle className="mb-2 text-muted"> {dronedatetime}</Card.Subtitle> */}
                     </Card>
-                    <Card style={{ width:'18rem',height:'195px',marginLeft:'499px', marginTop:'-194px'}}  >
-                    
+                    <Card style={{ width:'18rem',height:'185px',marginLeft:'643px', marginTop:'-181px'}}  >
                       <Card.Body ><b>Pilot Summary</b>
                         <Card.Title ></Card.Title>
                         {allpilotlist && allpilotlist.length &&
@@ -139,7 +114,7 @@ export default function DroneBookingReview() {
                             <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}>Name:</span> {allpilotlist[0].name}</Card.Subtitle>
                         <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}>License: </span> {allpilotlist[0].license_number}</Card.Subtitle>
                         <Card.Subtitle className="mb-2 text-muted"> <span style={{color:"black"}}>Address: </span> {allpilotlist[0].address}</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}> Contact: </span>912-8585-888</Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted"><span style={{color:"black"}}> Contact: </span>{allpilotlist[0].contact}</Card.Subtitle>
 
 
                        
@@ -155,8 +130,8 @@ export default function DroneBookingReview() {
                       
                       {/* <Card.Subtitle className="mb-2 text-muted"> {dronedatetime}</Card.Subtitle> */}
                     </Card>  
-                    <Card style={{ width:'34rem',height:'225px',marginLeft:'264px', marginTop:'20px', borderColor:'white'}}  >
-                      {/* <Card.Body > */}
+                    <Card style={{ width:'44rem',height:'225px',marginLeft:'84px', marginTop:'20px'}}  >
+                      <Card.Body >
                       <div>
                         <table style={{width:"100%",marginLeft:"-80px"}}>
                       
@@ -196,21 +171,15 @@ export default function DroneBookingReview() {
                               <td>$10</td>
                               
                             </tr>
-                       
                             <tr>
                               <td><b>Total Price</b></td>
                               <td>${total}</td>
                               
                             </tr>
                         </table>
-                        <tr>
-                              <td>Payment Method</td>
-                              <td>Card Ending in 8898</td>
-                              
-                            </tr>
                       </div>
                       
-                      {/* </Card.Body> */}
+                      </Card.Body>
                       
                       {/* <Card.Subtitle className="mb-2 text-muted"> {dronedatetime}</Card.Subtitle> */}
                     </Card>   
@@ -221,7 +190,7 @@ export default function DroneBookingReview() {
                 </button> 
                 </li>
                 <li className="navigationbutton">
-                <button class="button button1"  onClick={handleSubmit}> <Link to="/drone-booking-confirmation" >Make Payment</Link>
+                <button class="button button1"> <Link to="/drone-booking-confirmation" >Confirm</Link>
                 </button> 
                 </li>
             </ul>
