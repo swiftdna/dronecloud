@@ -9,47 +9,44 @@ import Col from 'react-bootstrap/Col';
 import { uploadImageToCloud } from '../utils';
 import { setToast } from '../actions/app-actions';
 
-export function UtilityBill() {
+export function UtilityBill({ formData, setFormData }) {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const submitRegister = () => {
-        console.log('Utility details updated, click next')
-        navigate('/BillingInfo');
-    };
-    const goBack = () => {
-        navigate('/IDInfo');
-    };
+    // const submitRegister = () => {
+    //     console.log('Utility details updated, click next')
+    //     navigate('/BillingInfo');
+    // };
+    // const goBack = () => {
+    //     navigate('/IDInfo');
+    // };
+
     const uploadImage = async (e) => {
-        e.preventDefault();
-        const res = await uploadImageToCloud(dispatch, e.target.files[0]);
-        // console.log(res.data.secure_url);
-        const {data: {secure_url}} = res;
-        if (secure_url) {
-            dispatch(setToast({
-                type: 'success',
-                message: 'User image uploaded successfully!'
-            }));
-        }
+		e.preventDefault();
+		const res = await uploadImageToCloud(e.target.files[0]);
+
+		const {data: {secure_url}} = res;
+		if (secure_url) {
+				console.log("Utility file uploaded sucessfully - ", secure_url);
+		};
+        setFormData({ ...formData, utilityfile: secure_url })
     }
     return (
-        // <div><img src="Step4.png"width="300" height="50" /></div>
-        <div className="container main-frame">
-            <div className="div1-drone-catalog">
-                <h1 className='header-dronecatalog' style={{marginLeft:"100px"}}> Lets verify your farm operation</h1>
-
-                <p className='heading-dronecatalog' style={{marginTop:"10px",marginLeft:"100px"}}>Please submit a copy of your farm's utility bill.
-                    This can be an electricity bill, or alternatively a water bill.</p>
-            </div>
+        <div>
+            <h1 className='header-multistep'> Lets verify your farm operation</h1>
+            <p className='heading-multistep'>Please submit a copy of your farm's utility bill. This can be an electricity bill, or alternatively a water bill.</p>
             <div className='userDetails'>
-                <Form><br/>
-                    <p className="userInfo">Farm Utility Bill</p>
+                <Form>
                         <Form.Group className="UserDetails" controlId="agreementID">
                             <Form.Label className='DroneDetails'>Statement agreement ID</Form.Label>
                             <Form.Control
                                 type="text"
                                 className='input_text'
                                 aria-describedby="agreementID"
+                                value={formData.billid}
+                                onChange={(event) =>
+                                  setFormData({ ...formData, billid: event.target.value })
+                                }
                             />
                         </Form.Group>
                         <Form.Group className="UserDetails" controlId="billDate">
@@ -58,6 +55,10 @@ export function UtilityBill() {
                                 type="date"
                                 className='input_text'
                                 aria-describedby="billDate"
+                                value={formData.utilitybilldate}
+                                onChange={(event) =>
+                                  setFormData({ ...formData, utilitybilldate: event.target.value })
+                                }
                             />
                         </Form.Group>
                         <Form.Group className="UserDetails" controlId="image">
@@ -67,13 +68,10 @@ export function UtilityBill() {
                                 className='input_text'
                                 id="image"
                                 aria-describedby="image"
+                                // value={formData.utilityfile}
                                 onChange={uploadImage}
                             />
                         </Form.Group>
-                    <button variant="secondary" className='dc-default btn btn-secondary m20' onClick={goBack}>Back</button>
-                    <button variant="primary" className='dc-default btn btn-primary m20'
-                            style={{float:"right",margin:"20px",}}
-                            onClick={submitRegister}>Next</button>
                 </Form>
             </div>
 

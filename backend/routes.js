@@ -8,6 +8,9 @@ const { getFarms, addFarm, addOwner } = require('./modules/Farms');
 const {addDrone,getDrone,getSingleDrone,updateDrone} =require('./modules/DroneCatalog');
 const { getDrones, filterDroneDetails, registerUAV, deregisterUAV, getAvailableDrones, FarmUserDroneDetails,PilotAvailability } = require('./modules/Drones');
 const { BookingDroneDetails } = require('./modules/Booking');
+const { addPayment } = require('./modules/Payment');
+const { addPilotInfo } = require('./modules/Pilot');
+const { updateFarmDetails, getFarmDetails } = require('./modules/Farms');
 
 const pusher = (req, res, next) => {
   let {model, model: {data: response}} = req;
@@ -37,7 +40,14 @@ router.put('/users/profile', isLoggedIn, updateUserDetails);
 
 router.post('/farms', isLoggedIn, addFarm, pusher);
 router.get('/farms', isLoggedIn, getFarms, pusher);
+router.put('/farms/profile', isLoggedIn, updateFarmDetails, pusher);
+router.get('/farms/profile', isLoggedIn, getFarmDetails, pusher);
 router.post('/farms/owner', isLoggedIn, addOwner, pusher);
+
+// Pilot cert info
+router.post('/pilot', isLoggedIn, addPilotInfo, pusher);
+
+router.post('/payment', isLoggedIn, addPayment, pusher);
 
 router.post('/pilotfilter', isLoggedIn, PilotAvailability, pusher);
 

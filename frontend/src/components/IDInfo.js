@@ -10,45 +10,43 @@ import "../CSS/UserRegistration.css"
 // import 'react-bootstrap-country-select/dist/react-bootstrap-country-select.css';
 // import CountrySelect from 'react-bootstrap-country-select';
 
-export function IDInfo() {
+export function IDInfo({ formData, setFormData }) {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const submitRegister = () => {
-        console.log('ID details updated, click next')
-        navigate('/UtilityBill');
-    };
-    const goBack = () => {
-        navigate('/landOwner');
-    };
+    // const submitRegister = () => {
+    //     console.log('ID details updated, click next')
+    //     navigate('/UtilityBill');
+    // };
+    // const goBack = () => {
+    //     navigate('/landOwner');
+    // };
     const uploadImage = async (e) => {
-        e.preventDefault();
-        const res = await uploadImageToCloud(dispatch, e.target.files[0]);
-        // console.log(res.data.secure_url);
-        const {data: {secure_url}} = res;
-        if (secure_url) {
-            dispatch(setToast({
-                type: 'success',
-                message: 'User image uploaded successfully!'
-            }));
-        }
+		e.preventDefault();
+		const res = await uploadImageToCloud(e.target.files[0]);
+
+		const {data: {secure_url}} = res;
+		if (secure_url) {
+				console.log("ID uploaded sucessfully - ", secure_url);
+		};
+        setFormData({ ...formData, licenseimg: secure_url })
     }
     return (
-        <div className="container main-frame">
-            <div className="div1-drone-catalog">
-                <h1 className='header-dronecatalog' style={{marginLeft:"100px"}}> Lets verify your identity</h1>
-
-                <p className='heading-dronecatalog' style={{marginTop:"10px",marginLeft:"100px"}}>Please upload your driver's license.</p>
-            </div>
+        <div>
+            <h1 className='header-multistep'> Lets verify your identity</h1>
+            <p className='heading-multistep'>Please upload your driver's license.</p>
             <div className='userDetails'>
                 <Form>
-                    <p className="userInfo">Driver's License</p>
-                    <Form.Group className="UserDetails" controlId="name" className="DroneInfo">
-                        <Form.Label className='DroneDetails'>Name</Form.Label>
+                    <Form.Group className="UserDetails" controlId="name">
+                        <Form.Label className='DroneDetails'>Name (as appeared on License)</Form.Label>
                         <Form.Control
                             type="text"
                             className='input_text'
                             aria-describedby="name"
+                            value={formData.idname}
+                            onChange={(event) =>
+                              setFormData({ ...formData, idname: event.target.value })
+                            }
                         />
                     </Form.Group>
                     <Form.Group className="UserDetails" controlId="licenseID">
@@ -57,22 +55,24 @@ export function IDInfo() {
                             type="text"
                             className='input_text'
                             aria-describedby="licenseID"
+                            value={formData.licenseid}
+                            onChange={(event) =>
+                              setFormData({ ...formData, licenseid: event.target.value })
+                            }
                         />
                     </Form.Group>
                     <Form.Group className="UserDetails" controlId="image">
-                        <Form.Label className='DroneDetails' htmlFor="image">File upload:</Form.Label>
+                        <Form.Label className='DroneDetails' htmlFor="image">License upload:</Form.Label>
                         <Form.Control
                             type="file"
                             className='input_text'
                             id="image"
                             aria-describedby="image"
                             onChange={uploadImage}
+                            // value={formData.licenseimg}
                         />
                     </Form.Group>
-                    <button variant="secondary" className='dc-default btn btn-secondary m20' onClick={goBack}>Back</button>
-                    <button variant="primary" className='dc-default btn btn-primary m20'
-                            style={{float:"right",margin:"20px",}}
-                            onClick={submitRegister}>Next</button>
+
                 </Form>
             </div>
         </div>

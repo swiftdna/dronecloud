@@ -141,10 +141,17 @@
 	box-shadow: var(--shadow-3);
 }
 
+
 .btn_panel.btn-secondary:hover {
 	background-color: #c9c9d3;
 	border-color: #b9b9c3;
 	box-shadow: var(--shadow-3);
+}
+
+.btn_panel.btn-secondary:disabled,
+.btn_panel.btn-secondary[disabled]{
+  background-color: #cccccc;
+  color: #666666;
 }
 
 .page-footer {
@@ -250,7 +257,7 @@
 .dc-default.navbar {
 	background-color: #1a3447;
 	color: #ffffff;
-	height: 80px;
+	height: 65px;
 }
 
 .dc-default a {
@@ -262,7 +269,7 @@
 }
 
 .dc-default.navbar .nav-buttons.active {
-	background-color: rgba(255, 255, 255, .2);
+	background-color: rgba(255, 255, 255, 0.059);
 }
 /*
 .dc-default.navbar > .container {
@@ -650,14 +657,12 @@
 	}
 	}
 
-
-.loginlogo {
-	background: #1a3447;
-	border-color: #1a3447;
-	transition: 0.3s ease-in-out all;
+.multistep {
+	width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.loginlogo:hover {
-	color: #3875a0;
-	border-color: #3875a0;
-}

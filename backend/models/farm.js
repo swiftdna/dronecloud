@@ -39,6 +39,15 @@ module.exports = function(sequelize, Sequelize) {
         imageurl: {
             type: Sequelize.TEXT
         },
+        utilbillid: {
+            type: Sequelize.TEXT
+        },
+        billdate: {
+            type: Sequelize.DATEONLY
+        },
+        billimgurl: {
+            type: Sequelize.TEXT
+        },
         status: {
             type: Sequelize.TEXT
         }

@@ -9,62 +9,78 @@ import {useNavigate} from "react-router-dom";
 import {uploadImageToCloud} from "../utils";
 import {setToast} from "../actions/app-actions";
 
-export function BillingInfo() {
+export function BillingInfo({ formData, setFormData }) {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const submitRegister = () => {
-        console.log('Billing information updated, click next to review registration')
-        navigate('/ReviewRegistration');
-    };
-    const goBack = () => {
-        navigate('/UtilityBill');
-    };
+    // const submitRegister = () => {
+    //     console.log('Billing information updated, click next to review registration')
+    //     navigate('/ReviewRegistration');
+    // };
+    // const goBack = () => {
+    //     navigate('/UtilityBill');
+    // };
     return (
-        <div className="container main-frame">
-            <div className="div1-drone-catalog">
-                <h1 className='header-dronecatalog' style={{marginLeft:"100px"}}> Billing Information</h1>
-
-                <p className='heading-dronecatalog' style={{marginTop:"10px",marginLeft:"100px"}}>Fill in billing information
-                    for your profile.</p>
-            </div>
+        <div >
+                <h1 className='header-multistep' > Payment Information</h1>
+                <p className='heading-multistep' >Please enter youur credit card details</p>
             <div className='userDetails'>
-                <Form><br/>
-                    {/*<img src="Step5.png"width="300" height="50" /><br/><br/>*/}
-                    <p className="userInfo">Credit Card Details</p>
-                    {/*add radio buttons for wallet and paypal*/}
+                <Form>
                     <Form.Group className="UserDetails" controlId="name">
                         <Form.Label className='DroneDetails'>Name on card</Form.Label>
                         <Form.Control
                             type="text"
                             className='input_text'
-                            aria-describedby="name"/>
+                            aria-describedby="name"
+                            value={formData.cardname}
+                            onChange={(event) =>
+                              setFormData({ ...formData, cardname: event.target.value })
+                            }/>
                     </Form.Group>
                     <Form.Group className="UserDetails" controlId="cardNumber">
                         <Form.Label className='DroneDetails'>Card Number</Form.Label>
                         <Form.Control
                             type="text"
                             className='input_text'
-                            aria-describedby="cardNumber"/>
+                            aria-describedby="cardNumber"
+                            value={formData.cardnum}
+                            onChange={(event) =>
+                              setFormData({ ...formData, cardnum: event.target.value })
+                            }/>
                     </Form.Group>
-                        <Form.Group className="UserDetails" controlId="expiry">
-                            <Form.Label className='DroneDetails'>Expiration Date</Form.Label>
-                            <Form.Control
-                                type="date"
-                                className='input_text'
-                                aria-describedby="expiry"/>
-                        </Form.Group>
-                        <Form.Group className="UserDetails" controlId="cvv">
-                            <Form.Label className='DroneDetails'>CVV</Form.Label>
-                            <Form.Control
-                                type="password"
-                                className='input_text'
-                                aria-describedby="cvv"/>
-                        </Form.Group>
-                    <button variant="secondary" className='dc-default btn btn-secondary m20' onClick={goBack}>Back</button>
-                    <button variant="primary" className='dc-default btn btn-primary m20'
-                            style={{float:"right",margin:"20px",}}
-                            onClick={submitRegister}>Next</button>
+                    <Form.Group className="UserDetails" controlId="expirymon">
+                        <Form.Label className='DroneDetails'>Expiry Month</Form.Label>
+                        <Form.Control
+                            type="text"
+                            className='input_text'
+                            aria-describedby="expiryMonth"
+                            value={formData.expmonth}
+                            onChange={(event) =>
+                              setFormData({ ...formData, expmonth: event.target.value })
+                            }/>
+                    </Form.Group>
+                    <Form.Group className="UserDetails" controlId="expiryyear">
+                        <Form.Label className='DroneDetails'>Expiry Year</Form.Label>
+                        <Form.Control
+                            type="text"
+                            className='input_text'
+                            aria-describedby="expiryYear"
+                            value={formData.expyear}
+                            onChange={(event) =>
+                              setFormData({ ...formData, expyear: event.target.value })
+                            }/>
+                    </Form.Group>
+                    <Form.Group className="UserDetails" controlId="cvv">
+                        <Form.Label className='DroneDetails'>CVV</Form.Label>
+                        <Form.Control
+                            type="password"
+                            className='input_text'
+                            aria-describedby="cvv"
+                            value={formData.cvv}
+                            onChange={(event) =>
+                                setFormData({ ...formData, cvv: event.target.value })
+                            }/>
+                    </Form.Group>
                 </Form>
             </div>
         </div>

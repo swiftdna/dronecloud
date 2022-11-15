@@ -7,6 +7,7 @@ import { login, incompleteFields } from '../utils';
 import { selectIsLoggedIn } from '../selectors/appSelector';
 import "../CSS/landing.css"
 import { TbDrone } from 'react-icons/tb';
+import { blue } from '@material-ui/core/colors';
 
 //Define a Login Component
 export function Login() {
@@ -49,10 +50,6 @@ export function Login() {
         navigate('/register');
     }
 
-    const home = () => {
-        navigate('/');
-      }
-
     return (
         <div className="container dc-default">
             <div className="video-background">
@@ -63,10 +60,7 @@ export function Login() {
             <div className="login-form dc-login">
                 <div className="main-div">
                     <div className="login-panel">
-                        <div>
-                            <h2><span class="register"> <a className="loginlogo" onClick={() => home()}><TbDrone size={40} /></a>&nbsp;DroneCloud</span> | Login</h2>
-                        </div>
-                        {/* <h2><span class="register">DroneCloud</span> | Login</h2> */}
+                        <h2><span class="register">DroneCloud</span> | Login</h2>
                         <p>Please enter your username and password</p>
                         <div className="form-group">
                             <input onChange = {usernameChangeHandler} type="text" className="form-control" name="username" value={username} placeholder="Username" required/>

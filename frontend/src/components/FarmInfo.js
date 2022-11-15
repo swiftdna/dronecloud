@@ -14,29 +14,29 @@ import { GoogleMap, useJsApiLoader, Polyline, StandaloneSearchBox, Marker } from
 
 const libraries = ["drawing", "places", "geometry"];
 
-export default function FarmInfo() {
+export default function FarmInfo({ formData, setFormData }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const submitRegister = () => {
-         // Make an API call
-         addFarm(dispatch, {
-            name,
-            lat,
-            lng,
-            address,
-        }, (err, success) => {
-            if (success) {
-                navigate("/FarmPlotInfo");
-            } else {
-                // Failure
-                console.log('Saving profile info failed!');
-            }
-        });
-    }
-    const goBack = () => {
-        navigate('/FarmerInfo1');
-    };
-    const [name, setName] = useState("");
+    // const submitRegister = () => {
+    //      // Make an API call
+    //      addFarm(dispatch, {
+    //         name,
+    //         lat,
+    //         lng,
+    //         address,
+    //     }, (err, success) => {
+    //         if (success) {
+    //             navigate("/FarmPlotInfo");
+    //         } else {
+    //             // Failure
+    //             console.log('Saving profile info failed!');
+    //         }
+    //     });
+    // }
+    // const goBack = () => {
+    //     navigate('/FarmerInfo1');
+    // };
+    // const [name, setName] = useState("");
     const [lat, setLat] = useState("");
     const [lng, setLng] = useState("");
     const [address, setAddress] = useState("");
@@ -152,48 +152,73 @@ export default function FarmInfo() {
 
     const confirm = () => {
         console.log(lat, lng, address);
+        formData.lat = lat;
+        formData.lng = lng;
+        formData.farmaddress = address;
         setAddFarmView(false);
+        setFormData({ ...formData, addFarmView: false })
+        
+    }
+
+    const setFarm = () => {
+        setAddFarmView(true)
+        setFormData({ ...formData, addFarmView: true })
+       
     }
 
     return (
-        <div className="dc-default container fill-page main-frame">
-            <div className="div1-drone-catalog">
-                <h1 className='header-dronecatalog' style={{marginLeft:"100px"}}>Farmer's Farm Details</h1>
-                <p className='heading-dronecatalog' style={{marginTop:"10px",marginLeft:"100px"}}>Add your farm information</p>
-            </div>
-            {/* <div className='userDetails'>
-                <button variant="secondary" className='dc-default btn btn-secondary m20' onClick={() => goBack()}>Back</button>
-                <button variant="primary" className='dc-default btn btn-primary m20'
-                        style={{float:"right",margin:"20px",}}
-                        onClick={() => submitRegister()}>Next</button>
-            </div> */}
-            {!addFarmView ? <div className='userDetails'>
-                <Form><br/>
-                    <p className="userInfo">Farm Information</p>
-                    <Form.Group className="UserDetails">
-                        <Form.Label className='DroneDetails'>Name</Form.Label>
-                        <Form.Control
-                            type="text"
-                            className='input_text'
-                            aria-describedby="name"
-                            onChange={(event) => {setName(event.target.value)}}
-                        />
-                    </Form.Group>
-                    <Form.Group className="UserDetails">
-                        <Form.Label className='DroneDetails'>Address</Form.Label>
-                        {address ? <p>{address}</p> : <p>Not added yet</p>}
-                        <Button variant="primary" onClick={() => setAddFarmView(true)}>Locate farm</Button>
-                    </Form.Group>
-                </Form>
-                <button variant="secondary" className='dc-default btn btn-secondary m20' onClick={() => goBack()}>Back</button>
-                <button variant="primary" className='dc-default btn btn-primary m20'
-                        style={{float:"right",margin:"20px",}}
-                        onClick={() => submitRegister()}>Next</button>
+            !addFarmView ? 
+            <div>
+                <h1 className='header-multistep'> Farmer's Farm Details</h1>
+                <p className='heading-multistep'>Add your farm information</p>
+                <div className='userDetails'>
+                    <Form>
+                        <Form.Group className="UserDetails">
+                            <Form.Label className='DroneDetails'> Farm Name</Form.Label>
+                            <Form.Control
+                                type="text"
+                                className='input_text'
+                                aria-describedby="name"
+                                value={formData.farmname}
+                                onChange={(event) =>
+                                setFormData({ ...formData, farmname: event.target.value })
+                                }
+                            />
+                        </Form.Group>
+                        <Form.Group className="UserDetails">
+                            <Form.Label className='DroneDetails'>Choose Farm Type</Form.Label>
+                            <Form.Select aria-label="Default select example" className='input_text' value={formData.farmtype} onChange={(event) => setFormData({ ...formData, farmtype: event.target.value })}>
+                                <option>Choose...</option>
+                                <option value="stock">Livestock</option>
+                                <option value="crop">Crop</option>
+                                <option value="fruit">Fruit</option>
+                                <option value="nursery">Nursery</option>
+                            </Form.Select>
+                        </Form.Group>
+                        <Form.Group className="UserDetails">
+                            <Form.Label className='DroneDetails'>Address</Form.Label>
+                            <Form.Control
+                                placeholder="enter or select below"
+                                type="text"
+                                className='input_text'
+                                aria-describedby="name"
+                                value={formData.farmaddress}
+                                onChange={(event) =>
+                                    setFormData({ ...formData, farmaddress: event.target.value })
+                                    }
+                            />
+                            
+                            <button className='btn_panel' onClick={() => setFarm()}>Locate farm</button>
+                        </Form.Group>
+                    </Form>
+                </div>
             </div> : 
             <div className="farm_add_menu">
-                {isLoaded ?<div id="searchbox">
-
-                    <Button variant="primary" onClick={() => confirm()}>Confirm</Button>
+                <h4>Locate Farm<span>
+                    <button className='btn_panel' onClick={() => confirm()} style={{float:"right", margin:"10px"}}>Confirm</button> </span></h4>
+                {isLoaded ?
+                <div id="searchbox">
+                    <br></br>
                     <StandaloneSearchBox
                         onLoad={onSBLoad}
                         onPlacesChanged={
@@ -230,15 +255,15 @@ export default function FarmInfo() {
                     >
                     {markers.map((marker, index) => (
                         <Marker
-                          key={index}
-                          title={marker.title}
-                          name={marker.name}
-                          position={marker.position}
+                        key={index}
+                        title={marker.title}
+                        name={marker.name}
+                        position={marker.position}
                         />
-                      ))}
-                </GoogleMap> : ''}
+                    ))}
+                    </GoogleMap> : ''}
+                </div>
             </div>
-            </div>}
-        </div>
+        
 );
 }
