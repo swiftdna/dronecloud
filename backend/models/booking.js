@@ -33,12 +33,24 @@ module.exports = function(sequelize, Sequelize) {
                 key: 'id'
             }
         },
+        status: {
+            type: Sequelize.STRING,
+        },
         pilot_id: {
             type: Sequelize.INTEGER,
             references: {
                 model: 'users',
                 key: 'id'
             }
+        },
+        farmland: {
+            type: Sequelize.STRING,
+        },
+        landtype: {
+            type: Sequelize.STRING,
+        },
+        service: {
+            type: Sequelize.STRING,
         },
         start_date: {
             type: Sequelize.DATE
