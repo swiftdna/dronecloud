@@ -97,7 +97,7 @@ export default function DroneBookingCatalog() {
                     
                  <li class="dronebookdropdown" >
                     
-                        <select className="form-select" name="service" id="service"  onChange={(event) => {
+                        <select className="form-select dc-blue" name="service" id="service"  onChange={(event) => {
             setService(event.target.value);
           }}>
                             <option>Service</option>
@@ -118,7 +118,7 @@ export default function DroneBookingCatalog() {
 
                 </li>
                 <li class="dronebookdropdown">
-                        <select name="price" className="form-select" id="price"  onChange={(event) => {
+                        <select name="price" className="form-select dc-blue" id="price"  onChange={(event) => {
             setPrice(event.target.value);
           }}>
                             <option>Price  
@@ -130,7 +130,7 @@ export default function DroneBookingCatalog() {
                         </select>
                 </li>
                 <li class="dronebookdropdown">
-                        <select name="brand" className="form-select" id="brand"  onChange={(event) => {
+                        <select name="brand" className="form-select dc-blue" id="brand"  onChange={(event) => {
             setBrand(event.target.value);
           }}>
                             <option>Brand</option>
@@ -143,7 +143,7 @@ export default function DroneBookingCatalog() {
                         </select>
                 </li>
                 <li class="dronebookdropdown">
-                        <select name="equipment" className="form-select" id="equipment"  onChange={(event) => {
+                        <select name="equipment" className="form-select dc-blue" id="equipment"  onChange={(event) => {
             setEquipment(event.target.value);
           }}>
                             <option>Equipment</option>
@@ -155,7 +155,7 @@ export default function DroneBookingCatalog() {
                         </select>
                 </li>
                 <li class="dronebookdropdown">
-                        <select name="status" className="form-select" id="status"  onChange={(event) => {
+                        <select name="status" className="form-select dc-blue" id="status"  onChange={(event) => {
             setStatus(event.target.value);
           }}>
                             <option>Status</option>
@@ -167,11 +167,11 @@ export default function DroneBookingCatalog() {
                 <br></br><br></br>
                 
                   <li class="dronebookdropdown">
-                      <input className="form-date"  type="date"  onChange={(event) => {
+                      <input className="form-date dc-blue"  type="date"  onChange={(event) => {
             setfromDate(event.target.value);
           }}/>
                       </li>
-                <input  className="form-date"  type="date"  onChange={(event) => {
+                <input  className="form-date dc-blue"  type="date"  onChange={(event) => {
             settoDate(event.target.value);
           }}/>
                 

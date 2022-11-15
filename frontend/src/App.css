@@ -319,6 +319,23 @@
   background-color: #fbfdfe;
 }*/
 
+.dc-default select.dc-blue {
+	background-color: #236dff;
+  color: white;
+  border: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3e%3cpath fill=%27none%27 stroke=%27%23ffffff%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%272%27 d=%27M2 5l6 6 6-6%27/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 14px;
+}
+
+.dc-default input.dc-blue {
+	background-color: #236dff;
+  color: white;
+  border: none;
+  height: 36px;
+}
+
 .header-dronecatalog {
 	color: #1a3447;
 
