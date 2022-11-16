@@ -32,10 +32,7 @@ const addDrone = async (req, res, next) => {
 const getDrone = async (req,res,next)=>{
   const { models: { drone: Drone } } = COREAPP;
   try{
-    console.log("hi");
     const drones= await Drone.findAll();
-
-  console.log(drones);
   if(drones){
   res.send({success:true, result:drones});
   
@@ -50,7 +47,6 @@ const getSingleDrone = async (req,res,next)=>{
   try{
 
     const {id} = req.params;
-     console.log({id});
     const drone= await Drone.findOne({
       where:{
           id
@@ -58,7 +54,6 @@ const getSingleDrone = async (req,res,next)=>{
       raw: true
   });
 
-  console.log(drone);
   if(drone){
   res.send({success:true, result:drone});
   
@@ -71,7 +66,6 @@ const getSingleDrone = async (req,res,next)=>{
 
 const updateDrone=async(req,res,next)=>{
   const {models:{drone:Drone}}=COREAPP;
-  console.log("hello");
   try{
     const {id}=req.params;
     const name = req.body.droneName;

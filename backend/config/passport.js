@@ -81,7 +81,6 @@ module.exports = (passport, user) => {
                     });
                 }
                 const userinfo = user.get();
-                // console.log('got user info - ', userinfo);
                 return done(null, userinfo);
             }).catch(function(err) {
                 console.log("Error:", err);
@@ -114,7 +113,7 @@ module.exports = (passport, user) => {
                     return done(null, user);
                 });
             } catch(e) {
-                console.log("Error:", err);
+                console.log("Error: ", e.message);
                 return done(null, false, {
                     message: 'Something went wrong with your Signin'
                 });
