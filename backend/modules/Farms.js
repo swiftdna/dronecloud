@@ -76,7 +76,6 @@ const getFarms = async (req, res, next) => {
 const getFarmDetails = async (req, res, next) => {
 	const { userID } = req.params;
 	const { models: {farm: Farm} } = COREAPP;
-	console.log('getUserDetails -> user_id - ', userID);
 	try {
 		const farm = await Farm.findOne({
 	        where: {
@@ -98,7 +97,6 @@ const getFarmDetails = async (req, res, next) => {
     	}
     	return next();
     } catch (err) {
-    	console.log('getFarmDetails ERR!! -> ', err);
     	res.json({
 	    	success: false,
 	    	message: err.message

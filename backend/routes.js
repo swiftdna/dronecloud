@@ -16,7 +16,6 @@ const pusher = (req, res, next) => {
   let {model, model: {data: response}} = req;
   if (model && response) {
     if (response.data && typeof response.data === 'string') {
-      console.log(response.data);
       response.data = JSON.parse(response.data);
     }
     res.json(response);

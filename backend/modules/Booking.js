@@ -1,7 +1,6 @@
 const BookingDroneDetails = async (req, res, next) => {
     const { models: { booking: Booking } } = COREAPP;
     const { internal } = req;
-    console.log(req.body)
     try {
         const bookingData = await Booking.create({
             user_id:req.body.user_id,
@@ -27,7 +26,6 @@ const BookingDroneDetails = async (req, res, next) => {
         return next();
     }
     catch(e) {
-        console.log('error for drones data',e.message);
         return next();
     }
 };
@@ -35,7 +33,6 @@ const BookingDroneDetails = async (req, res, next) => {
 const getBookings = async(req, res, next) => {
     const { models: { booking: Booking } } = COREAPP;
     const { internal, query } = req;
-    console.log('query -> ', query);
     try {
         const bookingData = await Booking.findAll({
             where: {
@@ -64,10 +61,7 @@ const getBookings = async(req, res, next) => {
 }
 const getUserBookings = async(req, res, next) => {
     const { models: { booking: Booking } } = COREAPP;
-    console.log()
     try {
-        console.log("999qwerwerwer9")
-        console.log(typeof req.body.id);
         const userbookings = await Booking.findAll({
             where:{
                 user_id: req.body.id
@@ -79,7 +73,6 @@ const getUserBookings = async(req, res, next) => {
             sucess: true,
             data: userbookings
         };
-        //console.log(req.model.data)
         return next();
     }
     catch(e) {

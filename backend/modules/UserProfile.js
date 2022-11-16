@@ -1,7 +1,6 @@
 const getUserDetails = async (req, res, next) => {
 	const { user_id } = req.params;
 	const { models: {user: User} } = COREAPP;
-	console.log('getUserDetails -> user_id - ', user_id);
 	try {
 		const user = await User.findOne({
 	        where: {
@@ -22,7 +21,6 @@ const getUserDetails = async (req, res, next) => {
     	}
     	return next();
     } catch (err) {
-    	console.log('getUserDetails ERR!! -> ', err);
     	res.json({
 	    	success: false,
 	    	message: err.message
@@ -36,8 +34,6 @@ const updateUserDetails = async (req, res, next) => {
 	const { id: user_id } = req.user;
 	const { body } = req;
 	const { models: { user: User } } = COREAPP;
-	// Image upload to be handled
-	// console.log('updateUserDetails -> user_id - ', user_id);
 	try {
 		const userData = await User.findOne({
 			where: {

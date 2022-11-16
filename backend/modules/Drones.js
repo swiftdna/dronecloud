@@ -42,10 +42,6 @@ const getDrones = async (req, res, next) => {
 const filterDroneDetails = async (req, res, next) => {
     const { models: { drone: Drone } } = COREAPP;
     try {
-       
-
-        console.log("@@@@@@@@@@@@@@@@@",req.body)
-        
 		const droneData = await Drone.findAll({
             //  where: {
             //     service:req.body.service,
@@ -72,14 +68,9 @@ const filterDroneDetails = async (req, res, next) => {
 const FarmUserDroneDetails = async (req, res, next) => {
     const { models: {farm : Farm } } = COREAPP;
     try {
-        console.log("@@@@@@@@@@@@@@@@@",req.body)
-		// const bookingData = await Booking.findAll({
-        //  raw:true
-		// });
         const droneFarm = await Farm.findAll({
             raw:true
 		});
-        console.log("dorne",droneFarm)
         req.model = {};
         req.model.data = {
             sucess: true,
@@ -219,11 +210,7 @@ const deregisterUAV = async (req, res, next) => {
 };
 
 const getAvailableDrones = async (req, res, next) => {
-
-    
     const { from, to, service, price, equipment, brand } = req.query;
-    console.log("9999",from, to, service, price, equipment, brand)
-    console.log(service)
     const droneReq = {
         query: {
             status: 'available,deployed,booked'
@@ -316,7 +303,6 @@ const PilotAvailability = async (req, res, next) => {
 		});
         req.model = {};
         req.model.data = pilotinfo;
-        console.log("",req.model.data)
         const AllpilotIDs = _.pluck(req.model.data , 'id');
 
         const bookingData = await Booking.findAll({
@@ -325,13 +311,10 @@ const PilotAvailability = async (req, res, next) => {
         });
         req.model = {};
         req.model.data = bookingData;
-        console.log("&&&",req.model.data )
 
         const bookedPilotIDs = _.pluck(req.model.data , 'pilot_id');
        // const availableDroneIDs = .filter(droneID => bookedDroneIDs.indexOf(droneID) === -1);
-        console.log("&&&333",bookedPilotIDs ,AllpilotIDs)
         const availableDroneIDs = AllpilotIDs.filter(droneID => bookedPilotIDs.indexOf(droneID) === -1);
-        console.log(availableDroneIDs)
         const availablepilotinfo = await PilotInfo.findAll({
             where:{
                 id: {
@@ -342,21 +325,18 @@ const PilotAvailability = async (req, res, next) => {
 		});
         req.model = {};
         req.model.data = availablepilotinfo;
-        console.log("&&&111111",req.model.data )
 
         return next();
     }
-    catch {
-        console.log('error for drones data');
+    catch(e) {
+        console.log('error for drones data - ', e.message);
         return next();
     }
 };
 const getFarmLands = async (req, res, next) => {
     const { models: { land: Land } } = COREAPP;
-    console.log("@@@@@@@@@@@@@@@@@",req.body)
 
     try {
-        console.log("@@@@@@@@@@@@@@@@@",req.body)
 		const farmland = await Land.findAll({
             where:{
                 farm_id:req.body.id
@@ -365,11 +345,10 @@ const getFarmLands = async (req, res, next) => {
 		});
         req.model = {};
         req.model.data = farmland;
-        console.log("mode;",req.model.data)
         return next();
     }
-    catch {
-        console.log('error for drones data');
+    catch(e) {
+        console.log('error for drones data - ', e.message);
         return next();
     }
 };
