@@ -25,9 +25,6 @@ module.exports = function(sequelize, Sequelize) {
         name: {
             type: Sequelize.TEXT
         },
-        // dob: {
-        //     type: Sequelize.DATEONLY
-        // },
         phone: {
             type: Sequelize.TEXT
         },
@@ -41,10 +38,19 @@ module.exports = function(sequelize, Sequelize) {
             type: Sequelize.TEXT
         },
         country: {
-            type: Sequelize.INTEGER
+            type: Sequelize.TEXT
         },
         zipcode: {
             type: Sequelize.INTEGER
+        },
+        driverlicense: {
+            type: Sequelize.TEXT
+        },
+        licenseimageurl: {
+            type: Sequelize.TEXT
+        },
+        status: {
+            type: Sequelize.TEXT
         }
     });
     return User;

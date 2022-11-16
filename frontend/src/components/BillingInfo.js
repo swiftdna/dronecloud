@@ -8,84 +8,81 @@ import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {uploadImageToCloud} from "../utils";
 import {setToast} from "../actions/app-actions";
-// import 'react-bootstrap-country-select/dist/react-bootstrap-country-select.css';
-// import CountrySelect from 'react-bootstrap-country-select';
 
-export function BillingInfo() {
+export function BillingInfo({ formData, setFormData }) {
 
-    const [regForm, setRegForm] = useState({
-        name: '',
-        cardNumber: '',
-        expiry: '',
-        cvv: ''
-    });
-    const onInputChange = (e) => {
-        const tmpForm = {...regForm};
-        const name = e.target.getAttribute('id');
-        tmpForm[name] = e.target.value;
-        setRegForm(tmpForm);
-    }
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const submitRegister = () => {
-        console.log('Billing information updated, click next to review registration')
-        navigate('/ReviewRegistration');
-    };
-    const goBack = () => {
-        navigate('/UtilityBill');
-    };
+    // const submitRegister = () => {
+    //     console.log('Billing information updated, click next to review registration')
+    //     navigate('/ReviewRegistration');
+    // };
+    // const goBack = () => {
+    //     navigate('/UtilityBill');
+    // };
     return (
-        <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100vh',
-        }} className="container pull-down fill-page dc-default">
-            <Form><br/><br/>
-                <img src="Step5.png"width="300" height="50" /><br/><br/>
-                <h4>Billing information</h4><br/>
-                <p>Fill in the billing information for your profile</p>
-                <h5>Payment method</h5>
-                {/*add radio buttons for wallet and paypal*/}
-                <Form.Group as={Col} className="mb-3" controlId="name">
-                    <Form.Label>Name of Land Owner</Form.Label>
-                    <Form.Control
-                        type="text"
-                        value={regForm.name}
-                        aria-describedby="name"
-                    />
-                </Form.Group>
-                <Form.Group as={Col} className="mb-3" controlId="cardNumber">
-                    <Form.Label>Card Number</Form.Label>
-                    <Form.Control
-                        type="text"
-                        value={regForm.cardNumber}
-                        aria-describedby="cardNumber"
-                    />
-                </Form.Group>
-                <Row className="mb-3">
-                    <Form.Group as={Col} className="mb-3" controlId="expiry">
-                        <Form.Label>Expiration Date</Form.Label>
+        <div >
+                <h1 className='header-multistep' > Payment Information</h1>
+                <p className='heading-multistep' >Please enter youur credit card details</p>
+            <div className='userDetails'>
+                <Form>
+                    <Form.Group className="UserDetails" controlId="name">
+                        <Form.Label className='DroneDetails'>Name on card</Form.Label>
                         <Form.Control
-                            type="date"
-                            value={regForm.expiry}
-                            aria-describedby="expiry"
-                        />
+                            type="text"
+                            className='input_text'
+                            aria-describedby="name"
+                            value={formData.cardname}
+                            onChange={(event) =>
+                              setFormData({ ...formData, cardname: event.target.value })
+                            }/>
                     </Form.Group>
-                    <Form.Group as={Col} className="mb-3" controlId="cvv">
-                        <Form.Label>CVV</Form.Label>
+                    <Form.Group className="UserDetails" controlId="cardNumber">
+                        <Form.Label className='DroneDetails'>Card Number</Form.Label>
+                        <Form.Control
+                            type="text"
+                            className='input_text'
+                            aria-describedby="cardNumber"
+                            value={formData.cardnum}
+                            onChange={(event) =>
+                              setFormData({ ...formData, cardnum: event.target.value })
+                            }/>
+                    </Form.Group>
+                    <Form.Group className="UserDetails" controlId="expirymon">
+                        <Form.Label className='DroneDetails'>Expiry Month</Form.Label>
+                        <Form.Control
+                            type="text"
+                            className='input_text'
+                            aria-describedby="expiryMonth"
+                            value={formData.expmonth}
+                            onChange={(event) =>
+                              setFormData({ ...formData, expmonth: event.target.value })
+                            }/>
+                    </Form.Group>
+                    <Form.Group className="UserDetails" controlId="expiryyear">
+                        <Form.Label className='DroneDetails'>Expiry Year</Form.Label>
+                        <Form.Control
+                            type="text"
+                            className='input_text'
+                            aria-describedby="expiryYear"
+                            value={formData.expyear}
+                            onChange={(event) =>
+                              setFormData({ ...formData, expyear: event.target.value })
+                            }/>
+                    </Form.Group>
+                    <Form.Group className="UserDetails" controlId="cvv">
+                        <Form.Label className='DroneDetails'>CVV</Form.Label>
                         <Form.Control
                             type="password"
-                            value={regForm.cvv}
+                            className='input_text'
                             aria-describedby="cvv"
-                        />
+                            value={formData.cvv}
+                            onChange={(event) =>
+                                setFormData({ ...formData, cvv: event.target.value })
+                            }/>
                     </Form.Group>
-                </Row>
-                <div className="btn_panel">
-                    <Button variant="secondary" onClick={() => goBack()}>Back</Button>
-                    <Button variant="primary" onClick={() => submitRegister()} type="submit">Next</Button>
-                </div>
-            </Form>
+                </Form>
+            </div>
         </div>
     );
 }

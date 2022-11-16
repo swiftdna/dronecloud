@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Button, Badge } from 'react-bootstrap';
-import { FaList, FaShoppingCart, FaUserAlt, FaHeart, FaStore } from 'react-icons/fa';
 import { TbDrone } from 'react-icons/tb';
-import { selectErrorFlag, selectErrorMessage, selectIsLoggedIn } from '../selectors/appSelector';
+import { selectIsLoggedIn } from '../selectors/appSelector';
 import { handleLogoutResponse } from '../actions/app-actions';
+import { FaList, FaShoppingCart, FaUserAlt, FaHeart, FaStore } from 'react-icons/fa';
 
 //create the Navbar Component
 function Navbar() {
@@ -15,21 +14,6 @@ function Navbar() {
     const dispatch = useDispatch();
     const location = useLocation();
 
-    useEffect(() => {
-        if (!isAuthenticated) {
-            navigate('/');
-        } else {
-            console.log('navbar - login success');
-        }
-    }, [isAuthenticated])
-
-    const login = () => {
-        navigate('/login');
-    }
-
-    const register = () => {
-        navigate('/register');
-    }
 
     const getActiveClass = (currPath) => {
         return currPath === location.pathname ? "btn btn-light nav-buttons active" : "btn btn-light nav-buttons";
@@ -46,6 +30,15 @@ function Navbar() {
         navigate('/profile');
     }
 
+    const login = () => {
+        navigate('/login');
+    }
+
+    const register = () => {
+        navigate('/register');
+    }
+
+
     const logout = () => {
         axios.post('/logout')
             .then(response => {
@@ -57,7 +50,7 @@ function Navbar() {
         <nav className="navbar justify-content-between dc-default">
             <div className="container">
                 <div className="col-3">
-                    <a className="navbar-brand" onClick={() => home()}><TbDrone size={40} /></a>
+                    <a className="navbar-brand" onClick={() => home()}><TbDrone size={40} /><span>&nbsp;&nbsp;Home</span></a>
                 </div>
                 <div className="col-6 text-center">
                     {

@@ -2,8 +2,6 @@ import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import {register} from "../utils";
 import {setAlert} from "../actions/app-actions";
 import {useDispatch} from "react-redux";
@@ -11,121 +9,93 @@ import {useNavigate} from "react-router-dom";
 import '../App.css';
 // import 'react-bootstrap-country-select/dist/react-bootstrap-country-select.css';
 // import CountrySelect from 'react-bootstrap-country-select';
+import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 
-export default function PilotInfo1() {
 
-    const [regForm, setRegForm] = useState({
-        first_name: '',
-        last_name: '',
-        phone: '',
-        address: '',
-        city: '',
-        state: '',
-        zipcode: '',
-        country: ''
-    });
-    const onInputChange = (e) => {
-        const tmpForm = {...regForm};
-        const name = e.target.getAttribute('id');
-        tmpForm[name] = e.target.value;
-        setRegForm(tmpForm);
-    }
+export default function PilotInfo1({ formData, setFormData }) {
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const submitRegister = () => {
-        console.log('Pilot details updated, click next')
-        navigate('/PilotCertificate');
+    // const submitRegister = () => {
+    //     console.log('Pilot details updated, click next')
+    //     navigate('/PilotCertificate');
 
-    };
+    // };
+    // const goBack = () => {
+    //     navigate('/SelectRole');
+    // };
     return (
-        <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100vh',
-        }} className="container pull-down fill-page dc-default">
-
-            <Form>
-                <img src="Step1.png"width="300" height="50" />
-                <h4>Pilot Information</h4><br/>
-                <p>Fill in the data for your profile, It will only take a couple of minutes</p>
-                <Row className="mb-3">
-                    <Form.Group as={Col} className="mb-3" controlId="first_name">
-                        <Form.Label>First Name</Form.Label>
+        <div>
+            <h1 className='header-multistep'> Pilot Information</h1>
+            <p className='heading-multistep'>Fill in the data for your profile. It will only take a couple of minutes.</p>
+            <div className='userDetails'>
+                <Form>
+                    <Form.Group className="UserDetails" controlId="name">
+                        <Form.Label className='DroneDetails'>Full Name</Form.Label>
                         <Form.Control
                             type="text"
-                            value={regForm.first_name}
-                            aria-describedby="first_name"
+                            className='input_text'
+                            aria-describedby="name"
+                            value={formData.pilotname}
+                            onChange={(event) =>
+                              setFormData({ ...formData, pilotname: event.target.value })
+                            }
                         />
                     </Form.Group>
-                    <Form.Group as={Col} className="mb-3" controlId="last_name">
-                        <Form.Label>Last Name</Form.Label>
+                    <Form.Group className="UserDetails" controlId="phone">
+                        <Form.Label className='DroneDetails'>Phone</Form.Label>
                         <Form.Control
                             type="text"
-                            value={regForm.last_name}
-                            aria-describedby="last_name"
+                            className='input_text'
+                            aria-describedby="phone"
+                            value={formData.phone}
+                            onChange={(event) =>
+                              setFormData({ ...formData, phone: event.target.value })
+                            }
                         />
                     </Form.Group>
-                </Row>
-                <Form.Group className="mb-3" controlId="phone">
-                    <Form.Label>Phone</Form.Label>
-                    <Form.Control
-                        type="text"
-                        value={regForm.phone}
-                        aria-describedby="phone"
-                    />
-                </Form.Group>
-                <Row className="mb-3">
-                    <Form.Group as={Col}className="mb-3" controlId="address">
-                        <Form.Label>Address</Form.Label>
+                    <Form.Group className="UserDetails" controlId="address">
+                        <Form.Label className='DroneDetails'>Address</Form.Label>
                         <Form.Control
                             type="text"
-                            value={regForm.address}
+                            className='input_text'
                             aria-describedby="address"
+                            value={formData.pilotaddress}
+                            onChange={(event) =>
+                              setFormData({ ...formData, pilotaddress: event.target.value })
+                            }
                         />
                     </Form.Group>
-                    <Form.Group as={Col} className="mb-3" controlId="city">
-                        <Form.Label>City</Form.Label>
+                    <Form.Group className="UserDetails" controlId="city">
+                        <Form.Label className='DroneDetails'>City</Form.Label>
                         <Form.Control
                             type="text"
-                            value={regForm.city}
+                            className='input_text'
                             aria-describedby="city"
+                            value={formData.pilotcity}
+                            onChange={(event) =>
+                              setFormData({ ...formData, pilotcity: event.target.value })
+                            }
                         />
                     </Form.Group>
-                </Row>
-                <Row className="mb-3">
-                    <Form.Group className="mb-3" controlId="country">
-                        <Form.Label>Country</Form.Label>
-                        <Form.Select as={Col} aria-label="Default select example">
-                            <option>Choose</option>
-                            <option value="1">India</option>
-                            <option value="2">United States</option>
-                            <option value="3">United Kingdom</option>
-                            <option value="4">South Africa</option>
-                        </Form.Select>
+                    <Form.Group className="UserDetails">
+                        <CountryDropdown className="countryselect" value={formData.pilotcountry} onChange={(val) => setFormData({ ...formData, pilotcountry: val})}  />
                     </Form.Group>
-                    <Form.Group as={Col} controlId="formGridState">
-                        <Form.Label>State</Form.Label>
-                        <Form.Select defaultValue="Choose...">
-                            <option>Choose...</option>
-                            <option>...</option>
-                        </Form.Select>
+                    <Form.Group className="UserDetails">                    
+                        <RegionDropdown blankOptionLabel="Select Region" className="countryselect" country={formData.pilotcountry} value={formData.pilotstate} onChange={(val) => setFormData({ ...formData, pilotstate: val})} />
                     </Form.Group>
-                    <Form.Group as={Col} className="mb-3" controlId="zipcode">
-                        <Form.Label>Zipcode</Form.Label>
-                        <Form.Control
-                            type="text"
-                            value={regForm.zipcode}
-                            aria-describedby="zipcode"
-                        />
+                    <Form.Group className="UserDetails" controlId="zipcode">
+                        <Form.Label className='DroneDetails'>Zipcode</Form.Label>
+                        <Form.Control type="text" aria-describedby="zipcode" className='input_text' 
+                                value={formData.pilotzip}
+                                onChange={(event) =>
+                                    setFormData({ ...formData, pilotzip: event.target.value })
+                                }
+                            />
                     </Form.Group>
-                </Row>
-                <div className="btn_panel">
-                    <Button variant="primary" onClick={() => submitRegister()} type="submit">
-                        Next
-                    </Button>
-                </div>
-            </Form>
+
+                </Form>
+            </div>
         </div>
     );
 }

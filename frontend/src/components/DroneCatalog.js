@@ -18,7 +18,7 @@ function DroneCatalog() {
     const navigate = useNavigate();
     const userLandedPage = useLocation();
     const [drones,setDrones]=useState([]);
- 
+    const [unfilteredDrones,setUnfilteredDrones]=useState([]);
     useEffect(() => {
         if (isLoggedIn) {
             console.log('DroneCatalog === user logged in!');
@@ -32,6 +32,7 @@ function DroneCatalog() {
         if(success){
             console.log(result.length);
             setDrones(result);
+            setUnfilteredDrones(result);
           
             // console.log(drones.length);
         } else {
@@ -44,12 +45,15 @@ function DroneCatalog() {
         navigate("/admin/addDrone");
     };
     const filterDroneDetails=(filtervalue)=>{
-     const filteredDrones = drones?.filter((drone) =>(drone.price < filtervalue));
+      setDrones(unfilteredDrones);
+     
+     const filteredDrones = drones?.filter((drone) =>(parseInt(drone.price) <= parseInt(filtervalue)));
       setDrones(filteredDrones);
       
 
     }
     const filterStatus=(statusFilter)=>{
+      setDrones(unfilteredDrones);
       const filterStatus=drones?.filter((drone)=>(drone.status===statusFilter));
       setDrones(filterStatus);
 
@@ -93,8 +97,8 @@ function DroneCatalog() {
                 <div className="dropdown-container">
                   <DropdownButton id="dropdown-item-button" title="Price" size="lg">
                     <Dropdown.Item style={{color:"black"}} onClick={()=>filterDroneDetails(200)} >below 200</Dropdown.Item>
-                    <Dropdown.Item style={{color:"black"}} onClick={()=>filterDroneDetails(200)}>below 400</Dropdown.Item>
-                    <Dropdown.Item style={{color:"black"}} onClick={()=>filterDroneDetails(200)}>below 1000</Dropdown.Item>
+                    <Dropdown.Item style={{color:"black"}} onClick={()=>filterDroneDetails(400)}>below 400</Dropdown.Item>
+                    <Dropdown.Item style={{color:"black"}} onClick={()=>filterDroneDetails(1000)}>below 1000</Dropdown.Item>
                   </DropdownButton>
                   <DropdownButton id="dropdown-item-button" title="Status" size="lg">
                     <Dropdown.Item href="#/action-1" style={{color:"black"}} onClick={()=>filterStatus("added")}>Added</Dropdown.Item>

@@ -4,11 +4,13 @@ const router = express.Router();
 const { getUserDetails, updateUserDetails } = require('./modules/UserProfile');
 const { handleBookingSchedule } = require('./modules/Scheduler');
 const { getDronePaths, registerDrone, deleteDrone, getAllDrones, getDroneLastSeenLocations, getDroneLastSeenLocationsOld } = require('./modules/SimulatorInteraction');
-const { getDrones, filterDroneDetails, registerUAV, deregisterUAV, getAvailableDrones, FarmUserDroneDetails,PilotAvailability,getFarmLands } = require('./modules/Drones');
-const { BookingDroneDetails,getUserBookings } = require('./modules/Booking');
-
+const { getFarms, addFarm, addOwner } = require('./modules/Farms');
 const {addDrone,getDrone,getSingleDrone,updateDrone} =require('./modules/DroneCatalog');
-
+const { getDrones, filterDroneDetails, registerUAV, deregisterUAV, getAvailableDrones, FarmUserDroneDetails,PilotAvailability, getFarmLands } = require('./modules/Drones');
+const { BookingDroneDetails, getUserBookings } = require('./modules/Booking');
+const { addPayment } = require('./modules/Payment');
+const { addPilotInfo } = require('./modules/Pilot');
+const { updateFarmDetails, getFarmDetails } = require('./modules/Farms');
 
 const pusher = (req, res, next) => {
   let {model, model: {data: response}} = req;
@@ -35,9 +37,21 @@ router.post('/farmuser', isLoggedIn, FarmUserDroneDetails, pusher);
 router.get('/users/:user_id', isLoggedIn, getUserDetails);
 router.put('/users/profile', isLoggedIn, updateUserDetails);
 
-router.post('/drone/filter', isLoggedIn, filterDroneDetails, pusher);
-router.get('/drones', isLoggedIn, getDrones, pusher);
+router.post('/farms', isLoggedIn, addFarm, pusher);
+router.get('/farms', isLoggedIn, getFarms, pusher);
+router.put('/farms/profile', isLoggedIn, updateFarmDetails, pusher);
+router.get('/farms/profile', isLoggedIn, getFarmDetails, pusher);
+router.post('/farms/owner', isLoggedIn, addOwner, pusher);
+
+// Pilot cert info
+router.post('/pilot', isLoggedIn, addPilotInfo, pusher);
+
+router.post('/payment', isLoggedIn, addPayment, pusher);
+
 router.post('/pilotfilter', isLoggedIn, PilotAvailability, pusher);
+
+router.get('/drones', isLoggedIn, getDrones, pusher);
+router.post('/drone/filter', isLoggedIn, filterDroneDetails, pusher);
 router.post('/drones/:id/register', isLoggedIn, registerUAV, pusher);
 router.post('/drones/:id/deregister', isLoggedIn, deregisterUAV, pusher);
 router.get('/drones/availability', isLoggedIn, getAvailableDrones, pusher);
@@ -61,7 +75,7 @@ router.post('/droneCatalog/updateDrone/:id',updateDrone);
 router.get('/session', isLoggedIn, async (req, res, next) => {
   if (req.user) {
     const {user} = req;
-    res.json({ success: true, isAuthenticated: true, user: {email: user.email, id: user.id, username: user.username} });
+    res.json({ success: true, isAuthenticated: true, user: {email: user.email, id: user.id, username: user.username, role: user.role, status: user.status} });
   } else {
     res.status(401).json({message: "Not authorized", success: false});
   }
