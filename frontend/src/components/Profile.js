@@ -33,6 +33,10 @@ export default function Profile() {
     	}
     }, [userProfile]);
 
+	const isUserFarmer = () => {
+        return userObj.role === 'farmer';
+    }
+
     const onUserProfileChange = (e) => {
     	const fieldName = e.target.getAttribute('id');
         const tempForm = {...userProfileForm};
@@ -88,10 +92,14 @@ export default function Profile() {
 				<FaPencilAlt className="edit_icon" size="1em" onClick={() => setEditMode(!editMode) } /> :
 				<FaSave className="edit_icon" size="1em" onClick={() => submitProfile() } />}
 			</h5>
-			<Button variant="primary" className='dc-default btn btn-primary m20'
-                        style={{float:"right",margin:"20px",}} onClick={() => farmLand()}>
-									Farmland
-								</Button>
+			
+			{
+		isUserFarmer() ? <Button variant="primary" className='dc-default btn btn-primary m20'
+		style={{float:"right",margin:"20px",}} onClick={() => farmLand()}>
+					Farmland
+				</Button> : ''
+	}
+								
 		
 			<div className="user_details">
 				<Row>
