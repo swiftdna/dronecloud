@@ -45,6 +45,34 @@ const getDrone = async (req,res,next)=>{
   return next();
 }
 } 
+const getFilterDrones = async (req,res,next)=>{
+  const { models: { drone: Drone } } = COREAPP;
+  const brand = req.body.brand;
+  const service = req.body.service;
+  const status = req.body.status;
+  const price = req.body.price;
+  try{
+    console.log("hi");
+    const drones= await Drone.findAll({
+      where:{
+          brand,
+          service,
+          status,
+          price,
+      },
+      raw:true
+    });
+
+  console.log(drones);
+  if(drones){
+  res.send({success:true, result:drones});
+  
+  }
+}catch(err){
+  console.log(err);
+  return next();
+}
+} 
 const getSingleDrone = async (req,res,next)=>{
   const { models: { drone: Drone } } = COREAPP;
   try{
@@ -108,4 +136,5 @@ module.exports = {
   getDrone,
   getSingleDrone,
   updateDrone,
+  getFilterDrones,
 };

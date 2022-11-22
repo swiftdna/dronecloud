@@ -19,6 +19,10 @@ function DroneCatalog() {
     const userLandedPage = useLocation();
     const [drones,setDrones]=useState([]);
     const [unfilteredDrones,setUnfilteredDrones]=useState([]);
+    const [selectedDroneservice, setSelectedDroneService] = useState("");
+    const [selectedDronebrand, setSelectedDroneBrand] = useState("");
+    const [selectedDronestatus, setSelectedDroneStatus] = useState("");
+    const [price, setPrice] = useState("");
     useEffect(() => {
         if (isLoggedIn) {
             console.log('DroneCatalog === user logged in!');
@@ -44,20 +48,27 @@ function DroneCatalog() {
     const navigateAdd = () => {
         navigate("/admin/addDrone");
     };
-    const filterDroneDetails=(filtervalue)=>{
-      setDrones(unfilteredDrones);
-     
-     const filteredDrones = drones?.filter((drone) =>(parseInt(drone.price) <= parseInt(filtervalue)));
-      setDrones(filteredDrones);
+    const filterDroneDetails=()=>{
+      var formData={};
+      formData.price=price;
+      formData.status=selectedDronestatus;
+      formData.service=selectedDroneservice;
+      formData.brand=selectedDronebrand;
+      axios.get( `/api/droneCatalog/getFilterDrones`,formData)
+      .then((response) =>{
+        console.log(response);
+        const {data: {success, result}} = response;
+        if(success){
+          setDrones(result);
+            
+        } else {
+          alert("failed to fetch Drones")
+        }
+      })
       
 
     }
-    const filterStatus=(statusFilter)=>{
-      setDrones(unfilteredDrones);
-      const filterStatus=drones?.filter((drone)=>(drone.status===statusFilter));
-      setDrones(filterStatus);
-
-    }
+  
 
 
     const renderCards = drones.map((drone) =>
@@ -69,9 +80,9 @@ function DroneCatalog() {
                     <Col xs={7}>
                         {/* <p style={{marginTop:"10px"}} className="heading-dronecatalog">3-axis gimble</p> */}
                         <p className="heading-dronecatalog">Cam {drone.camera}</p>
-                        <p className="heading-dronecatalog">30m flight time</p>
-                        <p className="heading-dronecatalog">8 m/s flight speed</p>
-                        <p className="heading-dronecatalog">249 grams</p>
+                        <p className="heading-dronecatalog">{drone.time} minutes</p>
+                        <p className="heading-dronecatalog">{drone.speed}m/s flight speed</p>
+                        <p className="heading-dronecatalog">{drone.weight} grams</p>
                         <div style={{display:"inline"}}>
                             <h5 style={{float:"left", fontSize: '16px'}}>${drone.price} <span className="hr_rates">/ hour</span></h5>
                         </div>
@@ -96,19 +107,36 @@ function DroneCatalog() {
               <div className="dropdown-container">
                 <div className="dropdown-container">
                   <DropdownButton id="dropdown-item-button" title="Price" size="lg">
-                    <Dropdown.Item style={{color:"black"}} onClick={()=>filterDroneDetails(200)} >below 200</Dropdown.Item>
-                    <Dropdown.Item style={{color:"black"}} onClick={()=>filterDroneDetails(400)}>below 400</Dropdown.Item>
-                    <Dropdown.Item style={{color:"black"}} onClick={()=>filterDroneDetails(1000)}>below 1000</Dropdown.Item>
+                    <Dropdown.Item style={{color:"black"}} onClick={()=>setPrice(200)} >below 200</Dropdown.Item>
+                    <Dropdown.Item style={{color:"black"}} oonClick={()=>setPrice(400)}>below 400</Dropdown.Item>
+                    <Dropdown.Item style={{color:"black"}} onClick={()=>setPrice(1000)}>below 1000</Dropdown.Item>
                   </DropdownButton>
                   <DropdownButton id="dropdown-item-button" title="Status" size="lg">
-                    <Dropdown.Item href="#/action-1" style={{color:"black"}} onClick={()=>filterStatus("added")}>Added</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2" style={{color:"black"}} onClick={()=>filterStatus("registered")}>Registerd</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3" style={{color:"black"}} onClick={()=>filterStatus("deleted")}>Deleted</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3" style={{color:"black"}} onClick={()=>filterStatus("available")}>Available</Dropdown.Item>
+                    <Dropdown.Item href="#/action-1" style={{color:"black"}} onClick={()=>setSelectedDroneStatus("added")}>Added</Dropdown.Item>
+                    <Dropdown.Item href="#/action-2" style={{color:"black"}} onClick={()=>setSelectedDroneStatus("registered")}>Registerd</Dropdown.Item>
+                    <Dropdown.Item href="#/action-3" style={{color:"black"}} onClick={()=>setSelectedDroneStatus("deleted")}>Deleted</Dropdown.Item>
+                    <Dropdown.Item href="#/action-3" style={{color:"black"}} onClick={()=>setSelectedDroneStatus("available")}>Available</Dropdown.Item>
+                  </DropdownButton>
+                  <DropdownButton id="dropdown-item-button" title="Service" size="lg">
+                    <Dropdown.Item href="#/action-1" style={{color:"black"}} onClick={()=>setSelectedDroneService("payload")}>Payload</Dropdown.Item>
+                    <Dropdown.Item href="#/action-2" style={{color:"black"}} onClick={()=>setSelectedDroneService("surveillance")}>Surveillance</Dropdown.Item>
+                    <Dropdown.Item href="#/action-3" style={{color:"black"}} onClick={()=>setSelectedDroneService("sprinkle")}>Sprinkle</Dropdown.Item>
+                    <Dropdown.Item href="#/action-3" style={{color:"black"}} onClick={()=>setSelectedDroneService("data collection")}>Data Collection</Dropdown.Item>
+                  </DropdownButton>
+                  <DropdownButton id="dropdown-item-button" title="Brand" size="lg">
+                    <Dropdown.Item href="#/action-1" style={{color:"black"}} onClick={()=>setSelectedDroneBrand("DJI")}>DJI</Dropdown.Item>
+                    <Dropdown.Item href="#/action-2" style={{color:"black"}} onClick={()=>setSelectedDroneBrand("ariel")}>Arieal Robotics</Dropdown.Item>
+                    <Dropdown.Item href="#/action-3" style={{color:"black"}} onClick={()=>setSelectedDroneBrand("sprinkle")}>Sprinkle</Dropdown.Item>
+                    <Dropdown.Item href="#/action-3" style={{color:"black"}} onClick={()=>setSelectedDroneBrand("data collection")}>Data Collection</Dropdown.Item>
                   </DropdownButton>
                 </div>
               </div>
               <br></br>
+            </div>
+            <div>
+            <button variant="primary" className='dc-default btn btn-primary m20' 
+                style={{float:"right",margin:"20px",}} onClick={{filterDroneDetails}}
+                >Next</button>
             </div>
           </div>
           <div className="heading-dronecatalog" style={{marginTop:"20px", marginBottom:"20px",lineHeight:"12px"}}>{drones.length} drones found</div> {!drones.length ? <div style={{ display: 'fl  ex', height: '300px', justifyContent: 'center', alignItems: 'center' }}>
