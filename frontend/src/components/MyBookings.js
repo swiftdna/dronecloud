@@ -14,7 +14,7 @@ function MyBookings() {
     const userLandedPage = useLocation();
     const [allbookingslist,setAllBookingsList] = useState([]);
     const user_id = useSelector((store) => store.app.user.id);
-
+const user_name = useSelector((store) => store.app.user.name);
     useEffect(() => {
         axios.post(`/api/userbookings`,{
             id:user_id

@@ -9,7 +9,8 @@ const makeHTTPRequest = async (params) => {
 
     if (form && !_.isEmpty(form)) {
         for (let key in form) {
-            formData.append(key, form[key]);
+            const keyData = form[key] && form[key] === 'string'? form[key] : JSON.stringify(form[key]) ;
+            formData.append(key, keyData);
         }
     }
     if (_.isEmpty(body) && !_.isEmpty(form)) {
@@ -17,9 +18,11 @@ const makeHTTPRequest = async (params) => {
     }
     const response = await fetch(`${host}${path}`, {method, body});
     let data = await response.text();
+    console.log(data,"%%%%")
     if (data && typeof data === 'string') {
         data = JSON.parse(data);
     }
+    
     return data;
 };
 
