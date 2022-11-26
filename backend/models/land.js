@@ -5,17 +5,24 @@ module.exports = function(sequelize, Sequelize) {
             primaryKey: true,
             type: Sequelize.INTEGER
         },
-        farm_id: {
+        user_id: {
             type: Sequelize.INTEGER,
             references: {
-                model: 'farms',
+                model: 'users',
                 key: 'id'
             }
         },
+        // farm_id: {
+        //     type: Sequelize.INTEGER,
+        //     references: {
+        //         model: 'farms',
+        //         key: 'id'
+        //     }
+        // },
         name: {
             type: Sequelize.TEXT
         },
-        address: {
+        type: {
             type: Sequelize.TEXT
         },
         location_lat: {
@@ -23,6 +30,9 @@ module.exports = function(sequelize, Sequelize) {
         },
         location_lng: {
             type: Sequelize.FLOAT
+        },
+        status: {
+            type: Sequelize.TEXT
         }
     });
     return Land;

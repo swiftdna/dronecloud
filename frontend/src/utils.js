@@ -168,6 +168,20 @@ export function addFarm(dispatch, params, callback) {
         });
 }
 
+export function addPlot(dispatch, params, callback) {
+    if (params.id)
+        delete params.id;
+    axios.post(`/api/plot`, params)
+        .then(response => {
+            const {data} = response;
+            if (data.success) {
+                return callback(null, true);
+            } else {
+                return callback(true);
+            }
+        });
+}
+
 export function addPilotInfo(dispatch, params, callback) {
     if (params.id)
         delete params.id;

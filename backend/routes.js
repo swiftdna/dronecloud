@@ -11,6 +11,8 @@ const { BookingDroneDetails, getUserBookings } = require('./modules/Booking');
 const { addPayment } = require('./modules/Payment');
 const { addPilotInfo } = require('./modules/Pilot');
 const { updateFarmDetails, getFarmDetails } = require('./modules/Farms');
+const { addPlot } = require('./modules/Plots');
+
 
 const pusher = (req, res, next) => {
   let {model, model: {data: response}} = req;
@@ -43,6 +45,10 @@ router.get('/farms', isLoggedIn, getFarms, pusher);
 router.put('/farms/profile', isLoggedIn, updateFarmDetails, pusher);
 router.get('/farms/profile', isLoggedIn, getFarmDetails, pusher);
 router.post('/farms/owner', isLoggedIn, addOwner, pusher);
+
+// add plot
+
+router.post('/plot', isLoggedIn, addPlot, pusher);
 
 // Pilot cert info
 router.post('/pilot', isLoggedIn, addPilotInfo, pusher);

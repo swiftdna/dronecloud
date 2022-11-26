@@ -29,7 +29,7 @@ function MyBookings() {
 
     return(
         <div>
-          <h3>Welcome Sravya!</h3><img src="avatar.jpeg" alt="Avatar" style={{width:"200px",borderRadius: "50%",marginLeft:"628px",marginTop:"-77"}}/>
+          <h3>Welcome Smith!</h3><img src="avatar.jpeg" alt="Avatar" style={{width:"200px",borderRadius: "50%",marginLeft:"628px",marginTop:"-77"}}/>
 
         <div className="container main-frame fill-page">    
 

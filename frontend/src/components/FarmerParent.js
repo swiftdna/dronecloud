@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import FarmerInfo1 from './FarmerInfo1';
 import FarmInfo from './FarmInfo'
+import LandInfo from './LandInfo'
 import { LandOwner } from './LandOwner';
 import { IDInfo } from './IDInfo';
 import { UtilityBill } from './UtilityBill';
 import { BillingInfo } from './BillingInfo';
 import {ReviewRegistration} from './ReviewRegistration';
-import { addFarm, addPayment, updateProfile, fetchSession } from '../utils';
+import { addFarm, addPayment, updateProfile, fetchSession, addPlot } from '../utils';
 import { useDispatch } from "react-redux";
 import {useNavigate} from "react-router-dom";
 
@@ -17,7 +18,7 @@ export default function FarmerParent() {
     const dispatch = useDispatch();
 
   const [page, setPage] = useState(0);
-  const FormTitles = ["Farmer Info", "Farm Info", "Land Owner Info", "ID Info", "Utility Bill Details", "Billing Info", "Review Registration"];
+  const FormTitles = ["Farmer Info", "Farm Info", "Land Info", "Land Owner Info", "ID Info", "Utility Bill Details", "Billing Info", "Review Registration"];
 
   const [formData, setFormData] = useState({
     role: 'farmer',
@@ -32,7 +33,7 @@ export default function FarmerParent() {
     lat: 0,
     lng: 0,
     farmaddress: '',
-    farmtype: '',
+    plottype: '',
     ownername: '',
     area: null,
     issuedate: null,
@@ -48,7 +49,11 @@ export default function FarmerParent() {
     expmonth: null,
     expyear: null,
     cvv: null,
-    addFarmView: ''
+    addFarmView: '',
+    plotname: '',
+    plotlatlong: [],
+    plotlat: 0,
+    plotlong: 0
   });
 
 
@@ -58,12 +63,14 @@ export default function FarmerParent() {
         } else if (page === 1) {
             return <FarmInfo formData={formData} setFormData={setFormData} />;
         } else if (page === 2) {
-            return <LandOwner formData={formData} setFormData={setFormData} />;
+            return <LandInfo formData={formData} setFormData={setFormData} />;
         } else if (page === 3) {
-            return <IDInfo formData={formData} setFormData={setFormData} />;
+            return <LandOwner formData={formData} setFormData={setFormData} />;
         } else if (page === 4) {
-            return <UtilityBill formData={formData} setFormData={setFormData} />;
+            return <IDInfo formData={formData} setFormData={setFormData} />;
         } else if (page === 5) {
+            return <UtilityBill formData={formData} setFormData={setFormData} />;
+        } else if (page === 6) {
             return <BillingInfo formData={formData} setFormData={setFormData} />;
         } else {
             return <ReviewRegistration formData={formData} setFormData={setFormData} />;
@@ -89,7 +96,6 @@ export default function FarmerParent() {
                 addFarm(dispatch, {
                     name: formData.farmname,
                     address: formData.farmaddress,
-                    type: formData.farmtype,
                     lat: formData.lat,
                     lng: formData.lng,
                     ownername: formData.ownername,
@@ -112,17 +118,33 @@ export default function FarmerParent() {
                         }, (err, success) => {
                                 if (success) {
                                     console.log("Farmer profile updated");
-                                    fetchSession(dispatch, (sessionErr, sessionSuccess) => {
-                                        if (sessionSuccess) {
-                                            console.log("Farmer profile updated");
-                                            navigate("/");
-                                        }
-                                    });
+                                    for (let i = 0; i < formData.plotlatlong.length; i++) {
+                                        formData.plotlat = formData.plotlatlong[i].lat();
+                                        formData.plotlong = formData.plotlatlong[i].lng();
+                                        addPlot(dispatch, {
+                                            name: formData.plotname,
+                                            type: formData.plottype,
+                                            location_lat: formData.plotlat,
+                                            location_lng: formData.plotlong,
+                                            status: 'complete'
+                                        }, (err, success) => {
+                                            if(success) {
+                                                if (i === (formData.plotlatlong.length - 1)) {
+                                                    fetchSession(dispatch, (sessionErr, sessionSuccess) => {
+                                                        if (sessionSuccess) {
+                                                            console.log("Farmer profile updated");
+                                                            navigate("/");
+                                                        }
+                                                    }); }
+                                            } else {
+                                                console.log('Saving plot info failed');
+                                            }
+                                        }); }
                                 } else {
                                     console.log('Saving payment info failed!');
                                 }
                             }
-                        );
+                        ); 
                     } else {
                         console.log('Saving farm info failed!');
                     }
@@ -131,6 +153,7 @@ export default function FarmerParent() {
                 console.log('Saving farmer info failed!');
             }
         });
+
     }
 
     const selectrole = () => {

@@ -106,20 +106,7 @@ export default function FarmLand() {
 									onChange={onFarmProfileChange}
 								/>
 							}
-						</Form.Group>
-						<Form.Group className="UserDetails">
-							<Form.Label className="form_label" htmlFor="dob">Farm Type</Form.Label>
-							{!editMode ? <p>{farmProfileForm.type}</p> : 
-								<Form.Select className="form_label" id="type" value={farmProfileForm.type} onChange={onFarmProfileChange}>
-								<option>Choose</option>
-								<option value="Livestock">Livestock</option>
-								<option value="Crops">Crops</option>
-								<option value="Fruit">Fruit</option>
-								<option value="Nursery">Nursery</option>
-								</Form.Select>
-							}
-						
-						</Form.Group>					
+						</Form.Group>			
 						<Form.Group className="UserDetails">
 							<Form.Label className="form_label" htmlFor="address">Address</Form.Label>
 							{!editMode ? <p>{farmProfileForm.address}</p> : 

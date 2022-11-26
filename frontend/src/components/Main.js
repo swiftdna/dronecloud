@@ -20,14 +20,13 @@ import Contact from './Contact';
 import SelectRole from "./SelectRole";
 import FarmerInfo1 from "./FarmerInfo1";
 import FarmInfo from "./FarmInfo";
+import LandInfo from "./LandInfo";
 import PilotInfo1 from "./PilotInfo1";
 import { PilotCertificate } from "./PilotCertificate";
 import {LandOwner} from "./LandOwner";
 import {IDInfo} from "./IDInfo";
 import {UtilityBill} from "./UtilityBill";
 import {BillingInfo} from "./BillingInfo";
-import FarmInfoMap from "./FarmInfoMap";
-import FarmPlotInfo from "./FarmPlotInfo";
 import FarmerParent from "./FarmerParent";
 import {ReviewRegistration} from "./ReviewRegistration";
 import PilotParent from './PilotParent';
@@ -75,18 +74,16 @@ export function Main() {
               <Route path="/login" element={<Login />} />
                 <Route path="/SelectRole" element={<SelectRole />} />
                 <Route path="/FarmerInfo1" element={<FarmerInfo1 />} />
-                <Route path="/FarmInfo" element={<FarmInfo />} />
                 <Route path="/farminfo" element={<FarmInfo />} />
+                <Route path="/landInfo" element={<LandInfo />} />
                 <Route path="/FarmerParent" element={<FarmerParent />} />
                 <Route path="/PilotParent" element={<PilotParent />} />
-                <Route path="/FarmInfoMap" element={<FarmInfoMap />} />
                 <Route path="/LandOwner" element={<LandOwner />} />
                 <Route path="/IDInfo" element={<IDInfo />} />
                 <Route path="/UtilityBill" element={<UtilityBill />} />
                 <Route path="/BillingInfo" element={<BillingInfo />} />
                 <Route path="/PilotInfo1" element={<PilotInfo1 />} />
                 <Route path="/PilotCertificate" element={<PilotCertificate />} />
-                <Route path="/FarmPlotInfo" element={<FarmPlotInfo />} />
                 <Route path="/ReviewRegistration" element={<ReviewRegistration />} />
               <Route path="/register" element={<Register />} />
               <Route path="admin/*" element={<Admin />} />
