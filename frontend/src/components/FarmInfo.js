@@ -57,6 +57,7 @@ export default function FarmInfo({ formData, setFormData }) {
         if (isLoaded && lat && lng) {
             console.log('updating recent location');
             updateMapWithRecentLocation(parseFloat(lat), parseFloat(lng));
+            console.log(lat,lng);
         }
     }, [markers, address, lat, lng]);
 
@@ -184,16 +185,6 @@ export default function FarmInfo({ formData, setFormData }) {
                                 setFormData({ ...formData, farmname: event.target.value })
                                 }
                             />
-                        </Form.Group>
-                        <Form.Group className="UserDetails">
-                            <Form.Label className='DroneDetails'>Choose Farm Type</Form.Label>
-                            <Form.Select aria-label="Default select example" className='input_text' value={formData.farmtype} onChange={(event) => setFormData({ ...formData, farmtype: event.target.value })}>
-                                <option>Choose...</option>
-                                <option value="stock">Livestock</option>
-                                <option value="crop">Crop</option>
-                                <option value="fruit">Fruit</option>
-                                <option value="nursery">Nursery</option>
-                            </Form.Select>
                         </Form.Group>
                         <Form.Group className="UserDetails">
                             <Form.Label className='DroneDetails'>Address</Form.Label>
