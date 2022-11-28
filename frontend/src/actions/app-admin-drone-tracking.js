@@ -41,12 +41,13 @@ export function handleAdminDroneTrackingResponse(response) {
 }
 
 function fetchAdminDroneIDTrackingSuccess(id, data) {
-   const {tracking_data} = data;
+   const {tracking_data, route_data} = data;
    return {
       type: ADD_ADMIN_DRONE_ID_TRACKING,
       payload: {
          id,
-         data: tracking_data
+         data: tracking_data,
+         route_data: route_data,
       }
    }
 }

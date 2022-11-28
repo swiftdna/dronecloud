@@ -73,21 +73,21 @@ export function Main() {
             </ToastContainer>
             <Routes>
               <Route path="/login" element={<Login />} />
-                <Route path="/SelectRole" element={<SelectRole />} />
-                <Route path="/FarmerInfo1" element={<FarmerInfo1 />} />
-                <Route path="/FarmInfo" element={<FarmInfo />} />
-                <Route path="/farminfo" element={<FarmInfo />} />
-                <Route path="/FarmerParent" element={<FarmerParent />} />
-                <Route path="/PilotParent" element={<PilotParent />} />
-                <Route path="/FarmInfoMap" element={<FarmInfoMap />} />
-                <Route path="/LandOwner" element={<LandOwner />} />
-                <Route path="/IDInfo" element={<IDInfo />} />
-                <Route path="/UtilityBill" element={<UtilityBill />} />
-                <Route path="/BillingInfo" element={<BillingInfo />} />
-                <Route path="/PilotInfo1" element={<PilotInfo1 />} />
-                <Route path="/PilotCertificate" element={<PilotCertificate />} />
-                <Route path="/FarmPlotInfo" element={<FarmPlotInfo />} />
-                <Route path="/ReviewRegistration" element={<ReviewRegistration />} />
+              <Route path="/SelectRole" element={<SelectRole />} />
+              <Route path="/FarmerInfo1" element={<FarmerInfo1 />} />
+              <Route path="/FarmInfo" element={<FarmInfo />} />
+              <Route path="/farminfo" element={<FarmInfo />} />
+              <Route path="/FarmerParent" element={<FarmerParent />} />
+              <Route path="/PilotParent" element={<PilotParent />} />
+              <Route path="/FarmInfoMap" element={<FarmInfoMap />} />
+              <Route path="/LandOwner" element={<LandOwner />} />
+              <Route path="/IDInfo" element={<IDInfo />} />
+              <Route path="/UtilityBill" element={<UtilityBill />} />
+              <Route path="/BillingInfo" element={<BillingInfo />} />
+              <Route path="/PilotInfo1" element={<PilotInfo1 />} />
+              <Route path="/PilotCertificate" element={<PilotCertificate />} />
+              <Route path="/FarmPlotInfo" element={<FarmPlotInfo />} />
+              <Route path="/ReviewRegistration" element={<ReviewRegistration />} />
               <Route path="/register" element={<Register />} />
               <Route path="admin/*" element={<Admin />} />
               <Route path="/*" element={<LandingPage />} />

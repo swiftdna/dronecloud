@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -14,6 +14,11 @@ function Navbar() {
     const dispatch = useDispatch();
     const location = useLocation();
 
+    useEffect(() => {
+        if (!isAuthenticated) {
+            navigate('/');
+        }
+    }, [isAuthenticated])
 
     const getActiveClass = (currPath) => {
         return currPath === location.pathname ? "btn btn-light nav-buttons active" : "btn btn-light nav-buttons";
@@ -57,10 +62,10 @@ function Navbar() {
                         isAuthenticated && (
                             <>
                                 {/* <FaList className="nav-buttons" title="Purchases" size="3em" onClick={() => purchases()}/> 
-                                    <FaUserAlt className="nav-buttons" title="Profile" size="3em" onClick={() => profile()}/> */}
+                                    <FaUserAlt className="nav-buttons" title="Profile" size="3em" onClick={() => profile()}/> 
                                     <button type="button" className={getActiveClass('/')} title="Home" onClick={() => home()}>Home</button>
                                     <button type="button" className={getActiveClass('/contact')} title="Contact" onClick={() => contact()}>Contact</button>
-                                    <button type="button" className={getActiveClass('/profile')} title="Profile" onClick={() => profile()}>Profile</button>
+                                    <button type="button" className={getActiveClass('/profile')} title="Profile" onClick={() => profile()}>Profile</button>*/}
                             </>)
                     }
                 </div>

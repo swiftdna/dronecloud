@@ -12,7 +12,8 @@ import {
 const initialState = {
   loading: false,
   data: [],
-  tracking: [],
+  tracking: {},
+  routepath: {},
   trackingLoading: false,
   trackingError: false,
   trackingErrorMessage: '',
@@ -47,6 +48,10 @@ export default function appReducer(state = initialState, action) {
         tracking: {
           ...state.tracking,
           [action.payload.id]: action.payload.data
+        },
+        routepath: {
+          ...state.tracking,
+          [action.payload.id]: action.payload.route_data
         }
       }
     }
@@ -60,6 +65,10 @@ export default function appReducer(state = initialState, action) {
       return {
         ...state,
         tracking: {
+          ...state.tracking,
+          [action.payload.id]: []
+        },
+        routepath: {
           ...state.tracking,
           [action.payload.id]: []
         }

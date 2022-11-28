@@ -15,6 +15,7 @@ function DroneFleetTracking() {
     const dispatch = useDispatch();
     const [indDrone, setIndDrone] = useState(null);
     const [indDronePaths, setIndDronePaths] = useState([]);
+    const [indDroneRPaths, setIndDroneRPaths] = useState([]);
     const isLoggedIn = useSelector(selectIsLoggedIn);
     const [map, setMap] = React.useState(null);
     const [searchBox, setSearchBox] = React.useState(null);
@@ -25,6 +26,7 @@ function DroneFleetTracking() {
     const tloading = useSelector((state) => state.admindronetracking.trackingLoading);
     const drones = useSelector((state) => state.admindronetracking.data);
     const trackingMap = useSelector((state) => state.admindronetracking.tracking);
+    const routeMap = useSelector((state) => state.admindronetracking.routepath);
     const userObj = useSelector(selectUser);
     const navigate = useNavigate();
     const userLandedPage = useLocation();
@@ -47,6 +49,11 @@ function DroneFleetTracking() {
                 setIndDronePaths(trackingMap[indDrone.id]);
             } else {
                 setIndDronePaths([]);
+            }
+            if (routeMap[indDrone.id] && routeMap[indDrone.id].length) {
+                setIndDroneRPaths(routeMap[indDrone.id]);
+            } else {
+                setIndDroneRPaths([]);
             }
         }
     }, [indDrone, tloading]);
@@ -272,7 +279,7 @@ function DroneFleetTracking() {
                             <p>Service Type: {indDrone.service_type}</p>
                         </Col>
                         {!tloading && indDronePaths && indDronePaths.length  ? <LiveTracking 
-                            paths={indDronePaths}
+                            paths={indDronePaths} routepaths={indDroneRPaths}
                         /> : <p>No drone paths to display in the map</p>}
                     </Row>
                 </div> : <div style={{ height: '670px', width: '100%', marginTop: '10px' }}>
