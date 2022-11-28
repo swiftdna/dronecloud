@@ -45,16 +45,16 @@ function DroneCatalog() {
         navigate("/admin/addDrone");
     };
     const filterDroneDetails=(filtervalue)=>{
-      setDrones(unfilteredDrones);
+    
      
-     const filteredDrones = drones?.filter((drone) =>(parseInt(drone.price) <= parseInt(filtervalue)));
+     const filteredDrones = unfilteredDrones?.filter((drone) =>(parseInt(drone.price) <= parseInt(filtervalue)));
       setDrones(filteredDrones);
       
 
     }
     const filterStatus=(statusFilter)=>{
-      setDrones(unfilteredDrones);
-      const filterStatus=drones?.filter((drone)=>(drone.status===statusFilter));
+    
+      const filterStatus=unfilteredDrones?.filter((drone)=>(drone.status===statusFilter));
       setDrones(filterStatus);
 
     }
@@ -69,9 +69,9 @@ function DroneCatalog() {
                     <Col xs={7}>
                         {/* <p style={{marginTop:"10px"}} className="heading-dronecatalog">3-axis gimble</p> */}
                         <p className="heading-dronecatalog">Cam {drone.camera}</p>
-                        <p className="heading-dronecatalog">30m flight time</p>
-                        <p className="heading-dronecatalog">8 m/s flight speed</p>
-                        <p className="heading-dronecatalog">249 grams</p>
+                        <p className="heading-dronecatalog">{drone.time} minutes</p>
+                        <p className="heading-dronecatalog">{drone.speed} m/s</p>
+                        <p className="heading-dronecatalog">{drone.weight} grams</p>
                         <div style={{display:"inline"}}>
                             <h5 style={{float:"left", fontSize: '16px'}}>${drone.price} <span className="hr_rates">/ hour</span></h5>
                         </div>
@@ -111,8 +111,10 @@ function DroneCatalog() {
               <br></br>
             </div>
           </div>
-          <div className="heading-dronecatalog" style={{marginTop:"20px", marginBottom:"20px",lineHeight:"12px"}}>{drones.length} drones found</div> {!drones.length ? <div style={{ display: 'fl  ex', height: '300px', justifyContent: 'center', alignItems: 'center' }}>
-            <h2>No post yet...</h2>
+          <div className="heading-dronecatalog" style={{marginTop:"20px", marginBottom:"20px",lineHeight:"12px"}}>{drones.length} drones found</div> 
+          <br></br>
+          {!drones.length ? <div style={{ display: 'flex', height: '300px', width:'1000px',justifyContent: 'center', alignItems: 'center' }}>
+            <h2 style={{width:"1000px",height:"12px"}}> </h2>
           </div> : <div className="col-md-15">
                 <div className="row">
                     {renderCards}
