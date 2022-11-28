@@ -12,20 +12,24 @@ module.exports = function(sequelize, Sequelize) {
                 key: 'id'
             }
         },
-        type: {
-            type: Sequelize.TEXT
+        nameoncard: {
+            type: Sequelize.STRING
         },
-        vendor: {
-            type: Sequelize.TEXT
-        },
-        value: {
-            type: Sequelize.TEXT
+
+        cardnumber: {
+            type: Sequelize.INTEGER
         },
         expiry_month: {
-            type: Sequelize.STRING
+            type: Sequelize.INTEGER
         },
         expiry_year: {
-            type: Sequelize.STRING
+            type: Sequelize.INTEGER
+        },
+        cvv: {
+            type: Sequelize.INTEGER
+        },
+        status: {
+            type: Sequelize.TEXT
         }
     });
     return CardDetail;

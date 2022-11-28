@@ -16,19 +16,20 @@ function MyBookings() {
     const user_id = useSelector((store) => store.app.user.id);
 const user_name = useSelector((store) => store.app.user.name);
     useEffect(() => {
-        axios.post(`/api/userbookings`,{
-            id:user_id
-        })
-        .then(response => {
-          console.log("donrappppi------------",response.data.data)
-          setAllBookingsList(response.data.data)
-        });
+        if (isLoggedIn && user_id) {
+            axios.post(`/api/userbookings`,{
+                id:user_id
+            })
+            .then(response => {
+              setAllBookingsList(response.data.data)
+            });
+        }
     }, [isLoggedIn]);
     
 
     return(
         <div>
-          <h3>Welcome Sravya!</h3><img src="avatar.jpeg" alt="Avatar" style={{width:"200px",borderRadius: "50%",marginLeft:"628px",marginTop:"-77"}}/>
+          <h3>Welcome Smith!</h3><img src="avatar.jpeg" alt="Avatar" style={{width:"200px",borderRadius: "50%",marginLeft:"628px",marginTop:"-77"}}/>
 
         <div className="container main-frame fill-page">    
 

@@ -37,9 +37,9 @@ app.use('/api', routes);
 COREAPP = {};
 //Sync Database
 
-connect().then(() => {
-  console.log('MongoDB setup complete!');
-});
+// connect().then(() => {
+//   console.log('MongoDB setup complete!');
+// });
 
 // mysqlConnect().then(() => {
 const models = require("./models");
@@ -65,7 +65,7 @@ app.post('/signin', (req, res, next) => {
     } else {
       req.login(user, error => {
         if (error) return next(error);
-        const userObj = {email: user.email, id: user.id, username: user.username};
+        const userObj = {email: user.email, id: user.id, username: user.username, role: user.role, status: user.status};
         const token = jwt.sign(userObj, jwtSecret.secret);
         res.cookie('dc_token', token, { httpOnly: true });
         res.json({ info, success: true, isAuthenticated: true, user: userObj, token });

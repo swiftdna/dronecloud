@@ -2,7 +2,7 @@ import { profileLoading, handleProfilesResponse } from './actions/app-profile';
 import { handleLoginResponse, setToast, handleCountriesResponse } from './actions/app-actions';
 import { droneMgmtLoading, handleDroneMgmtResponse, pendingDronesLoading, handlePendingDronesResponse } from './actions/app-drones-mgmt';
 import { adminDroneTrackingLoading, handleAdminDroneTrackingResponse, adminDroneIDTrackingLoading, handleAdminDroneIDTrackingResponse } from './actions/app-admin-drone-tracking';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
 
@@ -17,8 +17,26 @@ export function login(dispatch, data) {
                 // navigate('login');
             } else {
                 console.log('Login failure');
+                dispatch(setToast({
+                    type: 'failure',
+                    message: 'Invalid Credentials!'
+                }));
             }
         });
+}
+
+export function incompleteFields(dispatch) {
+    // console.log('entered app-actions');
+    dispatch(setToast({
+        type: 'incomplete',
+        message: 'Please fill out all fields'
+    }));
+}
+export function emailValidation(dispatch) {
+    dispatch(setToast({
+        type: 'failure',
+        message: 'Invalid email format'
+    }));
 }
 
 export function fetchProfile(dispatch, userObj) {
@@ -30,9 +48,18 @@ export function fetchProfile(dispatch, userObj) {
         });
 }
 
+export function fetchFarm(dispatch, farmObj) {
+    const {id: userID} = farmObj;
+    dispatch(profileLoading());
+    axios.get(`/api/farms/profile/${userID}`)
+        .then(response => {
+            dispatch(handleProfilesResponse(response));
+        });
+}
+
 export function getAdminDroneList(dispatch) {
     dispatch(adminDroneTrackingLoading());
-    axios.get(`/api/tracking/drones`)
+    axios.get(`/api/tracking/drones?status=available,booked,deployed`)
         .then(response => {
             dispatch(handleAdminDroneTrackingResponse(response));
         });
@@ -127,6 +154,77 @@ export function updateProfile(dispatch, params, callback) {
         });
 }
 
+export function addFarm(dispatch, params, callback) {
+    if (params.id)
+        delete params.id;
+    axios.post(`/api/farms`, params)
+        .then(response => {
+            const {data} = response;
+            if (data.success) {
+                return callback(null, true);
+            } else {
+                return callback(true);
+            }
+        });
+}
+
+export function addPlot(dispatch, params, callback) {
+    if (params.id)
+        delete params.id;
+    axios.post(`/api/plot`, params)
+        .then(response => {
+            const {data} = response;
+            if (data.success) {
+                return callback(null, true);
+            } else {
+                return callback(true);
+            }
+        });
+}
+
+export function addPilotInfo(dispatch, params, callback) {
+    if (params.id)
+        delete params.id;
+    axios.post(`/api/pilot`, params)
+        .then(response => {
+            const {data} = response;
+            if (data.success) {
+                return callback(null, true);
+            } else {
+                return callback(true);
+            }
+        });
+}
+
+export function addPayment(dispatch, params, callback) {
+    if (params.id)
+        delete params.id;
+    axios.post(`/api/payment`, params)
+        .then(response => {
+            const {data} = response;
+            if (data.success) {
+                return callback(null, true);
+            } else {
+                return callback(true);
+            }
+        });
+}
+
+
+export function farmOwnerInfo(dispatch, params, callback) {
+    if (params.id)
+        delete params.id;
+    axios.post(`/api/farms/owner`, params)
+        .then(response => {
+            const {data} = response;
+            if (data.success) {
+                return callback(null, true);
+            } else {
+                return callback(true);
+            }
+        });
+}
+
 export function register(dispatch, data, callback) {
     // const navigate = useNavigate();
     // dispatch(profileLoading());
@@ -138,8 +236,15 @@ export function register(dispatch, data, callback) {
                 return callback(null, true);
                 // navigate('login');
             } else {
+                const msg = data.message.message; 
+                // console.log(data.message.message);
+                if (msg == "That username is already taken") {
+                    dispatch(setToast({
+                        type: 'failure',
+                        message: 'That username is already taken'
+                    }));
+                }
                 return callback(true);
-                console.log('Registration failure');
             }
         });
 }
@@ -153,6 +258,19 @@ export function checkSession(dispatch) {
             // console.log(err.message);
         });
 }
+
+export function fetchSession(dispatch, callback) {
+    axios.get('/api/session')
+        .then(response => {
+            dispatch(handleLoginResponse(response));
+            return callback(null, true);
+        })
+        .catch(err => {
+            // console.log(err.message);
+            return callback(true);
+        });
+}
+
 
 export function uploadImageToCloud(file) {
     const formData = new FormData()

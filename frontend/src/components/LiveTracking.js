@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { GoogleMap, useJsApiLoader, Polyline } from '@react-google-maps/api';
 
+const libraries = ["drawing", "places", "geometry"];
+
 function LiveTracker(props) {
     const [map, setMap] = useState(null);
     const [routePaths, setRoutePaths] = useState([]);
@@ -14,12 +16,15 @@ function LiveTracker(props) {
 
 	const containerStyle = {
       width: '100%',
-      height: '490px'
+      height: '490px',
+      marginTop: '20px',
+      marginBottom: '40px'
     };
 
 	const { isLoaded } = useJsApiLoader({
 	    id: 'google-map-script',
-	    googleMapsApiKey: "AIzaSyDAY3yhqc24s5SpDcxRXTnObJXbQTBwtV4"
+	    googleMapsApiKey: "AIzaSyDAY3yhqc24s5SpDcxRXTnObJXbQTBwtV4",
+	    libraries
 	});
 
 	const onLoad = React.useCallback(function callback(map) {
@@ -48,10 +53,8 @@ function LiveTracker(props) {
 	};
 
 	const onPolyLineLoad = polyline => {
-	  console.log('polyline: ', polyline)
 	  const bounds = new window.google.maps.LatLngBounds();
 	  routePaths.forEach(path => {
-	  	console.log('extending - ', path);
 		bounds.extend(path);
 	  })
 	  map.fitBounds(bounds);
