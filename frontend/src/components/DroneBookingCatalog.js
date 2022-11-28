@@ -234,11 +234,8 @@ console.log(fromdate.toString().substring(4,15),selectedDroneid)
                     secondAriaLabel="Second"
                     value={todate}
                     yearAriaLabel="Year" />
-<<<<<<< HEAD
               
               </ul>
-=======
->>>>>>> 9073f3acd869e66c64492b9054607204d76a9eb1
               <div className="gobutton">
                 <button class="button button2" onClick={filterSubmit} style = {{padding: "10px",marginLeft:"51px",width:"74"}}> Go</button>
                 </div>
