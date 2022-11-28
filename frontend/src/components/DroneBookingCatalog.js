@@ -246,7 +246,7 @@ console.log(fromdate.toString().substring(4,15),selectedDroneid)
 
 
 
-        <div className="drones_list">
+        <div className="drones_list-booking">
                 {allitemslist && allitemslist.length&&allitemslist.map(drone => 
                     <Card style={{ width: '13rem' }}  className={selectedDroneid === drone.id ? "selected" : ""} onClick={() => selectDrone(drone)} >
                       <Card.Body>
