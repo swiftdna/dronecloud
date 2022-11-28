@@ -125,6 +125,11 @@ const getDroneLastSeenLocations = async (req, res, next) => {
                 lng: lastSeenLocationDataMap[dataCleansed[i].id].longitude,
                 alt: lastSeenLocationDataMap[dataCleansed[i].id].altitude,
             }
+            // change location for 14551 drone
+            if (dataCleansed[i].id === 14551) {
+                dataCleansed[i].last_seen.lat = 37.9283819; 
+                dataCleansed[i].last_seen.lng = -122.3681118; 
+            }
         } else {
             dataCleansed[i].last_seen = {};
         }

@@ -6,7 +6,7 @@ const { handleBookingSchedule } = require('./modules/Scheduler');
 const { getDronePaths, registerDrone, deleteDrone, getAllDrones, getDroneLastSeenLocations, getDroneLastSeenLocationsOld } = require('./modules/SimulatorInteraction');
 const { getFarms, addFarm, addOwner } = require('./modules/Farms');
 const {addDrone,getDrone,getSingleDrone,updateDrone} =require('./modules/DroneCatalog');
-const { getDrones, filterDroneDetails, registerUAV, deregisterUAV, getAvailableDrones, FarmUserDroneDetails,PilotAvailability, getFarmLands } = require('./modules/Drones');
+const { getDrones, filterDroneDetails, registerUAV, deregisterUAV, getAvailableDrones, FarmUserDroneDetails,PilotAvailability, getFarmLands, getExpectedPath } = require('./modules/Drones');
 const { BookingDroneDetails, getUserBookings } = require('./modules/Booking');
 const { addPayment } = require('./modules/Payment');
 const { addPilotInfo } = require('./modules/Pilot');
@@ -59,7 +59,7 @@ router.post('/userbookings', isLoggedIn,getUserBookings, pusher);
 router.post('/farmlands', isLoggedIn,getFarmLands, pusher);
 
 
-router.get('/tracking/drones/:id', isLoggedIn, getDronePaths, pusher);
+router.get('/tracking/drones/:id', isLoggedIn, getDronePaths, getExpectedPath, pusher);
 router.get('/tracking/drones', isLoggedIn, getDrones, getDroneLastSeenLocations, pusher);
 
 router.get('/ext/drones', isLoggedIn, getAllDrones, getDroneLastSeenLocationsOld, pusher);

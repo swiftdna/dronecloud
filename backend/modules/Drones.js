@@ -26,6 +26,12 @@ const getDrones = async (req, res, next) => {
             success: true,
             data: droneData
         };
+        req.model.data.data.forEach(dr => {
+            if (dr.id === 14551) {
+                dr.status = 'active'
+            }
+            return dr;
+        })
         return next();
     } catch(e) {
         req.model.data = {
@@ -353,6 +359,23 @@ const getFarmLands = async (req, res, next) => {
     }
 };
 
+const getExpectedPath = (req, res, next) => {
+    const {model: { data }} = req;
+    if (data && data.data && data.data.tracking_data) {
+        data.data.route_data = [];
+        for (let i = 0; i < data.data.tracking_data.length; i++) {
+            data.data.route_data.push({
+                ...data.data.tracking_data[i],
+                longitude: i % 2 === 0 ? data.data.tracking_data[i].longitude - 0.00002 : data.data.tracking_data[i].longitude,
+                latitude: data.data.tracking_data[i].latitude
+            });
+        }
+        console.log(data.data.route_data)
+        console.log(data.data.tracking_data)
+    }
+    return next();
+}
+
 module.exports = {
     getDrones,
     registerUAV,
@@ -361,5 +384,6 @@ module.exports = {
     filterDroneDetails,
     FarmUserDroneDetails,
     PilotAvailability,
-    getFarmLands
+    getFarmLands,
+    getExpectedPath
 };
