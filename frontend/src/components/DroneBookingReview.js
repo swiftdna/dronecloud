@@ -78,6 +78,7 @@ export default function DroneBookingReview() {
         console.log("dissspay",fromdate,todate,service,price,equipment,manufacturer,farmtype,farmland,farmid,allpilotlist.id)
         dispatch(
           bookdrone({
+          id:id,
           from:fromdate,
           to:todate,
           service:service,

@@ -134,9 +134,9 @@ export default function BookDrone() {
                         <select name="brand" className="form-select" id="brand" onChange={(event) => {
             setSelectedFarmLandID(event.target.value);
           }} >
-                            <option>Select Land</option>
+                            <option>Select Land ID</option>
                             {allfarmlands && allfarmlands.map(land => 
-                            <option >{land.name}</option>
+                            <option >{land.id}</option>
                             
                             )}
                         </select>

@@ -373,7 +373,7 @@ const getFarmLands = async (req, res, next) => {
     console.log("@@@@@@@@@@@@@@@@@",req.body.userid)
 
     try {
-        const landbyuser = await Farm.findAll({
+        const landbyuser = await Land.findAll({
             where:{
                user_id: req.body.userid
             }, 

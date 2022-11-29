@@ -4,12 +4,12 @@ const Op = sequelize.Op;
 const BookingDroneDetails = async (req, res, next) => {
     const { models: { booking: Booking } } = COREAPP;
     const { internal } = req;
-    console.log(req.body)
+    console.log("bboboooking",req.body)
     try {
         const bookingData = await Booking.create({
             user_id:req.body.user_id,
-            drone_id:req.body.drone_id,
-            land_id:req.body.land_id,
+            drone_id:parseInt(req.body.drone_id),
+            land_id: parseInt(req.body.land_id),
             farm_id:req.body.farm_id,
             pilot_id:req.body.pilot_id,
             start_date:req.body.start_date,
