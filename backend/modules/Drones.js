@@ -72,11 +72,14 @@ const filterDroneDetails = async (req, res, next) => {
 const FarmUserDroneDetails = async (req, res, next) => {
     const { models: {farm : Farm } } = COREAPP;
     try {
-        console.log("@@@@@@@@@@@@@@@@@",req.body)
+        console.log("@@@@@@@@@@@@@@@@@",req.body.userid)
 		// const bookingData = await Booking.findAll({
         //  raw:true
 		// });
         const droneFarm = await Farm.findAll({
+            where:{
+                user_id:req.body.userid
+            }, 
             raw:true
 		});
         console.log("dorne",droneFarm)
@@ -365,20 +368,38 @@ const PilotAvailability = async (req, res, next) => {
     }
 };
 const getFarmLands = async (req, res, next) => {
-    const { models: { land: Land } } = COREAPP;
-    console.log("@@@@@@@@@@@@@@@@@",req.body)
+    const { models: { land: Land,farm:Farm } } = COREAPP;
+    
+    console.log("@@@@@@@@@@@@@@@@@",req.body.userid)
 
     try {
-        console.log("@@@@@@@@@@@@@@@@@",req.body)
-		const farmland = await Land.findAll({
+        const landbyuser = await Farm.findAll({
             where:{
-                farm_id:req.body.id
+               user_id: req.body.userid
             }, 
             raw: true
 		});
+		// const farmland = await Land.findAll({
+        //     where:{
+                
+        //     }, 
+        //     raw: true
+		// });
         req.model = {};
-        req.model.data = farmland;
+        req.model.data = landbyuser;
         console.log("mode;",req.model.data)
+        const AllfarmIDbyuser = _.pluck(req.model.data , 'id');
+        console.log("mode;",AllfarmIDbyuser)
+        const landidbyfarm = await Land.findAll({
+            where:{
+                farm_id: {
+                    [Op.in]: AllfarmIDbyuser
+                  }
+            }, 
+            raw: true
+		});
+        console.log("mode;",landidbyfarm)
+
         return next();
     }
     catch {

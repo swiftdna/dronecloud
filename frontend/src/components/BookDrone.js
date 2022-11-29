@@ -45,6 +45,8 @@ export default function BookDrone() {
   const userid = useSelector((store) =>store.app.user.id);
   const [allitemslist,setAllItemsList] = useState([]);
   const [allfarmlands,setFarmLandList] = useState([]);
+  const [allfarmids,setFarmIDs] = useState([]);
+
   const [selectedFarmtype, setSelectedFarmtype] = useState("");  
   const [selectedFarmID, setSelectedFarmID] = useState("");  
   const [selectedfarmname, setSelectedFarmName] = useState("");  
@@ -58,6 +60,8 @@ export default function BookDrone() {
   const selectFarm = (farm) => {
     
     console.log("&&&&&&&&&&&&",farm.type)
+    console.log("&&&&&&&&&&&&",farm)
+
     setSelectedFarmtype(farm.type)
     setSelectedFarmID(farm.id)
     setSelectedFarmName(farm.name)
@@ -67,11 +71,13 @@ export default function BookDrone() {
         farmtype:farm.type,
       }))
       axios.post(`/api/farmlands`,{
-        id:farm.id
+        userid:userid,
       })
       .then(response => {
         console.log("farmssslandss------------",response.data)
         setFarmLandList(response.data)
+
+       
       });
       console.log(selectedfarmimage)
   }
@@ -79,13 +85,19 @@ export default function BookDrone() {
   
   useEffect( () => {
     
-    axios.post(`/api/farmuser`)
+    axios.post(`/api/farmuser`,{
+      userid:userid
+    })
       .then(response => {
-        console.log("donrappppi------------",response.data.data)
+        console.log("donrappppi------------",response.data.data,response.data.data.length)
         setAllItemsList(response.data.data)
+        
+        
+
+        
       });
   } , [isLoggedIn]);
-    console.log()
+    console.log("###",allfarmlands)
     const dispatch = useDispatch();
     const [droneid, setDroneid] = useState('');
     const [dronename, setDronename] = useState('');
