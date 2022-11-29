@@ -12,13 +12,13 @@ module.exports = function(sequelize, Sequelize) {
                 key: 'id'
             }
         },
-        // farm_id: {
-        //     type: Sequelize.INTEGER,
-        //     references: {
-        //         model: 'farms',
-        //         key: 'id'
-        //     }
-        // },
+        farm_id: {
+            type: Sequelize.INTEGER,
+            references: {
+                model: 'farms',
+                key: 'id'
+            }
+        },
         name: {
             type: Sequelize.TEXT
         },
