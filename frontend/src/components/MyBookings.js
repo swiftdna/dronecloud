@@ -14,7 +14,8 @@ function MyBookings() {
     const userLandedPage = useLocation();
     const [allbookingslist,setAllBookingsList] = useState([]);
     const user_id = useSelector((store) => store.app.user.id);
-const user_name = useSelector((store) => store.app.user.name);
+    const username = useSelector((store) =>store.app.user.username);
+    console.log( username)
     useEffect(() => {
         if (isLoggedIn && user_id) {
             axios.post(`/api/userbookings`,{
@@ -29,7 +30,7 @@ const user_name = useSelector((store) => store.app.user.name);
 
     return(
         <div>
-          <h3>Welcome Smith!</h3><img src="avatar.jpeg" alt="Avatar" style={{width:"200px",borderRadius: "50%",marginLeft:"628px",marginTop:"-77"}}/>
+          <h3>Welcome {username}!</h3><img src="avatar.jpeg" alt="Avatar" style={{width:"200px",borderRadius: "50%",marginLeft:"628px",marginTop:"-77"}}/>
 
         <div className="container main-frame fill-page">    
 
