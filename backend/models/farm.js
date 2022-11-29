@@ -47,7 +47,10 @@ module.exports = function(sequelize, Sequelize) {
         },
         status: {
             type: Sequelize.TEXT
-        }
+        },
+        type: {
+            type: Sequelize.TEXT
+        },
 
     });
     return Farm;

@@ -68,11 +68,14 @@ export default function DroneBookingSelected() {
   //     }))}, []);
   return (
     <div>
-           <img src="Step3.png"width="300" height="50" />
-           <h3>Step 3: Selected Drone
+      <div style={{marginLeft:"233px" }}>
+      <img src="Step3.png"width="300" height="50"  />
+      </div>
+         
+           <h3 style={{ marginLeft:"229px" }}>Step 3: Selected Drone
            </h3>
-      This is your selected drone<br></br><br></br>
-      <Card style={{ width:'43rem',height:'205px',marginLeft:'83px' }}  >
+     <p style={{ marginLeft:"229px" }}>This is your selected drone</p>
+      <Card style={{ width:'43rem',height:'205px',marginLeft:"233px" }}  >
                       <Card.Body >
                         <Card.Title style={{ marginLeft:"250px"}}  >Drone Information</Card.Title>
                         <Card.Subtitle className="mb-2 text-muted">   <button style={{ backgroundColor: "#4CAF50",borderRadius:"10px",border:" none",height:"43",width:"219",color:"white",marginLeft:"4px"}}>Selected </button></Card.Subtitle>
@@ -100,7 +103,7 @@ export default function DroneBookingSelected() {
                       Location:
                       <Card.Subtitle className="mb-2 text-muted"> 3433 West street road, Santa Clara, 998989</Card.Subtitle>
                      
-                    </Card><br></br>
+                    </Card><br></br><br></br>
          
            <div className="navigation">
             <ul>

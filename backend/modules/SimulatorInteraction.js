@@ -1,6 +1,7 @@
 const host = 'http://ec2-52-203-10-77.compute-1.amazonaws.com';
 const { makeHTTPRequest } = require('./ExtCall');
 const _ = require('underscore');
+const drone = require('../models/drone');
 
 const registerDrone = async (req, res, next) => {
     const { body, internal } = req;
@@ -18,6 +19,62 @@ const registerDrone = async (req, res, next) => {
     req.model.data = {success: true, data: result};
     return next();
 };
+const flysimulatorbooking = async (req, res, next) => {
+    const { body, internal } = req;
+    console.log(body,internal)
+    const path = `/flight_data_collect/fly-simulation/`;
+    const httpParams = {
+        host,
+        path,
+        method: 'POST',
+        form: body
+    };
+    const result = await makeHTTPRequest(httpParams);
+    if (internal) {
+        return result;
+    }
+    req.model.data = {success: true, data: result};
+    return next();
+};
+const checkdronestatus = async (params) => {
+    const {droneid,serviceid } = params;
+    const { models: { booking: Booking } } = COREAPP;
+
+    const path = `/flight_data_collect/get-service-status-by-service/${droneid}/${serviceid}/`;
+    console.log(path)
+    const httpParams = {
+        host,
+        path,
+        method: 'GET',
+    };
+
+    const result = await makeHTTPRequest(httpParams);
+
+console.log("%%%%%%$$$$$$$$$$$$$$$$$",result.simulated_drone_status)
+ 
+   if (result && result.simulated_drone_status){
+    try {
+        const bookingData = await Booking.update(
+            { 
+                status:result.simulated_drone_status,
+            },
+            //{ where: { drone_id:droneid } }
+            { where: { drone_id:14572 } }
+
+        );
+       console.log(bookingData,"$$$$$$")
+    }
+    catch(e) {
+        console.log('error for drones data',e.message);
+    }
+   }
+   
+
+
+
+    return result;
+};
+
 
 const updateDrone = async (params) => {
     // TODO: Implement
@@ -144,5 +201,7 @@ module.exports = {
     getDronePaths,
     getAllDrones,
     getDroneLastSeenLocations,
-    getDroneLastSeenLocationsOld
+    getDroneLastSeenLocationsOld,
+    flysimulatorbooking,
+    checkdronestatus
 };

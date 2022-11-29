@@ -70,7 +70,9 @@ select::-ms-expand {
     transition: .25s all ease;
 }
 .navigation{
-    padding:20px;
+    padding: 21px;
+    margin-left: 125px;
+
 }
 .navigationbutton{
     float: left;

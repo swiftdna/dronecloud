@@ -409,6 +409,18 @@
     height: 217px;
 
 }
+.dc-default .drones_list-booking {
+	
+	
+	display: flex;
+	
+	justify-content: space-between;
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; 
+	width: 1000px;
+	height:150px;
+}
+
 
 .dc-default .drones_list {
 	width: inherit;
@@ -418,8 +430,10 @@
 	position: relative;
 	overflow-x: scroll;
 	overflow-y: hidden;
-	-ms-overflow-style: none; /* IE and Edge */
-	scrollbar-width: none; /* Firefox */
+	-ms-overflow-style: none; 
+	scrollbar-width: none; 
+	
+	
 }
 
 .dc-default .drones_list::-webkit-scrollbar {

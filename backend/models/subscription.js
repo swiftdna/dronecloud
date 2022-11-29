@@ -5,13 +5,6 @@ module.exports = function(sequelize, Sequelize) {
             primaryKey: true,
             type: Sequelize.INTEGER
         },
-        billing_id: {
-            type: Sequelize.INTEGER,
-            references: {
-                model: 'billings',
-                key: 'id'
-            }
-        },
         user_id: {
             type: Sequelize.INTEGER,
             references: {

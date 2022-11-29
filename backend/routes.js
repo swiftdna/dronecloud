@@ -40,6 +40,9 @@ router.post('/farmuser', isLoggedIn, FarmUserDroneDetails, pusher);
 router.get('/users/:user_id', isLoggedIn, getUserDetails);
 router.put('/users/profile', isLoggedIn, updateUserDetails);
 
+router.post('/drone/filter', isLoggedIn, filterDroneDetails, pusher);
+router.get('/drones', isLoggedIn, getDrones, pusher);
+router.post('/pilotfilter', PilotAvailability, pusher);
 router.post('/farms', isLoggedIn, addFarm, pusher);
 router.get('/farms', isLoggedIn, getFarms, pusher);
 router.put('/farms/profile', isLoggedIn, updateFarmDetails, pusher);
