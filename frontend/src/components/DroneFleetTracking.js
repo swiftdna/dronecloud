@@ -59,7 +59,7 @@ function DroneFleetTracking() {
 
     const containerStyle = {
       width: '100%',
-      height: '640px'
+      height: '600px'
     };
 
     const center = {
@@ -84,7 +84,6 @@ function DroneFleetTracking() {
                 lat: drones[i].last_seen.lat,
                 lng: drones[i].last_seen.lng
             };
-            console.log('path --> ', path);
             bounds.extend(path);
         }
         // map.setOptions({ maxZoom: 8 });
@@ -175,9 +174,11 @@ function DroneFleetTracking() {
 
     return(
         <div className="container">
-            <h4>Service cloud Dashboard</h4>
+            <h2>Service cloud Dashboard</h2>
+            <p style={{color: '#7c7c7c'}}>Track deployed drones on this screen</p>
             {!loading && searchedName && proximityDrones ? proximityDrones.length ? <p>{proximityDrones.length} drones found</p> : <p>No drones found</p> : ''}
-            {!loading && !searchedName && drones ? <p>{drones.length} drones found</p> : ''}
+            {!loading && !searchedName && drones && drones.length? <p>{drones.length} drones found</p> : ''}
+            {!loading && !searchedName && drones && !drones.length? <p>No drones found. A drone must be registered and used through bookings to be show up here.</p> : ''}
             <div className="drones_list">
                 {loading ? <Spinner animation="border" role="status">
                   <span className="visually-hidden">Loading...</span>
@@ -219,7 +220,7 @@ function DroneFleetTracking() {
                 </Card>
                 ) : ''}
             </div>
-            {indDrone && indDrone.id ? '' : <Row>
+            {indDrone && indDrone.id ? '' : !loading && ((proximityDrones && proximityDrones.length) || (drones && drones.length)) ? <Row>
             <Col xs={6} className="search_helper">Showing drones within <span className="dist">{withIn}</span> miles {searchedName ? `of ${searchedName}` : ''}</Col>
             <Col xs={3} className="search_helper"></Col>
             <Col xs={3}>
@@ -254,7 +255,7 @@ function DroneFleetTracking() {
                     </div> : ''
                 }
             </Col>
-            </Row>}
+            </Row> : ''}
             {indDrone && indDrone.id ? <div className="drone_details">
                     <div style={{float: 'right'}}><MdOutlineClose size={40} style={{cursor: 'pointer'}} onClick={() => closeDetailedDroneView()} /></div>
                     <h4>Drone ID #{indDrone.id}</h4>
@@ -276,13 +277,13 @@ function DroneFleetTracking() {
                         /> : <p>No drone paths to display in the map</p>}
                     </Row>
                 </div> : <div style={{ height: '670px', width: '100%', marginTop: '10px' }}>
-                {isLoaded ? <GoogleMap
+                {isLoaded && !loading && ((proximityDrones && proximityDrones.length) || (drones && drones.length)) ? <GoogleMap
                     mapContainerStyle={containerStyle}
                     center={center}
                     onLoad={onLoad}
                     onUnmount={onUnmount}
                   >
-                  {!loading && searchedName && proximityDrones && proximityDrones.length && proximityDrones.map(drone => 
+                  {searchedName && proximityDrones && proximityDrones.length && proximityDrones.map(drone => 
                     drone.last_seen && drone.last_seen.lat ? <Marker
                       lat={drone.last_seen.lat}
                       lng={drone.last_seen.lng}
@@ -290,7 +291,7 @@ function DroneFleetTracking() {
                     /> : ''
                     )
                   }
-                  {!loading && !searchedName && drones && drones.length && drones.map(drone => 
+                  {!searchedName && drones && drones.length && drones.map(drone => 
                     drone.last_seen && drone.last_seen.lat ? <Marker
                       lat={drone.last_seen.lat}
                       lng={drone.last_seen.lng}

@@ -77,7 +77,7 @@ function DroneManagement() {
                 <h2>Drone Management</h2>
                 <Row style={{marginTop: '10px'}}>
                     <Col xs={9}>
-                        <h4 style={{color: '#7c7c7c'}}>Add, remove drones to the deployment zone</h4>
+                        <p style={{color: '#7c7c7c'}}>Add, remove drones to the deployment zone</p>
                     </Col>
                     <Col xs={3}>
                         <Button variant="primary" style={{float: 'right'}} onClick={() => enterAddView()}>Add Drone</Button>
@@ -87,6 +87,8 @@ function DroneManagement() {
             {loading && !addView ? <Spinner animation="border" role="status">
                   <span className="visually-hidden">Loading...</span>
                 </Spinner> : ''}
+            {!loading && !addView && drones && !drones.length ? 
+                <p>No registered drones found.</p> : ''}
             {!loading && !addView && drones && drones.length ? <Table style={{marginTop: '20px'}} responsive>
               <thead>
                 <tr>

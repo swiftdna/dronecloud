@@ -88,7 +88,7 @@ const deleteDrone = async (req, res, next) => {
         path,
         method: 'POST',
         form: {
-            device_id: id
+            device_id: parseInt(id)
         }
     };
     const result = await makeHTTPRequest(httpParams);
@@ -134,34 +134,51 @@ const getDroneLastSeenLocationsOld = async (req, res, next) => {
         path,
         method: 'GET'
     };
-    const result = await makeHTTPRequest(params);
-    const formattedData = result && typeof result === 'string' ? JSON.parse(result) : {};
-    const lastSeenLocationData = formattedData && formattedData.tracking_data ? formattedData.tracking_data : [];
-    const lastSeenLocationDataMap = {};
-    for (let i = 0; i < lastSeenLocationData.length; i++) {
-        lastSeenLocationDataMap[lastSeenLocationData[i].drone_id] = lastSeenLocationData[i];
-    }
-    for (let i = 0; i < dataCleansed.length; i++) {
-        if (dataCleansed[i].drone_id && lastSeenLocationDataMap[dataCleansed[i].drone_id]) {
-            dataCleansed[i].last_seen = {
-                lat: lastSeenLocationDataMap[dataCleansed[i].drone_id].latitude,
-                lng: lastSeenLocationDataMap[dataCleansed[i].drone_id].longitude,
-                alt: lastSeenLocationDataMap[dataCleansed[i].drone_id].altitude,
+    try {
+        const result = await makeHTTPRequest(params);
+        const formattedData = result && typeof result === 'string' ? JSON.parse(result) : {};
+        const lastSeenLocationData = formattedData && formattedData.tracking_data ? formattedData.tracking_data : [];
+        const lastSeenLocationDataMap = {};
+        for (let i = 0; i < lastSeenLocationData.length; i++) {
+            lastSeenLocationDataMap[lastSeenLocationData[i].drone_id] = lastSeenLocationData[i];
+        }
+        for (let i = 0; i < dataCleansed.length; i++) {
+            if (dataCleansed[i].drone_id && lastSeenLocationDataMap[dataCleansed[i].drone_id]) {
+                dataCleansed[i].last_seen = {
+                    lat: lastSeenLocationDataMap[dataCleansed[i].drone_id].latitude,
+                    lng: lastSeenLocationDataMap[dataCleansed[i].drone_id].longitude,
+                    alt: lastSeenLocationDataMap[dataCleansed[i].drone_id].altitude,
+                }
             }
         }
+        req.model.data = {
+            ...req.model.data,
+            data: dataCleansed
+        };
+        // req.model.data = {success: true, data: result};
+        return next();
+    } catch (e) {
+        req.error = true;
+        req.model.data = {
+            ...req.model.data,
+            error: true,
+            message: e.message
+        };
+        return next();
     }
-    req.model.data = {
-        ...req.model.data,
-        data: dataCleansed
-    };
-    // req.model.data = {success: true, data: result};
-    return next();
 };
 
 const getDroneLastSeenLocations = async (req, res, next) => {
     const {data} = req.model.data;
     const dataCleansed = data && typeof data === 'string' ? JSON.parse(data) : data;
     const ids = _.pluck(dataCleansed, 'id');
+    if (!ids || !ids.length) {
+        req.model.data = {
+            ...req.model.data,
+            data: []
+        };
+        return next();
+    }
     const path = `/flight_data_collect/get-recent-tracking/${ids.join(',')}`;
     const params = {
         host,

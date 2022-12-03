@@ -50,8 +50,7 @@ module.exports = function(sequelize, Sequelize) {
         },
         type: {
             type: Sequelize.TEXT
-        },
-
+        }
     });
     return Farm;
 }
