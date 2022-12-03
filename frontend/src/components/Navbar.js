@@ -50,7 +50,7 @@ function Navbar() {
         <nav className="navbar justify-content-between dc-default">
             <div className="container">
                 <div className="col-3">
-                    <a className="navbar-brand" onClick={() => home()}><TbDrone size={40} /><span>&nbsp;&nbsp;Home</span></a>
+                    <a className="navbar-brand" onClick={() => home()}><TbDrone size={40} /></a>
                 </div>
                 <div className="col-6 text-center">
                     {

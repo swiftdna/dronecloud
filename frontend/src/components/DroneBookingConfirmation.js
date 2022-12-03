@@ -9,6 +9,7 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import {bookTheDrone} from '../utils';
 const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(1),
@@ -20,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 export default function DroneBookingConfirmation() {
   const classes = useStyles();
   const bookingid = uuidv1();
+  const dispatch = useDispatch();
   const name = useSelector((store) =>store.bookdrone.name);
   const farmtype = useSelector((store) =>store.bookdrone.farmtype);
   const equipment = useSelector((store) =>store.bookdrone.equipment);
@@ -37,28 +39,27 @@ export default function DroneBookingConfirmation() {
   const todate = useSelector((store) =>store.bookdrone.todate);
   const fromtype = useSelector((store) =>store.bookdrone.farmtype);
 
-  const total = 55+price
+  const total = 55+price;
 
-  console.log("!!!!!!!!!!!",total,bookingid,user_id,id,land_id,farm_id,pilot_id,fromdate,todate)
-  useEffect( () => {
-    
-    axios.post(`/api/drone/booking`,{
-      user_id:user_id,
-      drone_id:id,
-      land_id:land_id,
-      farm_id:farm_id,
-      pilot_id:pilot_id,
-      start_date:fromdate,
-      end_date:todate,
-      status:"booked",
-      service:service,
-      farmland:farm_land,
-      landtype:fromtype,
-    })
-      .then(response => {
-        
+  // console.log("!!!!!!!!!!!",total,bookingid,user_id,id,land_id,farm_id,pilot_id,fromdate,todate)
+  useEffect(() => {
+    console.log('check here ', id, service, user_id, farm_id, land_id, pilot_id, farm_land, fromdate, todate, fromtype);
+    // if (id && service && user_id && farm_id && land_id && pilot_id && farm_land && fromdate && todate) {
+      bookTheDrone(dispatch, {
+        user_id: user_id,
+        drone_id: id,
+        land_id: land_id,
+        farm_id: farm_id,
+        pilot_id: pilot_id,
+        start_date: fromdate,
+        end_date: todate,
+        status: "booked",
+        service: service,
+        farmland: farm_land,
+        landtype: fromtype,
       });
-  } , []);
+    // }
+  } , [id, service, user_id, farm_id, land_id, pilot_id, farm_land, fromdate, todate, fromtype]);
   return (
     
     <div>

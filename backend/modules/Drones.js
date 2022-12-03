@@ -10,7 +10,7 @@ const getDrones = async (req, res, next) => {
     const { models: { drone: Drone } } = COREAPP;
     const { query, internal } = req;
     for (let key in query) {
-        if (query[key].indexOf(',')) {
+        if (query[key] && query[key].indexOf(',')) {
             query[key] = {
                 [Op.or]: query[key].split(',')
             }

@@ -67,17 +67,16 @@ export default function BookDrone() {
     setSelectedFarmName(farm.name)
     dispatch(
       bookdrone({
-      
         farmtype:farm.type,
       }))
-      axios.post(`/api/farmlands`,{
-        userid:userid,
-      })
-      .then(response => {
-        console.log("farmssslandss------------",response.data)
-        setFarmLandList(response.data)
-
-       
+      axios.get(`/api/lands`,{
+        params: {
+          user_id: userid,
+          farm_id: farm.id
+        }
+      }).then(response => {
+        const {data} = response;
+        setFarmLandList(data.data);
       });
       console.log(selectedfarmimage)
   }
@@ -90,18 +89,14 @@ export default function BookDrone() {
     })
       .then(response => {
         console.log("donrappppi------------",response.data.data,response.data.data.length)
-        setAllItemsList(response.data.data)
-        
-        
-
-        
+        setAllItemsList(response.data.data);
       });
   } , [isLoggedIn]);
     console.log("###",allfarmlands)
     const dispatch = useDispatch();
     const [droneid, setDroneid] = useState('');
     const [dronename, setDronename] = useState('');
-    axios.get('/api/drone')
+    axios.get('/api/drones')
         .then(response => {
            console.log("sdadadsad",response)
            setDronename(response.data.name)
@@ -135,8 +130,8 @@ export default function BookDrone() {
             setSelectedFarmLandID(event.target.value);
           }} >
                             <option>Select Land</option>
-                            {allfarmlands && allfarmlands.map(land => 
-                            <option >{land.name}</option>
+                            {allfarmlands && allfarmlands.length && allfarmlands.map(land => 
+                            <option value={land.id}>{land.name}</option>
                             
                             )}
                         </select>

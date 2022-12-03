@@ -104,8 +104,6 @@ export default function DroneBookingCatalog() {
 
 
 const DroneDispatch = () => {
-console.log(fromdate.toString().substring(4,15),selectedDroneid)
-
   dispatch(
     bookdrone({
       id:selectedDroneid,
@@ -116,10 +114,9 @@ console.log(fromdate.toString().substring(4,15),selectedDroneid)
       service:selectedDroneservice,
       equipment:selectedDroneequipment,
       price:selectedDroneprice,
-      fromdate:fromdate.toString().substring(4,15),
-      todate:todate.toString().substring(4,15),
+      fromdate:fromdate.toString().substring(4,24),
+      todate:todate.toString().substring(4,24),
       duration:diffDays,
-
     })
   );
 
@@ -131,7 +128,7 @@ console.log(fromdate.toString().substring(4,15),selectedDroneid)
     <div>
            <img src="Step2.png"width="300" height="50" />
            <h3>Step 2: Drone Catalog</h3>
-      Select a service and choose your done <br></br><br></br>
+      Select a service and choose your drone <br></br><br></br>
         <div style={{marginLeft:"100px"}}>
             <ul >
                     
@@ -161,8 +158,7 @@ console.log(fromdate.toString().substring(4,15),selectedDroneid)
                         <select name="price" className="form-select" id="price"  onChange={(event) => {
             setPrice(event.target.value);
           }}>
-                            <option>Price  
-                            </option>
+                            <option value="">Price</option>
                             <option value="100"> &lt;$100</option>
                             <option value="200">&lt;$200</option>
                             <option value="300">&lt;$300</option>
@@ -173,7 +169,7 @@ console.log(fromdate.toString().substring(4,15),selectedDroneid)
                         <select name="brand" className="form-select" id="brand"  onChange={(event) => {
             setBrand(event.target.value);
           }}>
-                            <option>Brand</option>
+                            <option value="">Brand</option>
                             <option value="DJI">DJI</option>
                             <option value="Parrot">Parrot</option>
                             <option value="Lumenier">Lumenier</option>
@@ -186,7 +182,7 @@ console.log(fromdate.toString().substring(4,15),selectedDroneid)
                         <select name="equipment" className="form-select" id="equipment"  onChange={(event) => {
             setEquipment(event.target.value);
           }}>
-                            <option>Equipment</option>
+                            <option value="">Equipment</option>
                             <option value="camera">camera</option>
                             <option value="thermal camera">thermal camera</option>
                             <option value="LiDAR">LiDAR</option>
@@ -198,7 +194,7 @@ console.log(fromdate.toString().substring(4,15),selectedDroneid)
                         <select name="status" className="form-select" id="status"  onChange={(event) => {
             setStatus(event.target.value);
           }}>
-                            <option>Status</option>
+                            <option value="">Status</option>
                             <option value="Available">Available</option>
                             <option value="All">All</option>
                          

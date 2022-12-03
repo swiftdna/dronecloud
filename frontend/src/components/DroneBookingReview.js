@@ -73,24 +73,24 @@ export default function DroneBookingReview() {
           
         });
       }
-      const handleSubmit = (e) => {
-        e.preventDefault();
+      const handleSubmit = () => {
         console.log("dissspay",fromdate,todate,service,price,equipment,manufacturer,farmtype,farmland,farmid,allpilotlist.id)
         dispatch(
           bookdrone({
-          from:fromdate,
-          to:todate,
-          service:service,
-          price:price,
-          equipment:equipment,
-          brand:manufacturer,
-          farmtype:farmtype,
-          farmland:farmland,
-          farmid:farmid,
-          pilotid:allpilotlist.id,
-          }))
+            id:id,
+            fromdate:fromdate,
+            todate:todate,
+            service:service,
+            price:price,
+            equipment:equipment,
+            brand:manufacturer,
+            farmtype:farmtype,
+            farmland:farmland,
+            farmid:farmid,
+            pilotid:allpilotlist.id,
+          }));
       }
-  console.log("&&&&",setuserdetails,allpilotlist)
+      console.log("&&&&",setuserdetails,allpilotlist)
   return (
     <div>
       <div style={{marginLeft:'134px'}}>
@@ -232,7 +232,7 @@ export default function DroneBookingReview() {
                 </button> 
                 </li>
                 <li className="navigationbutton">
-                <button class="button button1"  onClick={handleSubmit}> <Link to="/drone-booking-confirmation" >Make Payment</Link>
+                <button class="button button1"  onClick={() => handleSubmit()}> <Link to="/drone-booking-confirmation" >Make Payment</Link>
                 </button> 
                 </li>
             </ul>

@@ -89,6 +89,19 @@ export function getPendingMgmtDrones(dispatch, params) {
         });
 }
 
+export function bookTheDrone(dispatch, params) {
+    axios.post(`/api/drone/booking`, params)
+        .then(response => {
+            const {data} = response;
+            console.log('booking -> ', data);
+            // if (data.success) {
+            //     return callback(null, true);
+            // } else {
+            //     return callback(true);
+            // }
+        });
+}
+
 export function registerDrone(dispatch, id, callback) {
     axios.post(`/api/drones/${id}/register`)
         .then(response => {
