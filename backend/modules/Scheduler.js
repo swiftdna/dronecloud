@@ -1,88 +1,115 @@
 const schedule = require('node-schedule');
-const moment = require('moment');
-const sequelize = require('sequelize');
-const Op = sequelize.Op;
-const { BookingDroneScheduler } = require('./Booking');
-const { flysimulatorbooking,checkdronestatus } = require('./SimulatorInteraction');
-const { param } = require('..');
+const { fetchNextFiveMinsBookings, getBookings, updateBookings } = require('./Booking');
+const { getLandCoords } = require('./Lands');
+const { flysimulatorbooking, checkTripStatus } = require('./SimulatorInteraction');
+const _ = require('underscore');
 
-// const BookingDroneScheduler = async(req, res, next) => {
-//     const { models: { booking: Booking } } = COREAPP;
-//     try {
-//         var currDate = moment().toDate();
-//         var newDateObj = moment().add(5, 'minutes').toDate();
-
-// const BookingDroneScheduler = async(req, res, next) => {
-//     const { models: { booking: Booking } } = COREAPP;
-//     try {
-//         var currDate = moment().toDate();
-//         var newDateObj = moment().add(5, 'minutes').toDate();
-
-//         const userbookings = await Booking.findAll({
-//             where:{
-//                 status: 'booked',
-//                 start_date:{
-//                     [Op.gte]: currDate,
-//                     [Op.lte]: newDateObj
-//                 }
-//             },
-//             raw: true
-//         });
-//         console.log(userbookings)
-//         console.log(currDate,newDateObj)
-//         const x = {
-//             droneid:"1",
-//             serviceid:"22",
-//             plan:{"fileType":"Plan","mission":{"cruiseSpeed":15,"hoverSpeed":5,"items":[{"altitude":50.00000000005293,"latitude":37.558605,"longitude":-122.04754200000004,"type":"SimpleItem"},{"altitude":49.99999999958835,"latitude":37.55864599999999,"longitude":-122.04716700000002,"type":"SimpleItem"},{"altitude":50.00000000023102,"latitude":37.55854299999999,"longitude":-122.04714700000001,"type":"SimpleItem"},{"altitude":50.00000000013322,"latitude":37.55850099999999,"longitude":-122.04753699999999,"type":"SimpleItem"},{"altitude":49.99999999947457,"latitude":37.55857599999999,"longitude":-122.04759100000001,"type":"SimpleItem"},{"altitude":14.99999999988875,"latitude":37.55835499999999,"longitude":-122.047656,"type":"SimpleItem"},{"altitude":14.99999999990697,"latitude":37.558277999999994,"longitude":-122.04764200000001,"type":"SimpleItem"},{"altitude":14.999999999058375,"latitude":37.55827200000002,"longitude":-122.04751300000001,"type":"SimpleItem"},{"altitude":14.999999999587114,"latitude":37.558371999999984,"longitude":-122.047544,"type":"SimpleItem"},{"altitude":14.999999999485869,"latitude":37.558385999999985,"longitude":-122.047313,"type":"SimpleItem"},{"altitude":15.00000000058955,"latitude":37.558317,"longitude":-122.04730100000003,"type":"SimpleItem"},{"altitude":14.99999999915223,"latitude":37.558319,"longitude":-122.04721900000001,"type":"SimpleItem"},{"altitude":14.999999998778456,"latitude":37.5584,"longitude":-122.047232,"type":"SimpleItem"}]}}
-//         }
-        
-//         return userbookings
-        
-//     }
-//     catch(e) {
-//         console.log(e)
-//     }
-//   }
-const makebooking = async () => {
-    const nextbooking = BookingDroneScheduler();
-
-      // const x = {
-        //     droneid:"1",
-        //     serviceid:"22",
-        //     plan:{"fileType":"Plan","mission":{"cruiseSpeed":15,"hoverSpeed":5,"items":[{"altitude":50.00000000005293,"latitude":37.558605,"longitude":-122.04754200000004,"type":"SimpleItem"},{"altitude":49.99999999958835,"latitude":37.55864599999999,"longitude":-122.04716700000002,"type":"SimpleItem"},{"altitude":50.00000000023102,"latitude":37.55854299999999,"longitude":-122.04714700000001,"type":"SimpleItem"},{"altitude":50.00000000013322,"latitude":37.55850099999999,"longitude":-122.04753699999999,"type":"SimpleItem"},{"altitude":49.99999999947457,"latitude":37.55857599999999,"longitude":-122.04759100000001,"type":"SimpleItem"},{"altitude":14.99999999988875,"latitude":37.55835499999999,"longitude":-122.047656,"type":"SimpleItem"},{"altitude":14.99999999990697,"latitude":37.558277999999994,"longitude":-122.04764200000001,"type":"SimpleItem"},{"altitude":14.999999999058375,"latitude":37.55827200000002,"longitude":-122.04751300000001,"type":"SimpleItem"},{"altitude":14.999999999587114,"latitude":37.558371999999984,"longitude":-122.047544,"type":"SimpleItem"},{"altitude":14.999999999485869,"latitude":37.558385999999985,"longitude":-122.047313,"type":"SimpleItem"},{"altitude":15.00000000058955,"latitude":37.558317,"longitude":-122.04730100000003,"type":"SimpleItem"},{"altitude":14.99999999915223,"latitude":37.558319,"longitude":-122.04721900000001,"type":"SimpleItem"},{"altitude":14.999999998778456,"latitude":37.5584,"longitude":-122.047232,"type":"SimpleItem"}]}}
-        // }
-        req = {}
-        req.body = {
-            drone_id:14560,
-            plan:{"fileType":"Plan","mission":{"cruiseSpeed":15,"hoverSpeed":5,"items":[{"altitude":50.00000000005293,"latitude":37.558605,"longitude":-122.04754200000004,"type":"SimpleItem"},{"altitude":49.99999999958835,"latitude":37.55864599999999,"longitude":-122.04716700000002,"type":"SimpleItem"},{"altitude":50.00000000023102,"latitude":37.55854299999999,"longitude":-122.04714700000001,"type":"SimpleItem"},{"altitude":50.00000000013322,"latitude":37.55850099999999,"longitude":-122.04753699999999,"type":"SimpleItem"},{"altitude":49.99999999947457,"latitude":37.55857599999999,"longitude":-122.04759100000001,"type":"SimpleItem"},{"altitude":14.99999999988875,"latitude":37.55835499999999,"longitude":-122.047656,"type":"SimpleItem"},{"altitude":14.99999999990697,"latitude":37.558277999999994,"longitude":-122.04764200000001,"type":"SimpleItem"},{"altitude":14.999999999058375,"latitude":37.55827200000002,"longitude":-122.04751300000001,"type":"SimpleItem"},{"altitude":14.999999999587114,"latitude":37.558371999999984,"longitude":-122.047544,"type":"SimpleItem"},{"altitude":14.999999999485869,"latitude":37.558385999999985,"longitude":-122.047313,"type":"SimpleItem"},{"altitude":15.00000000058955,"latitude":37.558317,"longitude":-122.04730100000003,"type":"SimpleItem"},{"altitude":14.99999999915223,"latitude":37.558319,"longitude":-122.04721900000001,"type":"SimpleItem"},{"altitude":14.999999998778456,"latitude":37.5584,"longitude":-122.047232,"type":"SimpleItem"}]}},
-            service_id:1008,
+const schedulebookings = async () => {
+    const futurebookings = await fetchNextFiveMinsBookings();
+    console.log(futurebookings);
+    for (let i=0; i < futurebookings.length; i++) {
+        const booking = futurebookings[i];
+        const {land_id, id, drone_id} = booking;
+        const lparams = {
+            query: {
+                land_id
+            },
+            internal: true
+        };
+        const landCoords = await getLandCoords(lparams);
+        console.log(landCoords);
+        landCoords.map(lc => {
+            lc.altitude =  50.00000000005293;
+            lc.type = 'SimpleItem';
+            return lc;
+        });
+        const flyParams = {
+            body: {
+                drone_id,
+                plan: {
+                    "fileType": "Plan",
+                    "mission": {
+                        "cruiseSpeed": 15,
+                        "hoverSpeed": 5,
+                        "items": landCoords
+                    }
+                },
+                service_id: id,
+            },
+            internal: true
+        };
+        const flyingdroneresponse = await flysimulatorbooking(flyParams);
+        console.log(flyingdroneresponse);
+        // Update the table with active status
+    }
+    const futureBookingIDs = _.pluck(futurebookings, 'id');
+    if (futureBookingIDs && futureBookingIDs.length) {
+        const updtResults = await updateBookings({
+            set: {
+                status: 'active'
+            },
+            where: {
+                id: futureBookingIDs.join(','),
+                status: 'booked'
             }
-        req.internal = true
-        const flyingdroneresponse = await flysimulatorbooking(req);
-        console.log(flyingdroneresponse)
-
+        });
+        console.log(`Sent ${updtResults.length} bookings to the drone simulator!`);
+    } else {
+        console.log(`No bookings found schedule!`);
+    }
 }
-const updatebooking = async () => {
-    params = {}
-    params.droneid = 14560
-    params.serviceid = 1007
+const updatebookings = async () => {
+    // Get all running status bookings and check their statuses
+    const params = {
+        query: {
+            status: "active"
+        },
+        internal: true
+    };
     try {
-        const checkdrone = await checkdronestatus(params);
-        console.log(checkdrone);
+        const activeTrips = await getBookings(params);
+        const combParams = [];
+        for (let i = 0; i < activeTrips.length; i++) {
+            const trip = activeTrips[i];
+            const statusParams = {
+                droneID: trip.drone_id,
+                id: trip.id
+            }
+            combParams.push(() => checkTripStatus(statusParams));
+        }
+        if (activeTrips.length && combParams.length) {
+            // Check status from flight monitor
+            const results = await Promise.all(combParams.map(f => f()));
+            // Update the results if they are completed
+            const completedTripsArr = results.filter(rs => rs.simulated_drone_status === 'available');
+            const completedTrips = _.pluck(completedTripsArr, 'serviceID');
+            if (completedTrips && completedTrips.length) {
+                const updtResults = await updateBookings({
+                    set: {
+                        status: 'complete'
+                    },
+                    where: {
+                        id: completedTrips.join(','),
+                        status: 'active'
+                    }
+                });
+                console.log(`Updated ${updtResults.length} records from the booking table!`);
+            } else {
+                console.log('No bookings completed for updating.');
+            }
+        }
     } catch(e) {
-        console.log('checkdrone error - ', e.message);
+        console.log('Scheduler :: updatebooking : check active trips error - ', e.message);
     }
 
 }
 const handleBookingSchedule = () => {
     console.log('Scheduler setup for bookings!');
-    schedule.scheduleJob('*/10 * * * * *', async () => {
-        console.log('I will run once in 5 mins and schedule trips in the simulator', moment().format("MMM dd YYYY hh:mm:ss a"));
-    // get all booking within 5 ins
-    //makebooking();
-    // updatebooking();
-    
-
+    schedule.scheduleJob('* */5 * * * *', async () => {
+        console.log('I will run once in 5 mins and schedule trips in the simulator');
+    // get all booking within 5 mins
+        schedulebookings();
+        updatebookings();
     });
 };
 

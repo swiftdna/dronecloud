@@ -38,7 +38,6 @@ const BookingDroneDetails = async (req, res, next) => {
 const getBookings = async(req, res, next) => {
     const { models: { booking: Booking } } = COREAPP;
     const { internal, query } = req;
-    console.log('query -> ', query);
     try {
         const bookingData = await Booking.findAll({
             where: {
@@ -95,40 +94,63 @@ const getUserBookings = async(req, res, next) => {
         return next();
     }
 }
-const BookingDroneScheduler = async(req, res, next) => {
+const fetchNextFiveMinsBookings = async(req, res, next) => {
     const { models: { booking: Booking } } = COREAPP;
-
     try {
         var currDate = moment().toDate();
         var newDateObj = moment().add(5, 'minutes').toDate();
-        console.log("time now",currDate,"time in 5 mins",newDateObj)
-
+        console.log('from ', currDate);
+        console.log('to ', newDateObj);
         const userbookings = await Booking.findAll({
-            where:{
+            where: {
                 status: 'booked',
-                start_date:{
+                start_date: {
                     [Op.gte]: currDate,
                     [Op.lte]: newDateObj
                 }
             },
-          
             raw: true
         });
-        // console.log("boooookings",userbookings)
-        // console.log(currDate,newDateObj)
- 
-        
         return userbookings
-        
     }
     catch(e) {
         console.log(e)
     }
   }
 
+const updateBookings = async (params) => {
+    const { models: { booking: Booking } } = COREAPP;
+    const { where } = params;
+    if (where) {
+        for (let key in where) {
+            if (where[key] && where[key].indexOf(',') !== -1) {
+                where[key] = {
+                    [Op.in]: where[key].split(',')
+                }
+            }
+        }
+    }
+    try {
+        console.log(JSON.stringify(
+            {...params.set},
+            {where: params.where}
+        ));
+        const bookings = await Booking.update(
+            {...params.set},
+            {where: params.where}
+        );
+        return bookings;
+    }
+    catch(e) {
+        console.log(e)
+    }
+}
+
+
 module.exports = {
     BookingDroneDetails,
     getBookings,
     getUserBookings,
-    BookingDroneScheduler,
+    fetchNextFiveMinsBookings,
+    updateBookings,
 };
