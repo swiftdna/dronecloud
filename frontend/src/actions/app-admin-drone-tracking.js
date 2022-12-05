@@ -4,6 +4,7 @@ import {
    CLEAR_ADMIN_DRONE_TRACKING,
    FETCH_ADMIN_DRONE_TRACKING_ERROR,
    ADD_ADMIN_DRONE_ID_TRACKING,
+   ADD_ADMIN_DRONE_ID_CLEAN_TRACKING,
    LOADING_ADMIN_DRONE_ID_TRACKING,
    CLEAR_ADMIN_DRONE_ID_TRACKING,
    FETCH_ADMIN_DRONE_ID_TRACKING_ERROR
@@ -51,6 +52,18 @@ function fetchAdminDroneIDTrackingSuccess(id, data) {
    }
 }
 
+function fetchAdminDroneIDCleanTrackingSuccess(id, data) {
+   const {tracking_data, trips} = data;
+   return {
+      type: ADD_ADMIN_DRONE_ID_CLEAN_TRACKING,
+      payload: {
+         id,
+         data: tracking_data,
+         trips
+      }
+   }
+}
+
 function fetchAdminDroneIDTrackingFailure(id, data) {
    return {
       type: FETCH_ADMIN_DRONE_ID_TRACKING_ERROR,
@@ -73,6 +86,17 @@ export function handleAdminDroneIDTrackingResponse(id, response) {
       return fetchAdminDroneIDTrackingSuccess(id, data.data);
    } else {
       return fetchAdminDroneIDTrackingFailure(id, {
+         message: data.message
+      });
+   }
+}
+
+export function handleAdminDroneIDCleanTrackingResponse(id, response) {
+   const {data} = response;
+   if (data.success) {
+      return fetchAdminDroneIDCleanTrackingSuccess(id, data.data);
+   } else {
+      return fetchAdminDroneTrackingFailure({
          message: data.message
       });
    }

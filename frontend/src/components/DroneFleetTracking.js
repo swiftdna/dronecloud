@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { selectIsLoggedIn, selectUser } from '../selectors/appSelector';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAdminDroneList, capitalizeFirst, getAdminDroneDetails } from '../utils';
+import { getAdminDroneList, capitalizeFirst, getAdminDroneDetails, getAdminDroneCleanDetails } from '../utils';
 import { Row, Col, Form, Card, Badge, Spinner, Image } from 'react-bootstrap';
 import { MdOutlineClose } from 'react-icons/md';
 import { GoogleMap, useJsApiLoader, Polyline, StandaloneSearchBox } from '@react-google-maps/api';
@@ -25,6 +25,8 @@ function DroneFleetTracking() {
     const tloading = useSelector((state) => state.admindronetracking.trackingLoading);
     const drones = useSelector((state) => state.admindronetracking.data);
     const trackingMap = useSelector((state) => state.admindronetracking.tracking);
+    const trackingSeveralMap = useSelector((state) => state.admindronetracking.trackingSeveral);
+    const trackingTrips = useSelector((state) => state.admindronetracking.trips);
     const userObj = useSelector(selectUser);
     const navigate = useNavigate();
     const userLandedPage = useLocation();
@@ -117,7 +119,8 @@ function DroneFleetTracking() {
 
     const selectDrone = (drone) => {
         setIndDrone(drone);
-        getAdminDroneDetails(dispatch, drone.id);
+        // getAdminDroneDetails(dispatch, drone.id);
+        getAdminDroneCleanDetails(dispatch, drone.id);
     }
 
     const closeDetailedDroneView = () => {
@@ -170,6 +173,22 @@ function DroneFleetTracking() {
     const handleSearchChange = (e) => {
         const {target: {value}} = e;
         setSearchedName(value);
+    }
+
+    const setTripRoutes = (e) => {
+        console.log('setting active trip - ', e.target.value);
+        const tripID = e.target.value;
+        const droneSpecificPaths = trackingSeveralMap[indDrone.id];
+        if (!droneSpecificPaths || !Object.keys(droneSpecificPaths).length) {
+            console.log('droneSpecificPaths not available');
+            return;
+        }
+        const tripSpecificPaths = droneSpecificPaths[tripID];
+        if (indDrone && indDrone.id && tripSpecificPaths && tripSpecificPaths.length) {
+            setIndDronePaths(tripSpecificPaths);
+        } else {
+            setIndDronePaths([]);
+        }
     }
 
     return(
@@ -264,7 +283,19 @@ function DroneFleetTracking() {
                             <p className="title">Tracking details</p>
                             <p>Status: {indDrone.status}</p>
                             <p>Location (lat, lng, alt):  {indDrone.last_seen ? `${indDrone.last_seen.lat},${indDrone.last_seen.lng},${indDrone.last_seen.alt}` : 'Not available'}</p>
-                            {tloading ? <p>Loading paths..</p> : <p>{indDronePaths && indDronePaths.length ? `${indDronePaths.length} paths found` : 'No paths found'} </p>}
+                            <p>Trips Taken: {tloading ? 'Loading..' : (trackingTrips && trackingTrips[indDrone.id] && trackingTrips[indDrone.id].length) ? `${trackingTrips[indDrone.id].length}` : 'None'}</p>
+                            {tloading ? <p>Loading trips..</p> : ''}
+                            <Row>
+                                {!tloading && trackingTrips && trackingTrips[indDrone.id] && trackingTrips[indDrone.id].length ? 
+                                    <Form.Select aria-label="Select a trip" onChange={setTripRoutes}>
+                                        <option value="">Select a trip</option>
+                                      {
+                                        trackingTrips[indDrone.id].map(opt => 
+                                            <option value={opt}>Trip #{opt}</option>
+                                        )}
+                                    </Form.Select> : !tloading && !trackingTrips.length ? <p>No trips found</p> : ''}
+                            </Row>
+                            {tloading ? <p>Loading paths..</p> : <p>{indDronePaths && indDronePaths.length ? `${indDronePaths.length} paths found for the trip` : ''} </p>}
                         </Col>
                         <Col className="drone_chars">
                             <p className="title">Drone details</p>

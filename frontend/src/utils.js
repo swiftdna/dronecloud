@@ -1,7 +1,7 @@
 import { profileLoading, handleProfilesResponse } from './actions/app-profile';
 import { handleLoginResponse, setToast, handleCountriesResponse } from './actions/app-actions';
 import { droneMgmtLoading, handleDroneMgmtResponse, pendingDronesLoading, handlePendingDronesResponse } from './actions/app-drones-mgmt';
-import { adminDroneTrackingLoading, handleAdminDroneTrackingResponse, adminDroneIDTrackingLoading, handleAdminDroneIDTrackingResponse } from './actions/app-admin-drone-tracking';
+import { adminDroneTrackingLoading, handleAdminDroneTrackingResponse, adminDroneIDTrackingLoading, handleAdminDroneIDTrackingResponse, handleAdminDroneIDCleanTrackingResponse } from './actions/app-admin-drone-tracking';
 import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
@@ -70,6 +70,14 @@ export function getAdminDroneDetails(dispatch, drone_id) {
     axios.get(`/api/tracking/drones/${drone_id}`)
         .then(response => {
             dispatch(handleAdminDroneIDTrackingResponse(drone_id, response));
+        });
+}
+
+export function getAdminDroneCleanDetails(dispatch, drone_id) {
+    dispatch(adminDroneIDTrackingLoading());
+    axios.get(`/api/tracking/drones/${drone_id}?clean=true`)
+        .then(response => {
+            dispatch(handleAdminDroneIDCleanTrackingResponse(drone_id, response));
         });
 }
 

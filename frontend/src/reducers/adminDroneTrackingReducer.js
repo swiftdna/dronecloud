@@ -4,6 +4,7 @@ import {
   CLEAR_ADMIN_DRONE_TRACKING,
   FETCH_ADMIN_DRONE_TRACKING_ERROR,
   ADD_ADMIN_DRONE_ID_TRACKING,
+  ADD_ADMIN_DRONE_ID_CLEAN_TRACKING,
   LOADING_ADMIN_DRONE_ID_TRACKING,
   CLEAR_ADMIN_DRONE_ID_TRACKING,
   FETCH_ADMIN_DRONE_ID_TRACKING_ERROR
@@ -13,6 +14,8 @@ const initialState = {
   loading: false,
   data: [],
   tracking: [],
+  trackingSeveral: [],
+  trips: [],
   trackingLoading: false,
   trackingError: false,
   trackingErrorMessage: '',
@@ -47,6 +50,20 @@ export default function appReducer(state = initialState, action) {
         tracking: {
           ...state.tracking,
           [action.payload.id]: action.payload.data
+        }
+      }
+    }
+    case ADD_ADMIN_DRONE_ID_CLEAN_TRACKING: {
+      return {
+        ...state,
+        trackingLoading: false,
+        trackingSeveral: {
+          ...state.trackingSeveral,
+          [action.payload.id]: action.payload.data
+        },
+        trips: {
+          ...state.trips,
+          [action.payload.id]: action.payload.trips
         }
       }
     }

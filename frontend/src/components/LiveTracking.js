@@ -74,6 +74,7 @@ function LiveTracker(props) {
 	}
 
 	useEffect(() => {
+		console.log('paths changed');
 		if (!paths || (paths && !paths.length)) {
 			return;
 		}
@@ -87,6 +88,31 @@ function LiveTracker(props) {
 		setRoutePaths(tempPaths);
 		options.path = tempPaths;
 	}, [paths]);
+
+	const fixMapDefaultPosition = () => {
+        const bounds = new window.google.maps.LatLngBounds();
+        console.log(routePaths);
+        for (let i = 0; i < routePaths.length; i++) {
+        	if (!routePaths[i].lat) {
+        		continue;
+        	}
+            const path = {
+                lat: routePaths[i].lat,
+                lng: routePaths[i].lng
+            };
+            bounds.extend(path);
+        }
+        map.setOptions({ maxZoom: 18 });
+        map.fitBounds(bounds);
+        map.setOptions({ maxZoom: null });
+        setMap(map);
+    }
+
+    useEffect(() => {
+    	if (map) {
+			fixMapDefaultPosition();
+    	}
+    }, [map, routePaths])
 
 	return (<div>
 		{isLoaded ? <GoogleMap

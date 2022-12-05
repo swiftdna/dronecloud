@@ -77,7 +77,7 @@ const deleteDrone = async (req, res, next) => {
 };
 
 const getDronePaths = async (req, res, next) => {
-    const {params : { id }} = req;
+    const {params : { id }, query: { clean } } = req;
     const path = `/flight_data_collect/get-tracking/${id}`;
     const params = {
         host,
@@ -85,6 +85,24 @@ const getDronePaths = async (req, res, next) => {
         method: 'GET'
     };
     const result = await makeHTTPRequest(params);
+    if (clean) {
+        const trips = [];
+        const coords = {};
+        const {tracking_data} = result;
+        for (let i = 0; i < tracking_data.length; i++) {
+            if (trips.indexOf(tracking_data[i].service_id) === -1) {
+                trips.push(tracking_data[i].service_id);
+            }
+            // coords[tracking_data[i].service_id] = tracking_data[i];
+            if (coords[tracking_data[i].service_id]) {
+                coords[tracking_data[i].service_id].push(tracking_data[i]);
+            } else {
+                coords[tracking_data[i].service_id] = [tracking_data[i]];
+            }
+        }
+        req.model.data = {success: true, data: {tracking_data: coords, trips}};
+        return next();
+    }
     req.model.data = {success: true, data: result};
     return next();
 };
