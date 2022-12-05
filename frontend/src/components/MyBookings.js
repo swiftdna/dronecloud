@@ -3,7 +3,8 @@ import { selectIsLoggedIn, selectUser } from '../selectors/appSelector';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import "../components/css/DroneBookingCatalog.css"
-import { Row, Col, Form, Badge } from 'react-bootstrap';
+import { FaRedo } from 'react-icons/fa';
+import { Row, Col, Form, Badge, Spinner } from 'react-bootstrap';
 import axios from 'axios';
 
 function MyBookings() {
@@ -13,34 +14,48 @@ function MyBookings() {
     const navigate = useNavigate();
     const userLandedPage = useLocation();
     const [allbookingslist,setAllBookingsList] = useState([]);
+    const [loading, setLoading] = useState(false);
     const user_id = useSelector((store) => store.app.user.id);
     const username = useSelector((store) =>store.app.user.name);
     useEffect(() => {
         if (isLoggedIn && user_id) {
-            axios.post(`/api/userbookings`,{
-                id: user_id
-            })
-            .then(response => {
-                console.log('records -> ', response.data.data);
-              setAllBookingsList(response.data.data)
-            });
+            getBookingsData();
         }
     }, [isLoggedIn]);
+
+    const getBookingsData = () => {
+        setLoading(true);
+        axios.post(`/api/userbookings`,{
+            id: user_id
+        })
+        .then(response => {
+            setLoading(false);
+            console.log('records -> ', response.data.data);
+            setAllBookingsList(response.data.data)
+        });
+    };
+
+    const reload = () => {
+        getBookingsData();
+    }
     
 
     return(
         <div>
             <Row style={{marginTop: '-30px'}}>
             <Col xs={6}>
-                <h4 style={{marginLeft: '-250px', marginTop: '30px'}}>My Bookings</h4>
+                <h4 style={{marginLeft: '-250px', marginTop: '30px'}}>My Bookings <FaRedo size="15" style={{marginLeft: '10px', cursor: 'pointer'}} onClick={() => reload()} /></h4>
             </Col>
             <Col xs={6}>
                 <h4>Welcome {username}! <img src="avatar.jpeg" alt="Avatar" style={{width:"100px",borderRadius: "50%"}}/></h4> 
             </Col>
             </Row>
             <div className="container main-frame">
-                {allbookingslist && allbookingslist.length ? 
-                <table >
+                {loading ? <Spinner animation="border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner> : ''}
+                {!loading && allbookingslist && allbookingslist.length ? 
+                <table>
                     <tr>
                         <th>Booking ID</th>
                         <th>Farmland</th>
