@@ -30,3 +30,18 @@
   border-radius: 10px;
 }
 .button1 {width: 250px;}
+
+.other_details {
+  text-align: left;
+  margin-top: 40px;
+  margin-left: 260px;
+}
+
+.other_details > p {
+  margin: 0;
+}
+
+.srv_dtl {
+  color: #1A3447;
+  margin: 0;
+}

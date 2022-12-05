@@ -107,8 +107,11 @@ const handleBookingSchedule = () => {
     console.log('Scheduler setup for bookings!');
     schedule.scheduleJob('* */5 * * * *', async () => {
         console.log('I will run once in 5 mins and schedule trips in the simulator');
-    // get all booking within 5 mins
-        schedulebookings();
+        updatebookings();
+    });
+
+    schedule.scheduleJob('*/5 * * * * *', async () => {
+        console.log('I will run once in 20 seconds and update trips status');
         updatebookings();
     });
 };

@@ -71,40 +71,26 @@ export default function DroneBookingSelected() {
       <div style={{marginLeft:"233px" }}>
       <img src="Step3.png"width="300" height="50"  />
       </div>
-         
-           <h3 style={{ marginLeft:"229px" }}>Step 3: Selected Drone
-           </h3>
-     <p style={{ marginLeft:"229px" }}>This is your selected drone</p>
-      <Card style={{ width:'43rem',height:'205px',marginLeft:"233px" }}  >
-                      <Card.Body >
-                        <Card.Title style={{ marginLeft:"250px"}}  >Drone Information</Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted">   <button style={{ backgroundColor: "#4CAF50",borderRadius:"10px",border:" none",height:"43",width:"219",color:"white",marginLeft:"4px"}}>Selected </button></Card.Subtitle>
-                      
-                        <Card.Subtitle className="mb-2 text-muted"><b>Drone ID:</b> {id}</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted"><b>Drone Farm Type:</b> {farmtype}</Card.Subtitle>
-
-                        <Card.Subtitle className="mb-2 text-muted"><b>Drone Price:</b> {price}</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted"><b>Drone Equipment: </b>{equipment}</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted"><b>Drone Brand:</b> {manufacturer}</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted"><b>Drone Service: </b>{service}</Card.Subtitle>
-                     
-                           <Card.Text>
-                         
-                        </Card.Text>
-                       
-                      </Card.Body>
-                      <Card.Title  style={{ width:'43rem',height:'205px',marginLeft:'272px' }}>Delivery Details</Card.Title>
-
-                      Date and Time:
-                      <Card.Subtitle className="mb-2 text-muted"> {fromdate}</Card.Subtitle>
-                      Duration:
-                      <Card.Subtitle className="mb-2 text-muted"> {duration} days </Card.Subtitle>
-
-                      Location:
-                      <Card.Subtitle className="mb-2 text-muted"> 3433 West street road, Santa Clara, 998989</Card.Subtitle>
-                     
-                    </Card><br></br><br></br>
-         
+           <h3 style={{ marginLeft:"229px" }}>Step 3: Selected Drone</h3>
+           <p style={{ marginLeft:"229px" }}>This is your selected drone</p>
+           <Card style={{ width:'23rem',marginLeft:"233px", textAlign: 'left', padding: '10px' }}>
+              <Card.Body>
+                <Card.Title style={{ marginLeft:"100px", marginBottom: '20px'}}>Drone Information</Card.Title>
+                <Card.Subtitle className="mb-2 text-muted"><b>Drone ID:</b> {id}</Card.Subtitle>
+                <Card.Subtitle className="mb-2 text-muted"><b>Drone Farm Type:</b> {farmtype ? farmtype : 'Crop'}</Card.Subtitle>
+                <Card.Subtitle className="mb-2 text-muted"><b>Drone Price:</b> {price}</Card.Subtitle>
+                <Card.Subtitle className="mb-2 text-muted"><b>Drone Equipment: </b>{equipment}</Card.Subtitle>
+                <Card.Subtitle className="mb-2 text-muted"><b>Drone Brand:</b> {manufacturer}</Card.Subtitle>
+                <Card.Subtitle className="mb-2 text-muted"><b>Drone Service: </b>{service}</Card.Subtitle>
+                <button style={{ backgroundColor: "#4CAF50",borderRadius:"10px",border:"none",height:"43",color:"white",marginTop:"-34px", float: 'right'}}>Selected </button>
+              </Card.Body>
+           </Card>
+          <div className="other_details">
+            <h4>Delivery Details</h4>
+            <p>Date and Time: {fromdate}</p>
+            <p>Duration: {duration} days</p>
+            <p>Location: 3433 West street road, Santa Clara, 998989</p>
+          </div>
            <div className="navigation">
             <ul>
                 <li className="navigationbutton">

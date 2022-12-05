@@ -69,16 +69,16 @@ select::-ms-expand {
     -o-transition: .25s all ease;
     transition: .25s all ease;
 }
-.navigation{
+.navigation {
     padding: 21px;
     margin-left: 125px;
 
 }
-.navigationbutton{
+.navigationbutton {
     float: left;
     display:inline;
-    margin-top: 150px;
-    margin-left: 109px;
+    margin-top: 50px;
+    margin-left: 60px;
 }
 .selectdrone{
     float: left;
@@ -113,9 +113,6 @@ select::-ms-expand {
     outline:none;
     width:200px;
     margin-left:80px;
-}
-.dronedisplay{
-    margin-top:100px;
 }
 .gobutton{
     margin-left:-74px
@@ -193,4 +190,13 @@ table {
     background-color: #b2afe8;
     color: black;
     border: 2px solid #333ac2;
+}
+
+.drones_list.booking_catalog .card-subtitle{
+    text-align: left;
+}
+
+.dronedisplay {
+    overflow: auto;
+
 }

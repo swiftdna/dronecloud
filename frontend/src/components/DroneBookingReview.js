@@ -166,7 +166,7 @@ export default function DroneBookingReview() {
                       
                       {/* <Card.Subtitle className="mb-2 text-muted"> {dronedatetime}</Card.Subtitle> */}
                     </Card>  
-                    <Card style={{ width:'34rem',height:'225px',marginLeft:'363px', marginTop:'20px', borderColor:'white'}}  >
+                    <Card style={{ width:'34rem',height:'225px',marginLeft:'363px', marginTop:'20px', marginBottom:'110px', borderColor:'white'}}  >
                       {/* <Card.Body > */}
                       <div>
                         <table style={{width:"100%",marginLeft:"-80px"}}>
@@ -236,8 +236,6 @@ export default function DroneBookingReview() {
                 </button> 
                 </li>
             </ul>
-           
-            
            </div>
 
     </div>

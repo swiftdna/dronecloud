@@ -59,5 +59,10 @@ module.exports = function(sequelize, Sequelize) {
             type: Sequelize.DATE
         }
     });
+
+    Booking.associate = (models) => {
+        Booking.belongsTo(models.farm, { foreignKey: 'farm_id', as: 'Farm' })
+        Booking.belongsTo(models.land, { foreignKey: 'land_id', as: 'Land' })
+    }
     return Booking;
 }

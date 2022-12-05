@@ -65,16 +65,28 @@ const getBookings = async(req, res, next) => {
     }
 }
 const getUserBookings = async(req, res, next) => {
-    const { models: { booking: Booking } } = COREAPP;
-    console.log()
+    const { models: { booking: Booking, farm: Farm, land: Land } } = COREAPP;
+    const {body: { id, status } } = req;
+    const params = {
+        user_id: id
+    };
+    if (status) {
+        params.status = status;
+    }
     try {
-        console.log("999qwerwerwer9")
-        console.log(req.body.id);
         const userbookings = await Booking.findAll({
-            where:{
-                user_id: req.body.id
+            where: params,
+            raw: true,
+            include: [{
+                model: Farm,
+                required: false,
+                as: 'Farm'
             },
-            raw: true
+            {
+                model: Land,
+                required: false,
+                as: 'Land'
+            }]
         });
         req.model = {};
         req.model.data = {

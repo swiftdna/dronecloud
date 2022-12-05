@@ -134,7 +134,7 @@ export default function DroneBookingConfirmation() {
       {/* <Card.Subtitle className="mb-2 text-muted"> {dronedatetime}</Card.Subtitle> */}
     </Card>  
       {/* <Card.Body > */} 
-                    <Card style={{ width:'34rem',height:'225px',marginLeft:'264px', marginTop:'20px', borderColor:'white'}}  >
+                    <Card style={{ width:'34rem',height:'225px',marginLeft:'264px', marginTop:'20px', marginBottom:'90px', borderColor:'white'}}  >
                   
                       {/* <Card.Body > */}
                       <div>

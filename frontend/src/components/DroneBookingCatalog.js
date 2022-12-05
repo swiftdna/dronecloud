@@ -1,7 +1,7 @@
 import {React, useState,useEffect} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {   Routes, Route, NavLink, useNavigate, useLocation } from 'react-router-dom';
-import { Row, Col, Form, Card, Badge, Spinner } from 'react-bootstrap';
+import { Row, Col, Form, Card, Badge, Spinner, Image } from 'react-bootstrap';
 import {  Button } from 'react-bootstrap';
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -242,21 +242,23 @@ const DroneDispatch = () => {
 
 
 
-        <div className="drones_list">
+        <div className="drones_list booking_catalog">
                 {allitemslist && allitemslist.length&&allitemslist.map(drone => 
-                    <Card style={{ width: '13rem' }}  className={selectedDroneid === drone.id ? "selected" : ""} onClick={() => selectDrone(drone)} >
+                   <Card style={{ width: '16rem' }} className={drone && (drone.id === selectedDroneid) ? 'selected' : ''} onClick={() => selectDrone(drone)}>
                       <Card.Body>
-                        <Card.Title>{drone.name}</Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted"  style={{cole:"black"}}><b>Drone ID:</b> {drone.id}</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted"  style={{cole:"black"}}><b>Drone Price: </b>{drone.price}</Card.Subtitle>
-                        <Card.Subtitle className="mb-2 text-muted" style={{cole:"black"}}><b>Drone Equipment: </b>{drone.equipment}</Card.Subtitle>
-                     
-                        <Card.Text>
-                        </Card.Text>
+                        <Card.Title>{drone.manufacturer} {drone.model}</Card.Title>
+                        <Row>
+                        <Col xs={drone.image_url ? 7 : 12}>
+                            <Card.Subtitle className="mb-2 text-muted">Drone #{drone.id}</Card.Subtitle>
+                            <Card.Subtitle className="mb-2 text-muted"  style={{cole:"black"}}><b>Drone Price: </b>{drone.price}</Card.Subtitle>
+                            <Card.Subtitle className="mb-2 text-muted" style={{cole:"black"}}><b>Drone Equipment: </b>{drone.equipment}</Card.Subtitle>
+                        </Col>
+                        {drone.image_url ? <Col xs={5}>
+                            <Image src={drone.image_url} style={{marginLeft: '-20px', marginTop: '-5px'}} width="80" height="60" />
+                        </Col> : ''}
+                        </Row>
                       </Card.Body>
                     </Card>
-                   
-           
                 )}
             </div>
 

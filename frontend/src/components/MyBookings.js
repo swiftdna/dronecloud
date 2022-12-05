@@ -3,7 +3,7 @@ import { selectIsLoggedIn, selectUser } from '../selectors/appSelector';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import "../components/css/DroneBookingCatalog.css"
-import { Row, Col, Form } from 'react-bootstrap';
+import { Row, Col, Form, Badge } from 'react-bootstrap';
 import axios from 'axios';
 
 function MyBookings() {
@@ -14,11 +14,9 @@ function MyBookings() {
     const userLandedPage = useLocation();
     const [allbookingslist,setAllBookingsList] = useState([]);
     const user_id = useSelector((store) => store.app.user.id);
-    const username = useSelector((store) =>store.app.user.username);
-    console.log( username)
+    const username = useSelector((store) =>store.app.user.name);
     useEffect(() => {
         if (isLoggedIn && user_id) {
-            console.log('user_id -> ', user_id);
             axios.post(`/api/userbookings`,{
                 id: user_id
             })
@@ -34,7 +32,7 @@ function MyBookings() {
         <div>
             <Row style={{marginTop: '-30px'}}>
             <Col xs={6}>
-                <h4 style={{marginLeft: '-250px', marginTop: '30px'}}>My Bookings page</h4>
+                <h4 style={{marginLeft: '-250px', marginTop: '30px'}}>My Bookings</h4>
             </Col>
             <Col xs={6}>
                 <h4>Welcome {username}! <img src="avatar.jpeg" alt="Avatar" style={{width:"100px",borderRadius: "50%"}}/></h4> 
@@ -57,15 +55,15 @@ function MyBookings() {
                          <td style={{  textAlign:"center"
                          }}>{booking.id}</td>
                          <td style={{  textAlign:"center"
-                         }}>{booking.farmland}</td>
+                         }}>{booking['Farm.name']}</td>
                          <td style={{  textAlign:"center"
-                         }}>{booking.landtype}</td>
+                         }}>{booking['Land.type']}</td>
                          <td style={{  textAlign:"center"
                          }}>{booking.service}</td>
 
                          <td >{booking.start_date&&booking.start_date.substring(0,10)} to {booking.end_date&&booking.end_date.substring(0,10)}</td>
                          <td>
-                            {booking.status==="booked" ? <button class="button-booked buttonbooked1">Booked</button> : booking.status==="active" ? <button class="button-deleted buttondeleted1">Active</button>: booking.status==="finished" ? <button class="button-finished buttonfinished1">Finished</button>:<div></div>}
+                            {booking.status==="booked" ? <Badge bg="primary">Booked</Badge> : booking.status==="active" ? <Badge bg="warning">Active</Badge>: booking.status==="complete" ? <Badge bg="success">Complete</Badge>:<div></div>}
 
                         </td>  
                          {/* <td>{booking.status}</td> */}
