@@ -6,7 +6,11 @@ const _ = require('underscore');
 
 const schedulebookings = async () => {
     const futurebookings = await fetchNextFiveMinsBookings();
-    console.log(futurebookings);
+    console.log('schedulebookings - ', futurebookings);
+    if (!futurebookings && !futurebookings.length) {
+        console.log(`No bookings found to schedule!`);
+        return;
+    }
     for (let i=0; i < futurebookings.length; i++) {
         const booking = futurebookings[i];
         const {land_id, id, drone_id} = booking;
@@ -55,7 +59,7 @@ const schedulebookings = async () => {
         });
         console.log(`Sent ${updtResults.length} bookings to the drone simulator!`);
     } else {
-        console.log(`No bookings found schedule!`);
+        console.log(`No bookings found to schedule!`);
     }
 }
 const updatebookings = async () => {
