@@ -112,12 +112,16 @@ const getMultiUserMultiBookings = async(req, res, next) => {
 
 const getUserBookings = async(req, res, next) => {
     const { models: { booking: Booking, farm: Farm, land: Land } } = COREAPP;
-    const {body: { id, status } } = req;
+    const {body: { id, status, pilot_id } } = req;
     const params = {
         user_id: id
     };
     if (status) {
         params.status = status;
+    }
+    if (pilot_id) {
+        delete params.user_id;
+        params.pilot_id = pilot_id;
     }
     try {
         const userbookings = await Booking.findAll({

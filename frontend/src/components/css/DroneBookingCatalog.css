@@ -122,9 +122,13 @@ table {
     border-collapse: collapse;
     width: 100%;
   }
+
+  th {
+    border-bottom: 1px solid #DEDEDE;
+  }
   
   td, th {
-    border: 1px solid #060000;
+/*    border: 1px solid #060000;*/
     text-align: left;
     padding: 10px;
   }

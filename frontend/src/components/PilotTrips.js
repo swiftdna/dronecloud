@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { selectIsLoggedIn, selectUser } from '../selectors/appSelector';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import "../components/css/DroneBookingCatalog.css"
-import { Row, Col, Form } from 'react-bootstrap';
+import "../components/css/DroneBookingCatalog.css";
+
+import { Row, Col, Form, Badge } from 'react-bootstrap';
+import moment from 'moment';
 import axios from 'axios';
 
 function PilotTrips() {
@@ -14,11 +16,11 @@ function PilotTrips() {
     const userLandedPage = useLocation();
     const [allbookingslist,setAllBookingsList] = useState([]);
     const user_id = useSelector((store) => store.app.user.id);
-
+    const username = useSelector((store) =>store.app.user.name);
     useEffect(() => {
         if (isLoggedIn && user_id) {
             axios.post(`/api/userbookings`,{
-                id:user_id
+                pilot_id: user_id
             })
             .then(response => {
               setAllBookingsList(response.data.data)
@@ -26,17 +28,26 @@ function PilotTrips() {
         }
     }, [isLoggedIn]);
     
+    const readableDate = (date, short) => {
+        if (short) {
+            return moment(date).format('LT');    
+        }
+        return moment(date).format('lll');
+    }
 
     return(
         <div>
-          <h3>Welcome Pilot!</h3><img src="avatar.jpeg" alt="Avatar" style={{width:"200px",borderRadius: "50%",marginLeft:"628px",marginTop:"-77"}}/>
+          <Row style={{marginTop: '-30px'}}>
+            <Col xs={6} style={{ textAlign: 'left'}}>
+                <h4 style={{marginLeft: '10px', marginTop: '30px'}}>My trips</h4>
+            </Col>
+            <Col xs={6} style={{ textAlign: 'right'}}>
+                <h4>Welcome {username}! <img src="avatar.jpeg" alt="Avatar" style={{width:"100px",borderRadius: "50%"}}/></h4> 
+            </Col>
+            </Row>
 
-        <div className="container main-frame fill-page">    
-
-       
-            
-            <h4  style={{marginTop:"-146px",marginLeft:"349px"}}>My Trips page</h4>
-            <div style={{width:"960px",marginTop:"-350px",marginLeft:"149px"}}>
+        <div className="container"> 
+            <div style={{width:"960px"}}>
             <table >
                 <tr>
                     <th>Booking ID</th>
@@ -48,23 +59,16 @@ function PilotTrips() {
 
                 </tr>
                 {allbookingslist && allbookingslist.length&& allbookingslist.map(booking => 
-                     <tr class="border-bottom" style={{  textAlign:"center"
-                     }}>
-                     <td style={{  textAlign:"center"
-                     }}>{booking.id}</td>
-                     <td style={{  textAlign:"center"
-                     }}>{booking.farmland}</td>
-                     <td style={{  textAlign:"center"
-                     }}>{booking.landtype}</td>
-                     <td style={{  textAlign:"center"
-                     }}>{booking.service}</td>
+                     <tr class="border-bottom" style={{  textAlign:"center"}}>
+                     <td style={{  textAlign:"center"}}>{booking.id}</td>
+                     <td style={{textAlign:"center"}}>{booking['Farm.name']}</td>
+                     <td style={{textAlign:"center"}}>{booking['Land.type']}</td>
+                     <td style={{  textAlign:"center"}}>{booking.service}</td>
 
-                     <td >{booking.start_date&&booking.start_date.substring(0,10)} to {booking.end_date&&booking.end_date.substring(0,10)}</td>
+                     <td >{booking.start_date && readableDate(booking.start_date)} to {booking.end_date && readableDate(booking.end_date, true)}</td>
                      <td>
-                        {booking.status==="booked" ? <button class="button-booked buttonbooked1">Booked</button> : booking.status==="active" ? <button class="button-deleted buttondeleted1">Active</button>: booking.status==="finished" ? <button class="button-finished buttonfinished1">Finished</button>:<div></div>}
-
-</td>  
-                     {/* <td>{booking.status}</td> */}
+                        {booking.status==="booked" ? <Badge bg="primary">Booked</Badge> : booking.status==="active" ? <Badge bg="warning">Active</Badge>: booking.status==="complete" ? <Badge bg="success">Complete</Badge>:<div></div>}
+                     </td> 
                  </tr>
                  
                     

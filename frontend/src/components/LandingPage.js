@@ -98,7 +98,7 @@ function LandingPage() {
             {isLoggedIn ? 
                 <Row className="fill-page" style={{width: '100%'}}>
                     <Col xs={3} className="text-center py-3 dc-default dc-leftpane">
-                        <h3 className="title"><RiSettingsLine size={40} style={{marginTop: '-5px'}} /> Dashboard</h3>
+                        <h3 className="title"><RiSettingsLine size={40} style={{marginTop: '-5px'}} /> Dashboard { isUserPilot() ? <span style={{fontSize: '14px', color: '#808080'}}>Pilot</span> : ''}</h3>
                         {
                             isUserFarmer() ? <ul className="nav flex-column dc-default dc-admin-nav">
                               <li className="nav-item">
