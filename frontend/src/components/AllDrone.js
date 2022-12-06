@@ -6,9 +6,9 @@ import { useDispatch,useSelector } from "react-redux";
 import {bookdrone, booking} from "../reducers/bookSlice";
 
 export default function AllDrone(props) {
-  console.log(props.dronedetails,"prosspspspspspsp");
+  // console.log(props.dronedetails,"prosspspspspspsp");
   const dronename = props.dronedetails.name;
-  console.log(dronename)
+  // console.log(dronename)
   const droneid = props.dronedetails.id;
   const service = props.dronedetails.service;
   const equipment = props.dronedetails.equipment;
@@ -17,7 +17,7 @@ export default function AllDrone(props) {
   const status = props.dronedetails.status;
   const farmtype = useSelector((store) =>store.bookdrone.farmtype);
   const [btnClass, setBtnClass] = useState(false);
-  console.log("type",farmtype)
+  // console.log("type",farmtype)
   const dispatch = useDispatch();
   const selectDrone = (e) => {
     setBtnClass(true)

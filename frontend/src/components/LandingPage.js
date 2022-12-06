@@ -47,16 +47,16 @@ function LandingPage() {
         // fetchProducts(dispatch);
         if (isLoggedIn) {
             console.log('user logged in!');
-            console.log(userLandedPage.pathname);
-            console.log(userObj.status);
-            console.log(userObj.role);
+            // console.log(userLandedPage.pathname);
+            // console.log(userObj.status);
+            // console.log(userObj.role);
             if (userObj.role === 'admin') {
                 navigate('/admin')
             } else {
                 if (userObj.status === null && userObj.role === null) {
-                  console.log(userObj.status);
-                  console.log(userObj.role);
-                  console.log(userObj.name);
+                  // console.log(userObj.status);
+                  // console.log(userObj.role);
+                  // console.log(userObj.name);
                   navigate('/SelectRole')
                 } else if (userObj.status != 'complete' && userObj.role === "farmer") {
                   navigate('/FarmerParent')

@@ -3,17 +3,19 @@ const { fetchNextFiveMinsBookings, getBookings, updateBookings } = require('./Bo
 const { getLandCoords } = require('./Lands');
 const { flysimulatorbooking, checkTripStatus } = require('./SimulatorInteraction');
 const _ = require('underscore');
+const scheduleInProgress = {};
 
 const schedulebookings = async () => {
     const futurebookings = await fetchNextFiveMinsBookings();
     console.log('schedulebookings - ', futurebookings);
-    if (!futurebookings && !futurebookings.length) {
+    if (!futurebookings || !futurebookings.length) {
         console.log(`No bookings found to schedule!`);
         return;
     }
     for (let i=0; i < futurebookings.length; i++) {
         const booking = futurebookings[i];
         const {land_id, id, drone_id} = booking;
+        const sch_id = `${drone_id}_${id}`;
         const lparams = {
             query: {
                 land_id
@@ -23,10 +25,15 @@ const schedulebookings = async () => {
         const landCoords = await getLandCoords(lparams);
         console.log(landCoords);
         landCoords.map(lc => {
+            lc.latitude = lc.location_lat;
+            lc.longitude = lc.location_lng;
             lc.altitude =  50.00000000005293;
             lc.type = 'SimpleItem';
+            delete lc.location_lat;
+            delete lc.location_lng;
             return lc;
         });
+        console.log("###### using paths - ", landCoords.length);
         const flyParams = {
             body: {
                 drone_id,
@@ -42,6 +49,12 @@ const schedulebookings = async () => {
             },
             internal: true
         };
+        console.log('flyParams - ', JSON.stringify(flyParams));
+        if (scheduleInProgress[sch_id]) {
+            console.log(`sch_id - ${sch_id} already scheduled!`);
+            continue;
+        }
+        scheduleInProgress[sch_id] = true;
         const flyingdroneresponse = await flysimulatorbooking(flyParams);
         console.log(flyingdroneresponse);
         // Update the table with active status
@@ -73,12 +86,14 @@ const updatebookings = async () => {
     try {
         const activeTrips = await getBookings(params);
         const combParams = [];
+        const uniqSchIDs = [];
         for (let i = 0; i < activeTrips.length; i++) {
             const trip = activeTrips[i];
             const statusParams = {
                 droneID: trip.drone_id,
                 id: trip.id
-            }
+            };
+            uniqSchIDs.push(`${trip.drone_id}_trip.id`);
             combParams.push(() => checkTripStatus(statusParams));
         }
         if (activeTrips.length && combParams.length) {
@@ -97,6 +112,12 @@ const updatebookings = async () => {
                         status: 'active'
                     }
                 });
+                for (let i = 0; i < uniqSchIDs.length; i++) {
+                    if (scheduleInProgress[uniqSchIDs[i]]) {
+                        delete scheduleInProgress[uniqSchIDs[i]];
+                        console.log(`Removed local sch flag for ${scheduleInProgress[uniqSchIDs[i]]}`)
+                    }
+                }
                 console.log(`Updated ${updtResults.length} records from the booking table!`);
             } else {
                 console.log('No bookings completed for updating.');
@@ -109,7 +130,7 @@ const updatebookings = async () => {
 }
 const handleBookingSchedule = () => {
     console.log('Scheduler setup for bookings!');
-    schedule.scheduleJob('* */5 * * * *', async () => {
+    schedule.scheduleJob('* */2 * * * *', async () => {
         console.log('I will run once in 5 mins and schedule trips in the simulator');
         schedulebookings();
     });

@@ -55,7 +55,7 @@ export default function DroneBookingCatalog() {
   const filterSubmit = (e) => {
     const from = moment(fromdate).unix();
     const to = moment(todate).unix();
-    console.log("SSERRVI",droneservice,droneservice&&droneservice==="surveillance" )
+    // console.log("SSERRVI",droneservice,droneservice&&droneservice==="surveillance" )
     axios.get(`/api/drones/availability`,{params: {
       from,
       to,
@@ -70,7 +70,7 @@ export default function DroneBookingCatalog() {
     
   })
     .then(response => {
-      console.log("&&&&",response.data.data);
+      // console.log("&&&&",response.data.data);
       setAllItemsList(response.data.data);
     });
 
@@ -82,7 +82,7 @@ export default function DroneBookingCatalog() {
     
     axios.get(`/api/drones`)
       .then(response => {
-        console.log("donrappppi",response.data.data)
+        // console.log("donrappppi",response.data.data)
       setAllItemsList(response.data.data)
 
       });

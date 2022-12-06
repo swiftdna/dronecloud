@@ -61,7 +61,7 @@ export default function FarmLand() {
     }
 
     const submitProfile = () => {
-    	console.log('farmProfileForm -> ' , farmProfileForm);
+    	// console.log('farmProfileForm -> ' , farmProfileForm);
     	const {id: farm_id} = farmProfile;
 		addFarm(dispatch, farmProfileForm, (err, successFlag) => {
 			if (successFlag) {

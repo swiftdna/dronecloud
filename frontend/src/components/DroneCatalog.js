@@ -30,7 +30,7 @@ function DroneCatalog() {
       .then((response) =>{
         const {data: {success, result}} = response;
         if(success){
-            console.log(result.length);
+            // console.log(result.length);
             setDrones(result);
             setUnfilteredDrones(result);
           

@@ -117,7 +117,7 @@ export default function FarmerParent() {
                             status: 'complete'
                         }, (err, success) => {
                                 if (success) {
-                                    console.log("Farmer profile updated");
+                                    // console.log("Farmer profile updated");
                                     for (let i = 0; i < formData.plotlatlong.length; i++) {
                                         formData.plotlat = formData.plotlatlong[i].lat();
                                         formData.plotlong = formData.plotlatlong[i].lng();

@@ -58,8 +58,8 @@ export default function LandInfo({ formData, setFormData }) {
         // formData.farmaddress = address;
         setAddFarmView(false);
         setFormData({ ...formData, addFarmView: false })
-        console.log(formData.plotlatlong)
-        console.log(formData.plotlatlong[0].lat())
+        // console.log(formData.plotlatlong)
+        // console.log(formData.plotlatlong[0].lat())
     }
 
     const setFarm = () => {
@@ -109,7 +109,7 @@ export default function LandInfo({ formData, setFormData }) {
 
 
     const onDrawingLoad = drawingManager => {
-    console.log(drawingManager)
+    // console.log(drawingManager)
     drawingManager.setOptions({drawingControlOptions: {drawingModes: [window.google.maps.drawing.OverlayType.POLYGON]}, 
                                 polygonOptions: {editable: true, strokeColor: '#000000', fillColor:'#e6e600'}} );
     }

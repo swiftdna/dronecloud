@@ -36,7 +36,7 @@ function EditDrone(props) {
   const getSingleDrone=()=>{
     axios.get( `/api/droneCatalog/getDrone/${drone_id}`)
       .then((response) =>{
-        console.log(response);
+        // console.log(response);
         const {data: {success, result}} = response;
         if(success){
           setName(result.model);

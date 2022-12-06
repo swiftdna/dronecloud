@@ -6,6 +6,7 @@ import "../components/css/DroneBookingCatalog.css"
 import { FaRedo } from 'react-icons/fa';
 import { Row, Col, Form, Badge, Spinner } from 'react-bootstrap';
 import axios from 'axios';
+import moment from 'moment';
 
 function MyBookings() {
     const dispatch = useDispatch();
@@ -30,13 +31,20 @@ function MyBookings() {
         })
         .then(response => {
             setLoading(false);
-            console.log('records -> ', response.data.data);
+            // console.log('records -> ', response.data.data);
             setAllBookingsList(response.data.data)
         });
     };
 
     const reload = () => {
         getBookingsData();
+    }
+
+    const readableDate = (date, short) => {
+        if (short) {
+            return moment(date).format('LT');    
+        }
+        return moment(date).format('lll');
     }
     
 
@@ -65,18 +73,12 @@ function MyBookings() {
                         <th>Status</th>
                     </tr>
                     {allbookingslist.map(booking => 
-                         <tr class="border-bottom" style={{  textAlign:"center"
-                         }}>
-                         <td style={{  textAlign:"center"
-                         }}>{booking.id}</td>
-                         <td style={{  textAlign:"center"
-                         }}>{booking['Farm.name']}</td>
-                         <td style={{  textAlign:"center"
-                         }}>{booking['Land.type']}</td>
-                         <td style={{  textAlign:"center"
-                         }}>{booking.service}</td>
-
-                         <td >{booking.start_date&&booking.start_date.substring(0,10)} to {booking.end_date&&booking.end_date.substring(0,10)}</td>
+                         <tr class="border-bottom" style={{  textAlign:"center"}}>
+                         <td style={{textAlign:"center"}}>{booking.id}</td>
+                         <td style={{textAlign:"center"}}>{booking['Farm.name']}</td>
+                         <td style={{textAlign:"center"}}>{booking['Land.type']}</td>
+                         <td style={{textAlign:"center"}}>{booking.service}</td>
+                         <td >{booking.start_date && readableDate(booking.start_date)} to {booking.end_date && readableDate(booking.end_date, true)}</td>
                          <td>
                             {booking.status==="booked" ? <Badge bg="primary">Booked</Badge> : booking.status==="active" ? <Badge bg="warning">Active</Badge>: booking.status==="complete" ? <Badge bg="success">Complete</Badge>:<div></div>}
 

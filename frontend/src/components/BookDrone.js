@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 var farmtype = "";
 
 const setGrid = (grid) => {
-    console.log(grid)
+    // console.log(grid)
     farmtype = grid
    
 
@@ -55,12 +55,9 @@ export default function BookDrone() {
 
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
-  console.log(userid)
+  // console.log(userid)
 
   const selectFarm = (farm) => {
-    
-    console.log("&&&&&&&&&&&&",farm.type)
-    console.log("&&&&&&&&&&&&",farm)
 
     setSelectedFarmtype(farm.type)
     setSelectedFarmID(farm.id)
@@ -88,17 +85,17 @@ export default function BookDrone() {
       userid:userid
     })
       .then(response => {
-        console.log("donrappppi------------",response.data.data,response.data.data.length)
+        // console.log("donrappppi------------",response.data.data,response.data.data.length)
         setAllItemsList(response.data.data);
       });
   } , [isLoggedIn]);
-    console.log("###",allfarmlands)
+    // console.log("###",allfarmlands)
     const dispatch = useDispatch();
     const [droneid, setDroneid] = useState('');
     const [dronename, setDronename] = useState('');
     axios.get('/api/drones')
         .then(response => {
-           console.log("sdadadsad",response)
+           // console.log("sdadadsad",response)
            setDronename(response.data.name)
            setDroneid(response.data.id)
         })
@@ -106,7 +103,7 @@ export default function BookDrone() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log("aab",farmtype,droneid,dronename,selectedfarmland)
+        // console.log("aab",farmtype,droneid,dronename,selectedfarmland)
         dispatch(
           bookdrone({
             farmtype:selectedFarmtype,

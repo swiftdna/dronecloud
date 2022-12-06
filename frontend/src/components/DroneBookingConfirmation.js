@@ -43,7 +43,7 @@ export default function DroneBookingConfirmation() {
 
   // console.log("!!!!!!!!!!!",total,bookingid,user_id,id,land_id,farm_id,pilot_id,fromdate,todate)
   useEffect(() => {
-    console.log('check here ', id, service, user_id, farm_id, land_id, pilot_id, farm_land, fromdate, todate, fromtype);
+    // console.log('check here ', id, service, user_id, farm_id, land_id, pilot_id, farm_land, fromdate, todate, fromtype);
     // if (id && service && user_id && farm_id && land_id && pilot_id && farm_land && fromdate && todate) {
       bookTheDrone(dispatch, {
         user_id: user_id,

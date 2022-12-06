@@ -16,14 +16,18 @@ const makeHTTPRequest = async (params) => {
     if (_.isEmpty(body) && !_.isEmpty(form)) {
         body = formData;
     }
-    const response = await fetch(`${host}${path}`, {method, body});
-    let data = await response.text();
-    console.log(data,"%%%%")
-    if (data && typeof data === 'string') {
-        data = JSON.parse(data);
+    try {
+        const response = await fetch(`${host}${path}`, {method, body});
+        let data = await response.text();
+        console.log(data,"%%%%")
+        if (data && typeof data === 'string') {
+            data = JSON.parse(data);
+        }
+        return data;
+    } catch (e) {
+        console.log('makeHTTPRequest errored out! -> ', e.message);
+        return [];
     }
-    
-    return data;
 };
 
 module.exports = {

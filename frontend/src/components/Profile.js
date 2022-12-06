@@ -22,7 +22,7 @@ export default function Profile() {
 
 	useEffect(() => {
 		if (isLoggedIn) {
-			console.log('profile - ', userObj);
+			// console.log('profile - ', userObj);
         	fetchProfile(dispatch, userObj);
 		}
     }, [isLoggedIn]);
@@ -77,7 +77,7 @@ export default function Profile() {
 		setUserProfileForm(tempForm);
     }
     const submitProfile = () => {
-    	console.log('userProfileForm -> ' , userProfileForm);
+    	// console.log('userProfileForm -> ' , userProfileForm);
     	// const {id: userID} = userProfile;
 		updateProfile(dispatch, userProfileForm, (err, successFlag) => {
 			if (successFlag) {

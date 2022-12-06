@@ -74,7 +74,7 @@ function LiveTracker(props) {
 	}
 
 	useEffect(() => {
-		console.log('paths changed');
+		// console.log('paths changed');
 		if (!paths || (paths && !paths.length)) {
 			return;
 		}
@@ -91,7 +91,7 @@ function LiveTracker(props) {
 
 	const fixMapDefaultPosition = () => {
         const bounds = new window.google.maps.LatLngBounds();
-        console.log(routePaths);
+        // console.log(routePaths);
         for (let i = 0; i < routePaths.length; i++) {
         	if (!routePaths[i].lat) {
         		continue;

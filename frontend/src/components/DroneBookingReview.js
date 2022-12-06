@@ -68,13 +68,13 @@ export default function DroneBookingReview() {
     const selectPilot = () => {
       axios.post(`/api/pilotfilter`)
         .then(response => {
-          console.log("donrappppi------------",response.data)
+          // console.log("donrappppi------------",response.data)
           setAllPilotList(response.data)
           
         });
       }
       const handleSubmit = () => {
-        console.log("dissspay",fromdate,todate,service,price,equipment,manufacturer,farmtype,farmland,farmid,allpilotlist.id)
+        // console.log("dissspay",fromdate,todate,service,price,equipment,manufacturer,farmtype,farmland,farmid,allpilotlist.id)
         dispatch(
           bookdrone({
             id:id,
@@ -90,7 +90,7 @@ export default function DroneBookingReview() {
             pilotid:allpilotlist.id,
           }));
       }
-      console.log("&&&&",setuserdetails,allpilotlist)
+      // console.log("&&&&",setuserdetails,allpilotlist)
   return (
     <div>
       <div style={{marginLeft:'134px'}}>

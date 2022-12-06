@@ -57,7 +57,7 @@ export default function FarmInfo({ formData, setFormData }) {
         if (isLoaded && lat && lng) {
             console.log('updating recent location');
             updateMapWithRecentLocation(parseFloat(lat), parseFloat(lng));
-            console.log(lat,lng);
+            // console.log(lat,lng);
         }
     }, [markers, address, lat, lng]);
 

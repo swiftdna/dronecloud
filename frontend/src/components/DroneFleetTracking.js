@@ -76,7 +76,7 @@ function DroneFleetTracking() {
     });
 
     const onLoad = React.useCallback(function callback(map) {
-        console.log('onLoad');
+        // console.log('onLoad');
         const bounds = new window.google.maps.LatLngBounds();
         for (let i = 0; i < drones.length; i++) {
             if (!drones[i].last_seen || !drones[i].last_seen.lat) {
@@ -176,7 +176,7 @@ function DroneFleetTracking() {
     }
 
     const setTripRoutes = (e) => {
-        console.log('setting active trip - ', e.target.value);
+        // console.log('setting active trip - ', e.target.value);
         const tripID = e.target.value;
         const droneSpecificPaths = trackingSeveralMap[indDrone.id];
         if (!droneSpecificPaths || !Object.keys(droneSpecificPaths).length) {
@@ -287,7 +287,7 @@ function DroneFleetTracking() {
                             {tloading ? <p>Loading trips..</p> : ''}
                             <Row>
                                 {!tloading && trackingTrips && trackingTrips[indDrone.id] && trackingTrips[indDrone.id].length ? 
-                                    <Form.Select aria-label="Select a trip" onChange={setTripRoutes}>
+                                    <Form.Select aria-label="Select a trip" style={{margin: '10px', width: '50%'}} onChange={setTripRoutes}>
                                         <option value="">Select a trip</option>
                                       {
                                         trackingTrips[indDrone.id].map(opt => 
