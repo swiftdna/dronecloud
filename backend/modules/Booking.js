@@ -63,7 +63,53 @@ const getBookings = async(req, res, next) => {
         };
         return next();
     }
-}
+};
+
+const getMultiUserMultiBookings = async(req, res, next) => {
+    const { models: { booking: Booking, farm: Farm, land: Land } } = COREAPP;
+    const { internal, query } = req;
+    try {
+        const bookingData = await Booking.findAll({
+            where: {
+                ...query
+            },
+            raw: true,
+            include: [{
+                model: Farm,
+                required: false,
+                as: 'Farm'
+            },
+            {
+                model: Land,
+                required: false,
+                as: 'Land'
+            }]
+        });
+        if (internal) {
+            return bookingData;
+        }
+        req.model.data = {
+            sucess: true,
+            data: bookingData
+        };
+        return next();
+    }
+    catch(e) {
+        if (internal) {
+            console.log('getMultiUserMultiBookings -> ', e);
+            console.log('getMultiUserMultiBookings message -> ', e.message);
+            return [];
+        }
+        req.model.data = {
+            sucess: false,
+            data: {
+                message: e.message
+            }
+        };
+        return next();
+    }
+};
+
 const getUserBookings = async(req, res, next) => {
     const { models: { booking: Booking, farm: Farm, land: Land } } = COREAPP;
     const {body: { id, status } } = req;
@@ -106,6 +152,7 @@ const getUserBookings = async(req, res, next) => {
         return next();
     }
 }
+
 const fetchNextFiveMinsBookings = async(req, res, next) => {
     const { models: { booking: Booking } } = COREAPP;
     try {
@@ -165,4 +212,5 @@ module.exports = {
     getUserBookings,
     fetchNextFiveMinsBookings,
     updateBookings,
+    getMultiUserMultiBookings,
 };

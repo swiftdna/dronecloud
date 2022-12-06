@@ -31,6 +31,7 @@ const schedulebookings = async () => {
             lc.type = 'SimpleItem';
             delete lc.location_lat;
             delete lc.location_lng;
+            delete lc.land_id;
             return lc;
         });
         console.log("###### using paths - ", landCoords.length);

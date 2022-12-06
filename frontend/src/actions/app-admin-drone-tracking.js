@@ -53,13 +53,14 @@ function fetchAdminDroneIDTrackingSuccess(id, data) {
 }
 
 function fetchAdminDroneIDCleanTrackingSuccess(id, data) {
-   const {tracking_data, trips} = data;
+   const {tracking_data, trips, bookingsMap} = data;
    return {
       type: ADD_ADMIN_DRONE_ID_CLEAN_TRACKING,
       payload: {
          id,
          data: tracking_data,
-         trips
+         trips,
+         bookingsMap
       }
    }
 }

@@ -1,7 +1,10 @@
 const host = 'http://ec2-52-203-10-77.compute-1.amazonaws.com';
+const sequelize = require('sequelize');
+const Op = sequelize.Op;
 const { makeHTTPRequest } = require('./ExtCall');
 const _ = require('underscore');
-const drone = require('../models/drone');
+const { getMultiUserMultiBookings } = require('./Booking');
+const { getLandCoords } = require('./Lands');
 
 const registerDrone = async (req, res, next) => {
     const { body, internal } = req;
@@ -88,6 +91,8 @@ const getDronePaths = async (req, res, next) => {
     if (clean) {
         const trips = [];
         const coords = {};
+        const tripExpectedCoords = {};
+        const bookingsMap = {};
         const {tracking_data} = result;
         for (let i = 0; i < tracking_data.length; i++) {
             if (trips.indexOf(tracking_data[i].service_id) === -1) {
@@ -100,7 +105,47 @@ const getDronePaths = async (req, res, next) => {
                 coords[tracking_data[i].service_id] = [tracking_data[i]];
             }
         }
-        req.model.data = {success: true, data: {tracking_data: coords, trips}};
+        // Get land coords for expected path
+        const bookingParams = {
+            query: {
+                id: {
+                    [Op.in]: trips
+                }
+            },
+            internal: true
+        };
+        const bookings = await getMultiUserMultiBookings(bookingParams);
+        let landIDs = _.pluck(bookings, 'land_id');
+        landIDs = _.uniq(landIDs, false)
+        const landParams = {
+            query: {
+                land_id: {
+                    [Op.in]: landIDs
+                }
+            },
+            internal: true
+        };
+        const landCoords = await getLandCoords(landParams);
+        for (let i = 0; i< landCoords.length; i++) {
+            if (tripExpectedCoords[landCoords[i].land_id]) {
+                tripExpectedCoords[landCoords[i].land_id].push(landCoords[i])
+            } else {
+                tripExpectedCoords[landCoords[i].land_id] = [landCoords[i]];
+            }
+        }
+        bookings.map(bk => {
+            if (bk.land_id && tripExpectedCoords[bk.land_id]) {
+                bk.expectedCoords = [...tripExpectedCoords[bk.land_id]];
+            }
+            return bk;
+        });
+        for (let i = 0; i < bookings.length; i++) {
+            if (bookings[i].land_id && tripExpectedCoords[bookings[i].land_id]) {
+                bookings[i].expectedCoords = [...tripExpectedCoords[bookings[i].land_id]];
+            }
+            bookingsMap[bookings[i].id] = bookings[i];
+        }
+        req.model.data = {success: true, data: {tracking_data: coords, trips, bookingsMap}};
         return next();
     }
     req.model.data = {success: true, data: result};

@@ -8,6 +8,7 @@ import { MdOutlineClose } from 'react-icons/md';
 import { GoogleMap, useJsApiLoader, Polyline, StandaloneSearchBox } from '@react-google-maps/api';
 import Marker from './Marker';
 import LiveTracking from './LiveTracking';
+import moment from 'moment';
 
 const libraries = ["drawing", "places", "geometry"];
 
@@ -15,18 +16,21 @@ function DroneFleetTracking() {
     const dispatch = useDispatch();
     const [indDrone, setIndDrone] = useState(null);
     const [indDronePaths, setIndDronePaths] = useState([]);
+    const [expDronePaths, setExpDronePaths] = useState([]);
     const isLoggedIn = useSelector(selectIsLoggedIn);
     const [map, setMap] = React.useState(null);
     const [searchBox, setSearchBox] = React.useState(null);
     const [searchedName, setSearchedName] = React.useState(null);
     const [withIn, setWithIn] = React.useState(20);
     const [proximityDrones, setProximityDrones] = useState([]);
+    const [booking, setBooking] = useState({});
     const loading = useSelector((state) => state.admindronetracking.loading);
     const tloading = useSelector((state) => state.admindronetracking.trackingLoading);
     const drones = useSelector((state) => state.admindronetracking.data);
     const trackingMap = useSelector((state) => state.admindronetracking.tracking);
     const trackingSeveralMap = useSelector((state) => state.admindronetracking.trackingSeveral);
     const trackingTrips = useSelector((state) => state.admindronetracking.trips);
+    const bookingsMap = useSelector((state) => state.admindronetracking.bookingsMap);
     const userObj = useSelector(selectUser);
     const navigate = useNavigate();
     const userLandedPage = useLocation();
@@ -125,6 +129,7 @@ function DroneFleetTracking() {
 
     const closeDetailedDroneView = () => {
         setIndDrone();
+        setBooking();
         // onLoad();
         // fixMapDefaultPosition();
     }
@@ -179,6 +184,9 @@ function DroneFleetTracking() {
         // console.log('setting active trip - ', e.target.value);
         const tripID = e.target.value;
         const droneSpecificPaths = trackingSeveralMap[indDrone.id];
+        const bkMap = bookingsMap[indDrone.id];
+        const booking = bkMap[tripID];
+        setBooking(booking);
         if (!droneSpecificPaths || !Object.keys(droneSpecificPaths).length) {
             console.log('droneSpecificPaths not available');
             return;
@@ -189,6 +197,25 @@ function DroneFleetTracking() {
         } else {
             setIndDronePaths([]);
         }
+        // console.log(booking);
+        if (indDrone && indDrone.id  && booking && booking.id && booking.expectedCoords) {
+            const tripExpectedPaths = [...booking.expectedCoords];
+            setExpDronePaths(tripExpectedPaths);
+        } else {
+            setExpDronePaths([]);
+        }
+        // if (indDrone && indDrone.id && tripSpecificPaths && tripSpecificPaths.length) {
+        //     setIndDronePaths(tripSpecificPaths);
+        // } else {
+        //     setIndDronePaths([]);
+        // }
+    }
+
+    const readableDate = (date, short) => {
+        if (short) {
+            return moment(date).format('LT');    
+        }
+        return moment(date).format('lll');
     }
 
     return(
@@ -302,9 +329,21 @@ function DroneFleetTracking() {
                             <p>ID: {indDrone.id}</p>
                             <p>Model: {indDrone.manufacturer} {indDrone.model}</p>
                             <p>Service Type: {indDrone.service_type}</p>
+
+                            {booking && booking.id ? 
+                                <>
+                                <p className="title" style={{marginTop: '10px'}}>Trip details</p>
+                                <p>ID: {booking.id} (Status: {booking.status})</p>
+                                <p>Farm: {booking['Farm.name']}</p>
+                                <p>Land: {booking['Land.name']}</p>
+                                <p>Service: {booking.service}</p>
+                                <p></p>
+                                <p>Time: {readableDate(booking.start_date)} to {readableDate(booking.end_date)}</p>
+                                </> : ''}
+
                         </Col>
                         {!tloading && indDronePaths && indDronePaths.length  ? <LiveTracking 
-                            paths={indDronePaths}
+                            paths={indDronePaths} routepaths={expDronePaths}
                         /> : <p>No drone paths to display in the map</p>}
                     </Row>
                 </div> : <div style={{ height: '670px', width: '100%', marginTop: '10px' }}>

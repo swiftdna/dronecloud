@@ -14,8 +14,9 @@ const initialState = {
   loading: false,
   data: [],
   tracking: [],
-  trackingSeveral: [],
-  trips: [],
+  trackingSeveral: {},
+  trips: {},
+  bookingsMap: {},
   trackingLoading: false,
   trackingError: false,
   trackingErrorMessage: '',
@@ -64,6 +65,10 @@ export default function appReducer(state = initialState, action) {
         trips: {
           ...state.trips,
           [action.payload.id]: action.payload.trips
+        },
+        bookingsMap: {
+          ...state.bookingsMap,
+          [action.payload.id]: action.payload.bookingsMap
         }
       }
     }

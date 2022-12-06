@@ -34,7 +34,7 @@ const getLandCoords = async (req, res, next) => {
     const { query, internal } = req;
     try {
 		const landData = await LandCoords.findAll({
-            attributes: ['location_lat', 'location_lng'],
+            attributes: ['location_lat', 'location_lng', 'land_id'],
             where: {
                 ...query
             },

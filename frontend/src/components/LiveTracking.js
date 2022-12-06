@@ -6,12 +6,28 @@ const libraries = ["drawing", "places", "geometry"];
 function LiveTracker(props) {
     const [map, setMap] = useState(null);
     const [routePaths, setRoutePaths] = useState([]);
-    const {paths} = props;
+    const [plannedRoutePaths, setPlannedRoutePaths] = useState([]);
+    const {paths, routepaths} = props;
 	
 	const center = {
 	  lat: 37,
 	  lng: -122,
 	  zoom: 10
+	};
+
+	const proptions = {
+	  strokeColor: '#0062D0',
+	  strokeOpacity: 0.8,
+	  strokeWeight: 2,
+	  fillColor: '#0062D0',
+	  fillOpacity: 0.35,
+	  clickable: false,
+	  draggable: false,
+	  editable: false,
+	  visible: true,
+	  radius: 30000,
+	  paths: [],
+	  zIndex: 1
 	};
 
 	const containerStyle = {
@@ -61,6 +77,15 @@ function LiveTracker(props) {
 	  setMap(map)
 	};
 
+	const onPRPolyLineLoad = polyline => {
+	  const bounds = new window.google.maps.LatLngBounds();
+	  plannedRoutePaths.forEach(path => {
+		bounds.extend(path);
+	  })
+	  map.fitBounds(bounds);
+	  setMap(map)
+	};
+
 	const formatPaths = (paths) => {
 		const tempPaths = [];
 		for (let i = 0; i < paths.length; i++) {
@@ -88,6 +113,21 @@ function LiveTracker(props) {
 		setRoutePaths(tempPaths);
 		options.path = tempPaths;
 	}, [paths]);
+
+	useEffect(() => {
+		if (!routepaths || (routepaths && !routepaths.length)) {
+			return;
+		}
+		const tempPaths = [];
+		for (let i = 0; i < routepaths.length; i++) {
+			tempPaths.push({
+				lat: routepaths[i].location_lat,
+				lng: routepaths[i].location_lng
+			});
+		}
+		setPlannedRoutePaths(tempPaths);
+		proptions.path = tempPaths;
+	}, [routepaths]);
 
 	const fixMapDefaultPosition = () => {
         const bounds = new window.google.maps.LatLngBounds();
@@ -122,6 +162,11 @@ function LiveTracker(props) {
 	        onLoad={onLoad}
 	        onUnmount={onUnmount}
 	      >
+	      	{plannedRoutePaths && plannedRoutePaths.length ? <Polyline
+	          onLoad={onPRPolyLineLoad}
+	          path={plannedRoutePaths}
+	          options={proptions}
+	        /> : ''}
 	        <Polyline
 	          onLoad={onPolyLineLoad}
 	          path={routePaths}
