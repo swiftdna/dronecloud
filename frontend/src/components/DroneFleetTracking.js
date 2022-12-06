@@ -323,6 +323,8 @@ function DroneFleetTracking() {
                                     </Form.Select> : !tloading && !trackingTrips.length ? <p>No trips found</p> : ''}
                             </Row>
                             {tloading ? <p>Loading paths..</p> : <p>{indDronePaths && indDronePaths.length ? `${indDronePaths.length} paths found for the trip` : ''} </p>}
+                            <p>Actual path: <span style={{color: '#D10000'}}>Red line</span></p>
+                            <p>Expected path: <span style={{color: '#0070BA'}}>Blue line</span></p>
                         </Col>
                         <Col className="drone_chars">
                             <p className="title">Drone details</p>
