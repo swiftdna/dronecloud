@@ -180,9 +180,10 @@ export function addFarm(dispatch, params, callback) {
         delete params.id;
     axios.post(`/api/farms`, params)
         .then(response => {
-            const {data} = response;
-            if (data.success) {
-                return callback(null, true);
+            const {data: parent_data} = response;
+            const {data} = parent_data;
+            if (parent_data.success) {
+                return callback(null, data.id);
             } else {
                 return callback(true);
             }

@@ -106,8 +106,8 @@ export default function FarmerParent() {
                     billdate: formData.utilitybilldate,
                     billimgurl: formData.utilityfile,
                     status: 'complete'
-                }, (err, success) => {
-                    if (success) {
+                }, (err, farm_id) => {
+                    if (farm_id) {
                         addPayment(dispatch, {
                             nameoncard: formData.cardname,
                             cardnumber: formData.cardnum,
@@ -118,28 +118,31 @@ export default function FarmerParent() {
                         }, (err, success) => {
                                 if (success) {
                                     // console.log("Farmer profile updated");
+                                    const coordinates = [];
                                     for (let i = 0; i < formData.plotlatlong.length; i++) {
-                                        formData.plotlat = formData.plotlatlong[i].lat();
-                                        formData.plotlong = formData.plotlatlong[i].lng();
-                                        addPlot(dispatch, {
+                                        coordinates.push({
+                                            location_lat: formData.plotlatlong[i].lat(),
+                                            location_lng: formData.plotlatlong[i].lng()
+                                        });
+                                    }
+                                    addPlot(dispatch, {
                                             name: formData.plotname,
                                             type: formData.plottype,
-                                            location_lat: formData.plotlat,
-                                            location_lng: formData.plotlong,
+                                            farm_id,
+                                            coordinates,
                                             status: 'complete'
                                         }, (err, success) => {
                                             if(success) {
-                                                if (i === (formData.plotlatlong.length - 1)) {
-                                                    fetchSession(dispatch, (sessionErr, sessionSuccess) => {
-                                                        if (sessionSuccess) {
-                                                            console.log("Farmer profile updated");
-                                                            navigate("/");
-                                                        }
-                                                    }); }
+                                                fetchSession(dispatch, (sessionErr, sessionSuccess) => {
+                                                    if (sessionSuccess) {
+                                                        console.log("Farmer profile updated");
+                                                        navigate("/");
+                                                    }
+                                                });
                                             } else {
                                                 console.log('Saving plot info failed');
                                             }
-                                        }); }
+                                        }); 
                                 } else {
                                     console.log('Saving payment info failed!');
                                 }
