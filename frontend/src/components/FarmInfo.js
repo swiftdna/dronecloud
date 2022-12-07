@@ -169,7 +169,7 @@ export default function FarmInfo({ formData, setFormData }) {
 
     return (
             !addFarmView ? 
-            <div>
+            <div className="dc-default">
                 <h1 className='header-multistep'> Farmer's Farm Details</h1>
                 <p className='heading-multistep'>Add your farm information</p>
                 <div className='userDetails'>
@@ -199,7 +199,7 @@ export default function FarmInfo({ formData, setFormData }) {
                                     }
                             />
                             
-                            <button className='btn_panel' onClick={() => setFarm()}>Locate farm</button>
+                            <Button variant="primary" onClick={() => setFarm()}>Locate farm</Button>
                         </Form.Group>
                     </Form>
                 </div>

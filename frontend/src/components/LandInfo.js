@@ -116,7 +116,7 @@ export default function LandInfo({ formData, setFormData }) {
 
     return (
             !addFarmView ? 
-            <div>
+            <div className="dc-default">
                 <h1 className='header-multistep'> Land Information</h1>
                 <p className='heading-multistep'>Locate your farm plot</p>
                 <div className='userDetails'>
@@ -145,7 +145,7 @@ export default function LandInfo({ formData, setFormData }) {
                         </Form.Group>
                         <Form.Group className="UserDetails">
                             <br></br>
-                            <button className='btn_panel' onClick={() => setFarm()}>Locate Plot</button>
+                            <Button variant='primary' onClick={() => setFarm()}>Locate Plot</Button>
                         </Form.Group>
                     </Form>
                 </div>
