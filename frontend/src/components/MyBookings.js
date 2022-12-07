@@ -52,8 +52,8 @@ function MyBookings() {
     return(
         <div>
             <Row style={{marginTop: '-30px'}}>
-            <Col xs={6}>
-                <h4 style={{marginLeft: '-250px', marginTop: '30px'}}>My Bookings <FaRedo size="15" style={{marginLeft: '10px', cursor: 'pointer'}} onClick={() => reload()} /></h4>
+            <Col xs={6} style={{textAlign: 'left'}}>
+                <h4 style={{marginTop: '30px'}}>My Bookings <FaRedo size="15" style={{marginLeft: '10px', cursor: 'pointer'}} onClick={() => reload()} /></h4>
             </Col>
             <Col xs={6} style={{marginTop: '20px', textAlign: 'right'}}>
                 <h4>Welcome {username}! <img src={imageurl ? imageurl : 'avatar.jpeg'} alt="Avatar" style={{width:"50px",borderRadius: "50%"}}/></h4> 

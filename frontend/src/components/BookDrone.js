@@ -25,13 +25,9 @@ var farmtype = "";
 
 const setGrid = (grid) => {
     // console.log(grid)
-    farmtype = grid
-   
-
+    farmtype = grid;
 }
 
-
-  
 export default function BookDrone() {
  const farmdetails = ["1","2","3","1","2","3","1","2","3"]
   const name = useSelector((store) =>store.bookdrone.name);
@@ -146,7 +142,7 @@ export default function BookDrone() {
        <div className="farm_list">
               
                 {allitemslist&& allitemslist.map(drone => 
-                    <Card  style={{ width: '13rem',padding:"4px" }} className={selectedFarmID === drone.id ? "selected" : "farm_disp"}  onClick={() =>  selectFarm (drone)} >
+                    <Card  style={{ width: '13rem',padding:"4px" }} className={selectedFarmID === drone.id ? "selected farm_disp" : "farm_disp"}  onClick={() =>  selectFarm (drone)} >
                       
                       <Card.Body style={{backgroundImage: "url(" + drone.imageurl + ")", backgroundSize: 'cover'}}>
                         <Card.Title> </Card.Title>

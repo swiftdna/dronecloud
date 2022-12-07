@@ -61,7 +61,7 @@ function DroneCatalog() {
 
 
     const renderCards = drones.map((drone) =>
-            <div className="card" style={{width:"250px",margin:"5px",borderRadius:"10px"}}>
+            <div className="drone-catalog card" style={{width:"250px",margin:"5px",borderRadius:"10px"}}>
             {/* <div className="col-md-4 mb-4"> */}
               <div className="card-body">
                 <h5 className="card-title">{drone.model}</h5>
