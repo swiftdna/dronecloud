@@ -95,7 +95,7 @@ function LandingPage() {
     }
     
     return(
-        <div className="container main-frame">
+        <div className="container main-frame fill-page">
             {isLoggedIn ? 
                 <Row style={{width: '100%'}}>
                     <Col xs={3} className="text-center py-3 dc-default dc-leftpane">
