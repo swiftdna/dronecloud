@@ -21,6 +21,7 @@ import ServiceReports from './ServiceReports';
 import ServiceReportDetails from './ServiceReportDetails';
 import { Row, Col, Form } from 'react-bootstrap';
 import DroneBookingCatalog from './DroneBookingCatalog';
+import HomePage from './HomePage';
 import DroneBookingSelected from './DroneBookingSelected';
 import DroneBookingSelectedSurveillance from './DroneBookingSelectedSurveillance';
 
@@ -94,9 +95,9 @@ function LandingPage() {
     }
     
     return(
-        <div className="container main-frame fill-page">
+        <div className="container main-frame">
             {isLoggedIn ? 
-                <Row className="fill-page" style={{width: '100%'}}>
+                <Row style={{width: '100%'}}>
                     <Col xs={3} className="text-center py-3 dc-default dc-leftpane">
                         <h3 className="title"><RiSettingsLine size={40} style={{marginTop: '-5px'}} /> Dashboard { isUserPilot() ? <span style={{fontSize: '14px', color: '#808080'}}>Pilot</span> : ''}</h3>
                         {
@@ -144,7 +145,7 @@ function LandingPage() {
                             <Route path="/" element={<MyBookings />} />
                         </Routes>
                     </Col>
-                </Row> : <h4>Welcome to DroneCloud. Login to see the dashboard!</h4> }
+                </Row> : <HomePage /> }
         </div>
     )
 }

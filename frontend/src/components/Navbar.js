@@ -42,6 +42,7 @@ function Navbar() {
     const logout = () => {
         axios.post('/logout')
             .then(response => {
+                navigate('/');
                 dispatch(handleLogoutResponse(response));
             });
     }
