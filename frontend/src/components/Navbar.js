@@ -69,10 +69,7 @@ function Navbar() {
                     {
                         isAuthenticated ? 
                         <button type="button" className="btn btn-light nav-buttons" title="Log out" onClick={() => logout()}>Logout</button> : 
-                        <>
-                            <button type="button" className="btn btn-light nav-buttons" title="Log In" onClick={() => login()}>login</button>
-                            <button type="button" className="btn btn-light nav-buttons" title="Log In" onClick={() => register()}>register</button>
-                        </>
+                        ''
                     }
                 </div>
             </div>

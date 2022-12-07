@@ -1,7 +1,6 @@
 import React from 'react';
 import Navbar from './Navbar';
 import { useNavigate, useLocation } from 'react-router-dom';
-import '../App.css';
 import './css/LandingPageHome.css';
 import { useSelector } from 'react-redux';
 import { selectIsLoggedIn, selectUser } from '../selectors/appSelector';
@@ -24,10 +23,15 @@ function HomePage() {
     return(
         <div className="landing-page">
           <div className="container dc-default">
+          <div className="video-background">
+              <div className="video-foreground">
+                <iframe src="https://player.vimeo.com/video/724732130?background=1" frameBorder="0"></iframe>
+              </div>
+            </div>
             <div className="info">
               <h1>Drone Cloud for your agriculture!</h1>
               <p>Precision Agriculture Throughout the Year</p>
-              <div style={{marginTop: '30px'}}>
+              <div className="home_btns" style={{marginTop: '30px'}}>
               <Button variant="primary" onClick={() => login()}>
                 Login
               </Button> 
@@ -35,9 +39,6 @@ function HomePage() {
                 Register
               </Button> 
               </div>
-            </div>
-            <div class="image">
-              <img src="https://thumbs.dreamstime.com/b/flying-drone-air-100755092.jpg" />
             </div>
             <div class="clearfix"></div>
           </div>

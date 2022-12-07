@@ -3,7 +3,6 @@
 
 .landing-page {
     position: relative;
-    background-color: #FFF;
 }
 
 .landing-page .header-area {
@@ -45,7 +44,7 @@
 }
 
 .landing-page .info {
-    width: 35%;
+    width: 100%;
     float: left;
     margin-top: 130px;
 }
@@ -54,14 +53,14 @@
     font-size: 44px;
     margin: 0 0 20px;
     line-height: 1.4;
-    color: #5d5d5d;
+/*    color: #5d5d5d;*/
 }
 
 .landing-page .info p {
     margin: 0;
     line-height: 1.6;
     font-size: 15px;
-    color: #5d5d5d;
+/*    color: #5d5d5d;*/
 }
 
 /*.landing-page .info button {
@@ -87,5 +86,12 @@
 .clearfix {
   clear: both;
 }
+/*
+.home_btns > .btn {
+    background-color: #ffffff !important;
+    border-color: transparent !important;
+    color: #1a3447 !important;
+    transition: 0.3s ease-in-out all;
+}*/
 
 /* End Landing Page */
