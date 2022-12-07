@@ -31,7 +31,7 @@ function GridItem1({ classes }) {
 
     return (
         <Grid item xs={3.5} >
-            <Paper elevation={6} className={classes.paper}><img src="farmer.png"width="250" height="200" /><br></br>
+            <Paper elevation={6} className={classes.paper}><img src="Farmer.png"width="250" height="200" /><br></br>
                 <input type="radio" name="role" value="farmer" onChange={(event) => {
                     setGrid(event.target.value)}}></input>
                 &nbsp;Farmer </Paper>

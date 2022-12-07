@@ -17,6 +17,7 @@ function PilotTrips() {
     const [allbookingslist,setAllBookingsList] = useState([]);
     const user_id = useSelector((store) => store.app.user.id);
     const username = useSelector((store) =>store.app.user.name);
+    const imageurl = useSelector((store) =>store.app.user.imageurl);
     useEffect(() => {
         if (isLoggedIn && user_id) {
             axios.post(`/api/userbookings`,{
@@ -39,10 +40,10 @@ function PilotTrips() {
         <div>
           <Row style={{marginTop: '-30px'}}>
             <Col xs={6} style={{ textAlign: 'left'}}>
-                <h4 style={{marginLeft: '10px', marginTop: '30px'}}>My trips</h4>
+                <h4 style={{marginLeft: '10px', marginTop: '20px'}}>My trips</h4>
             </Col>
-            <Col xs={6} style={{ textAlign: 'right'}}>
-                <h4>Welcome {username}! <img src="avatar.jpeg" alt="Avatar" style={{width:"100px",borderRadius: "50%"}}/></h4> 
+            <Col xs={6} style={{marginTop: '20px', textAlign: 'right'}}>
+                <h4>Welcome {username}! <img src={imageurl} alt="Avatar" style={{width:"50px", borderRadius: "50%"}}/></h4> 
             </Col>
             </Row>
 

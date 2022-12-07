@@ -62,7 +62,7 @@ export default function Profile() {
 
     const uploadImage = async (e) => {
 		e.preventDefault();
-		const res = await uploadImageToCloud(dispatch, e.target.files[0]);
+		const res = await uploadImageToCloud(e.target.files[0]);
 		  // console.log(res.data.secure_url);
 		const {data: {secure_url}} = res;
 		if (secure_url) {
@@ -73,7 +73,7 @@ export default function Profile() {
 			setUserImage(secure_url);
 		}
 		const tempForm = {...userProfileForm};
-		tempForm.dp_url = secure_url;
+		tempForm.imageurl = secure_url;
 		setUserProfileForm(tempForm);
     }
     const submitProfile = () => {
@@ -104,7 +104,7 @@ export default function Profile() {
 			<div className="user_details">
 				<Row>
 					<Col xs="3">
-						<Image src={userProfileForm.dp_url} roundedCircle={true} style={{objectFit: 'cover', width: '200px', height: '200px', marginLeft: 'auto', marginRight: 'auto', display: 'block'}} />
+						<Image src={userProfileForm.imageurl} roundedCircle={true} style={{objectFit: 'cover', width: '200px', height: '200px', marginLeft: 'auto', marginRight: 'auto', display: 'block'}} />
 					</Col>
 					<Col>
 						<Form.Group className="UserDetails">
@@ -219,24 +219,14 @@ export default function Profile() {
 							}
 						</Form.Group>
 						<Form.Group className="UserDetails">
-						<Form.Label className="form_label" htmlFor="dp_url">Picture URL</Form.Label>
-							{!editMode ? <p>{userProfileForm.dp_url}</p> : 
-								<Form.Control
-									type="text"
-									id="dp_url"
-									aria-describedby="dp_url"
-									disabled={true}
-									value={userProfileForm.dp_url}
-								/>
-							}
-							{editMode ? <div className="btn_panel">
-								<Button variant="secondary" onClick={() => reset()}>
-									Reset
-								</Button>
-								<Button variant="primary" onClick={() => submitProfile()}>
-									Save Changes
-								</Button>
-							</div> : ''}
+						{editMode ? <div className="btn_panel">
+							<Button variant="secondary" onClick={() => reset()}>
+								Reset
+							</Button>
+							<Button variant="primary" onClick={() => submitProfile()}>
+								Save Changes
+							</Button>
+						</div> : ''}
 						</Form.Group>
 					
 					</Col>

@@ -89,6 +89,7 @@ export default function FarmerParent() {
             zipcode: formData.zipcode,
             driverlicense: formData.licenseid,
             licenseimageurl: formData.licenseimg,
+            imageurl: formData.imageurl,
             role: formData.role,
             status: 'complete'
         }, (err, success) => {

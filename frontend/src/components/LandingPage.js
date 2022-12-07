@@ -125,9 +125,6 @@ function LandingPage() {
                           <li className="nav-item">
                             <NavLink className="nav-link" activeClassName="active" to="/profile"><BiUserCircle style={{marginTop: '-3px'}}  /> Profile</NavLink>
                           </li>
-                          <li className="nav-item">
-                            <NavLink className="nav-link" activeClassName="active" to="/edit_schedule"><BiUserCircle style={{marginTop: '-3px'}}  /> Edit Schedule</NavLink>
-                          </li>
                         </ul> : ''}
                     </Col>
                     <Col xs={9} className="text-center py-3 dc-default content_panel">

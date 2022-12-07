@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.css';
-import {register} from "../utils";
+import {register, uploadImageToCloud} from "../utils";
 import {setAlert} from "../actions/app-actions";
 import {useNavigate} from "react-router-dom";
 import "../CSS/UserRegistration.css"
@@ -51,6 +51,17 @@ export default function FarmerInfo1({ formData, setFormData }) {
     // const [city, setCity] = useState("");
     // const [state, setState] = useState("");
     // const [country, setCountry] = useState("");
+
+    const uploadImage = async (e) => {
+        e.preventDefault();
+        const res = await uploadImageToCloud(e.target.files[0]);
+
+        const {data: {secure_url}} = res;
+        if (secure_url) {
+                console.log("Profile Image uploaded sucessfully - ", secure_url);
+        };
+        setFormData({ ...formData, imageurl: secure_url })
+    }
 
 
     return (
@@ -124,6 +135,17 @@ export default function FarmerInfo1({ formData, setFormData }) {
                                     setFormData({ ...formData, zipcode: event.target.value })
                                 }
                                 />
+                    </Form.Group>
+                    <Form.Group className="UserDetails" controlId="image">
+                        <Form.Label className='DroneDetails' htmlFor="image">Profile Image:</Form.Label>
+                        <Form.Control
+                            type="file"
+                            className='input_text'
+                            id="image"
+                            aria-describedby="image"
+                            onChange={uploadImage}
+                            // value={formData.licenseimg}
+                        />
                     </Form.Group>
                 </Form>
             </div>

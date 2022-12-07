@@ -85,7 +85,7 @@ router.post('/droneCatalog/updateDrone/:id',updateDrone);
 router.get('/session', isLoggedIn, async (req, res, next) => {
   if (req.user) {
     const {user} = req;
-    res.json({ success: true, isAuthenticated: true, user: {email: user.email, id: user.id, username: user.username, name: user.name, role: user.role, status: user.status} });
+    res.json({ success: true, isAuthenticated: true, user: {email: user.email, id: user.id, username: user.username, name: user.name, imageurl: user.imageurl, role: user.role, status: user.status} });
   } else {
     res.status(401).json({message: "Not authorized", success: false});
   }

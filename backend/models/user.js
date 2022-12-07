@@ -46,6 +46,9 @@ module.exports = function(sequelize, Sequelize) {
         driverlicense: {
             type: Sequelize.TEXT
         },
+        imageurl: {
+            type: Sequelize.TEXT
+        },
         licenseimageurl: {
             type: Sequelize.TEXT
         },
