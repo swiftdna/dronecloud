@@ -11,12 +11,12 @@ import {
   NavLink
 } from "react-router-dom";
 import DroneCatalog from './DroneCatalog';
+import Stats from './Stats';
 import DroneManagement from './DroneManagement';
 // import DroneBooking from './DroneBooking';
 import DroneFleetTracking from './DroneFleetTracking';
 import AddDrone from './AddDrone';
 import AddDrone2 from './AddDrone2';
-
 import EditDrone from './EditDrone';
 import EditDrone2 from './EditDrone2';
 import EditDrone3 from './EditDrone3';
@@ -57,6 +57,9 @@ function Admin() {
                       <li className="nav-item">
                         <NavLink className="nav-link" activeClassName="active" to="/admin/drone-fleet-tracking"><RiMapPinFill style={{marginTop: '-2px', marginRight: '2px'}} /> Drone Fleet Tracking</NavLink>
                       </li>
+                      <li className="nav-item">
+                        <NavLink className="nav-link" activeClassName="active" to="/admin/stats"><RiListUnordered style={{marginTop: '-2px', marginRight: '2px'}} /> Drone Statistics</NavLink>
+                      </li>
                     </ul>
                 </Col>
                 <Col xs={9} className="py-3 dc-default content_panel">
@@ -67,7 +70,7 @@ function Admin() {
                         <Route path="/" element={<DroneCatalog />} />
                         <Route path="/addDrone" element={<AddDrone/>}/>
                         <Route path="/addDrone2" element={<AddDrone2/>}/>
-
+                        <Route path="/stats" element={<Stats />} />
                         <Route path="/editDrone/:id" element={<EditDrone/>}/>
                         <Route path="/editDrone2" element={<EditDrone2/>}/>
                         <Route path="/editDrone3" element={<EditDrone3/>}/>
